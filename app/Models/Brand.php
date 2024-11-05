@@ -15,6 +15,7 @@ class Brand extends Model
         'description',
         'status',
         'logo',
+        // ehehhe
     ];
 
     // Thiết lập quan hệ với model `Product`
