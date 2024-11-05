@@ -5,21 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class View extends Model
+class Address extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'product_id',
         'user_id',
-        'last_viewed_at',
+        'address',
+        'city',
+        'district',
+        'country',
+        'is_default',
     ];
 
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
-
+    // Quan hệ với model `User`
     public function user()
     {
         return $this->belongsTo(User::class);
