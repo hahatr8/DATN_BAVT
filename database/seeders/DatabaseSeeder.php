@@ -8,27 +8,21 @@ use Database\Seeders\GroupSeeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        $this->call(AddressesSeeder::class);
-        $this->call(BrandsSeeder::class);
-        $this->call(CartsSeeder::class);
-        $this->call(CategoriesSeeder::class);
-        $this->call(CommentsSeeders::class);
-        $this->call(OrdersSeeder::class);
-        $this->call(OrderItemsSeeder::class);
-        $this->call(ProductsSeeder::class);
-        $this->call(ProductSizesSeeder::class);
-        $this->call(ProductVariantsSeeder::class);
-        $this->call(VouchersSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(AddressSeeder::class);
+        $this->call(BrandSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(ProductSizeSeeder::class);
+        $this->call(ProductImgSeeder::class);
+        $this->call(CartSeeder::class);
+        $this->call(CategoryProductSeeder::class);
+        $this->call(CommentSeeders::class);
+        $this->call(OrderSeeder::class);
+        $this->call(OrderItemSeeder::class);
+        $this->call(ViewSeeder::class);
+        $this->call(VoucherSeeder::class);
     }
 }
