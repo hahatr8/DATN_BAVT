@@ -9,14 +9,24 @@ class Voucher extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
         'e_vorcher',
         'quantity',
+        'discount',
+        'status',
         'user_id',
+        'product_id',
         'start_date',
         'end_date',
     ];
-    public function users(){
-        return $this->hasMany(User::class);
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

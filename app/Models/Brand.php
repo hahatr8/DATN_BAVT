@@ -13,9 +13,12 @@ class Brand extends Model
         'name',
         'country',
         'description',
+        'status',
         'logo',
     ];
-    public function Products()
+
+    // Thiết lập quan hệ với model `Product`
+    public function products()
     {
         return $this->hasMany(Product::class);
     }

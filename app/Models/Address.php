@@ -9,16 +9,19 @@ class Address extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
         'user_id',
         'address',
         'city',
-        'District',
-        'city',
+        'district',
         'country',
         'is_default',
     ];
-    public function users(){
-        return $this->hasMany(User::class);
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
     }
 }

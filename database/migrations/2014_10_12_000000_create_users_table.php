@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('img');
             $table->string('phone');
+            $table->integer('xu');
             $table->enum('type', [ User::TYPE_ADMIN, User::TYPE_MEMBER ])->default(User::TYPE_MEMBER);
+            $table->boolean('status')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

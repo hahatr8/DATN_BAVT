@@ -9,12 +9,22 @@ class OrderItem extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
-        'order_id ',
-        'product_size',
+    protected $fillable = [
+        'order_id',
+        'product_size_id',
         'quantity',
+        'price',
     ];
-    public function users(){
-        return $this->hasMany(User::class);
+
+    // Thiết lập quan hệ với model `Order`
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    // Thiết lập quan hệ với model `ProductSize`
+    public function productSize()
+    {
+        return $this->belongsTo(ProductSize::class);
     }
 }

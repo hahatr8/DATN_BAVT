@@ -18,6 +18,7 @@ class CreateBrandsTable extends Migration
             $table->string('name')->unique(); // Tên hãng nước hoa (duy nhất)
             $table->string('country'); // Tên quốc gia (không duy nhất)
             $table->text('description')->nullable(); // Mô tả thương hiệu (có thể để trống)
+            $table->boolean('status')->default(false);
             $table->string('logo')->nullable(); // Đường dẫn đến logo của thương hiệu (có thể để trống)
             $table->timestamps(); // Tạo cột created_at và updated_at
         });

@@ -9,14 +9,19 @@ class ProductSize extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
         'product_id',
-        'size',
+        'variant',
         'price',
         'img',
         'quantity',
+        'status',
     ];
-    public function users(){
-        return $this->hasMany(User::class);
+
+    // Thiết lập quan hệ với model `Product`
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }
+

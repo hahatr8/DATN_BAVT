@@ -19,10 +19,10 @@ class CreateProductsTable extends Migration
             $table->id(); // Cột id tự tăng
             $table->string('name'); // Tên sản phẩm
             $table->string('description')->nullable(); // Mô tả sản phẩm
-            $table->decimal('price', 10, 2); // Giá sản phẩm 
-            $table->string('status')->default(\App\Models\Product::STATUS_SELL);
+            $table->integer('view'); // Mô tả sản phẩm
+            $table->integer('price'); // Giá sản phẩm 
+            $table->boolean('status')->default(false);
             $table->text('content')->nullable(); // Mô tả sản phẩm
-            $table->foreignIdFor(Category::class)->constrained(); 
             $table->foreignIdFor(Brand::class)->constrained(); 
             $table->timestamps(); // Tạo cột created_at và updated_at
         });

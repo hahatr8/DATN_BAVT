@@ -29,13 +29,16 @@ class Order extends Model
     const STATUS_REFUND_SUCCESSFUL = 'Refund successful';
     const STATUS_RETURNED_GOODS_SUCCESSFUL = 'Returned goods successfully';
 
+    const STATUS_ORDER_COMPLETED = 'completed'; 
+
+    const STATUS_PAYMENT_MOMO = 'momo'; 
+
+    const STATUS_PAYMENT_CASH = 'cash';
     const STATUS_PAYMENT = [
         'momo' => 'ví điện tử',
         'PayPal' => 'ví điện tử',
         'Pay upon receipt' => 'Thanh toán tiền mặt',
     ];
-
-    const STATUS_PAYMENT_MOMO = 'momo';
     const STATUS_PAYMENT_PAYPAL = 'PayPal';
     const STATUS_PAYMENT_PAY_UPON_RECEIPT = 'Pay upon receipt';
 
@@ -46,7 +49,15 @@ class Order extends Model
         'status_payment',
         'total_price',
     ];
-    public function users(){
-        return $this->hasMany(User::class);
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function address() {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function orderItems(){
+        return $this->hasMany(OrderItem::class);
     }
 }
