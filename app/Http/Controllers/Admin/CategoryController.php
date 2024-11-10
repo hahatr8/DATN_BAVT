@@ -124,7 +124,9 @@ class CategoryController extends Controller
     {
         try {
             DB::transaction(function () use ($category) {
-                $category->products->sync([]);
+                $category->products()->sync([]);
+
+                $category->delete();
             });
 
             return back()->with('success', 'Thao tác thành công');
