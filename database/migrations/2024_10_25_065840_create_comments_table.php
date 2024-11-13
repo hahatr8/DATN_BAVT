@@ -1,7 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 use App\Models\Product;
 use App\Models\User;
+=======
+>>>>>>> 173b31453d82474926536b290e188244a16d9ac1
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,6 +17,7 @@ class CreateCommentsTable extends Migration
      * @return void
      */
     public function up()
+<<<<<<< HEAD
 {
     Schema::create('comments', function (Blueprint $table) {
         $table->id(); // Cột id tự tăng
@@ -24,6 +28,18 @@ class CreateCommentsTable extends Migration
     });
 }
 
+=======
+    {
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id(); // Cột id tự tăng
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Khóa ngoại liên kết với bảng users
+            $table->foreignId('product_id')->constrained()->onDelete('cascade'); // Khóa ngoại liên kết với bảng products
+            $table->text('comment'); // Nội dung bình luận
+            $table->integer('rating')->nullable(); // Đánh giá của người dùng (nếu có)
+            $table->timestamps(); // Tạo cột created_at và updated_at
+        });
+    }
+>>>>>>> 173b31453d82474926536b290e188244a16d9ac1
 
     /**
      * Reverse the migrations.
@@ -34,4 +50,8 @@ class CreateCommentsTable extends Migration
     {
         Schema::dropIfExists('comments');
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 173b31453d82474926536b290e188244a16d9ac1
