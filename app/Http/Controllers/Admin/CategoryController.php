@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
@@ -90,7 +92,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(Request $request,  $id)
     {
         list(
             $dataCategory,
@@ -124,8 +126,7 @@ class CategoryController extends Controller
             DB::transaction(function () use ($category) {
                 $category->products->sync([]);
             });
-
-            return back()->with('success', 'Thao tác thành công');
+return back()->with('success', 'Thao tác thành công');
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }
