@@ -19,7 +19,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+   
 </head>
 
 <body>
@@ -53,13 +53,9 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     
-
-                                    <form id="logout-form" action="" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
                                 </div>
                             </li>
-                        @endguest
+                       
                     </ul>
                 </div>
             </div>

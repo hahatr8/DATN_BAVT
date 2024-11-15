@@ -13,7 +13,7 @@ class Address extends Model
         'user_id',
         'address',
         'city',
-        'district',
+        'District',
         'country',
         'is_default',
     ];
