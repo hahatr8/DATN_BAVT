@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
@@ -25,6 +27,11 @@ Route::middleware('auth')->group(function () {
 
                 // Cập nhật trạng thái đơn hàng
                 Route::put('/orders/{order}/updateStatus', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
+                Route::resource('categories', CategoryController::class);
+
+                // Blog
+                Route::resource('blogs', BlogController::class);
 
                 Route::prefix('user')
                     ->as('user.')

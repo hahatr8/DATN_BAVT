@@ -61,10 +61,10 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
 
-                                <a href="{{ route('categories.index')}}" class="nav-link" data-key="t-analytics"> Danh sách </a>
+                                <a href="{{ route('admin.categories.index')}}" class="nav-link" data-key="t-analytics"> Danh sách </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('categories.create')}}" class="nav-link" data-key="t-crm"> Thêm </a>
+                                <a href="{{ route('admin.categories.create')}}" class="nav-link" data-key="t-crm"> Thêm </a>
                             </li>
                         </ul>
                     </div>
@@ -104,6 +104,24 @@
                         </ul>
                     </div>
                 </li> <!-- end Dashboard Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarCharts">
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Blog</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarCharts">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+
+                                <a href="{{ route('admin.blogs.index')}}" class="nav-link" data-key="t-analytics"> Danh sách </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.blogs.create')}}" class="nav-link" data-key="t-crm"> Thêm </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
             </ul>
         </div>

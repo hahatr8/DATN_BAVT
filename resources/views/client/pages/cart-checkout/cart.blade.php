@@ -1,9 +1,8 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="zxx">
 
 
-<!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:03 GMT -->
-
+<!-- Mirrored from htmldemo.net/corano/corano/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:00 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -39,13 +38,145 @@
 
 <body>
     <!-- Start Header Area -->
-    @include('client.layouts.header')
+    <header class="header-area header-wide">
+        @include('client.components.header');
+    </header>
     <!-- end Header Area -->
 
 
     <main>
-        <!-- hero slider area start -->
-        @yield('content')
+        <!-- breadcrumb area start -->
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb-wrap">
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="shop.html">shop</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">cart</li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb area end -->
+
+        <!-- cart main wrapper start -->
+        <div class="cart-main-wrapper section-padding">
+            <div class="container">
+                <div class="section-bg-color">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Cart Table Area -->
+                            <div class="cart-table table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="pro-thumbnail">Thumbnail</th>
+                                            <th class="pro-title">Product</th>
+                                            <th class="pro-price">Price</th>
+                                            <th class="pro-quantity">Quantity</th>
+                                            <th class="pro-subtotal">Total</th>
+                                            <th class="pro-remove">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-1.jpg" alt="Product" /></a></td>
+                                            <td class="pro-title"><a href="#">Diamond Exclusive Ornament</a></td>
+                                            <td class="pro-price"><span>$295.00</span></td>
+                                            <td class="pro-quantity">
+                                                <div class="pro-qty"><input type="text" value="1"></div>
+                                            </td>
+                                            <td class="pro-subtotal"><span>$295.00</span></td>
+                                            <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-2.jpg" alt="Product" /></a></td>
+                                            <td class="pro-title"><a href="#">Perfect Diamond Jewelry</a></td>
+                                            <td class="pro-price"><span>$275.00</span></td>
+                                            <td class="pro-quantity">
+                                                <div class="pro-qty"><input type="text" value="2"></div>
+                                            </td>
+                                            <td class="pro-subtotal"><span>$550.00</span></td>
+                                            <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-3.jpg" alt="Product" /></a></td>
+                                            <td class="pro-title"><a href="#">Handmade Golden Necklace</a></td>
+                                            <td class="pro-price"><span>$295.00</span></td>
+                                            <td class="pro-quantity">
+                                                <div class="pro-qty">
+                                                    <input type="text" value="1" />
+                                                </div>
+                                            </td>
+                                            <td class="pro-subtotal"><span>$295.00</span></td>
+                                            <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-4.jpg" alt="Product" /></a></td>
+                                            <td class="pro-title"><a href="#">Diamond Exclusive Ornament</a></td>
+                                            <td class="pro-price"><span>$110.00</span></td>
+                                            <td class="pro-quantity">
+                                                <div class="pro-qty">
+                                                    <input type="text" value="3" />
+                                                </div>
+                                            </td>
+                                            <td class="pro-subtotal"><span>$110.00</span></td>
+                                            <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Cart Update Option -->
+                            <div class="cart-update-option d-block d-md-flex justify-content-between">
+                                <div class="apply-coupon-wrapper">
+                                    <form action="#" method="post" class=" d-block d-md-flex">
+                                        <input type="text" placeholder="Enter Your Coupon Code" required />
+                                        <button class="btn btn-sqr">Apply Coupon</button>
+                                    </form>
+                                </div>
+                                <div class="cart-update">
+                                    <a href="#" class="btn btn-sqr">Update Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5 ml-auto">
+                            <!-- Cart Calculation Area -->
+                            <div class="cart-calculator-wrapper">
+                                <div class="cart-calculate-items">
+                                    <h6>Cart Totals</h6>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tr>
+                                                <td>Sub Total</td>
+                                                <td>$230</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Shipping</td>
+                                                <td>$70</td>
+                                            </tr>
+                                            <tr class="total">
+                                                <td>Total</td>
+                                                <td class="total-amount">$300</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <a href="checkout.html" class="btn btn-sqr d-block">Proceed Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- cart main wrapper end -->
     </main>
 
     <!-- Scroll to top start -->
@@ -55,7 +186,9 @@
     <!-- Scroll to Top End -->
 
     <!-- footer area start -->
-    @include('client.layouts.footer')
+    <footer class="footer-widget-area">
+        @include('client.components.footer');
+    </footer>
     <!-- footer area end -->
 
     <!-- Quick view modal start -->
@@ -143,9 +276,9 @@
                                     </div>
                                     <div class="useful-links">
                                         <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                                class="pe-7s-refresh-2"></i>compare</a>
+                                            class="pe-7s-refresh-2"></i>compare</a>
                                         <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
-                                                class="pe-7s-like"></i>wishlist</a>
+                                            class="pe-7s-like"></i>wishlist</a>
                                     </div>
                                     <div class="like-icon">
                                         <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
@@ -240,9 +373,10 @@
             </div>
         </div>
     </div>
-    @yield('js')
     <!-- offcanvas mini cart end -->
 
+    <!-- JS
+============================================ -->
 
     <!-- Modernizer JS -->
     <script src="{{asset('assets/js/vendor/modernizr-3.6.0.min.js')}}"></script>
@@ -275,6 +409,5 @@
 </body>
 
 
-<!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:43 GMT -->
-
+<!-- Mirrored from htmldemo.net/corano/corano/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:00 GMT -->
 </html>

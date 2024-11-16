@@ -1,9 +1,8 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="zxx">
 
 
-<!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:03 GMT -->
-
+<!-- Mirrored from htmldemo.net/corano/corano/login-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:01 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -39,13 +38,83 @@
 
 <body>
     <!-- Start Header Area -->
-    @include('client.layouts.header')
+    <header class="header-area header-wide">
+        @include('client.components.header');
+    </header>
     <!-- end Header Area -->
 
 
     <main>
-        <!-- hero slider area start -->
-        @yield('content')
+        <!-- breadcrumb area start -->
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb-wrap">
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">login-Register</li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb area end -->
+        
+        <!-- login register wrapper start -->
+        <div class="login-register-wrapper section-padding">
+            <div class="container">
+                <div class="member-area-from-wrap">
+                    <div class="row">
+                        <!-- Register Content Start -->
+                        <div class="col-lg-6">
+                            <div class="login-reg-form-wrap sign-up-form">
+                                <h5>Singup Form</h5>
+                                <form action="#" method="post">
+                                    <div class="single-input-item">
+                                        <input type="text" placeholder="Full Name" required />
+                                    </div>
+                                    <div class="single-input-item">
+                                        <input type="email" placeholder="Enter your Email" required />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item">
+                                                <input type="password" placeholder="Enter your Password" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item">
+                                                <input type="password" placeholder="Repeat your Password" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="single-input-item">
+                                        <div class="login-reg-form-meta">
+                                            <div class="remember-meta">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="subnewsletter">
+                                                    <label class="custom-control-label" for="subnewsletter">Subscribe
+                                                        Our Newsletter</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="single-input-item">
+                                        <button class="btn btn-sqr">Register</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Register Content End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- login register wrapper end -->
     </main>
 
     <!-- Scroll to top start -->
@@ -55,7 +124,9 @@
     <!-- Scroll to Top End -->
 
     <!-- footer area start -->
-    @include('client.layouts.footer')
+    <footer class="footer-widget-area">
+        @include('client.components.footer');
+    </footer>
     <!-- footer area end -->
 
     <!-- Quick view modal start -->
@@ -143,9 +214,9 @@
                                     </div>
                                     <div class="useful-links">
                                         <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                                class="pe-7s-refresh-2"></i>compare</a>
+                                            class="pe-7s-refresh-2"></i>compare</a>
                                         <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
-                                                class="pe-7s-like"></i>wishlist</a>
+                                            class="pe-7s-like"></i>wishlist</a>
                                     </div>
                                     <div class="like-icon">
                                         <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
@@ -240,9 +311,10 @@
             </div>
         </div>
     </div>
-    @yield('js')
     <!-- offcanvas mini cart end -->
 
+    <!-- JS
+============================================ -->
 
     <!-- Modernizer JS -->
     <script src="{{asset('assets/js/vendor/modernizr-3.6.0.min.js')}}"></script>
@@ -275,6 +347,5 @@
 </body>
 
 
-<!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:43 GMT -->
-
+<!-- Mirrored from htmldemo.net/corano/corano/login-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:01 GMT -->
 </html>

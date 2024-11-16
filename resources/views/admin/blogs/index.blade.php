@@ -1,7 +1,7 @@
 @extends('admin.dashboard')
 
 @section('title')
-    Danh sách danh mục
+    Danh sách Blog
 @endsection
 
 @section('content')
@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">Danh sách</h5>
-                    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">Thêm mới</a>
+                    <a href="{{ route('admin.blogs.create') }}" class="btn btn-primary">Thêm mới</a>
                 </div>
                 <div class="card-body">
                     <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
@@ -41,44 +41,38 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Tên danh mục</th>
-                                <th>display_order</th>
+                                <th>Tiêu đề</th>
+                                <th>Hình ảnh</th>
                                 <th>Trạng thái</th>
-                                <th>Sản phẩm</th>
                                 <th>created_at</th>
                                 <th>updated_at</th>
                                 <th>Chức năng</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $categories)
+                            @foreach ($data as $blogs)
                                 <tr>
-                                    <td>{{ $categories->id }}</td>
-                                    <td>{{ $categories->name }}</td>
-                                    <td>{{ $categories->display_order }}</td>
+                                    <td>{{ $blogs->id }}</td>
+                                    <td>{{ $blogs->title }}</td>
                                     <td>
-                                        @if ($categories->status == 0)
+                                        <img src="{{ \Storage::url($blogs->img) }}" width="50px" alt="">
+                                    </td>
+                                    <td>
+                                        @if ($blogs->status == 0)
                                             <p>Hiển thị</p>
                                         @else
                                             <p>Ẩn</p>
                                         @endif
                                     </td>
+                                    <td>{{ $blogs->created_at }}</td>
+                                    <td>{{ $blogs->updated_at }}</td>
                                     <td>
-                                        @foreach ($categories->products as $product)
-                                            <span class="badge bg-info">
-                                                {{ $product->name }}
-                                            </span>
-                                        @endforeach
-                                    </td>
-                                    <td>{{ $categories->created_at }}</td>
-                                    <td>{{ $categories->updated_at }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.categories.show', $categories) }}" class="btn btn-info">Xem chi
+                                        <a href="{{ route('admin.blogs.show', $blogs) }}" class="btn btn-info">Xem chi
                                             tiết</a>
-                                        <a href="{{ route('admin.categories.edit', $categories) }}"
+                                        <a href="{{ route('admin.blogs.edit', $blogs) }}"
                                             class="btn btn-warning mt-2 mb-2">Chỉnh sửa</a>
 
-                                        <form action="{{ route('admin.categories.destroy', $categories) }}" method="post">
+                                        <form action="{{ route('admin.blogs.destroy', $blogs) }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger"

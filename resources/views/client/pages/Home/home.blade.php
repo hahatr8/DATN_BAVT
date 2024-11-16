@@ -3,7 +3,6 @@
 
 
 <!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:03 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -39,13 +38,212 @@
 
 <body>
     <!-- Start Header Area -->
-    @include('client.layouts.header')
+    <header class="header-area header-wide">
+        @include('client.components.header');
+    </header>
     <!-- end Header Area -->
 
 
     <main>
         <!-- hero slider area start -->
-        @yield('content')
+        <section class="slider-area">
+            @include('client.components.slider-area');
+        </section>
+        <!-- hero slider area end -->
+
+        <!-- twitter feed area start -->
+        <div class="twitter-feed">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="twitter-feed-content text-center">
+                            <p>Check out "Corano - Multipurpose eCommerce Bootstrap 5 template" on #Envato by @<a href="#">Corano</a> #Themeforest <a href="http://1.envato.market/9LbxW">http://1.envato.market/9LbxW</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- twitter feed area end -->
+
+        <!-- service policy area start -->
+        <div class="service-policy section-padding">
+            <div class="container">
+                <div class="row mtn-30">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="policy-item">
+                            <div class="policy-icon">
+                                <i class="pe-7s-plane"></i>
+                            </div>
+                            <div class="policy-content">
+                                <h6>Free Shipping</h6>
+                                <p>Free shipping all order</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="policy-item">
+                            <div class="policy-icon">
+                                <i class="pe-7s-help2"></i>
+                            </div>
+                            <div class="policy-content">
+                                <h6>Support 24/7</h6>
+                                <p>Support 24 hours a day</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="policy-item">
+                            <div class="policy-icon">
+                                <i class="pe-7s-back"></i>
+                            </div>
+                            <div class="policy-content">
+                                <h6>Money Return</h6>
+                                <p>30 days for free return</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="policy-item">
+                            <div class="policy-icon">
+                                <i class="pe-7s-credit"></i>
+                            </div>
+                            <div class="policy-content">
+                                <h6>100% Payment Secure</h6>
+                                <p>We ensure secure payment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- service policy area end -->
+
+        <!-- banner statistics area start -->
+        <div class="banner-statistics-area">
+            @include('clinet.components.banner-statistics-area');
+        </div>
+        <!-- banner statistics area end -->
+
+        <!-- product area start -->
+        <section class="product-area section-padding">
+            @include('client.components.product-area');
+        </section>
+        <!-- product area end -->
+
+        <!-- product banner statistics area start -->
+        <section class="product-banner-statistics">
+            @include('client.components.product-banner-statistics');
+        </section>
+        <!-- product banner statistics area end -->
+
+        <!-- featured product area start -->
+        <section class="feature-product section-padding">
+            @include('client.components.feature-product');
+        </section>
+        <!-- featured product area end -->
+
+        <!-- testimonial area start -->
+        <section class="testimonial-area section-padding bg-img" data-bg="assets/img/testimonial/testimonials-bg.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- section title start -->
+                        <div class="section-title text-center">
+                            <h2 class="title">testimonials</h2>
+                            <p class="sub-title">What they say</p>
+                        </div>
+                        <!-- section title start -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="testimonial-thumb-wrapper">
+                            <div class="testimonial-thumb-carousel">
+                                <div class="testimonial-thumb">
+                                    <img src="assets/img/testimonial/testimonial-1.png" alt="testimonial-thumb">
+                                </div>
+                                <div class="testimonial-thumb">
+                                    <img src="assets/img/testimonial/testimonial-2.png" alt="testimonial-thumb">
+                                </div>
+                                <div class="testimonial-thumb">
+                                    <img src="assets/img/testimonial/testimonial-3.png" alt="testimonial-thumb">
+                                </div>
+                                <div class="testimonial-thumb">
+                                    <img src="assets/img/testimonial/testimonial-2.png" alt="testimonial-thumb">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-content-wrapper">
+                            <div class="testimonial-content-carousel">
+                                <div class="testimonial-content">
+                                    <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
+                                    <div class="ratings">
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                    </div>
+                                    <h5 class="testimonial-author">lindsy niloms</h5>
+                                </div>
+                                <div class="testimonial-content">
+                                    <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
+                                    <div class="ratings">
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                    </div>
+                                    <h5 class="testimonial-author">Daisy Millan</h5>
+                                </div>
+                                <div class="testimonial-content">
+                                    <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
+                                    <div class="ratings">
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                    </div>
+                                    <h5 class="testimonial-author">Anamika lusy</h5>
+                                </div>
+                                <div class="testimonial-content">
+                                    <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
+                                    <div class="ratings">
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                        <span><i class="fa fa-star-o"></i></span>
+                                    </div>
+                                    <h5 class="testimonial-author">Maria Mora</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- testimonial area end -->
+
+        <!-- group product start -->
+        <section class="group-product-area section-padding">
+            @include('client.components.group-product-area');
+        </section>
+        <!-- group product end -->
+
+        <!-- latest blog area start -->
+        <section class="latest-blog-area section-padding pt-0">
+            @include('client.components.latest-blog-area');
+        </section>
+        <!-- latest blog area end -->
+
+        <!-- brand logo area start -->
+        <div class="brand-logo section-padding pt-0">
+            @include('client.components.brand-logo');
+        </div>
+        <!-- brand logo area end -->
     </main>
 
     <!-- Scroll to top start -->
@@ -55,7 +253,9 @@
     <!-- Scroll to Top End -->
 
     <!-- footer area start -->
-    @include('client.layouts.footer')
+    <footer class="footer-widget-area">
+        @include('client.components.footer');
+    </footer>
     <!-- footer area end -->
 
     <!-- Quick view modal start -->
@@ -143,9 +343,9 @@
                                     </div>
                                     <div class="useful-links">
                                         <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                                class="pe-7s-refresh-2"></i>compare</a>
+                                            class="pe-7s-refresh-2"></i>compare</a>
                                         <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
-                                                class="pe-7s-like"></i>wishlist</a>
+                                            class="pe-7s-like"></i>wishlist</a>
                                     </div>
                                     <div class="like-icon">
                                         <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
@@ -240,9 +440,10 @@
             </div>
         </div>
     </div>
-    @yield('js')
     <!-- offcanvas mini cart end -->
 
+    <!-- JS
+============================================ -->
 
     <!-- Modernizer JS -->
     <script src="{{asset('assets/js/vendor/modernizr-3.6.0.min.js')}}"></script>
@@ -276,5 +477,4 @@
 
 
 <!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:43 GMT -->
-
 </html>
