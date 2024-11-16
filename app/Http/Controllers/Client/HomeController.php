@@ -21,4 +21,5 @@ class HomeController extends Controller
 
         return view('client.pages.myaccount', compact('listUser', 'addresses', 'address'));
     }
+    
 }

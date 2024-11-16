@@ -240,6 +240,7 @@
             </div>
         </div>
     </div>
+    @yield('js')
     <!-- offcanvas mini cart end -->
 
     <!-- JS

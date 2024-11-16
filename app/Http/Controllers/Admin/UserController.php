@@ -129,6 +129,11 @@ class UserController extends Controller
             return redirect()->route('admin.user.index');
         }
     }
+    public function empower(string $id){
+        $user = User::query()->findOrFail($id);
+        $user->update(['type'=>'admin']);
+        return redirect()->route('admin.user.index');
+    }
     public function destroy(string $id)
     {
         $user = User::query()->findOrFail($id);

@@ -32,8 +32,8 @@ Danh sách tài khoản
             </div>
             <div class="card-body">
                 <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
-                    style="width:100%">
-                    <thead>
+                    >
+                    <thead style="text-align: center;">
                         <tr>
                             <th>ID</th>
                             <th>Img</th>
@@ -45,7 +45,7 @@ Danh sách tài khoản
                         </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody style="text-align: center;">
                         <?php foreach ($listUser as $index => $user) : ?>
                             <tr>
                                 <td>{{$index + 1}}</td>
@@ -57,16 +57,20 @@ Danh sách tài khoản
                                 <td>{{$user->phone}}</td>
                                 <td>{{$user->type}}</td>
                                 <td>
-                                    <a href="{{ route('admin.user.edit',$user->id) }}" class="btn btn-outline-warning" style="width: 60px; ">
+                                    <a href="{{ route('admin.user.edit',$user->id) }}" class="btn btn-outline-warning " >
                                         <span> Sửa </span>
                                     </a>
+                                    
                                     <form action="{{ route('admin.user.destroy',$user->id) }}" class="d-inline" method="POST" onsubmit="return confirm('Bạn có đồng ý xóa hay không?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger" style="width: 60px; ">
+                                        <button type="submit" class="btn btn-outline-danger" >
                                             <i>Xóa</i>
                                         </button>
                                     </form>
+                                    <a href="{{ route('admin.user.empower',$user->id) }}" class="btn btn-outline-success" >
+                                        <span> Cấp quyền </span>
+                                    </a>
                                     
                                 </td>
                                 <td class="">
