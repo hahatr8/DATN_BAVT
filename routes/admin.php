@@ -45,6 +45,8 @@ Route::prefix('client')
         ->as('client.')
         ->group(function () {
             Route::get('/', [HomeController::class, 'home']);
+            Route::get('myaccount/{id}', [HomeController::class, 'myAccount'])->name('myaccount');
+
         });
 
 Route::get('login', [AuthController::class, 'showFormLogin']);

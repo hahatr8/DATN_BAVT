@@ -1,1 +1,1 @@
-@extends('client.pages.home');
+@extends('client.layouts.master')
