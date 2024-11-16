@@ -18,7 +18,7 @@ class ProductSize extends Model
         'status',
     ];
 
-    // Thiết lập quan hệ với model `Product`
+    // Mối quan hệ từ ProductSize đến Product
     public function product()
     {
         return $this->belongsTo(Product::class);

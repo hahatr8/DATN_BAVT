@@ -1,14 +1,20 @@
 @extends('admin.dashboard')
 
 @section('title')
-    Cập nhật danh mục
+    Cập nhật danh mục: {{ $category->name }}
 @endsection
 
 @section('content')
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Cập nhật Danh mục: </h4>
+                <h4 class="mb-sm-0">Cập nhật Danh mục: {{ $category->name }}</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
@@ -22,7 +28,7 @@
     </div>
 
 
-    <form action="{{ route('categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -93,11 +99,10 @@
                                     <div>
                                         <label for="products" class="form-label">Products</label>
                                         <select class="form-select" name="products[]" id="products" multiple>
-                                            @php
-                                                ($categoryProduct = $category->products->pluck('id')->all())
-                                            @endphp
-                                            @foreach($product as $id => $name)
-                                                <option @selected(in_array($id,$categoryProduct)) value="{{$id}}">{{$name}}</option>
+                                            @php($categoryProduct = $category->products->pluck('id')->all())
+                                            @foreach ($product as $id => $name)
+                                                <option @selected(in_array($id, $categoryProduct)) value="{{ $id }}">
+                                                    {{ $name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -114,7 +119,8 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <button class="btn btn-primary" type="submit">Lưu</button>
-                        <button type="button" class="btn btn-info m-3"><a href="{{ route('categories.index') }}">Q/L Trang chủ</a></button>
+                        <button type="button" class="btn btn-info m-3"><a href="{{ route('admin.categories.index') }}">Q/L Trang
+                                chủ</a></button>
                     </div><!-- end card header -->
                 </div>
             </div>

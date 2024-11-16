@@ -5,6 +5,31 @@
 @endsection
 
 @section('content')
+
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <div class="alert alert-danger" style="width: 100%;">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -21,23 +46,7 @@
         </div>
     </div>
 
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header align-items-center d-flex">
-                    <div class="alert alert-danger" style="width: 100%;">
-                        <ul>
-                            <li></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <form action="{{ route('categories.store')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-lg-12">
@@ -52,11 +61,12 @@
                                     <div>
                                         <label for="" class="form-label">Tên danh mục:</label>
                                         <input type="text" class="form-control" id="name"
-                                            placeholder="Nhập tên danh mục" name="name">
+                                            placeholder="Nhập tên danh mục" name="name" value="{{ old('name') }}">
                                     </div>
                                     <div class="mt-3">
                                         <label for="" class="form-label">Thứ tự muốn hiển thị:</label>
-                                        <input type="text" class="form-control" id="display_order" name="display_order">
+                                        <input type="text" class="form-control" id="display_order" name="display_order"
+                                            value="{{ old('display_order') }}">
                                     </div>
                                 </div>
 
@@ -98,7 +108,7 @@
                                     <div>
                                         <label for="tags" class="form-label">Products</label>
                                         <select class="form-select" name="products[]" id="products" multiple>
-                                            @foreach($products as $id => $name)
+                                            @foreach ($products as $id => $name)
                                                 <option value="{{ $id }}">{{ $name }}</option>
                                             @endforeach
                                         </select>
@@ -116,7 +126,7 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <button class="btn btn-primary" type="submit">Lưu</button>
-                        <button type="button" class="btn btn-info m-3"><a href="{{ route('categories.index') }}">Q/L Trang
+                        <button type="button" class="btn btn-info m-3"><a href="{{ route('admin.categories.index') }}">Q/L Trang
                                 chủ</a></button>
                     </div><!-- end card header -->
                 </div>

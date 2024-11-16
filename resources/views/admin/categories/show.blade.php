@@ -28,5 +28,5 @@
         </td>
         </tr>
     </table>
-    <a href="{{ route('categories.index') }}" class="btn btn-danger">Q/L trang chủ</a>
+    <a href="{{ route('admin.categories.index') }}" class="btn btn-danger">Q/L trang chủ</a>
 @endsection

@@ -5,6 +5,11 @@
 @endsection
 
 @section('content')
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
     <div class="row">
 
         <!-- start page title -->
@@ -28,7 +33,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">Danh sách</h5>
-                    <a href="{{ route('categories.create')}}" class="btn btn-primary">Thêm mới</a>
+                    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">Thêm mới</a>
                 </div>
                 <div class="card-body">
                     <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
@@ -48,31 +53,36 @@
                         <tbody>
                             @foreach ($data as $categories)
                                 <tr>
-                                    <td>{{ $categories->id}}</td>
-                                    <td>{{ $categories->name}}</td>
-                                    <td>{{ $categories->display_order}}</td>
-                                    <td>@if ( $categories->status == 0)
-                                        <p>Hiển thị</p>
-                                    @else
-                                        <p>Ẩn</p>
-                                    @endif</td>
+                                    <td>{{ $categories->id }}</td>
+                                    <td>{{ $categories->name }}</td>
+                                    <td>{{ $categories->display_order }}</td>
+                                    <td>
+                                        @if ($categories->status == 0)
+                                            <p>Hiển thị</p>
+                                        @else
+                                            <p>Ẩn</p>
+                                        @endif
+                                    </td>
                                     <td>
                                         @foreach ($categories->products as $product)
                                             <span class="badge bg-info">
-                                                {{$product->name}}
+                                                {{ $product->name }}
                                             </span>
                                         @endforeach
                                     </td>
-                                    <td>{{ $categories->created_at}}</td>
-                                    <td>{{ $categories->updated_at}}</td>
+                                    <td>{{ $categories->created_at }}</td>
+                                    <td>{{ $categories->updated_at }}</td>
                                     <td>
-                                        <a href="{{ route('categories.show', $categories)}}" class="btn btn-info">Xem chi tiết</a>
-                                        <a href="{{ route('categories.edit', $categories)}}" class="btn btn-warning mt-2 mb-2">Chỉnh sửa</a>
+                                        <a href="{{ route('admin.categories.show', $categories) }}" class="btn btn-info">Xem chi
+                                            tiết</a>
+                                        <a href="{{ route('admin.categories.edit', $categories) }}"
+                                            class="btn btn-warning mt-2 mb-2">Chỉnh sửa</a>
 
-                                        <form action="{{ route('categories.destroy', $categories)}}" method="post">
+                                        <form action="{{ route('admin.categories.destroy', $categories) }}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Xóa</button>
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Bạn có chắc muốn xóa không')">Xóa</button>
                                         </form>
                                     </td>
                                 </tr>

@@ -15,7 +15,7 @@
     @yield('style-libs')
 
     <!-- Layout config Js -->
-    <script src="{{asset('theme/admin/assets/js/layout.js')}}"></script>
+    <script src="{{ asset('theme/admin/assets/js/layout.js') }}"></script>
     <!-- Bootstrap Css -->
     <link href="{{ asset('theme/admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -25,7 +25,7 @@
     <!-- custom Css-->
     <link href="{{ asset('theme/admin/assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
 
-    
+
 
 </head>
 
@@ -910,6 +910,17 @@
     <script src="{{ asset('theme/admin/assets/libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('theme/admin/assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ asset('theme/admin/assets/js/plugins.js') }}"></script>
+
+    <!-- ckeditor -->
+    <script src="{{ asset('theme/admin/assets/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
+
+    <!-- quill js -->
+    <script src="{{ asset('theme/admin/assets/libs/quill/quill.min.js') }}"></script>
+
+    <!-- init js -->
+    <script src="{{ asset('theme/admin/assets/js/pages/form-editor.init.js') }}"></script>
+
+    <script src="{{ asset('theme/admin/assets/js/app.js') }}"></script>
 
     @yield('script-libs')
 

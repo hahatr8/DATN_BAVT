@@ -13,6 +13,7 @@ class Comment extends Model
         'content',
         'user_id',
         'product_id',
+        'blog_id',
     ];
 
     // Quan hệ với model `User`

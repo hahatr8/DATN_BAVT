@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Blog;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -19,7 +20,8 @@ class CreateCommentsTable extends Migration
         $table->id(); // Cột id tự tăng
         $table->text('content'); // Nội dung bình luận
         $table->foreignIdFor(User::class)->constrained();
-        $table->foreignIdFor(Product::class)->constrained();
+        $table->foreignIdFor(Product::class)->constrained()->nullable();
+        $table->foreignIdFor(Blog::class)->constrained()->nullable();
         $table->timestamps(); // Tạo cột created_at và updated_at
     });
 }
