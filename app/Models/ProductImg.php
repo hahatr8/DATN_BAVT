@@ -13,6 +13,7 @@ class ProductImg extends Model
     protected $fillable = [
         'product_id',
         'img',
+        'is_main',
     ];
 
     // Thiết lập quan hệ với model `Product`

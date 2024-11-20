@@ -1937,6 +1937,7 @@
             "time": "2024-09-21T08:32:55+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "migrify/vendor-patches",
             "version": "11.3.7",
             "source": {
@@ -1990,6 +1991,17 @@
             },
             "dist": {
                 "type": "zip",
+=======
+            "name": "monolog/monolog",
+            "version": "3.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/monolog.git",
+                "reference": "32e515fdc02cdafbe4593e30a9350d486b125b67"
+            },
+            "dist": {
+                "type": "zip",
+>>>>>>> 73caf5cdf26e90fdb187db82716cf0639e5187c3
                 "url": "https://api.github.com/repos/Seldaek/monolog/zipball/32e515fdc02cdafbe4593e30a9350d486b125b67",
                 "reference": "32e515fdc02cdafbe4593e30a9350d486b125b67",
                 "shasum": ""
@@ -5014,6 +5026,7 @@
         },
         {
             "name": "symfony/string",
+<<<<<<< HEAD
             "version": "v7.1.8",
             "source": {
                 "type": "git",
@@ -5024,6 +5037,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/string/zipball/591ebd41565f356fcd8b090fe64dbb5878f50281",
                 "reference": "591ebd41565f356fcd8b090fe64dbb5878f50281",
+=======
+            "version": "v6.4.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/string.git",
+                "reference": "73a5e66ea2e1677c98d4449177c5a9cf9d8b4c6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/string/zipball/73a5e66ea2e1677c98d4449177c5a9cf9d8b4c6f",
+                "reference": "73a5e66ea2e1677c98d4449177c5a9cf9d8b4c6f",
+>>>>>>> 73caf5cdf26e90fdb187db82716cf0639e5187c3
                 "shasum": ""
             },
             "require": {
@@ -5081,7 +5106,11 @@
                 "utf8"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/string/tree/v7.1.8"
+=======
+                "source": "https://github.com/symfony/string/tree/v6.4.15"
+>>>>>>> 73caf5cdf26e90fdb187db82716cf0639e5187c3
             },
             "funding": [
                 {
@@ -5097,7 +5126,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-11-13T13:31:21+00:00"
+=======
+            "time": "2024-11-13T13:31:12+00:00"
+>>>>>>> 73caf5cdf26e90fdb187db82716cf0639e5187c3
         },
         {
             "name": "symfony/translation",

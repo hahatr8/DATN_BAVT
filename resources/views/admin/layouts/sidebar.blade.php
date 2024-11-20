@@ -52,42 +52,22 @@
                 </li> <!-- end Dashboard Menu -->
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarIcons" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarIcons">
-                        <i class="ri-compasses-2-line"></i> <span data-key="t-icons">Danh mục sản phẩm</span>
+                    <a class="nav-link menu-link" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarProducts">
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Sản phẩm</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarIcons">
+                    <div class="collapse menu-dropdown" id="sidebarProducts">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="icons-remix.html" class="nav-link"><span data-key="t-remix">Danh
-                                        sách</span></a>
+
+                                <a href="{{ route('admin.products.index')}}" class="nav-link" data-key="t-analytics"> Danh sách </a>
                             </li>
                             <li class="nav-item">
-                                <a href="icons-boxicons.html" class="nav-link"><span data-key="t-boxicons">Thêm
-                                        mới</span></a>
+                                <a href="{{ route('admin.products.create')}}" class="nav-link" data-key="t-crm"> Thêm mới </a>
                             </li>
                         </ul>
                     </div>
-                </li>
-                {{-- mã giảm giá --}}
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarVouchers" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="sidebarVouchers">
-                        <i class="ri-compasses-2-line"></i> <span data-key="t-icons">Mã giảm giá</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarVouchers">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{route('admin.vouchers.index')}}" class="nav-link"><span
-                                        data-key="t-remix">Danh sách</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('admin.vouchers.create')}}" class="nav-link"><span
-                                        data-key="t-boxicons">Thêm mới</span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                </li> <!-- end Dashboard Menu -->
 
                 {{-- comment --}}
                 <li class="nav-item">
