@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     public function home(){
-        return view('client.pages.home');
+        return view('client.home');
     }
     public function myAccount(string $id)
     {
@@ -22,4 +23,7 @@ class HomeController extends Controller
         return view('client.pages.myaccount', compact('listUser', 'addresses', 'address'));
     }
     
+
+
+
 }

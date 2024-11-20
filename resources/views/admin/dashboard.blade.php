@@ -17,6 +17,14 @@
     </div>
 @endsection
 
+@section('style-libs')
+    <!-- jsvectormap css -->
+    <link href="{{ asset('theme/admin/assets/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!--Swiper slider css-->
+    <link href="{{ asset('theme/admin/assets/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('script-libs')
     <!-- apexcharts -->
     <script src="{{ asset('theme/admin/assets/libs/apexcharts/apexcharts.min.js') }}"></script>

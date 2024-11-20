@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
 
 @section('title')
     Danh sách đơn hàng
@@ -98,7 +98,7 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-info">Cập
+                                        <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-warning">Cập
                                             nhật trạng thái</a>
                                     </td>
                                 </tr>
