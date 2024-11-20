@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BrandUpdateRequest;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -38,7 +42,7 @@ class ProductController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         try {
             DB::transaction(function () use ($request) {
@@ -101,7 +105,6 @@ class ProductController extends Controller
                     ProductImg::insert($productImgs);
                 }
             });
-
             return redirect()->route('admin.products.index')->with('success', 'Thao tác thành công');
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
@@ -126,14 +129,14 @@ class ProductController extends Controller
 
 
 
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         // dd($request->all());
         try {
             DB::transaction(function () use ($request, $product) {
                 // Cập nhật thông tin cơ bản của sản phẩm
                 $product->update([
-                    'name' => $request->product['name'],
+                    'name' => $request->product['name'],    
                     'description' => $request->product['description'],
                     'price' => $request->product['price'],
                     'status' => $request->product['status'] ?? 0,
@@ -252,6 +255,7 @@ class ProductController extends Controller
                 }
 
             });
+          
 
             return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công');
         } catch (\Exception $exception) {

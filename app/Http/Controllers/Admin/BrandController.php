@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BrandRequest;
+use App\Http\Requests\BrandStoreRequest;
+use App\Http\Requests\BrandUpdateRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +23,7 @@ class BrandController extends Controller
         return view('admin.brands.create');
     }
 
-    public function store(BrandRequest $request)
+    public function store(BrandStoreRequest $request)
     {
         // Lấy dữ liệu đã validate
         $validated = $request->validated();
@@ -49,7 +51,7 @@ class BrandController extends Controller
         return view('admin.brands.edit', compact('brand'));
     }
 
-    public function update(BrandRequest $request, $id)
+    public function update(BrandUpdateRequest $request, $id)
     {
         // Lấy dữ liệu đã validate
         $validated = $request->validated();

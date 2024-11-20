@@ -94,10 +94,10 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
 
-                                <a href="{{ route('admin.blogs.index')}}" class="nav-link" data-key="t-analytics"> Danh sách </a>
+                                 {{-- <a href="{{ route('admin.blogs.index')}}" class="nav-link" data-key="t-analytics"> Danh sách </a> --}}
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.blogs.create')}}" class="nav-link" data-key="t-crm"> Thêm </a>
+                                {{-- <a href="{{ route('admin.blogs.create')}}" class="nav-link" data-key="t-crm"> Thêm </a> --}}
                             </li>
                         </ul>
                     </div>

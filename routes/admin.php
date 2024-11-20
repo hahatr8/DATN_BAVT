@@ -13,13 +13,8 @@ Route::prefix('admin')
             return view('admin.dashboard');
         });
 
-<<<<<<< HEAD
-        // Category
-        Route::resource('categories', CategoryController::class);
 
-        // Blog
-        Route::resource('blogs', BlogController::class);
-=======
+
         Route::prefix('products')
             ->as('products.')
             ->group(function () {
@@ -30,7 +25,7 @@ Route::prefix('admin')
                 Route::put('/{product}', [ProductController::class, 'update'])->name('update');
                 // Route::delete('/{product}', [ProductController::class, 'destroy'])->name('destroy');
             });
->>>>>>> bdc8dc2879b2babeec72218c8daae8eaa5cd6108
+
 
         // Danh sách đơn hàng
         Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
