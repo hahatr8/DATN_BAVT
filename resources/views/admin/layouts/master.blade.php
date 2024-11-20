@@ -56,6 +56,7 @@
                         <div class="col">
 
                             <div class="h-100">
+                                
                                 @yield('content')
 
                             </div> <!-- end .h-100-->
@@ -910,6 +911,17 @@
     <script src="{{ asset('theme/admin/assets/libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('theme/admin/assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ asset('theme/admin/assets/js/plugins.js') }}"></script>
+
+    <!-- ckeditor -->
+    <script src="{{ asset('theme/admin/assets/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
+
+    <!-- quill js -->
+    <script src="{{ asset('theme/admin/assets/libs/quill/quill.min.js') }}"></script>
+
+    <!-- init js -->
+    <script src="{{ asset('theme/admin/assets/js/pages/form-editor.init.js') }}"></script>
+
+    <script src="{{ asset('theme/admin/assets/js/app.js') }}"></script>
 
     @yield('script-libs')
 

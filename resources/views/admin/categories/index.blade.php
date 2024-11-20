@@ -1,10 +1,16 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
+
 
 @section('title')
     Danh sách danh mục
 @endsection
 
 @section('content')
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
     <div class="row">
 
         <!-- start page title -->
@@ -27,8 +33,15 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Danh sách</h5>
-                    <a href="{{ route('categories.create')}}" class="btn btn-primary">Thêm mới</a>
+                    <div class="">
+                        <h5 class="card-title mb-0">Danh sách</h5>
+                        <div class="d-flex gap-2">
+                            <span>Tất cả ({{ $totalCategories }})</span>
+                            <div>||</div>
+                            <a href="{{ route('admin.category.trash') }}">Thùng rác ({{ $trashedCategories }})</a>
+                        </div>
+                    </div>
+                    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">Thêm mới</a>
                 </div>
                 <div class="card-body">
                     <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
@@ -48,32 +61,34 @@
                         <tbody>
                             @foreach ($data as $categories)
                                 <tr>
-                                    <td>{{ $categories->id}}</td>
-                                    <td>{{ $categories->name}}</td>
-                                    <td>{{ $categories->display_order}}</td>
-                                    <td>@if ( $categories->status == 0)
-                                        <p>Hiển thị</p>
-                                    @else
-                                        <p>Ẩn</p>
-                                    @endif</td>
+                                    <td>{{ $categories->id }}</td>
+                                    <td>{{ $categories->name }}</td>
+                                    <td>{{ $categories->display_order }}</td>
+                                    <td>
+                                        @if ($categories->status == 1)
+                                            <span class="badge bg-success">Hiển thị</span>
+                                        @else
+                                            <span class="badge bg-danger">Ẩn</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         @foreach ($categories->products as $product)
                                             <span class="badge bg-info">
-                                                {{$product->name}}
+                                                {{ $product->name }}
                                             </span>
                                         @endforeach
                                     </td>
-                                    <td>{{ $categories->created_at}}</td>
-                                    <td>{{ $categories->updated_at}}</td>
+                                    <td>{{ $categories->created_at }}</td>
+                                    <td>{{ $categories->updated_at }}</td>
                                     <td>
-                                        <a href="{{ route('categories.show', $categories)}}" class="btn btn-info">Xem chi tiết</a>
-                                        <a href="{{ route('categories.edit', $categories)}}" class="btn btn-warning mt-2 mb-2">Chỉnh sửa</a>
-
-                                        <form action="{{ route('categories.destroy', $categories)}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Xóa</button>
-                                        </form>
+                                        <a href="{{ route('admin.categories.show', $categories) }}"
+                                            class="btn btn-sm btn-info">Xem chi
+                                            tiết</a>
+                                        <a href="{{ route('admin.categories.edit', $categories) }}"
+                                            class="btn btn-sm btn-warning mt-2 mb-2">Chỉnh sửa</a>
+                                        <a href="{{ route('admin.category.softDestruction', $categories) }}"
+                                            onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $categories->name }} không?')"
+                                            class="btn btn-sm btn-danger">Xóa mềm</a>
                                     </td>
                                 </tr>
                             @endforeach
