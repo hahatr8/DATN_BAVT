@@ -104,7 +104,7 @@
                     </div>
                 </li> <!-- end Dashboard Menu -->
 
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarCharts">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Blog</span>
@@ -120,7 +120,7 @@
                             </li>
                         </ul>
                     </div>
-                </li> --}}
+                </li>
 
             </ul>
         </div>

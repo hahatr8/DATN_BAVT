@@ -3,16 +3,23 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\Address;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function home(){
-        return view('client.home');
+
+    const PATH_VIEW = 'client.home';
+
+    public function home()
+    {
+        $categories = Category::query()->latest('display_order')->paginate(5);
+
+        return view(self::PATH_VIEW, compact('categories'));
+
     }
     public function myAccount(string $id)
     {

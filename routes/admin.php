@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\AddressController;
@@ -19,6 +20,44 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', function () {
                     return view('admin.dashboard');
                 });
+
+                // route category
+                Route::prefix('category')
+                    ->as('category.')
+                    ->group(function () {
+                        Route::get('/trash', [CategoryController::class, 'trash'])->name('trash');
+                        Route::post('/{id}', [CategoryController::class, 'restore'])->name('restore');
+                        Route::get('/{category}', [CategoryController::class, 'softDestruction'])->name('softDestruction');
+                    });
+                Route::resource('categories', CategoryController::class);
+
+
+                // route blog
+                Route::prefix('blog')
+                    ->as('blog.')
+                    ->group(function () {
+                        Route::get('/trash', [BlogController::class, 'trash'])->name('trash');
+                        Route::post('/{id}', [BlogController::class, 'restore'])->name('restore');
+                        Route::get('/{blog}', [BlogController::class, 'softDestruction'])->name('softDestruction');
+                    });
+                Route::resource('blogs', BlogController::class);
+
+
+                Route::prefix('products')
+                    ->as('products.')
+                    ->group(function () {
+                        Route::get('/', function () {
+                            return view('admin.dashboard');
+                        });
+                        Route::get('/index', [ProductController::class, 'index'])->name('index');
+                        Route::get('/trash', [ProductController::class, 'trash'])->name('trash');
+                        Route::post('/restore/{id}', [ProductController::class, 'restore'])->name('restore');
+                        Route::get('/create', [ProductController::class, 'create'])->name('create');
+                        Route::post('/store', [ProductController::class, 'store'])->name('store');
+                        Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('edit');
+                        Route::put('/{product}', [ProductController::class, 'update'])->name('update');
+                        Route::get('/{product}', [ProductController::class, 'destroy'])->name('destroy');
+                    });
 
                 // Danh sách đơn hàng
                 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
@@ -53,24 +92,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::prefix('client')
-    ->as('client.')
-    ->group(function () {
-        Route::get('/', [HomeController::class, 'home']);
-        Route::get('myaccount/{id}', [HomeController::class, 'myAccount'])->name('myaccount');
-        Route::get('myaccountEdit/{id}', [ClientUserController::class, 'edit'])->name('myaccountEdit');
-        Route::put('myaccountUpdate/{id}', [ClientUserController::class, 'update'])->name('myaccountUpdate');
 
-        Route::prefix('address')
-            ->as('address.')
-            ->group(function () {
 
-                Route::get('createadd/{id}', [AddressController::class, 'createadd'])->name('createadd');
-                Route::post('storeadd/{id}', [AddressController::class, 'storeadd'])->name('storeadd');
-                Route::get('edit/{id}', [AddressController::class, 'edit'])->name('edit');
-                Route::put('update/{id}', [AddressController::class, 'update'])->name('update');
-            });
-    });
 
 Route::get('login', [AuthController::class, 'showFormLogin']);
 Route::post('login', [AuthController::class, 'login'])->name('login');

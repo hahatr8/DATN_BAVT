@@ -1,4 +1,5 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
+
 
 @section('title')
     Cập nhật Blog: {{ $blog->title }}
@@ -62,20 +63,11 @@
                                 <div class="col-md-8">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="" class="form-label">Chọn ẩn/hiện Blog:</label>
-                                            <div class="input-group">
-                                                <select class="form-select" id="inputGroupSelect04" class="status"
-                                                    aria-label="Example select with button addon">
-                                                    <option selected value="{{ $blog->status }}">
-                                                        @if ($blog->status == 0)
-                                                            <p>Hiển thị</p>
-                                                        @else
-                                                            <p>Ẩn</p>
-                                                        @endif
-                                                    </option>
-                                                    <option value="1">Hiển thị Blogc</option>
-                                                    <option value="0">Ẩn Blog</option>
-                                                </select>
+                                            <div class="form-check form-switch form-switch-secondary">
+                                                <label for="SwitchCheck2" class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" value="1" role="switch"
+                                                        @if ($category->status) checked @endif name="status" id="SwitchCheck2"> ẩn/hiện danh mục
+                                                </label>
                                             </div>
                                         </div>
                                     </div>

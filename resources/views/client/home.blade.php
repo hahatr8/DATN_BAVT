@@ -1,1 +1,1 @@
-@extends('client.layout.master');
+@extends('client.layouts.master');
