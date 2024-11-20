@@ -3,6 +3,7 @@
 
 
 <!-- Mirrored from htmldemo.net/corano/corano/product-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:00 GMT -->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,28 +12,28 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/img/favicon.ico')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}">
 
     <!-- CSS
-	============================================ -->
+ ============================================ -->
     <!-- google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900" rel="stylesheet">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/vendor/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css') }}">
     <!-- Pe-icon-7-stroke CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/vendor/pe-icon-7-stroke.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/pe-icon-7-stroke.css') }}">
     <!-- Font-awesome CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/vendor/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/vendor/font-awesome.min.css') }}">
     <!-- Slick slider css -->
-    <link rel="stylesheet" href="{{asset('assets/css/plugins/slick.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/slick.min.css') }}">
     <!-- animate css -->
-    <link rel="stylesheet" href="{{asset('assets/css/plugins/animate.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/animate.css') }}">
     <!-- Nice Select css -->
-    <link rel="stylesheet" href="{{asset('assets/css/plugins/nice-select.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/nice-select.css') }}">
     <!-- jquery UI css -->
-    <link rel="stylesheet" href="{{asset('assets/css/plugins/jqueryui.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/jqueryui.min.css') }}">
     <!-- main style css -->
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 </head>
 
@@ -65,8 +66,10 @@
                                         <img src="assets/img/icon/en.png" alt="flag"> English
                                         <i class="fa fa-angle-down"></i>
                                         <ul class="dropdown-list">
-                                            <li><a href="#"><img src="assets/img/icon/en.png" alt="flag"> english</a></li>
-                                            <li><a href="#"><img src="assets/img/icon/fr.png" alt="flag"> french</a></li>
+                                            <li><a href="#"><img src="assets/img/icon/en.png" alt="flag">
+                                                    english</a></li>
+                                            <li><a href="#"><img src="assets/img/icon/fr.png" alt="flag">
+                                                    french</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -99,7 +102,8 @@
                                     <!-- main menu navbar start -->
                                     <nav class="desktop-menu">
                                         <ul>
-                                            <li class="active"><a href="index.html">Home <i class="fa fa-angle-down"></i></a>
+                                            <li class="active"><a href="index.html">Home <i
+                                                        class="fa fa-angle-down"></i></a>
                                                 <ul class="dropdown">
                                                     <li><a href="index.html">Home version 01</a></li>
                                                     <li><a href="index-2.html">Home version 02</a></li>
@@ -109,21 +113,27 @@
                                                     <li><a href="index-6.html">Home version 06</a></li>
                                                 </ul>
                                             </li>
-                                            <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
+                                            <li class="position-static"><a href="#">pages <i
+                                                        class="fa fa-angle-down"></i></a>
                                                 <ul class="megamenu dropdown">
                                                     <li class="mega-title"><span>column 01</span>
                                                         <ul>
                                                             <li><a href="shop.html">shop grid left sidebar</a></li>
-                                                            <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                            <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a></li>
-                                                            <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a></li>
+                                                            <li><a href="shop-grid-right-sidebar.html">shop grid right
+                                                                    sidebar</a></li>
+                                                            <li><a href="shop-list-left-sidebar.html">shop list left
+                                                                    sidebar</a></li>
+                                                            <li><a href="shop-list-right-sidebar.html">shop list right
+                                                                    sidebar</a></li>
                                                         </ul>
                                                     </li>
                                                     <li class="mega-title"><span>column 02</span>
                                                         <ul>
                                                             <li><a href="product-details.html">product details</a></li>
-                                                            <li><a href="product-details-affiliate.html">product details affiliate</a></li>
-                                                            <li><a href="product-details-variable.html">product details variable</a></li>
+                                                            <li><a href="product-details-affiliate.html">product details
+                                                                    affiliate</a></li>
+                                                            <li><a href="product-details-variable.html">product details
+                                                                    variable</a></li>
                                                             <li><a href="privacy-policy.html">privacy policy</a></li>
                                                         </ul>
                                                     </li>
@@ -145,52 +155,71 @@
                                                     </li>
                                                     <li class="megamenu-banners d-none d-lg-block">
                                                         <a href="product-details.html">
-                                                            <img src="assets/img/banner/img1-static-menu.jpg" alt="">
+                                                            <img src="assets/img/banner/img1-static-menu.jpg"
+                                                                alt="">
                                                         </a>
                                                     </li>
                                                     <li class="megamenu-banners d-none d-lg-block">
                                                         <a href="product-details.html">
-                                                            <img src="assets/img/banner/img2-static-menu.jpg" alt="">
+                                                            <img src="assets/img/banner/img2-static-menu.jpg"
+                                                                alt="">
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </li>
                                             <li><a href="shop.html">shop <i class="fa fa-angle-down"></i></a>
                                                 <ul class="dropdown">
-                                                    <li><a href="#">shop grid layout <i class="fa fa-angle-right"></i></a>
+                                                    <li><a href="#">shop grid layout <i
+                                                                class="fa fa-angle-right"></i></a>
                                                         <ul class="dropdown">
                                                             <li><a href="shop.html">shop grid left sidebar</a></li>
-                                                            <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                            <li><a href="shop-grid-full-3-col.html">shop grid full 3 col</a></li>
-                                                            <li><a href="shop-grid-full-4-col.html">shop grid full 4 col</a></li>
+                                                            <li><a href="shop-grid-right-sidebar.html">shop grid right
+                                                                    sidebar</a></li>
+                                                            <li><a href="shop-grid-full-3-col.html">shop grid full 3
+                                                                    col</a></li>
+                                                            <li><a href="shop-grid-full-4-col.html">shop grid full 4
+                                                                    col</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li><a href="#">shop list layout <i class="fa fa-angle-right"></i></a>
+                                                    <li><a href="#">shop list layout <i
+                                                                class="fa fa-angle-right"></i></a>
                                                         <ul class="dropdown">
-                                                            <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a></li>
-                                                            <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a></li>
-                                                            <li><a href="shop-list-full-width.html">shop list full width</a></li>
+                                                            <li><a href="shop-list-left-sidebar.html">shop list left
+                                                                    sidebar</a></li>
+                                                            <li><a href="shop-list-right-sidebar.html">shop list right
+                                                                    sidebar</a></li>
+                                                            <li><a href="shop-list-full-width.html">shop list full
+                                                                    width</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li><a href="#">products details <i class="fa fa-angle-right"></i></a>
+                                                    <li><a href="#">products details <i
+                                                                class="fa fa-angle-right"></i></a>
                                                         <ul class="dropdown">
                                                             <li><a href="product-details.html">product details</a></li>
-                                                            <li><a href="product-details-affiliate.html">product details affiliate</a></li>
-                                                            <li><a href="product-details-variable.html">product details variable</a></li>
-                                                            <li><a href="product-details-group.html">product details group</a></li>
+                                                            <li><a href="product-details-affiliate.html">product
+                                                                    details affiliate</a></li>
+                                                            <li><a href="product-details-variable.html">product details
+                                                                    variable</a></li>
+                                                            <li><a href="product-details-group.html">product details
+                                                                    group</a></li>
                                                         </ul>
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="blog-left-sidebar.html">Blog <i class="fa fa-angle-down"></i></a>
+                                            <li><a href="blog-left-sidebar.html">Blog <i
+                                                        class="fa fa-angle-down"></i></a>
                                                 <ul class="dropdown">
                                                     <li><a href="blog-left-sidebar.html">blog left sidebar</a></li>
-                                                    <li><a href="blog-list-left-sidebar.html">blog list left sidebar</a></li>
+                                                    <li><a href="blog-list-left-sidebar.html">blog list left
+                                                            sidebar</a></li>
                                                     <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                                    <li><a href="blog-list-right-sidebar.html">blog list right sidebar</a></li>
-                                                    <li><a href="blog-grid-full-width.html">blog grid full width</a></li>
+                                                    <li><a href="blog-list-right-sidebar.html">blog list right
+                                                            sidebar</a></li>
+                                                    <li><a href="blog-grid-full-width.html">blog grid full width</a>
+                                                    </li>
                                                     <li><a href="blog-details.html">blog details</a></li>
-                                                    <li><a href="blog-details-left-sidebar.html">blog details left sidebar</a></li>
+                                                    <li><a href="blog-details-left-sidebar.html">blog details left
+                                                            sidebar</a></li>
                                                     <li><a href="blog-details-audio.html">blog details audio</a></li>
                                                     <li><a href="blog-details-video.html">blog details video</a></li>
                                                     <li><a href="blog-details-image.html">blog details image</a></li>
@@ -207,11 +236,14 @@
 
                         <!-- mini cart area start -->
                         <div class="col-lg-4">
-                            <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
+                            <div
+                                class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
                                 <div class="header-search-container">
-                                    <button class="search-trigger d-xl-none d-lg-block"><i class="pe-7s-search"></i></button>
+                                    <button class="search-trigger d-xl-none d-lg-block"><i
+                                            class="pe-7s-search"></i></button>
                                     <form class="header-search-box d-lg-none d-xl-block">
-                                        <input type="text" placeholder="Search entire store hire" class="header-search-field">
+                                        <input type="text" placeholder="Search entire store hire"
+                                            class="header-search-field">
                                         <button class="header-search-btn"><i class="pe-7s-search"></i></button>
                                     </form>
                                 </div>
@@ -327,16 +359,21 @@
                                         <li class="mega-title menu-item-has-children"><a href="#">column 01</a>
                                             <ul class="dropdown">
                                                 <li><a href="shop.html">shop grid left sidebar</a></li>
-                                                <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a></li>
-                                                <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a></li>
+                                                <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a>
+                                                </li>
+                                                <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a>
+                                                </li>
+                                                <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li class="mega-title menu-item-has-children"><a href="#">column 02</a>
                                             <ul class="dropdown">
                                                 <li><a href="product-details.html">product details</a></li>
-                                                <li><a href="product-details-affiliate.html">product details affiliate</a></li>
-                                                <li><a href="product-details-variable.html">product details variable</a></li>
+                                                <li><a href="product-details-affiliate.html">product details
+                                                        affiliate</a></li>
+                                                <li><a href="product-details-variable.html">product details
+                                                        variable</a></li>
                                                 <li><a href="privacy-policy.html">privacy policy</a></li>
                                             </ul>
                                         </li>
@@ -363,23 +400,28 @@
                                         <li class="menu-item-has-children"><a href="#">shop grid layout</a>
                                             <ul class="dropdown">
                                                 <li><a href="shop.html">shop grid left sidebar</a></li>
-                                                <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
+                                                <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a>
+                                                </li>
                                                 <li><a href="shop-grid-full-3-col.html">shop grid full 3 col</a></li>
                                                 <li><a href="shop-grid-full-4-col.html">shop grid full 4 col</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children"><a href="#">shop list layout</a>
                                             <ul class="dropdown">
-                                                <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a></li>
-                                                <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a></li>
+                                                <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a>
+                                                </li>
+                                                <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a>
+                                                </li>
                                                 <li><a href="shop-list-full-width.html">shop list full width</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children"><a href="#">products details</a>
                                             <ul class="dropdown">
                                                 <li><a href="product-details.html">product details</a></li>
-                                                <li><a href="product-details-affiliate.html">product details affiliate</a></li>
-                                                <li><a href="product-details-variable.html">product details variable</a></li>
+                                                <li><a href="product-details-affiliate.html">product details
+                                                        affiliate</a></li>
+                                                <li><a href="product-details-variable.html">product details
+                                                        variable</a></li>
                                                 <li><a href="product-details-group.html">product details group</a></li>
                                             </ul>
                                         </li>
@@ -410,7 +452,8 @@
                         <ul class="nav">
                             <li>
                                 <div class="dropdown mobile-top-dropdown">
-                                    <a href="#" class="dropdown-toggle" id="currency" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a href="#" class="dropdown-toggle" id="currency"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Currency
                                         <i class="fa fa-angle-down"></i>
                                     </a>
@@ -422,7 +465,8 @@
                             </li>
                             <li>
                                 <div class="dropdown mobile-top-dropdown">
-                                    <a href="#" class="dropdown-toggle" id="myaccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a href="#" class="dropdown-toggle" id="myaccount"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         My Account
                                         <i class="fa fa-angle-down"></i>
                                     </a>
@@ -475,7 +519,8 @@
                         <div class="breadcrumb-wrap">
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a>
+                                    </li>
                                     <li class="breadcrumb-item"><a href="shop.html">shop</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">product details</li>
                                 </ul>
@@ -499,69 +544,104 @@
                                 <div class="col-lg-5">
                                     <div class="product-large-slider">
                                         <div class="pro-large-img img-zoom">
-                                            <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
+                                            <img src="../../images/{{ $productDetail->productImgs->first()->img ?? '/images/default.jpg' }}"
+                                                alt="{{ $productDetail->name }}" class="main-image">
+
+                                            <!-- Ảnh chính với link -->
+
+
+                                            <!-- Ảnh hover với link -->
+
+
+                                            {{-- <!-- Album ảnh -->
+                                                @if ($albumImages->isNotEmpty())
+                                                    <div class="album-images">
+                                                        @foreach ($albumImages as $image)
+                                                            <a href="{{ route('product.album', ['image_id' => $image->id]) }}">
+                                                                <img src="{{ $image->img }}" alt="Album Image" class="album-image">
+                                                            </a>
+                                                        @endforeach
+                                                    </div>
+                                                @else
+                                                    <p>Không có ảnh trong album.</p>
+                                                @endif --}}
+
+
+                                        </div>
+                                        {{-- <div class="pro-large-img img-zoom">
+                                            <img src="assets/img/product/product-details-img2.jpg"
+                                                alt="product-details" />
                                         </div>
                                         <div class="pro-large-img img-zoom">
-                                            <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
+                                            <img src="assets/img/product/product-details-img3.jpg"
+                                                alt="product-details" />
                                         </div>
                                         <div class="pro-large-img img-zoom">
-                                            <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
+                                            <img src="assets/img/product/product-details-img4.jpg"
+                                                alt="product-details" />
                                         </div>
                                         <div class="pro-large-img img-zoom">
-                                            <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
-                                        </div>
-                                        <div class="pro-large-img img-zoom">
-                                            <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
-                                        </div>
+                                            <img src="assets/img/product/product-details-img5.jpg"
+                                                alt="product-details" />
+                                        </div> --}}
                                     </div>
-                                    <div class="pro-nav slick-row-10 slick-arrow-style">
+                                    {{-- <div class="pro-nav slick-row-10 slick-arrow-style">
                                         <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
+                                            <img src="assets/img/product/product-details-img1.jpg"
+                                                alt="product-details" />
                                         </div>
                                         <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
+                                            <img src="assets/img/product/product-details-img2.jpg"
+                                                alt="product-details" />
                                         </div>
                                         <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
+                                            <img src="assets/img/product/product-details-img3.jpg"
+                                                alt="product-details" />
                                         </div>
                                         <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
+                                            <img src="assets/img/product/product-details-img4.jpg"
+                                                alt="product-details" />
                                         </div>
                                         <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
+                                            <img src="assets/img/product/product-details-img5.jpg"
+                                                alt="product-details" />
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="col-lg-7">
                                     <div class="product-details-des">
-                                        <div class="manufacturer-name">
+                                        {{-- <div class="manufacturer-name">
                                             <a href="product-details.html">HasTech</a>
-                                        </div>
-                                        <h3 class="product-name">Handmade Golden Necklace Full Family Package</h3>
+                                        </div> --}}
+                                        <h3 class="product-name">{{ $productDetail->name }}</h3>
                                         <div class="ratings d-flex">
-                                            <span><i class="fa fa-star-o"></i></span>
+                                            {{-- <span><i class="fa fa-star-o"></i></span>
                                             <span><i class="fa fa-star-o"></i></span>
                                             <span><i class="fa fa-star-o"></i></span>
                                             <span><i class="fa fa-star-o"></i></span>
                                             <span><i class="fa fa-star-o"></i></span>
                                             <div class="pro-review">
                                                 <span>1 Reviews</span>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <div class="price-box">
-                                            <span class="price-regular">$70.00</span>
-                                            <span class="price-old"><del>$90.00</del></span>
+                                            <span class="price-regular">{{ $productDetail->price }}</span>
+                                            {{-- <span class="price-old"><del>$90.00</del></span> --}}
                                         </div>
-                                        <h5 class="offer-text"><strong>Hurry up</strong>! offer ends in:</h5>
-                                        <div class="product-countdown" data-countdown="2022/12/20"></div>
+                                        {{-- <h5 class="offer-text"><strong>Hurry up</strong>! offer ends in:</h5>
+                                        <div class="product-countdown" data-countdown="2022/12/20"></div> --}}
                                         <div class="availability">
-                                            <i class="fa fa-check-circle"></i>
-                                            <span>200 in stock</span>
+                                            <?php
+                                            if ($productDetail->status == 1) {
+                                                echo '<i class="fa fa-check-circle"></i>
+                                                                                                                                                                                                                                                                                    <span>Available</span>';
+                                            } elseif ($productDetail->status == 0) {
+                                                echo '<i class="fa fa-ban"></i>
+                                                                                                                                                                                                                                                                                    <span>Unavailable</span>';
+                                            }
+                                            ?>
                                         </div>
-                                        <p class="pro-desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                                            eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                                            voluptua. Phasellus id nisi quis justo tempus mollis sed et dui. In hac
-                                            habitasse platea dictumst.</p>
+                                        <p class="pro-desc">{{ $productDetail->description }}</p>
                                         <div class="quantity-cart-box d-flex align-items-center">
                                             <h6 class="option-title">qty:</h6>
                                             <div class="quantity">
@@ -573,14 +653,20 @@
                                         </div>
                                         <div class="pro-size">
                                             <h6 class="option-title">size :</h6>
-                                            <select class="nice-select">
-                                                <option>S</option>
-                                                <option>M</option>
-                                                <option>L</option>
-                                                <option>XL</option>
-                                            </select>
+                                            @if ($productDetail->productSizes->isNotEmpty())
+                                                <select name="size" id="product-size" class="form-select">
+                                                    <option value="">Size</option>
+                                                    @foreach ($productDetail->productSizes as $size)
+                                                        <option value="{{ $size->id }}">
+                                                            {{ $size->variant }} 
+                                                            </option>
+                                                    @endforeach
+                                                </select>
+                                            @else
+                                                <p>Sản phẩm này hiện không có kích thước nào.</p>
+                                            @endif
                                         </div>
-                                        <div class="color-option">
+                                        {{-- <div class="color-option">
                                             <h6 class="option-title">color :</h6>
                                             <ul class="color-categories">
                                                 <li>
@@ -606,9 +692,11 @@
                                         <div class="like-icon">
                                             <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
                                             <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
-                                            <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
-                                            <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
-                                        </div>
+                                            <a class="pinterest" href="#"><i
+                                                    class="fa fa-pinterest"></i>save</a>
+                                            <a class="google" href="#"><i
+                                                    class="fa fa-google-plus"></i>share</a>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -622,7 +710,8 @@
                                     <div class="product-review-info">
                                         <ul class="nav review-tab">
                                             <li>
-                                                <a class="active" data-bs-toggle="tab" href="#tab_one">description</a>
+                                                <a class="active" data-bs-toggle="tab"
+                                                    href="#tab_one">description</a>
                                             </li>
                                             <li>
                                                 <a data-bs-toggle="tab" href="#tab_two">information</a>
@@ -634,30 +723,32 @@
                                         <div class="tab-content reviews-tab">
                                             <div class="tab-pane fade show active" id="tab_one">
                                                 <div class="tab-one">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-                                                        fringilla augue nec est tristique auctor. Ipsum metus feugiat
-                                                        sem, quis fermentum turpis eros eget velit. Donec ac tempus
-                                                        ante. Fusce ultricies massa massa. Fusce aliquam, purus eget
-                                                        sagittis vulputate, sapien libero hendrerit est, sed commodo
-                                                        augue nisi non neque.Cras neque metus, consequat et blandit et,
-                                                        luctus a nunc. Etiam gravida vehicula tellus, in imperdiet
-                                                        ligula euismod eget. Pellentesque habitant morbi tristique
-                                                        senectus et netus et malesuada fames ac turpis egestas. Nam
-                                                        erat mi, rutrum at sollicitudin rhoncus</p>
+                                                    <p>{{ $productDetail->description }}</p>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab_two">
-                                                <table class="table table-bordered">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>color</td>
-                                                            <td>black, blue, red</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>size</td>
-                                                            <td>L, M, S</td>
-                                                        </tr>
-                                                    </tbody>
+
+                                                @if ($productDetail->productSizes->isNotEmpty())
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Size</th>
+                                                                <th>Giá</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($productDetail->productSizes as $size)
+                                                                <tr>
+                                                                    <td>{{ $size->variant }}</td>
+                                                                    <td>${{ $size->price }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                @else
+                                                    <p>Sản phẩm này hiện không có kích thước nào.</p>
+                                                @endif
                                                 </table>
                                             </div>
                                             <div class="tab-pane fade" id="tab_three">
@@ -687,21 +778,24 @@
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="col">
-                                                            <label class="col-form-label"><span class="text-danger">*</span>
+                                                            <label class="col-form-label"><span
+                                                                    class="text-danger">*</span>
                                                                 Your Name</label>
                                                             <input type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="col">
-                                                            <label class="col-form-label"><span class="text-danger">*</span>
+                                                            <label class="col-form-label"><span
+                                                                    class="text-danger">*</span>
                                                                 Your Email</label>
                                                             <input type="email" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="col">
-                                                            <label class="col-form-label"><span class="text-danger">*</span>
+                                                            <label class="col-form-label"><span
+                                                                    class="text-danger">*</span>
                                                                 Your Review</label>
                                                             <textarea class="form-control" required></textarea>
                                                             <div class="help-block pt-10"><span
@@ -712,7 +806,8 @@
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="col">
-                                                            <label class="col-form-label"><span class="text-danger">*</span>
+                                                            <label class="col-form-label"><span
+                                                                    class="text-danger">*</span>
                                                                 Rating</label>
                                                             &nbsp;&nbsp;&nbsp; Bad&nbsp;
                                                             <input type="radio" value="1" name="rating">
@@ -723,7 +818,8 @@
                                                             &nbsp;
                                                             <input type="radio" value="4" name="rating">
                                                             &nbsp;
-                                                            <input type="radio" value="5" name="rating" checked>
+                                                            <input type="radio" value="5" name="rating"
+                                                                checked>
                                                             &nbsp;Good
                                                         </div>
                                                     </div>
@@ -762,266 +858,33 @@
                     <div class="col-12">
                         <div class="product-carousel-4 slick-row-10 slick-arrow-style">
                             <!-- product item start -->
-                            <div class="product-item">
-                                <figure class="product-thumb">
-                                    <a href="product-details.html">
-                                        <img class="pri-img" src="assets/img/product/product-11.jpg" alt="product">
-                                        <img class="sec-img" src="assets/img/product/product-8.jpg" alt="product">
-                                    </a>
-                                    <div class="product-badge">
-                                        <div class="product-label new">
-                                            <span>new</span>
+                            @foreach ($relatedProducts as $product)
+                                <div class="product-item">
+                                    <figure class="product-thumb">
+                                        <a href="{{ Route('product_detail', $product->id) }}">
+                                            <div class="product-image-wrapper">
+                                                @if ($product->mainImage)
+                                                    <img src="../../images/{{ $product->mainImage->img }}"
+                                                        alt="{{ $product->name }}" class="main-image">
+                                                @endif
+                                                @if ($product->hoverImage)
+                                                    <img src="../../images/{{ $product->hoverImage->img }}"
+                                                        alt="{{ $product->name }}" class="hover-image">
+                                                @endif
+                                            </div>
+                                        </a>
+
+                                        <div class="cart-hover">
+                                            <button class="btn btn-cart">add to cart</button>
                                         </div>
-                                        <div class="product-label discount">
-                                            <span>10%</span>
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                        <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                        <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
-                                    </div>
-                                    <div class="cart-hover">
-                                        <button class="btn btn-cart">add to cart</button>
-                                    </div>
-                                </figure>
-                                <div class="product-caption text-center">
-                                    <div class="product-identity">
-                                        <p class="manufacturer-name"><a href="product-details.html">Gold</a></p>
-                                    </div>
-                                    <ul class="color-categories">
-                                        <li>
-                                            <a class="c-lightblue" href="#" title="LightSteelblue"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-darktan" href="#" title="Darktan"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-grey" href="#" title="Grey"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-brown" href="#" title="Brown"></a>
-                                        </li>
-                                    </ul>
-                                    <h6 class="product-name">
-                                        <a href="product-details.html">Perfect Diamond Jewelry</a>
-                                    </h6>
-                                    <div class="price-box">
-                                        <span class="price-regular">$60.00</span>
-                                        <span class="price-old"><del>$70.00</del></span>
-                                    </div>
+                                    </figure>
                                 </div>
-                            </div>
+                            @endforeach
+
+
                             <!-- product item end -->
 
-                            <!-- product item start -->
-                            <div class="product-item">
-                                <figure class="product-thumb">
-                                    <a href="product-details.html">
-                                        <img class="pri-img" src="assets/img/product/product-12.jpg" alt="product">
-                                        <img class="sec-img" src="assets/img/product/product-7.jpg" alt="product">
-                                    </a>
-                                    <div class="product-badge">
-                                        <div class="product-label new">
-                                            <span>sale</span>
-                                        </div>
-                                        <div class="product-label discount">
-                                            <span>new</span>
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                        <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                        <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
-                                    </div>
-                                    <div class="cart-hover">
-                                        <button class="btn btn-cart">add to cart</button>
-                                    </div>
-                                </figure>
-                                <div class="product-caption text-center">
-                                    <div class="product-identity">
-                                        <p class="manufacturer-name"><a href="product-details.html">mony</a></p>
-                                    </div>
-                                    <ul class="color-categories">
-                                        <li>
-                                            <a class="c-lightblue" href="#" title="LightSteelblue"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-darktan" href="#" title="Darktan"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-grey" href="#" title="Grey"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-brown" href="#" title="Brown"></a>
-                                        </li>
-                                    </ul>
-                                    <h6 class="product-name">
-                                        <a href="product-details.html">Handmade Golden Necklace</a>
-                                    </h6>
-                                    <div class="price-box">
-                                        <span class="price-regular">$50.00</span>
-                                        <span class="price-old"><del>$80.00</del></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- product item end -->
 
-                            <!-- product item start -->
-                            <div class="product-item">
-                                <figure class="product-thumb">
-                                    <a href="product-details.html">
-                                        <img class="pri-img" src="assets/img/product/product-13.jpg" alt="product">
-                                        <img class="sec-img" src="assets/img/product/product-6.jpg" alt="product">
-                                    </a>
-                                    <div class="product-badge">
-                                        <div class="product-label new">
-                                            <span>new</span>
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                        <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                        <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
-                                    </div>
-                                    <div class="cart-hover">
-                                        <button class="btn btn-cart">add to cart</button>
-                                    </div>
-                                </figure>
-                                <div class="product-caption text-center">
-                                    <div class="product-identity">
-                                        <p class="manufacturer-name"><a href="product-details.html">Diamond</a></p>
-                                    </div>
-                                    <ul class="color-categories">
-                                        <li>
-                                            <a class="c-lightblue" href="#" title="LightSteelblue"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-darktan" href="#" title="Darktan"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-grey" href="#" title="Grey"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-brown" href="#" title="Brown"></a>
-                                        </li>
-                                    </ul>
-                                    <h6 class="product-name">
-                                        <a href="product-details.html">Perfect Diamond Jewelry</a>
-                                    </h6>
-                                    <div class="price-box">
-                                        <span class="price-regular">$99.00</span>
-                                        <span class="price-old"><del></del></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- product item end -->
-
-                            <!-- product item start -->
-                            <div class="product-item">
-                                <figure class="product-thumb">
-                                    <a href="product-details.html">
-                                        <img class="pri-img" src="assets/img/product/product-14.jpg" alt="product">
-                                        <img class="sec-img" src="assets/img/product/product-5.jpg" alt="product">
-                                    </a>
-                                    <div class="product-badge">
-                                        <div class="product-label new">
-                                            <span>sale</span>
-                                        </div>
-                                        <div class="product-label discount">
-                                            <span>15%</span>
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                        <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                        <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
-                                    </div>
-                                    <div class="cart-hover">
-                                        <button class="btn btn-cart">add to cart</button>
-                                    </div>
-                                </figure>
-                                <div class="product-caption text-center">
-                                    <div class="product-identity">
-                                        <p class="manufacturer-name"><a href="product-details.html">silver</a></p>
-                                    </div>
-                                    <ul class="color-categories">
-                                        <li>
-                                            <a class="c-lightblue" href="#" title="LightSteelblue"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-darktan" href="#" title="Darktan"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-grey" href="#" title="Grey"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-brown" href="#" title="Brown"></a>
-                                        </li>
-                                    </ul>
-                                    <h6 class="product-name">
-                                        <a href="product-details.html">Diamond Exclusive Ornament</a>
-                                    </h6>
-                                    <div class="price-box">
-                                        <span class="price-regular">$55.00</span>
-                                        <span class="price-old"><del>$75.00</del></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- product item end -->
-
-                            <!-- product item start -->
-                            <div class="product-item">
-                                <figure class="product-thumb">
-                                    <a href="product-details.html">
-                                        <img class="pri-img" src="assets/img/product/product-15.jpg" alt="product">
-                                        <img class="sec-img" src="assets/img/product/product-4.jpg" alt="product">
-                                    </a>
-                                    <div class="product-badge">
-                                        <div class="product-label new">
-                                            <span>new</span>
-                                        </div>
-                                        <div class="product-label discount">
-                                            <span>20%</span>
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                        <a href="wishlist.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i class="pe-7s-like"></i></a>
-                                        <a href="compare.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view"><span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View"><i class="pe-7s-search"></i></span></a>
-                                    </div>
-                                    <div class="cart-hover">
-                                        <button class="btn btn-cart">add to cart</button>
-                                    </div>
-                                </figure>
-                                <div class="product-caption text-center">
-                                    <div class="product-identity">
-                                        <p class="manufacturer-name"><a href="product-details.html">mony</a></p>
-                                    </div>
-                                    <ul class="color-categories">
-                                        <li>
-                                            <a class="c-lightblue" href="#" title="LightSteelblue"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-darktan" href="#" title="Darktan"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-grey" href="#" title="Grey"></a>
-                                        </li>
-                                        <li>
-                                            <a class="c-brown" href="#" title="Brown"></a>
-                                        </li>
-                                    </ul>
-                                    <h6 class="product-name">
-                                        <a href="product-details.html">Citygold Exclusive Ring</a>
-                                    </h6>
-                                    <div class="price-box">
-                                        <span class="price-regular">$60.00</span>
-                                        <span class="price-old"><del>$70.00</del></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- product item end -->
                         </div>
                     </div>
                 </div>
@@ -1051,7 +914,8 @@
                                 </div>
                             </div>
                             <div class="widget-body">
-                                <p>We are a team of designers and developers that create high quality wordpress, shopify, Opencart </p>
+                                <p>We are a team of designers and developers that create high quality wordpress,
+                                    shopify, Opencart </p>
                             </div>
                         </div>
                     </div>
@@ -1062,8 +926,10 @@
                                 <address class="contact-block">
                                     <ul>
                                         <li><i class="pe-7s-home"></i> 4710-4890 Breckinridge USA</li>
-                                        <li><i class="pe-7s-mail"></i> <a href="mailto:demo@plazathemes.com">demo@yourdomain.com </a></li>
-                                        <li><i class="pe-7s-call"></i> <a href="tel:(012)800456789987">(012) 800 456 789-987</a></li>
+                                        <li><i class="pe-7s-mail"></i> <a
+                                                href="mailto:demo@plazathemes.com">demo@yourdomain.com </a></li>
+                                        <li><i class="pe-7s-call"></i> <a href="tel:(012)800456789987">(012) 800 456
+                                                789-987</a></li>
                                     </ul>
                                 </address>
                             </div>
@@ -1101,7 +967,8 @@
                         <div class="newsletter-wrapper">
                             <h6 class="widget-title-text">Signup for newsletter</h6>
                             <form class="newsletter-inner" id="mc-form">
-                                <input type="email" class="news-field" id="mc-email" autocomplete="off" placeholder="Enter your email address">
+                                <input type="email" class="news-field" id="mc-email" autocomplete="off"
+                                    placeholder="Enter your email address">
                                 <button class="news-btn" id="mc-submit">Subscribe</button>
                             </form>
                             <!-- mail-chimp-alerts Start -->
@@ -1126,7 +993,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="copyright-text text-center">
-                            <p>&copy; 2022 <b>Corano</b> Made with <i class="fa fa-heart text-danger"></i> by <a href="https://hasthemes.com/"><b>HasThemes</b></a></p>
+                            <p>&copy; 2022 <b>Corano</b> Made with <i class="fa fa-heart text-danger"></i> by <a
+                                    href="https://hasthemes.com/"><b>HasThemes</b></a></p>
                         </div>
                     </div>
                 </div>
@@ -1149,36 +1017,46 @@
                             <div class="col-lg-5">
                                 <div class="product-large-slider">
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
+                                        <img src="assets/img/product/product-details-img1.jpg"
+                                            alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
+                                        <img src="assets/img/product/product-details-img2.jpg"
+                                            alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
+                                        <img src="assets/img/product/product-details-img3.jpg"
+                                            alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
+                                        <img src="assets/img/product/product-details-img4.jpg"
+                                            alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
+                                        <img src="assets/img/product/product-details-img5.jpg"
+                                            alt="product-details" />
                                     </div>
                                 </div>
                                 <div class="pro-nav slick-row-10 slick-arrow-style">
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
+                                        <img src="assets/img/product/product-details-img1.jpg"
+                                            alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
+                                        <img src="assets/img/product/product-details-img2.jpg"
+                                            alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
+                                        <img src="assets/img/product/product-details-img3.jpg"
+                                            alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
+                                        <img src="assets/img/product/product-details-img4.jpg"
+                                            alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
+                                        <img src="assets/img/product/product-details-img5.jpg"
+                                            alt="product-details" />
                                     </div>
                                 </div>
                             </div>
@@ -1208,7 +1086,8 @@
                                         <i class="fa fa-check-circle"></i>
                                         <span>200 in stock</span>
                                     </div>
-                                    <p class="pro-desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
+                                    <p class="pro-desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                                        diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
                                     <div class="quantity-cart-box d-flex align-items-center">
                                         <h6 class="option-title">qty:</h6>
                                         <div class="quantity">
@@ -1220,9 +1099,9 @@
                                     </div>
                                     <div class="useful-links">
                                         <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                            class="pe-7s-refresh-2"></i>compare</a>
+                                                class="pe-7s-refresh-2"></i>compare</a>
                                         <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
-                                            class="pe-7s-like"></i>wishlist</a>
+                                                class="pe-7s-like"></i>wishlist</a>
                                     </div>
                                     <div class="like-icon">
                                         <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
@@ -1323,35 +1202,36 @@
 ============================================ -->
 
     <!-- Modernizer JS -->
-    <script src="{{asset('assets/js/vendor/modernizr-3.6.0.min.js')}}"></script>
+    <script src="{{ asset('assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
     <!-- jQuery JS -->
-    <script src="{{asset('assets/js/vendor/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
     <!-- Bootstrap JS -->
-    <script src="{{asset('assets/js/vendor/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <!-- slick Slider JS -->
-    <script src="{{asset('assets/js/plugins/slick.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/slick.min.js') }}"></script>
     <!-- Countdown JS -->
-    <script src="{{asset('assets/js/plugins/countdown.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/countdown.min.js') }}"></script>
     <!-- Nice Select JS -->
-    <script src="{{asset('assets/js/plugins/nice-select.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/nice-select.min.js') }}"></script>
     <!-- jquery UI JS -->
-    <script src="{{asset('assets/js/plugins/jqueryui.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/jqueryui.min.js') }}"></script>
     <!-- Image zoom JS -->
-    <script src="{{asset('assets/js/plugins/image-zoom.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/image-zoom.min.js') }}"></script>
     <!-- Images loaded JS -->
-    <script src="{{asset('assets/js/plugins/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/imagesloaded.pkgd.min.js') }}"></script>
     <!-- mail-chimp active js -->
-    <script src="{{asset('assets/js/plugins/ajaxchimp.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/ajaxchimp.js') }}"></script>
     <!-- contact form dynamic js -->
-    <script src="{{asset('assets/js/plugins/ajax-mail.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/ajax-mail.js') }}"></script>
     <!-- google map api -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfmCVTjRI007pC1Yk2o2d_EhgkjTsFVN8"></script>
     <!-- google map active js -->
-    <script src="{{asset('assets/js/plugins/google-map.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/google-map.js') }}"></script>
     <!-- Main JS -->
-    <script src="{{asset('assets/js/main.js')}}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 
 
 <!-- Mirrored from htmldemo.net/corano/corano/product-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:00 GMT -->
+
 </html>

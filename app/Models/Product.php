@@ -28,8 +28,14 @@ class Product extends Model
     // Thiết lập quan hệ với model `ProductImg`
     public function productImgs()
     {
-        return $this->hasMany(ProductImg::class);
+        return $this->hasMany(ProductImg::class, 'product_id');
     }
+
+    public function latestImg()
+    {
+        return $this->hasOne(ProductImg::class, 'product_id')->latestOfMany(); // Ảnh mới nhất
+    }
+    
 
     // Thiết lập quan hệ với model `ProductSize`
     public function productSizes()

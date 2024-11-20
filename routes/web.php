@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Client\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('client.index');
 });
+Route::get('/', [ProductController::class,'index'])->name('home');
+
+
+Route::get('/product/{id}', [ProductController::class, 'productDetail'])->name('product_detail');
 
 
 
