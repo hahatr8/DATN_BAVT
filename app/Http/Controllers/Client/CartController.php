@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Cart;
 use App\Models\ProductSize;
 use App\Models\Voucher;
@@ -79,7 +80,7 @@ class CartController extends Controller
 
         $totalAmount = $this->calculateGrandTotal();
 
-        return view('client.pages.cart-checkout.cart', compact('vouchers', 'cartItems', 'totalAmount'));
+        return view('client.cart.cart', compact('vouchers', 'cartItems', 'totalAmount'));
     }
 
 
@@ -226,4 +227,19 @@ class CartController extends Controller
     }
 
 
+    public function checkout()
+    {
+        $userId = 6; // Thay bằng Auth::id() nếu có hệ thống xác thực
+
+        // Lấy các địa chỉ giao hàng của người dùng
+        $addresses = Address::with('user')->where('user_id', $userId)->get();
+
+        // Lấy các sản phẩm trong giỏ hàng
+        $cartItems = Cart::with(['productSize.product'])->where('user_id', $userId)->get();
+
+        // Tính tổng tiền
+        $totalAmount = $this->calculateGrandTotal();
+
+        return view('client.cart.checkout', compact('addresses', 'cartItems', 'totalAmount'));
+    }
 }

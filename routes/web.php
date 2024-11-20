@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('client.index');
+    return view('client.home');
 });
 
 
@@ -39,3 +39,4 @@ Route::put('/cart/update-quantity', [CartController::class, 'updateQuantity'])->
 // Xóa sản phẩm khỏi giỏ hàng
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 
+Route::get('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');

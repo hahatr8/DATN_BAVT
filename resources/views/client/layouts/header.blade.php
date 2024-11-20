@@ -195,7 +195,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <!-- mini cart area end -->
 
