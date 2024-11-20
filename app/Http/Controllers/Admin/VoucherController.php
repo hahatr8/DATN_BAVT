@@ -9,11 +9,45 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User;
 
 class VoucherController extends Controller
+
 {
+    // Danh sách Voucher bình thường
+    // public function index()
+    // {
+    //     $vouchers = Voucher::whereNull('deleted_at')->get();
+    //     $totalVouchers = Voucher::whereNull('deleted_at')->count();
+    //     $trashedVouchers = Voucher::onlyTrashed()->count();
+
+    //     return view('admin.vouchers.index', compact('vouchers', 'totalVouchers', 'trashedVouchers'));
+    // }
     public function index()
     {
-        $vouchers = Voucher::all();
-        return view('admin.vouchers.index', compact('vouchers'));
+        $vouchers = Voucher::whereNull('deleted_at')->paginate(10); // Số bản ghi mỗi trang
+        $totalVouchers = Voucher::whereNull('deleted_at')->count();
+        $trashedVouchers = Voucher::onlyTrashed()->count();
+
+        return view('admin.vouchers.index', compact('vouchers', 'totalVouchers', 'trashedVouchers'));
+    }
+
+
+    // Danh sách Voucher trong thùng rác
+    public function trash()
+    {
+        $title = 'Thùng rác Voucher';
+
+        $trashedVouchers = Voucher::onlyTrashed()->get();
+        $totalTrashedVouchers = Voucher::onlyTrashed()->count();
+
+        return view('admin.vouchers.trash', compact('title', 'trashedVouchers', 'totalTrashedVouchers'));
+    }
+
+    // Phục hồi Voucher từ thùng rác
+    public function restore($id)
+    {
+        $voucher = Voucher::onlyTrashed()->findOrFail($id);
+        $voucher->restore();
+
+        return back()->with(['success' => 'Khôi phục mã giảm giá thành công']);
     }
 
     public function create()
@@ -82,9 +116,11 @@ class VoucherController extends Controller
         return redirect()->route('admin.vouchers.index')->with('success', 'Voucher updated successfully.');
     }
 
+    // Chuyển Voucher vào thùng rác
     public function destroy(Voucher $voucher)
     {
         $voucher->delete();
-        return redirect()->route('admin.vouchers.index')->with('success', 'Voucher deleted successfully.');
+
+        return back()->with(['success' => 'Xóa mã giảm giá thành công']);
     }
 }

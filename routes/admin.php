@@ -17,9 +17,30 @@ Route::prefix('admin')
         // Category
         Route::resource('categories', CategoryController::class);
         //voucher
-        Route::resource('vouchers', VoucherController::class);
+        Route::prefix('vouchers')
+            ->as('vouchers.')
+            ->group(function () {
+                Route::get('/', [VoucherController::class, 'index'])->name('index');
+                Route::get('/trash', [VoucherController::class, 'trash'])->name('trash');
+                Route::post('/restore/{id}', [VoucherController::class, 'restore'])->name('restore');
+                Route::get('/create', [VoucherController::class, 'create'])->name('create');
+                Route::post('/store', [VoucherController::class, 'store'])->name('store');
+                Route::get('/{voucher}/edit', [VoucherController::class, 'edit'])->name('edit');
+                Route::put('/{voucher}', [VoucherController::class, 'update'])->name('update');
+                Route::get('/{voucher}', [VoucherController::class, 'destroy'])->name('destroy');
+            });
         //comment
-        Route::resource('comments', CommentController::class);
+        Route::prefix('comments')
+            ->as('comments.')
+            ->group(function () {
+                Route::get('/', [CommentController::class, 'index'])->name('index');
+                Route::get('/trash', [CommentController::class, 'trash'])->name('trash');
+                Route::post('/restore/{id}', [CommentController::class, 'restore'])->name('restore');
+                Route::get('/create', [CommentController::class, 'create'])->name('create');
+                Route::post('/store', [CommentController::class, 'store'])->name('store');
+                Route::put('/{comment}', [CommentController::class, 'update'])->name('update');
+                Route::get('/{comment}', [CommentController::class, 'destroy'])->name('destroy');
+            });
 
         // Blog
         Route::resource('blogs', BlogController::class);

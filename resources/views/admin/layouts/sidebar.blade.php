@@ -54,7 +54,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarIcons" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarIcons">
-                        <i class="ri-compasses-2-line"></i> <span data-key="t-icons">danh mục sản phẩm</span>
+                        <i class="ri-compasses-2-line"></i> <span data-key="t-icons">Danh mục sản phẩm</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarIcons">
                         <ul class="nav nav-sm flex-column">
