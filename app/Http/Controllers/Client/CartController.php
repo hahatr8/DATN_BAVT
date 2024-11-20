@@ -79,7 +79,7 @@ class CartController extends Controller
 
         $totalAmount = $this->calculateGrandTotal();
 
-        return view('client.pages.cart-checkout.cart', compact('vouchers', 'cartItems', 'totalAmount'));
+        return view('client.cart.cart', compact('vouchers', 'cartItems', 'totalAmount'));
     }
 
 

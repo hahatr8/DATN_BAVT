@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Danh sách sản phẩm
+    {{ $title }}
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Sản phẩm</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">Sản phẩm</a></li>
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
@@ -31,93 +31,91 @@
                         <div>
                             <h5 class="card-title mb-0">Danh sách sản phẩm</h5>
                             <div class="d-flex gap-2">
-                                <span>Tất cả</span>
+                                <span>Tất cả ({{ $totalProducts }})</span>
                                 <div>||</div>
-                                <a href="\">Thùng rác</a>
+                                <a href="{{ route('admin.products.trash') }}">Thùng rác ({{ $trashedProducts }})</a>
                             </div>
                         </div>
-                        <a href="{{ route('admin.products.create') }}"
-                                    class="btn btn-primary">Thêm sản phẩm</a>
-                            </div>
-                        </div>
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
-                        @if (session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-                        <div class="card-body">
-                            <table id="example"
-                                class="table table-bordered dt-responsive nowrap table-striped align-middle"
-                                style="width:100%">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th data-ordering="false">ID</th>
-                                        <th data-ordering="false">Tên</th>
-                                        <th data-ordering="false">Danh mục</th>
-                                        <th data-ordering="false">Hãng</th>
-                                        <th>Ảnh</th>
-                                        <th>Giá</th>
-                                        <th>Lượt xem</th>
-                                        <th>Thao tác</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach ($products as $product)
-                                        <tr>
-                                            <td>{{ $product->id }}</td>
-                                            <td>{{ $product->name }}</td>
-                                            <td>
-                                                {!! $product->categories->pluck('name')->implode('<br>') !!}
-                                            </td>
-                                            <td>{{ $product->brand->name }}</td>
-                                            <td>
-                                                @if ($product->productImgs->isNotEmpty())
-                                                    @php
-                                                        // Lấy ảnh chính
-                                                        $mainImage = $product->productImgs->firstWhere('is_main', true);
-                                                    @endphp
-
-                                                    @if ($mainImage)
-                                                        <img width="150px" height="150px"
-                                                            src="{{ asset('storage/' . $mainImage->img) }}" alt="Ảnh chính"
-                                                            style="object-fit: cover;">
-                                                    @else
-                                                        <p>No main image available</p>
-                                                    @endif
-                                                @else
-                                                    <p>No image available</p>
-                                                @endif
-
-                                            </td>
-                                            <td>{{ $product->price }}</td>
-                                            <td>{{ $product->view }}</td>
-                                            <td>
-                                                <div class="">
-                                                    <a href="{{ route('admin.products.edit', $product) }}"
-                                                        class="btn btn-sm btn-warning">Sửa</a>
-                                                    {{-- <a href="{{ route('admin.products.destroy', $product->id) }}"
-                                                        onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $product->title }} không?')"
-                                                        class="btn btn-sm btn-danger">Xóa</a> --}}
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-
-
-                                </tbody>
-                            </table>
-                        </div>
+                        <a href="{{ route('admin.products.create') }}" class="btn btn-primary">Thêm sản phẩm</a>
                     </div>
+                </div>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                <div class="card-body">
+                    <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
+                        style="width:100%">
+                        <thead class="table-dark">
+                            <tr>
+                                <th data-ordering="false">ID</th>
+                                <th data-ordering="false">Tên</th>
+                                <th data-ordering="false">Danh mục</th>
+                                <th data-ordering="false">Hãng</th>
+                                <th>Ảnh</th>
+                                <th>Giá</th>
+                                <th>Lượt xem</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($products as $product)
+                                <tr>
+                                    <td>{{ $product->id }}</td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>
+                                        {!! $product->categories->pluck('name')->implode('<br>') !!}
+                                    </td>
+                                    <td>{{ $product->brand->name }}</td>
+                                    <td>
+                                        @if ($product->productImgs->isNotEmpty())
+                                            @php
+                                                // Lấy ảnh chính
+                                                $mainImage = $product->productImgs->firstWhere('is_main', true);
+                                            @endphp
+
+                                            @if ($mainImage)
+                                                <img width="150px" height="150px"
+                                                    src="{{ asset('storage/' . $mainImage->img) }}" alt="Ảnh chính"
+                                                    style="object-fit: cover;">
+                                            @else
+                                                <p>No main image available</p>
+                                            @endif
+                                        @else
+                                            <p>No image available</p>
+                                        @endif
+
+                                    </td>
+                                    <td>{{ $product->price }}</td>
+                                    <td>{{ $product->view }}</td>
+                                    <td>
+                                        <div class="">
+                                            <a href="{{ route('admin.products.edit', $product) }}"
+                                                class="btn btn-sm btn-warning">Chỉnh sửa</a>
+                                            <a href="{{ route('admin.products.destroy', $product) }}"
+                                                onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $product->name }} không?')"
+                                                class="btn btn-sm btn-danger">Xóa mềm</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 @endsection
 @section('style-libs')

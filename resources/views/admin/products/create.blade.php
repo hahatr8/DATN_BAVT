@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
+<<<<<<< HEAD
 Thêm mới sản phẩm
 @endsection
 
@@ -9,6 +10,23 @@ Thêm mới sản phẩm
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
             <h4 class="mb-sm-0">{{ $title }}</h4>
+=======
+    {{ $title }}
+@endsection
+
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">{{ $title }}</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">Sản phẩm</a></li>
+                        <li class="breadcrumb-item active">{{ $title }}</li>
+                    </ol>
+                </div>
+>>>>>>> 73caf5cdf26e90fdb187db82716cf0639e5187c3
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
@@ -230,12 +248,19 @@ Thêm mới sản phẩm
                             </td>
                         </tr>
 
+<<<<<<< HEAD
                     </tbody>
                 </table>
                 <button type="button" id="addRow" class="btn btn-sm btn-success mt-3">
                     <i class="bi bi-plus-circle"></i> Thêm Size Mới
                 </button>
             </div>
+=======
+
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary">Thêm Mới Sản Phẩm</button>
+            <a class="btn btn-warning ms-5" href="{{ route('admin.products.index') }}">Trở về</a>
+>>>>>>> 73caf5cdf26e90fdb187db82716cf0639e5187c3
         </div>
     </div>
 

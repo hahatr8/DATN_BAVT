@@ -23,17 +23,29 @@ class ProductController extends Controller
     public function index()
     {
         $title = "Danh sách Sản Phẩm";
-        $products = Product::with(['categories', 'brand', 'productImgs'])->get();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('title', 'products'));
+        $products = Product::whereNull('deleted_at')->with(['categories', 'brand', 'productImgs'])->get();
+        $totalProducts = Product::whereNull('deleted_at')->count();
+        $trashedProducts = Product::onlyTrashed()->count();
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('title', 'products', 'totalProducts', 'trashedProducts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+    public function trash()
+    {
+        $title = 'Thùng rác';
+
+        $trashedProducts = Product::with(['categories', 'brand', 'productImgs'])->onlyTrashed()->get();
+        $totalTrashedProducts = Product::onlyTrashed()->count();
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('title', 'trashedProducts', 'totalTrashedProducts'));
+    }
+
+
     public function create()
     {
-        $title = "Thêm sản phẩm";
+        $title = "Thêm mới sản phẩm";
 
         $categories = Category::pluck('name', 'id');
         $brands = Brand::pluck('name', 'id');
@@ -112,9 +124,7 @@ class ProductController extends Controller
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Product $product)
     {
         $title = "Chỉnh sửa sản phẩm";
@@ -261,6 +271,22 @@ class ProductController extends Controller
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }
+    }
+
+
+    public function destroy(Product $product)
+    {
+        $product->delete();
+
+        return back()->with(['success' => 'Xóa sản phẩm thành công']);
+    }
+
+    public function restore($id)
+    {
+        $product = Product::onlyTrashed()->findOrFail($id);
+        $product->restore();
+
+        return back()->with(['success' => 'Khôi phục sản phẩm thành công']);
     }
 
 }

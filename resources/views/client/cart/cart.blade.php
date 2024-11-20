@@ -40,6 +40,7 @@
 <body>
     <!-- Start Header Area -->
     <header class="header-area header-wide">
+<<<<<<< HEAD:resources/views/client/cart/cart.blade.php
         <!-- main header start -->
         <div class="main-header d-none d-lg-block">
             <!-- header top start -->
@@ -506,6 +507,9 @@
         </aside>
         <!-- off-canvas menu end -->
         <!-- offcanvas mobile menu end -->
+=======
+        @include('client.components.header');
+>>>>>>> ede3cf8d0c6f105342fd048b45dd4923fa151576:resources/views/client/pages/cart-checkout/cart.blade.php
     </header>
     <!-- end Header Area -->
 
@@ -857,6 +861,7 @@
 
     <!-- footer area start -->
     <footer class="footer-widget-area">
+<<<<<<< HEAD:resources/views/client/cart/cart.blade.php
         <div class="footer-top section-padding">
             <div class="container">
                 <div class="row">
@@ -956,6 +961,9 @@
                 </div>
             </div>
         </div>
+=======
+        @include('client.components.footer');
+>>>>>>> ede3cf8d0c6f105342fd048b45dd4923fa151576:resources/views/client/pages/cart-checkout/cart.blade.php
     </footer>
     <!-- footer area end -->
 

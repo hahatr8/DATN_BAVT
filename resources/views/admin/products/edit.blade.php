@@ -1,8 +1,9 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Chỉnh sửa sản phẩm
+    {{ $title }}
 @endsection
+
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -11,7 +12,7 @@
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Sản phẩm</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">Sản phẩm</a></li>
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
@@ -185,8 +186,8 @@
                                                 value="{{ $image->id }}">
                                         </td>
                                         <td class="d-flex align-items-center">
-                                            <img alt="Hình ảnh sản phẩm" class="me-3"
-                                                style="width: 150px" src="{{ asset('storage/' . $image->img) }}">
+                                            <img alt="Hình ảnh sản phẩm" class="me-3" style="width: 150px"
+                                                src="{{ asset('storage/' . $image->img) }}">
                                         </td>
                                     </tr>
                                 @endforeach
@@ -292,7 +293,7 @@
                                     <td>
                                         <!-- Checkbox để chọn xóa size -->
                                         <input type="checkbox" name="deleted_sizes[]" class="delete-checkbox"
-                                        value="{{ $size->id }}">
+                                            value="{{ $size->id }}">
                                     </td>
                                 </tr>
                             @endforeach
@@ -308,6 +309,7 @@
 
         <div class="d-flex justify-content-center mt-4">
             <button type="submit" class="btn btn-primary">Cập nhật sản phẩm</button>
+            <a class="btn btn-warning ms-5" href="{{ route('admin.products.index') }}">Trở về</a>
         </div>
     </form>
 @endsection
