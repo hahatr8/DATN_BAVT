@@ -544,104 +544,27 @@
                                 <div class="col-lg-5">
                                     <div class="product-large-slider">
                                         <div class="pro-large-img img-zoom">
-                                            <img src="../../images/{{ $productDetail->productImgs->first()->img ?? '/images/default.jpg' }}"
-                                                alt="{{ $productDetail->name }}" class="main-image">
-
-                                            <!-- Ảnh chính với link -->
-
-
-                                            <!-- Ảnh hover với link -->
-
-
-                                            {{-- <!-- Album ảnh -->
-                                                @if ($albumImages->isNotEmpty())
-                                                    <div class="album-images">
-                                                        @foreach ($albumImages as $image)
-                                                            <a href="{{ route('product.album', ['image_id' => $image->id]) }}">
-                                                                <img src="{{ $image->img }}" alt="Album Image" class="album-image">
-                                                            </a>
-                                                        @endforeach
-                                                    </div>
-                                                @else
-                                                    <p>Không có ảnh trong album.</p>
-                                                @endif --}}
-
-
+                                            <img src="../../images/{{ $productDetail->productImgs->first()->img ?? '/images/default.jpg' }}" 
+                                                 alt="{{ $productDetail->name }}" class="main-image">
                                         </div>
-                                        {{-- <div class="pro-large-img img-zoom">
-                                            <img src="assets/img/product/product-details-img2.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-large-img img-zoom">
-                                            <img src="assets/img/product/product-details-img3.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-large-img img-zoom">
-                                            <img src="assets/img/product/product-details-img4.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-large-img img-zoom">
-                                            <img src="assets/img/product/product-details-img5.jpg"
-                                                alt="product-details" />
-                                        </div> --}}
                                     </div>
-                                    {{-- <div class="pro-nav slick-row-10 slick-arrow-style">
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img1.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img2.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img3.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img4.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                        <div class="pro-nav-thumb">
-                                            <img src="assets/img/product/product-details-img5.jpg"
-                                                alt="product-details" />
-                                        </div>
-                                    </div> --}}
                                 </div>
+                        
                                 <div class="col-lg-7">
                                     <div class="product-details-des">
-                                        {{-- <div class="manufacturer-name">
-                                            <a href="product-details.html">HasTech</a>
-                                        </div> --}}
                                         <h3 class="product-name">{{ $productDetail->name }}</h3>
-                                        <div class="ratings d-flex">
-                                            {{-- <span><i class="fa fa-star-o"></i></span>
-                                            <span><i class="fa fa-star-o"></i></span>
-                                            <span><i class="fa fa-star-o"></i></span>
-                                            <span><i class="fa fa-star-o"></i></span>
-                                            <span><i class="fa fa-star-o"></i></span>
-                                            <div class="pro-review">
-                                                <span>1 Reviews</span>
-                                            </div> --}}
-                                        </div>
                                         <div class="price-box">
-                                            <span class="price-regular">{{ $productDetail->price }}</span>
-                                            {{-- <span class="price-old"><del>$90.00</del></span> --}}
+                                            <span class="price-regular">${{ $productDetail->price }}</span>
                                         </div>
-                                        {{-- <h5 class="offer-text"><strong>Hurry up</strong>! offer ends in:</h5>
-                                        <div class="product-countdown" data-countdown="2022/12/20"></div> --}}
+                        
                                         <div class="availability">
-                                            <?php
-                                            if ($productDetail->status == 1) {
-                                                echo '<i class="fa fa-check-circle"></i>
-                                                                                                                                                                                                                                                                                    <span>Available</span>';
-                                            } elseif ($productDetail->status == 0) {
-                                                echo '<i class="fa fa-ban"></i>
-                                                                                                                                                                                                                                                                                    <span>Unavailable</span>';
-                                            }
-                                            ?>
+                                            <p class="{{ $isAvailable ? 'text-success' : 'text-danger' }}">
+                                                {{ $isAvailable ? 'Còn hàng' : 'Hết hàng' }}
+                                            </p>
                                         </div>
+                        
                                         <p class="pro-desc">{{ $productDetail->description }}</p>
+                        
                                         <div class="quantity-cart-box d-flex align-items-center">
                                             <h6 class="option-title">qty:</h6>
                                             <div class="quantity">
@@ -651,56 +574,32 @@
                                                 <a class="btn btn-cart2" href="#">Add to cart</a>
                                             </div>
                                         </div>
+                        
                                         <div class="pro-size">
                                             <h6 class="option-title">size :</h6>
                                             @if ($productDetail->productSizes->isNotEmpty())
-                                                <select name="size" id="product-size" class="form-select">
-                                                    <option value="">Size</option>
-                                                    @foreach ($productDetail->productSizes as $size)
-                                                        <option value="{{ $size->id }}">
-                                                            {{ $size->variant }} 
+                                                <div class="product-sizes">
+                                                    <select id="size-select">
+                                                        @foreach ($productDetail->productSizes as $size)
+                                                            <option value="{{ $size->id }}" >
+                                                                {{ $size->variant }} - {{$size->quantity}}
                                                             </option>
-                                                    @endforeach
-                                                </select>
+                                                        @endforeach
+                                                    </select>
+                                                    
+                                                </div>
                                             @else
-                                                <p>Sản phẩm này hiện không có kích thước nào.</p>
+                                                <p>Sản phẩm này hiện không có size nào khả dụng.</p>
                                             @endif
                                         </div>
-                                        {{-- <div class="color-option">
-                                            <h6 class="option-title">color :</h6>
-                                            <ul class="color-categories">
-                                                <li>
-                                                    <a class="c-lightblue" href="#" title="LightSteelblue"></a>
-                                                </li>
-                                                <li>
-                                                    <a class="c-darktan" href="#" title="Darktan"></a>
-                                                </li>
-                                                <li>
-                                                    <a class="c-grey" href="#" title="Grey"></a>
-                                                </li>
-                                                <li>
-                                                    <a class="c-brown" href="#" title="Brown"></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="useful-links">
-                                            <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                                    class="pe-7s-refresh-2"></i>compare</a>
-                                            <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
-                                                    class="pe-7s-like"></i>wishlist</a>
-                                        </div>
-                                        <div class="like-icon">
-                                            <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
-                                            <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
-                                            <a class="pinterest" href="#"><i
-                                                    class="fa fa-pinterest"></i>save</a>
-                                            <a class="google" href="#"><i
-                                                    class="fa fa-google-plus"></i>share</a>
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
+                       
+                        
+                        
                         <!-- product details inner end -->
 
                         <!-- product details reviews start -->
@@ -865,11 +764,11 @@
                                             <div class="product-image-wrapper">
                                                 @if ($product->mainImage)
                                                     <img src="../../images/{{ $product->mainImage->img }}"
-                                                        alt="{{ $product->name }}" class="main-image">
+                                                        alt="{{ $product->name }}" class="pri-img">
                                                 @endif
                                                 @if ($product->hoverImage)
                                                     <img src="../../images/{{ $product->hoverImage->img }}"
-                                                        alt="{{ $product->name }}" class="hover-image">
+                                                        alt="{{ $product->name }}" class="sec-img">
                                                 @endif
                                             </div>
                                         </a>
@@ -1201,6 +1100,8 @@
 
     <!-- JS
 ============================================ -->
+
+
 
     <!-- Modernizer JS -->
     <script src="{{ asset('assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>

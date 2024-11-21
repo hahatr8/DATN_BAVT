@@ -84,43 +84,128 @@ class ProductController extends Controller
 //     return view('client.pages.product_detail', compact('productDetail'));
 // }
 
+// public function productDetail($id)
+// {
+//     $productDetail = Product::with([
+//         'productImgs' => function ($query) {
+//             $query->orderBy('created_at', 'asc');
+//         },
+//         'productSizes' // Load danh sách size
+//     ])
+//     ->where('id', $id)
+//     ->first();
+
+//     if (!$productDetail) {
+//         abort(404, 'Sản phẩm không tồn tại.');
+//     }
+
+//     // Lấy sản phẩm cùng loại
+//     $relatedProducts = Product::with([
+//         'productImgs' => function ($query) {
+//             $query->orderBy('created_at', 'asc');
+//         }
+//     ])
+//     ->where('brand_id', $productDetail->brand_id) // Cùng loại sản phẩm
+//     ->where('id', '!=', $id) // Loại bỏ sản phẩm hiện tại
+//     ->limit(5) // Giới hạn số lượng sản phẩm
+//     ->get();
+
+//     // Phân loại ảnh cho sản phẩm liên quan
+//     $relatedProducts = $relatedProducts->map(function ($product) {
+//         $images = $product->productImgs;
+//         $product->mainImage = $images->first();
+//         $product->hoverImage = $images->skip(1)->first();
+//         return $product;
+//     });
+
+//     return view('client.products.product-detail', compact('productDetail', 'relatedProducts'));
+// }
+// 
 public function productDetail($id)
 {
+    // Lấy chi tiết sản phẩm, bao gồm ảnh và danh sách size
     $productDetail = Product::with([
         'productImgs' => function ($query) {
-            $query->orderBy('created_at', 'asc');
+            $query->orderBy('created_at', 'asc'); // Sắp xếp ảnh theo thời gian thêm
         },
-        'productSizes' // Load danh sách size
-    ])
-    ->where('id', $id)
-    ->first();
+        'productSizes' // Load danh sách size (variant)
+    ])->where('id', $id)->first();
 
     if (!$productDetail) {
         abort(404, 'Sản phẩm không tồn tại.');
     }
 
-    // Lấy sản phẩm cùng loại
+    // Kiểm tra trạng thái còn hàng
+    $isAvailable = $productDetail->productSizes->sum('quantity') > 0;
+
+    // Lấy sản phẩm cùng loại (cùng thương hiệu)
     $relatedProducts = Product::with([
         'productImgs' => function ($query) {
-            $query->orderBy('created_at', 'asc');
+            $query->orderBy('created_at', 'asc'); // Sắp xếp ảnh
         }
     ])
-    ->where('brand_id', $productDetail->brand_id) // Cùng loại sản phẩm
+    ->where('brand_id', $productDetail->brand_id) // Cùng thương hiệu
     ->where('id', '!=', $id) // Loại bỏ sản phẩm hiện tại
-    ->limit(5) // Giới hạn số lượng sản phẩm
+    ->limit(5) // Giới hạn 5 sản phẩm liên quan
     ->get();
 
     // Phân loại ảnh cho sản phẩm liên quan
     $relatedProducts = $relatedProducts->map(function ($product) {
         $images = $product->productImgs;
-        $product->mainImage = $images->first();
-        $product->hoverImage = $images->skip(1)->first();
+        $product->mainImage = $images->first(); // Ảnh chính
+        $product->hoverImage = $images->skip(1)->first(); // Ảnh hover
         return $product;
     });
 
-    return view('client.products.product-detail', compact('productDetail', 'relatedProducts'));
+    return view('client.products.product-detail', compact('productDetail', 'relatedProducts', 'isAvailable'));
 }
 
+
+
+
+
+// public function list(Request $request)
+// {
+//     // Lấy tất cả danh mục
+//     $categories = Category::all();
+
+//     // Lấy category_id từ request
+//     $categoryId = $request->get('category_id');
+
+//     // Truy vấn sản phẩm theo category_id nếu có, nếu không lấy tất cả sản phẩm
+//     $query = Product::with(['productImgs' => function ($query) {
+//         $query->select('id', 'product_id', 'img', 'created_at') // Thêm `created_at` để sắp xếp
+//               ->orderBy('created_at', 'asc'); // Sắp xếp ảnh theo thời gian
+//     }]);
+
+//     if ($categoryId) {
+//         // Nếu có category_id, lọc sản phẩm theo category_id
+//         $query->whereHas('categories', function ($query) use ($categoryId) {
+//             $query->where('category_id', $categoryId); // Lọc các sản phẩm thuộc danh mục này
+//         });
+//     }
+
+//     // Lấy tất cả sản phẩm thỏa mãn điều kiện
+//     $products = $query->get(['id', 'name', 'description', 'price']); // Chỉ lấy các cột cần thiết
+
+//     // Phân loại ảnh cho từng sản phẩm
+//     $products = $products->map(function ($product) {
+//         $images = $product->productImgs;
+
+//         // Ảnh chính (first)
+//         $product->mainImage = $images->first();
+
+//         // Ảnh hover (second image)
+//         $product->hoverImage = $images->skip(1)->first();
+
+//         // Album ảnh (các ảnh còn lại)
+//         $product->albumImages = $images->skip(2);
+
+//         return $product;
+//     });
+
+//     return view('client.products.list-product', compact('categories', 'products', 'categoryId'));
+// }
 public function list(Request $request)
 {
     // Lấy tất cả danh mục
@@ -142,11 +227,11 @@ public function list(Request $request)
         });
     }
 
-    // Lấy tất cả sản phẩm thỏa mãn điều kiện
-    $products = $query->get(['id', 'name', 'description', 'price']); // Chỉ lấy các cột cần thiết
+    // Lấy sản phẩm với phân trang, ví dụ 12 sản phẩm mỗi trang
+    $products = $query->paginate(12); // Dùng paginate thay cho get
 
     // Phân loại ảnh cho từng sản phẩm
-    $products = $products->map(function ($product) {
+    $products->getCollection()->transform(function ($product) {
         $images = $product->productImgs;
 
         // Ảnh chính (first)
