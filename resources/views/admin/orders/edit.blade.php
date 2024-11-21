@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
 
 @section('title', 'Cập nhật trạng thái đơn hàng')
 

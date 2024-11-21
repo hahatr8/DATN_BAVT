@@ -16,7 +16,7 @@ class CreateAddressesTable extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id(); // Cột id tự tăng
-            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->string('address'); // Tên người nhận
             $table->string('city'); // Tên người nhận
             $table->string('District'); // Số điện thoại người nhận

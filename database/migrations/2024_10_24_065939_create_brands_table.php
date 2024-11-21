@@ -20,6 +20,7 @@ class CreateBrandsTable extends Migration
             $table->text('description')->nullable(); // Mô tả thương hiệu (có thể để trống)
             $table->boolean('status')->default(false);
             $table->string('logo')->nullable(); // Đường dẫn đến logo của thương hiệu (có thể để trống)
+            $table->softDeletes();
             $table->timestamps(); // Tạo cột created_at và updated_at
         });
     }

@@ -23,7 +23,8 @@ class CreateProductsTable extends Migration
             $table->integer('price'); // Giá sản phẩm 
             $table->boolean('status')->default(false);
             $table->text('content')->nullable(); // Mô tả sản phẩm
-            $table->foreignIdFor(Brand::class)->constrained(); 
+            $table->foreignIdFor(Brand::class)->constrained()->onDelete('cascade'); 
+            $table->softDeletes();
             $table->timestamps(); // Tạo cột created_at và updated_at
         });
     }

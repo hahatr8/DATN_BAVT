@@ -56,6 +56,7 @@
                         <div class="col">
 
                             <div class="h-100">
+                                
                                 @yield('content')
 
                             </div> <!-- end .h-100-->

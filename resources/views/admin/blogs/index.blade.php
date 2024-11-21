@@ -1,4 +1,5 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
+
 
 @section('title')
     Danh sách Blog
@@ -32,7 +33,14 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Danh sách</h5>
+                    <div class="">
+                        <h5 class="card-title mb-0">Danh sách</h5>
+                        <div class="d-flex gap-2">
+                            <span>Tất cả ({{ $totalBlogs }})</span>
+                            <div>||</div>
+                            <a href="{{ route('admin.blog.trash') }}">Thùng rác ({{ $trashedBlogs }})</a>
+                        </div>
+                    </div>
                     <a href="{{ route('admin.blogs.create') }}" class="btn btn-primary">Thêm mới</a>
                 </div>
                 <div class="card-body">
@@ -58,26 +66,22 @@
                                         <img src="{{ \Storage::url($blogs->img) }}" width="50px" alt="">
                                     </td>
                                     <td>
-                                        @if ($blogs->status == 0)
-                                            <p>Hiển thị</p>
+                                        @if ($blogs->status == 1)
+                                            <span class="badge bg-success">Hiển thị</span>
                                         @else
-                                            <p>Ẩn</p>
+                                            <span class="badge bg-danger">Ẩn</span>
                                         @endif
                                     </td>
                                     <td>{{ $blogs->created_at }}</td>
                                     <td>{{ $blogs->updated_at }}</td>
                                     <td>
-                                        <a href="{{ route('admin.blogs.show', $blogs) }}" class="btn btn-info">Xem chi
+                                        <a href="{{ route('admin.blogs.show', $blogs) }}" class="btn btn-sm btn-info">Xem chi
                                             tiết</a>
                                         <a href="{{ route('admin.blogs.edit', $blogs) }}"
-                                            class="btn btn-warning mt-2 mb-2">Chỉnh sửa</a>
-
-                                        <form action="{{ route('admin.blogs.destroy', $blogs) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger"
-                                                onclick="return confirm('Bạn có chắc muốn xóa không')">Xóa</button>
-                                        </form>
+                                            class="btn btn-sm btn-warning mt-2 mb-2">Chỉnh sửa</a>
+                                            <a href="{{ route('admin.blog.softDestruction', $blogs) }}"
+                                            onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $blogs->title }} không?')"
+                                            class="btn btn-sm btn-danger">Xóa mềm</a>                                 
                                     </td>
                                 </tr>
                             @endforeach

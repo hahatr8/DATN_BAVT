@@ -14,6 +14,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->string('display_order')->nullable(); // Sửa lỗi từ `display_oder` thành `display_order`
             $table->boolean('status')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
