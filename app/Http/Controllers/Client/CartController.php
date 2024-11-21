@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Cart;
 use App\Models\ProductSize;
 use App\Models\Voucher;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,7 @@ class CartController extends Controller
 {
     private function calculateGrandTotal()
     {
-        $cartItems = Cart::where('user_id', 1)->get();
+        $cartItems = Cart::where('user_id', Auth::id())->get();
         $grandTotal = 0;
 
         foreach ($cartItems as $item) {
@@ -64,10 +65,8 @@ class CartController extends Controller
 
     public function showCart()
     {
-        // $user = auth()->user();
-
         // Lấy các voucher mà người dùng có thể sử dụng
-        $vouchers = Voucher::where('user_id', 1) // Lọc các voucher của người dùng hiện tại
+        $vouchers = Voucher::where('user_id', Auth::id()) // Lọc các voucher của người dùng hiện tại
             ->where('quantity', '>', 0)                       // Chỉ lấy voucher còn số lượng
             ->where('status', 1)                                     // Chỉ lấy voucher có status = 1
             ->where('start_date', '<=', now())                // Voucher phải có start_date <= thời gian hiện tại
@@ -76,7 +75,7 @@ class CartController extends Controller
 
 
         // Lấy giỏ hàng của người dùng
-        $cartItems = Cart::where('user_id', 1)->get();
+        $cartItems = Cart::where('user_id', Auth::id())->get();
 
         $totalAmount = $this->calculateGrandTotal();
 
@@ -100,7 +99,7 @@ class CartController extends Controller
                 }
 
                 // Kiểm tra sản phẩm có trong giỏ hàng chưa
-                $cartItem = Cart::where('user_id', 1) // Thay '1' bằng Auth::id() nếu có hệ thống đăng nhập
+                $cartItem = Cart::where('user_id', Auth::id())
                     ->where('product_size_id', $request->product_size_id)
                     ->first();
 
@@ -133,7 +132,6 @@ class CartController extends Controller
     }
 
 
-
     public function updateQuantity(Request $request)
     {
         try {
@@ -143,7 +141,7 @@ class CartController extends Controller
             $quantities = $request->input('quantities', []);
 
             // Lấy danh sách các sản phẩm trong giỏ hàng liên quan
-            $cartItems = Cart::where('user_id', 1)
+            $cartItems = Cart::where('user_id', Auth::id())
                 ->whereIn('id', array_keys($quantities))
                 ->get();
 
@@ -180,7 +178,6 @@ class CartController extends Controller
     {
         try {
             $voucherId = $request->input('voucher_id');
-            $userId = 1; // Hoặc Auth::id()
 
             // Lấy thông tin voucher
             $voucher = Voucher::find($voucherId);
@@ -189,7 +186,7 @@ class CartController extends Controller
             }
 
             // Lấy giỏ hàng
-            $cartItems = Cart::where('user_id', $userId)->get();
+            $cartItems = Cart::where('user_id', Auth::id())->get();
             if ($cartItems->isEmpty()) {
                 throw new \Exception('Giỏ hàng rỗng.');
             }
@@ -216,7 +213,6 @@ class CartController extends Controller
 
     public function remove($id)
     {
-        // Tìm và xóa sản phẩm trong giỏ hàng
         $cartItem = Cart::find($id);
         if ($cartItem) {
             $cartItem->delete();
@@ -227,15 +223,14 @@ class CartController extends Controller
     }
 
 
+
     public function checkout()
     {
-        $userId = 6; // Thay bằng Auth::id() nếu có hệ thống xác thực
-
         // Lấy các địa chỉ giao hàng của người dùng
-        $addresses = Address::with('user')->where('user_id', $userId)->get();
+        $addresses = Address::with('user')->where('user_id', Auth::id())->get();
 
         // Lấy các sản phẩm trong giỏ hàng
-        $cartItems = Cart::with(['productSize.product'])->where('user_id', $userId)->get();
+        $cartItems = Cart::with(['productSize.product'])->where('user_id', Auth::id())->get();
 
         // Tính tổng tiền
         $totalAmount = $this->calculateGrandTotal();

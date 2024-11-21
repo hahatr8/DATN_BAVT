@@ -47,15 +47,18 @@
                                             <tr>
                                                 <td>
                                                     <div class="custom-control custom-radio">
-                                                        <input type="radio" id="address-{{ $address->id }}" name="address_id"
-                                                            class="custom-control-input" value="{{ $address->id }}"
+                                                        <input type="radio" id="address-{{ $address->id }}"
+                                                            name="address_id" class="custom-control-input"
+                                                            value="{{ $address->id }}"
                                                             {{ $address->is_default ? 'checked' : '' }}>
-                                                        <label class="custom-control-label" for="address-{{ $address->id }}"></label>
+                                                        <label class="custom-control-label"
+                                                            for="address-{{ $address->id }}"></label>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    {{ $address->address }}, Huyện {{ $address->District }}, Thành phố {{ $address->city }},
-                                                     Quốc gia {{ $address->country }}
+                                                    {{ $address->address }}, Huyện {{ $address->District }}, Thành phố
+                                                    {{ $address->city }},
+                                                    Quốc gia {{ $address->country }}
                                                 </td>
                                                 <td>{{ $address->user->email }}</td>
                                                 <td>{{ $address->user->phone }}</td>
@@ -64,60 +67,85 @@
                                     </tbody>
                                 </table>
 
-                                <!-- Nút Thêm địa chỉ mới -->
-                                <div class="single-input-item mt-3 text-center">
-                                    <a href="" class="btn btn-primary btn-sm">Thêm địa chỉ mới</a>
+                                <div class="checkout-box-wrap">
+                                    <div class="single-input-item">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="ship_to_different">
+                                            <label class="custom-control-label" for="ship_to_different">Thêm địa chỉ mới
+                                                !</label>
+                                        </div>
+                                    </div>
+                                    <div class="ship-to-different single-form-row">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="single-input-item">
+                                                    <label for="f_name_2" class="required">First Name</label>
+                                                    <input type="text" id="f_name_2" placeholder="First Name"
+                                                        required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="single-input-item">
+                                                    <label for="l_name_2" class="required">Last Name</label>
+                                                    <input type="text" id="l_name_2" placeholder="Last Name" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="single-input-item">
+                                            <label for="email_2" class="required">Email Address</label>
+                                            <input type="email" id="email_2" placeholder="Email Address" required />
+                                        </div>
+
+                                        <div class="single-input-item">
+                                            <label for="com-name_2">Company Name</label>
+                                            <input type="text" id="com-name_2" placeholder="Company Name" />
+                                        </div>
+
+                                        <div class="single-input-item">
+                                            <label for="country_2" class="required">Country</label>
+                                            <select name="country" id="country_2">
+                                                <option value="Bangladesh">Bangladesh</option>
+                                                <option value="India">India</option>
+                                                <option value="Pakistan">Pakistan</option>
+                                                <option value="England">England</option>
+                                                <option value="London">London</option>
+                                                <option value="London">London</option>
+                                                <option value="Chaina">Chaina</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="single-input-item">
+                                            <label for="street-address_2" class="required mt-20">Street address</label>
+                                            <input type="text" id="street-address_2" placeholder="Street address Line 1"
+                                                required />
+                                        </div>
+
+                                        <div class="single-input-item">
+                                            <input type="text" placeholder="Street address Line 2 (Optional)" />
+                                        </div>
+
+                                        <div class="single-input-item">
+                                            <label for="town_2" class="required">Town / City</label>
+                                            <input type="text" id="town_2" placeholder="Town / City" required />
+                                        </div>
+
+                                        <div class="single-input-item">
+                                            <label for="state_2">State / Divition</label>
+                                            <input type="text" id="state_2" placeholder="State / Divition" />
+                                        </div>
+
+                                        <div class="single-input-item">
+                                            <label for="postcode_2" class="required">Postcode / ZIP</label>
+                                            <input type="text" id="postcode_2" placeholder="Postcode / ZIP"
+                                                required />
+                                        </div>
+                                    </div>
                                 </div>
+
                             </form>
                         </div>
-
-                        <!-- Các CSS tùy chỉnh -->
-                        <style>
-                            .billing-form-wrap {
-                                padding-top: 20px;
-                            }
-
-                            .table {
-                                margin-bottom: 1.5rem;
-                                border: 1px solid #ddd;
-                            }
-
-                            .table th, .table td {
-                                vertical-align: middle;
-                                text-align: center;
-                            }
-
-                            .table-striped tbody tr:nth-of-type(odd) {
-                                background-color: #c29958;
-                            }
-
-                            .custom-control-label {
-                                font-size: 1.1rem;
-                                font-weight: 500;
-                            }
-
-                            .badge {
-                                font-size: 0.9rem;
-                                padding: 0.3em 0.6em;
-                            }
-
-                            .btn-primary {
-                                background-color: #007bff;
-                                border-color: #007bff;
-                                padding: 0.5em 1.2em;
-                                font-size: 1rem;
-                                text-transform: uppercase;
-                            }
-
-                            .btn-primary:hover {
-                                background-color: #0056b3;
-                                border-color: #0056b3;
-                            }
-
-                            .text-center {
-                                text-align: center;
-                            }
-                        </style>
 
                     </div>
                 </div>
@@ -196,4 +224,53 @@
         </div>
     </div>
     <!-- checkout main wrapper end -->
+
+    <!-- Các CSS tùy chỉnh -->
+    <style>
+        .billing-form-wrap {
+            padding-top: 20px;
+        }
+
+        .table {
+            margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #f7f7f7;
+        }
+
+        .custom-control-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .badge {
+            font-size: 0.9rem;
+            padding: 0.3em 0.6em;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 0.5em 1.2em;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
 @endsection
