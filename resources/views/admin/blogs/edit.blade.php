@@ -6,11 +6,6 @@
 @endsection
 
 @section('content')
-    @if (session()->has('success'))
-        <div class="alert alert-success">
-            {{ session()->get('success') }}
-        </div>
-    @endif
 
     <div class="row">
         <div class="col-12">
@@ -27,6 +22,38 @@
             </div>
         </div>
     </div>
+
+    @if ($errors->any() || session('error'))
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        @if ($errors->any())
+                            <div class="alert alert-danger" style="width: 100%;">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @if (session('error'))
+                            <div class="alert alert-danger" style="width: 100%;">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
 
 
     <form action="{{ route('admin.blogs.update', $blog->id) }}" method="POST" enctype="multipart/form-data">
@@ -52,6 +79,8 @@
                                         <label for="" class="form-label">Hình ảnh:</label>
                                         <input type="file" class="form-control" id="img" name="img">
                                         <img src="{{ \Storage::url($blog->img) }}" width="50px" alt="">
+
+                                        <input type="hidden" name="img_url" value="{{ $blog->img }}">
                                     </div>
                                     <div>
                                         <label for="" class="form-label">Nội dung:</label>
@@ -65,8 +94,9 @@
                                         <div class="col-md-4">
                                             <div class="form-check form-switch form-switch-secondary">
                                                 <label for="SwitchCheck2" class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" value="1" role="switch"
-                                                        @if ($category->status) checked @endif name="status" id="SwitchCheck2"> ẩn/hiện danh mục
+                                                    <input type="checkbox" class="form-check-input" value="1"
+                                                        role="switch" @if ($blog->status) checked @endif
+                                                        name="status" id="SwitchCheck2"> ẩn/hiện danh mục
                                                 </label>
                                             </div>
                                         </div>
@@ -89,7 +119,8 @@
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
                         <button class="btn btn-primary" type="submit">Lưu</button>
-                        <button type="button" class="btn btn-info m-3"><a href="{{ route('admin.blogs.index') }}">Q/L Trang
+                        <button type="button" class="btn btn-info m-3"><a href="{{ route('admin.blogs.index') }}">Q/L
+                                Trang
                                 chủ</a></button>
                     </div><!-- end card header -->
                 </div>
