@@ -57,8 +57,28 @@
                                 <tbody>
                                     @foreach ($cartItems as $item)
                                         <tr>
-                                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
-                                                        src="assets/img/product/product-1.jpg" alt="Product" /></a></td>
+                                            <td class="pro-thumbnail"><a href="#">
+                                                    @if ($item->productSize->product->productImgs->isNotEmpty())
+                                                        @php
+                                                            // Lấy ảnh chính
+                                                            $mainImage = $item->productSize->product->productImgs->firstWhere(
+                                                                'is_main',
+                                                                true,
+                                                            );
+                                                        @endphp
+
+                                                        @if ($mainImage)
+                                                            <img width="100px" height="100px"
+                                                                src="{{ asset('storage/' . $mainImage->img) }}"
+                                                                alt="Ảnh chính" style="object-fit: cover;">
+                                                        @else
+                                                            <p>No main image available</p>
+                                                        @endif
+                                                    @else
+                                                        <p>No image available</p>
+                                                    @endif
+                                                </a>
+                                            </td>
                                             <td class="pro-title"><a
                                                     href="#">{{ $item->productSize->product->name }}</a>
                                             </td>
@@ -105,27 +125,30 @@
                         </div>
 
                         <!-- Cart Update Option -->
-                        <div class="cart-update-option d-block d-md-flex justify-content-between">
-                            <div class="apply-coupon-wrapper">
-                                <form action="{{ route('cart.applyVoucher') }}" method="POST" id="applyVoucherForm"
-                                    class="d-block d-md-flex align-items-center">
-                                    @csrf
-                                    <div class="d-flex align-items-center">
-                                        <select name="voucher_id" id="voucher" class="form-control custom-select">
-                                            <option value="">Chọn Voucher :</option>
-                                            @foreach ($vouchers as $voucher)
-                                                <option value="{{ $voucher->id }}">
-                                                    {{ $voucher->E_vorcher }} - Giảm {{ $voucher->discount }} %
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-sqr mt-3 mt-md-0 ml-md-3">
-                                        Áp Dụng
-                                    </button>
-                                </form>
+                        @if ($totalAmount > 0)
+                            <div class="cart-update-option d-block d-md-flex justify-content-between">
+                                <div class="apply-coupon-wrapper">
+                                    <form action="{{ route('cart.applyVoucher') }}" method="POST" id="applyVoucherForm"
+                                        class="d-block d-md-flex align-items-center">
+                                        @csrf
+                                        <div class="d-flex align-items-center">
+                                            <select name="voucher_id" id="voucher" class="form-control custom-select"
+                                                required>
+                                                <option value="">Chọn Voucher :</option>
+                                                @foreach ($vouchers as $voucher)
+                                                    <option value="{{ $voucher->id }}"
+                                                        @if (session('appliedVoucher') == $voucher->id) selected @endif>
+                                                        {{ $voucher->E_vorcher }} - Giảm {{ $voucher->discount }} %
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-sqr mt-3 mt-md-0 ml-md-3">Áp Dụng</button>
+                                    </form>
+
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                     </div>
                 </div>
@@ -138,30 +161,36 @@
                                 <h6>Chi tiết thanh toán</h6>
                                 <div class="table-responsive">
                                     <table class="table">
-
                                         <tr>
                                             <td>Tổng phụ</td>
                                             <td class="cart-total" id="grandTotal">
-                                                {{ number_format($totalAmount ?? 0, 0, ',', '.') }} VND
+                                                {{ number_format($totalAmount, 0, ',', '.') }} VND
                                             </td>
                                         </tr>
 
-                                        <tr id="discountRow" style="display: none;">
-                                            <td>Được giảm</td>
-                                            <td id="discountAmount" class="text-danger">- 0 VND</td>
-                                        </tr>
+                                        @if ($discount > 0)
+                                            <tr>
+                                                <td>Được giảm</td>
+                                                <td id="discountAmount" class="text-danger">
+                                                    - {{ number_format($discount, 0, ',', '.') }} VND
+                                                </td>
+                                            </tr>
+                                        @endif
 
                                         <tr class="total">
                                             <td>Tổng tiền thanh toán</td>
                                             <td class="total-amount" id="finalAmount">
-                                                {{ number_format($finalAmount ?? $totalAmount, 0, ',', '.') }} VND
+                                                {{ number_format($finalAmount, 0, ',', '.') }} VND
                                             </td>
                                         </tr>
-
                                     </table>
                                 </div>
                             </div>
-                            <a href="{{ route('cart.checkout') }}" class="btn btn-sqr d-block">Tiến hành đặt hàng</a>
+
+                            @if ($totalAmount > 0)
+                                <a href="{{ route('cart.checkout') }}" class="btn btn-sqr d-block">Tiến hành đặt hàng</a>
+                            @endif
+
                         </div>
                     </div>
                 </div>

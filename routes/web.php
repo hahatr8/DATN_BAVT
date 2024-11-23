@@ -3,6 +3,9 @@
 
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\ProductController;
+use App\Http\Controllers\Client\CartController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +23,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('client.home');
 });
+Route::get('/', [ProductController::class,'index'])->name('home');
+
+
+Route::get('/list-product',[ProductController::class,'list'])->name('list-product');
+
+Route::get('/product/{id}', [ProductController::class, 'productDetail'])->name('product_detail');
+
+

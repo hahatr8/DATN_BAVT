@@ -56,13 +56,12 @@ Route::middleware('auth')->group(function () {
                         Route::get('/{product}', [ProductController::class, 'destroy'])->name('destroy');
                     });
 
-                // Danh sách đơn hàng
-                Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+                Route::prefix('orders')->name('orders.')->group(function () {
+                    Route::get('/', [OrderController::class, 'index'])->name('index');
+                    Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('edit');
+                    Route::put('/{order}/updateStatus', [OrderController::class, 'updateStatus'])->name('updateStatus');
+                });
 
-                Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
-
-                // Cập nhật trạng thái đơn hàng
-                Route::put('/orders/{order}/updateStatus', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
                 Route::resource('categories', CategoryController::class);
 
@@ -87,7 +86,6 @@ Route::middleware('auth')->group(function () {
             });
     });
 });
-
 
 
 

@@ -8,25 +8,29 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function showFormLogin(){
+    public function showFormLogin()
+    {
         return view('auth.login');
     }
 
-    public function login(Request $request){
-        $user =$request->only('email','password');
+    public function login(Request $request)
+    {
+        $user = $request->only('email', 'password');
 
         if (Auth::attempt($user)) {
             return redirect()->intended('client');
         }
 
         return redirect()->back()->withErrors([
-            'email'=> 'Thông tin người dùng không đúng',
+            'email' => 'Thông tin người dùng không đúng',
         ]);
     }
-    public function showFormRegister(){
+    public function showFormRegister()
+    {
         return view('auth.register');
     }
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users|max:255',
@@ -53,10 +57,15 @@ class AuthController extends Controller
         return redirect()->intended('login')->with('success', 'Đăng kí thành công!');
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
+        // Xóa tất cả session
+        session()->flush();
+
         Auth::logout();
+
         return redirect('/client')->with('success', 'Đăng xuất thành công!');
     }
 
-   
+
 }

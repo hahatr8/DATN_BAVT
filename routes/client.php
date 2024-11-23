@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Client\BlogController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\AddressController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\UserController as ClientUserController;
 use App\Http\Controllers\ForgetpasswordController;
+use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,7 +19,17 @@ Route::middleware('auth')->group(function () {
         Route::put('/update-quantity', [CartController::class, 'updateQuantity'])->name('updateQuantity');
         Route::delete('/remove/{id}', [CartController::class, 'remove'])->name('remove');
         Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+
+        Route::post('/add-address', [CartController::class, 'addAddress'])->name('addAddress');
+
+        // Route để xử lý đặt hàng
+        Route::post('/store-order', [CartController::class, 'storeOrder'])->name('storeOrder');
+
+        Route::get('/payment', [CartController::class, 'payment'])->name('payment');
+
+        Route::get('/order-success', [CartController::class, 'orderSuccess'])->name('order.success');
     });
+
 });
 
 
@@ -38,6 +50,11 @@ Route::prefix('client')
                 Route::get('edit/{id}', [AddressController::class, 'edit'])->name('edit');
                 Route::put('update/{id}', [AddressController::class, 'update'])->name('update');
             });
+
+
+        //link den trang blog
+        Route::get('/blog', [BlogController::class, 'blog'])->name('blog');
+        Route::get('/blogDetail/{blog}', [BlogController::class, 'blogDetail'])->name('blogDetail');
 
 
     });

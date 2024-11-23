@@ -70,11 +70,8 @@ class Order extends Model
 
     const STATUS_PAYMENT_CASH = 'cash';
 
-    const STATUS_PAYMENT_PAYPAL = 'PayPal';
-
     const STATUS_PAYMENT = [
         'momo' => 'Momo',
-        'PayPal' => 'PayPal',
         'cash' => 'Tiền mặt',
     ];
 

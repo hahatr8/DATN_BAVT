@@ -34,22 +34,23 @@ class AddressController extends Controller
             ]);
 
 
-            return redirect()->route('client.myaccount',$id);
+            return redirect()->route('client.myaccount', $id);
         }
     }
     public function edit(string $id)
     {
-        $addresses =  Address::query()->findOrFail($id);
-        return view('client.address.edit', compact( 'addresses'));
+        $addresses = Address::query()->findOrFail($id);
+        return view('client.address.edit', compact('addresses'));
     }
     public function update(Request $request, string $id)
     {
         if ($request->isMethod('PUT')) {
             $params = $request->except('_token', '_method');
             $address = Address::query()->findOrFail($id);
-            
+
             $address->update($params);
-            return redirect()->route('client.myaccount',$address->user_id);
+            return redirect()->route('client.myaccount', $address->user_id);
         }
     }
+
 }

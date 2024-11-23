@@ -20,18 +20,30 @@
         </div>
     </div>
     <!-- breadcrumb area end -->
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <!-- checkout main wrapper start -->
     <div class="checkout-page-wrapper section-padding">
         <div class="container">
-            <div class="row">
-                <!-- Checkout: Chọn địa chỉ giao hàng -->
-                <div class="col-lg-6">
-                    <div class="checkout-billing-details-wrap">
-                        <h5 class="checkout-title">Chọn địa chỉ giao hàng</h5>
-                        <div class="billing-form-wrap">
-                            <form action="" method="POST">
-                                @csrf
+
+            <form action="{{ route('cart.storeOrder') }}" method="POST">
+                @csrf
+
+                <div class="row">
+                    <!-- Checkout: Chọn địa chỉ giao hàng -->
+                    <div class="col-lg-6">
+                        <div class="checkout-billing-details-wrap">
+                            <h5 class="checkout-title">Chọn địa chỉ giao hàng</h5>
+                            <div class="billing-form-wrap">
                                 <!-- Hiển thị các địa chỉ trong bảng -->
                                 <table class="table table-striped table-bordered">
                                     <thead class="thead-dark">
@@ -39,7 +51,7 @@
                                             <th>Chọn</th>
                                             <th>Địa chỉ</th>
                                             <th>Email</th>
-                                            <th>Phone</th>
+                                            <th>Số điện thoại</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -76,151 +88,138 @@
                                         </div>
                                     </div>
                                     <div class="ship-to-different single-form-row">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="single-input-item">
-                                                    <label for="f_name_2" class="required">First Name</label>
-                                                    <input type="text" id="f_name_2" placeholder="First Name"
-                                                        required />
-                                                </div>
+
+                                        <form action="{{ route('cart.addAddress', Auth::id()) }}" method="POST">
+                                            @csrf
+
+                                            <div class="single-input-item">
+                                                <label for="address">Địa chỉ</label>
+                                                <input type="text" name="address" id="address" placeholder="Địa chỉ" />
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <div class="single-input-item">
-                                                    <label for="l_name_2" class="required">Last Name</label>
-                                                    <input type="text" id="l_name_2" placeholder="Last Name" required />
-                                                </div>
+                                            <div class="single-input-item">
+                                                <label for="District">Huyện</label>
+                                                <input type="text" name="District" id="District" placeholder="Huyện" />
                                             </div>
-                                        </div>
 
-                                        <div class="single-input-item">
-                                            <label for="email_2" class="required">Email Address</label>
-                                            <input type="email" id="email_2" placeholder="Email Address" required />
-                                        </div>
+                                            <div class="single-input-item">
+                                                <label for="city">Thành phố</label>
+                                                <input type="text" name="city" id="city"
+                                                    placeholder="Thành phố" />
+                                            </div>
 
-                                        <div class="single-input-item">
-                                            <label for="com-name_2">Company Name</label>
-                                            <input type="text" id="com-name_2" placeholder="Company Name" />
-                                        </div>
+                                            <div class="single-input-item">
+                                                <label for="country">Quốc gia</label>
+                                                <input type="text" name="country" id="country"
+                                                    placeholder="Quốc gia" />
+                                            </div>
 
-                                        <div class="single-input-item">
-                                            <label for="country_2" class="required">Country</label>
-                                            <select name="country" id="country_2">
-                                                <option value="Bangladesh">Bangladesh</option>
-                                                <option value="India">India</option>
-                                                <option value="Pakistan">Pakistan</option>
-                                                <option value="England">England</option>
-                                                <option value="London">London</option>
-                                                <option value="London">London</option>
-                                                <option value="Chaina">Chaina</option>
-                                            </select>
-                                        </div>
+                                            <div class="summary-footer-area mt-3">
+                                                <button type="submit" class="btn btn-sqr">Thêm địa chỉ</button>
+                                            </div>
 
-                                        <div class="single-input-item">
-                                            <label for="street-address_2" class="required mt-20">Street address</label>
-                                            <input type="text" id="street-address_2" placeholder="Street address Line 1"
-                                                required />
-                                        </div>
+                                        </form>
 
-                                        <div class="single-input-item">
-                                            <input type="text" placeholder="Street address Line 2 (Optional)" />
-                                        </div>
-
-                                        <div class="single-input-item">
-                                            <label for="town_2" class="required">Town / City</label>
-                                            <input type="text" id="town_2" placeholder="Town / City" required />
-                                        </div>
-
-                                        <div class="single-input-item">
-                                            <label for="state_2">State / Divition</label>
-                                            <input type="text" id="state_2" placeholder="State / Divition" />
-                                        </div>
-
-                                        <div class="single-input-item">
-                                            <label for="postcode_2" class="required">Postcode / ZIP</label>
-                                            <input type="text" id="postcode_2" placeholder="Postcode / ZIP"
-                                                required />
-                                        </div>
                                     </div>
                                 </div>
 
-                            </form>
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
 
-                <!-- Order Summary Details -->
-                <div class="col-lg-6">
-                    <div class="order-summary-details">
-                        <h5 class="checkout-title">Tóm tắt đơn hàng</h5>
-                        <div class="order-summary-content">
-                            <div class="order-summary-table table-responsive text-center">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Sản phẩm</th>
-                                            <th>Số lượng</th>
-                                            <th>Thành tiền</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Lặp qua các sản phẩm trong giỏ hàng -->
-                                        @foreach ($cartItems as $item)
+                    <!-- Order Summary Details -->
+                    <div class="col-lg-6">
+                        <div class="order-summary-details">
+                            <h5 class="checkout-title">Tóm tắt đơn hàng</h5>
+                            <div class="order-summary-content">
+                                <div class="order-summary-table table-responsive text-center">
+                                    <table class="table table-bordered">
+                                        <thead>
                                             <tr>
-                                                <td>
-                                                    {{ $item->productSize->product->name }}
-                                                    ({{ $item->productSize->size }})
-                                                </td>
-                                                <td>{{ $item->quantity }}</td>
-                                                <td>{{ number_format($item->productSize->price * $item->quantity, 0, ',', '.') }}
-                                                    VNĐ</td>
+                                                <th>Sản phẩm</th>
+                                                <th>Số lượng</th>
+                                                <th>Thành tiền</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="2">Tổng cộng</td>
-                                            <td><strong>{{ number_format($totalAmount, 0, ',', '.') }} VNĐ</strong></td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Lặp qua các sản phẩm trong giỏ hàng -->
+                                            @foreach ($cartItems as $item)
+                                                <tr>
+                                                    <td>
+                                                        {{ $item->productSize->product->name }}
+                                                        ({{ $item->productSize->variant }})
+                                                    </td>
+                                                    <td>{{ $item->quantity }}</td>
+                                                    <td>{{ number_format(($item->productSize->product->price + $item->productSize->price) * $item->quantity, 0, ',', '.') }}
+                                                        VND</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="2">Tổng</td>
+                                                <td><strong>{{ number_format($totalAmount, 0, ',', '.') }} VNĐ</strong>
+                                                </td>
+                                            </tr>
+                                            @if ($discount > 0)
+                                                <tr>
+                                                    <td colspan="2">Giảm giá</td>
+                                                    <td><strong class="text-danger">-
+                                                            {{ number_format($discount, 0, ',', '.') }} VNĐ</strong>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            <tr class="bg-warning">
+                                                <td colspan="2">Tổng tiền phải trả</td>
+                                                <td><strong>{{ number_format($finalAmount, 0, ',', '.') }} VNĐ</strong>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
 
-                            <!-- Payment Methods -->
-                            <div class="order-payment-method">
-                                <h5 class="checkout-title">Phương thức thanh toán</h5>
-                                <div class="single-payment-method">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="payment-cash" name="payment_method" value="cash"
-                                            class="custom-control-input" checked>
-                                        <label class="custom-control-label" for="payment-cash">Thanh toán khi nhận
-                                            hàng</label>
-                                    </div>
-                                </div>
-                                <div class="single-payment-method">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="payment-momo" name="payment_method" value="momo"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="payment-momo">Momo</label>
-                                    </div>
-                                </div>
-                                <div class="single-payment-method">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="payment-paypal" name="payment_method" value="paypal"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="payment-paypal">Paypal</label>
-                                    </div>
-                                </div>
-                            </div>
+                                <!-- Payment Methods -->
+                                <div class="order-payment-method">
+                                    <h5 class="checkout-title">Phương thức thanh toán</h5>
 
-                            <div class="summary-footer-area mt-3">
-                                <button type="submit" class="btn btn-sqr">Đặt hàng</button>
+                                    <div class="single-payment-method">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="payment-cash" name="status_payment" value="cash"
+                                                class="custom-control-input" checked>
+                                            <label class="custom-control-label" for="payment-cash"
+                                                aria-label="Thanh toán khi nhận hàng">Thanh toán khi nhận hàng</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="single-payment-method">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="payment-momo" name="status_payment" value="momo"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label" for="payment-momo"
+                                                aria-label="Thanh toán qua MoMo">Momo</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="summary-footer-area mt-3 d-flex">
+
+                                    <button type="submit" class="btn btn-sqr m-auto">Đặt hàng</button>
+
+                                    <a href="{{ route('cart.show') }}"
+                                        class="btn btn-sqr bg-warning text-dark m-auto">Trở
+                                        về</a>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+            </form>
+
         </div>
     </div>
     <!-- checkout main wrapper end -->

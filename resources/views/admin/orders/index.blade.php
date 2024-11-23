@@ -54,7 +54,6 @@
                                             // Mảng ánh xạ trạng thái thanh toán với màu sắc
                                             $paymentColors = [
                                                 'momo' => 'bg-success', // Momo: Màu chính của Momo
-                                                'PayPal' => 'bg-info', // PayPal: Màu xanh da trời
                                                 'cash' => 'bg-warning', // Thanh toán đang chờ: Màu vàng
                                             ];
 

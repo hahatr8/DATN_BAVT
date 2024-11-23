@@ -119,12 +119,19 @@
                                             @foreach ($order->orderItems as $item)
                                                 <tr>
                                                     <td>{{ $item->productSize->product->name ?? 'N/A' }} -
-                                                        {{ $item->productSize->size ?? 'N/A' }}</td>
+                                                        {{ $item->productSize->variant ?? 'N/A' }}</td>
                                                     <td>{{ $item->quantity }}</td>
                                                     <td>{{ number_format($item->price, 0, ',', '.') }} VND</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr class="bg-warning">
+                                                <td colspan="2">Tổng tiền</td>
+                                                <td>{{ number_format($order->total_price, 0, ',', '.') }}
+                                                    VND</td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 @endif
                             </div>
@@ -165,7 +172,7 @@
                     @elseif ($status === 'canceled')
                         <p class="alert alert-danger">Đơn hàng đã bị hủy</p>
 
-                        @if (in_array($order->status_payment, ['momo', 'PayPal']))
+                        @if (in_array($order->status_payment, ['momo']))
                             <button type="submit" name="status_order" value="refund_successful"
                                 class="btn bg-success px-4 py-2 my-2">Hoàn tiền cho khách hàng</button>
                         @endif

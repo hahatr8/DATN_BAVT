@@ -1,4 +1,5 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
+
 
 @section('title')
     Danh sách danh mục
@@ -32,7 +33,14 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title mb-0">Danh sách</h5>
+                    <div class="">
+                        <h5 class="card-title mb-0">Danh sách</h5>
+                        <div class="d-flex gap-2">
+                            <span>Tất cả ({{ $totalCategories }})</span>
+                            <div>||</div>
+                            <a href="{{ route('admin.category.trash') }}">Thùng rác ({{ $trashedCategories }})</a>
+                        </div>
+                    </div>
                     <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">Thêm mới</a>
                 </div>
                 <div class="card-body">
@@ -57,10 +65,10 @@
                                     <td>{{ $categories->name }}</td>
                                     <td>{{ $categories->display_order }}</td>
                                     <td>
-                                        @if ($categories->status == 0)
-                                            <p>Hiển thị</p>
+                                        @if ($categories->status == 1)
+                                            <span class="badge bg-success">Hiển thị</span>
                                         @else
-                                            <p>Ẩn</p>
+                                            <span class="badge bg-danger">Ẩn</span>
                                         @endif
                                     </td>
                                     <td>
@@ -73,17 +81,14 @@
                                     <td>{{ $categories->created_at }}</td>
                                     <td>{{ $categories->updated_at }}</td>
                                     <td>
-                                        <a href="{{ route('admin.categories.show', $categories) }}" class="btn btn-info">Xem chi
+                                        <a href="{{ route('admin.categories.show', $categories) }}"
+                                            class="btn btn-sm btn-info">Xem chi
                                             tiết</a>
                                         <a href="{{ route('admin.categories.edit', $categories) }}"
-                                            class="btn btn-warning mt-2 mb-2">Chỉnh sửa</a>
-
-                                        <form action="{{ route('admin.categories.destroy', $categories) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger"
-                                                onclick="return confirm('Bạn có chắc muốn xóa không')">Xóa</button>
-                                        </form>
+                                            class="btn btn-sm btn-warning mt-2 mb-2">Chỉnh sửa</a>
+                                        <a href="{{ route('admin.category.softDestruction', $categories) }}"
+                                            onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $categories->name }} không?')"
+                                            class="btn btn-sm btn-danger">Xóa mềm</a>
                                     </td>
                                 </tr>
                             @endforeach

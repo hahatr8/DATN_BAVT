@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryProduct extends Model
 {
+
     protected $table = 'category_product';
 
     use HasFactory;
-    protected $fillable = [
-    ];
+    protected $fillable = [];
     public function categories()
     {
         return $this->hasMany(Category::class);

@@ -16,9 +16,20 @@ class BlogController extends Controller
 
     public function index()
     {
-        $data = Blog::query()->latest('id')->paginate(5);
+        $data = Blog::whereNull('deleted_at')->latest('id')->get();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
+        $totalBlogs = Blog::whereNull('deleted_at')->count();
+        $trashedBlogs = Blog::onlyTrashed()->count();
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'totalBlogs', 'trashedBlogs'));
+    }
+
+    public function trash()
+    {
+        $trashedBlogs = Blog::onlyTrashed()->get();
+        $totalTrashedBlogs = Blog::onlyTrashed()->count();
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact( 'trashedBlogs', 'totalTrashedBlogs'));
     }
 
     /**
@@ -74,6 +85,8 @@ class BlogController extends Controller
 
         $currentImg = $blog->img;
 
+        $data['status'] ??= 0;
+
         $blog->update($data);
 
         if($request->hasFile('img') && $currentImg && Storage::exists($currentImg)) {
@@ -86,6 +99,14 @@ class BlogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+     public function softDestruction(Blog $Blog)
+    {
+        $Blog->delete();
+
+        return back()->with('success', 'Thao tác thành công');
+    }
+
     public function destroy(Blog $blog)
     {
         $blog->delete();
@@ -95,5 +116,13 @@ class BlogController extends Controller
         }
 
         return back()->with('success', 'Thao tác thành công');
+    }
+
+    public function restore($id)
+    {
+        $blog = Blog::onlyTrashed()->findOrFail($id);
+        $blog->restore();
+
+        return back()->with(['success' => 'Khôi phục sản phẩm thành công']);
     }
 }

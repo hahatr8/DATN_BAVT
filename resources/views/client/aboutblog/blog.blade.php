@@ -39,7 +39,7 @@
 <body>
     <!-- Start Header Area -->
     <header class="header-area header-wide">
-        @include('client.components.header');
+        @include('client.layouts.header');
     </header>
     <!-- end Header Area -->
 
@@ -82,11 +82,9 @@
                             <div class="blog-sidebar">
                                 <h5 class="title">categories</h5>
                                 <ul class="blog-archive blog-category">
-                                    <li><a href="#">Barber (10)</a></li>
-                                    <li><a href="#">fashion (08)</a></li>
-                                    <li><a href="#">handbag (07)</a></li>
-                                    <li><a href="#">Jewelry (14)</a></li>
-                                    <li><a href="#">food (10)</a></li>
+                                    @foreach ($categories as $category)
+                                    <li><a href="#">{{ $category->name}}</a></li>
+                                    @endforeach
                                 </ul>
                             </div> <!-- single sidebar end -->
                             <div class="blog-sidebar">
@@ -101,47 +99,23 @@
                             </div> <!-- single sidebar end -->
                             <div class="blog-sidebar">
                                 <h5 class="title">recent post</h5>
+                                @foreach ($newBlogs as $newBlog)
                                 <div class="recent-post">
                                     <div class="recent-post-item">
                                         <figure class="product-thumb">
                                             <a href="blog-details.html">
-                                                <img src="assets/img/blog/blog-img1.jpg" alt="blog image">
+                                                <img src="{{ \Storage::url($newBlog->img) }}" width="50px" alt="blog image">
                                             </a>
                                         </figure>
                                         <div class="recent-post-description">
                                             <div class="product-name">
-                                                <h6><a href="blog-details.html">Auctor gravida enim</a></h6>
-                                                <p>march 10 2019</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="recent-post-item">
-                                        <figure class="product-thumb">
-                                            <a href="blog-details.html">
-                                                <img src="assets/img/blog/blog-img2.jpg" alt="blog image">
-                                            </a>
-                                        </figure>
-                                        <div class="recent-post-description">
-                                            <div class="product-name">
-                                                <h6><a href="blog-details.html">gravida auctor dnim</a></h6>
-                                                <p>march 18 2019</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="recent-post-item">
-                                        <figure class="product-thumb">
-                                            <a href="blog-details.html">
-                                                <img src="assets/img/blog/blog-img3.jpg" alt="blog image">
-                                            </a>
-                                        </figure>
-                                        <div class="recent-post-description">
-                                            <div class="product-name">
-                                                <h6><a href="blog-details.html">enim auctor gravida</a></h6>
-                                                <p>march 14 2019</p>
+                                                <h6><a href="blog-details.html">{{ $newBlog->title}}</a></h6>
+                                                <p>{{ $newBlog->created_at}}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div> <!-- single sidebar end -->
                             <div class="blog-sidebar">
                                 <h5 class="title">Tags</h5>
@@ -160,142 +134,29 @@
                         <div class="blog-item-wrapper blog-list-inner">
                             <!-- blog item wrapper end -->
                             <div class="row mbn-30">
+                                @foreach ($blogs as $blog)
                                 <div class="col-12">
                                     <!-- blog post item start -->
                                     <div class="blog-post-item mb-30">
                                         <figure class="blog-thumb">
-                                            <a href="blog-details.html">
-                                                <img src="assets/img/blog/blog-img1.jpg" alt="blog image">
+                                            <a href="{{ route('client.blogDetail', $blog)}}">
+                                                <img src="{{ \Storage::url($blog->img) }}" width="50px" alt="blog image">
                                             </a>
                                         </figure>
                                         <div class="blog-content">
                                             <h4 class="blog-title">
-                                                <a href="blog-details.html">Celebrity Daughter Opens Up About Having Her Eye Color Changed</a>
+                                                <a href="{{ route('client.blogDetail', $blog)}}">{{ $blog->title}}</a>
                                             </h4>
                                             <div class="blog-meta">
-                                                <p>10/04/2019 | <a href="#">Corano</a></p>
+                                                <p>{{ $blog->created_at}} | <a href="{{ route('client.blogDetail', $blog)}}">Corano</a></p>
                                             </div>
-                                            <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Praesent ornare tortor ac ante egestas hendrerit. Aliquam et metus pharetra</p>
+                                            <p>{{ $blog->content}}</p>
                                             <a class="blog-read-more" href="blog-details.html">Read More...</a>
                                         </div>
                                     </div>
                                     <!-- blog post item end -->
                                 </div>
-                                <div class="col-12">
-                                    <!-- blog post item start -->
-                                    <div class="blog-post-item mb-30">
-                                        <figure class="blog-thumb">
-                                            <div class="blog-carousel-2 slick-row-15 slick-arrow-style slick-dot-style">
-                                                <div class="blog-single-slide">
-                                                    <a href="blog-details.html">
-                                                        <img src="assets/img/blog/blog-img5.jpg" alt="blog image">
-                                                    </a>
-                                                </div>
-                                                <div class="blog-single-slide">
-                                                    <a href="blog-details.html">
-                                                        <img src="assets/img/blog/blog-img4.jpg" alt="blog image">
-                                                    </a>
-                                                </div>
-                                                <div class="blog-single-slide">
-                                                    <a href="blog-details.html">
-                                                        <img src="assets/img/blog/blog-img3.jpg" alt="blog image">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </figure>
-                                        <div class="blog-content">
-                                            <h4 class="blog-title">
-                                                <a href="blog-details.html">Lotto Winner Offering Up Money To Any Man That Will Date Her</a>
-                                            </h4>
-                                            <div class="blog-meta">
-                                                <p>12/04/2019 | <a href="#">Corano</a></p>
-                                            </div>
-                                            <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Praesent ornare tortor ac ante egestas hendrerit. Aliquam et metus pharetra</p>
-                                            <a class="blog-read-more" href="blog-details.html">Read More...</a>
-                                        </div>
-                                    </div>
-                                    <!-- blog post item end -->
-                                </div>
-                                <div class="col-12">
-                                    <!-- blog post item start -->
-                                    <div class="blog-post-item mb-30">
-                                        <figure class="blog-thumb ratio ratio-16x9">
-                                            <iframe src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/501298839&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
-                                        </figure>
-                                        <div class="blog-content">
-                                            <h4 class="blog-title">
-                                                <a href="blog-details.html">Children Left Home Alone For 4 Days In TV series Experiment</a>
-                                            </h4>
-                                            <div class="blog-meta">
-                                                <p>15/04/2019 | <a href="#">Corano</a></p>
-                                            </div>
-                                            <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Praesent ornare tortor ac ante egestas hendrerit. Aliquam et metus pharetra</p>
-                                            <a class="blog-read-more" href="blog-details.html">Read More...</a>
-                                        </div>
-                                    </div>
-                                    <!-- blog post item end -->
-                                </div>
-                                <div class="col-12">
-                                    <!-- blog post item start -->
-                                    <div class="blog-post-item mb-30">
-                                        <figure class="blog-thumb ratio ratio-16x9">
-                                            <iframe src="https://www.youtube.com/embed/4qNHr0W6F0o" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                                        </figure>
-                                        <div class="blog-content">
-                                            <h4 class="blog-title">
-                                                <a href="blog-details.html">People are Willing Lie When Comes Money, According to Research</a>
-                                            </h4>
-                                            <div class="blog-meta">
-                                                <p>05/04/2019 | <a href="#">Corano</a></p>
-                                            </div>
-                                            <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Praesent ornare tortor ac ante egestas hendrerit. Aliquam et metus pharetra</p>
-                                            <a class="blog-read-more" href="blog-details.html">Read More...</a>
-                                        </div>
-                                    </div>
-                                    <!-- blog post item end -->
-                                </div>
-                                <div class="col-12">
-                                    <!-- blog post item start -->
-                                    <div class="blog-post-item mb-30">
-                                        <figure class="blog-thumb">
-                                            <a href="blog-details.html">
-                                                <img src="assets/img/blog/blog-img5.jpg" alt="blog image">
-                                            </a>
-                                        </figure>
-                                        <div class="blog-content">
-                                            <h4 class="blog-title">
-                                                <a href="blog-details.html">romantic Love Stories Of Hollywood’s Biggest Celebrities</a>
-                                            </h4>
-                                            <div class="blog-meta">
-                                                <p>02/04/2019 | <a href="#">Corano</a></p>
-                                            </div>
-                                            <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Praesent ornare tortor ac ante egestas hendrerit. Aliquam et metus pharetra</p>
-                                            <a class="blog-read-more" href="blog-details.html">Read More...</a>
-                                        </div>
-                                    </div>
-                                    <!-- blog post item end -->
-                                </div>
-                                <div class="col-12">
-                                    <!-- blog post item start -->
-                                    <div class="blog-post-item mb-30">
-                                        <figure class="blog-thumb">
-                                            <a href="blog-details.html">
-                                                <img src="assets/img/blog/blog-img3.jpg" alt="blog image">
-                                            </a>
-                                        </figure>
-                                        <div class="blog-content">
-                                            <h4 class="blog-title">
-                                                <a href="blog-details.html">Celebrity Daughter Opens Up About Having Her Eye Color Changed</a>
-                                            </h4>
-                                            <div class="blog-meta">
-                                                <p>25/03/2019 | <a href="#">Corano</a></p>
-                                            </div>
-                                            <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Praesent ornare tortor ac ante egestas hendrerit. Aliquam et metus pharetra</p>
-                                            <a class="blog-read-more" href="blog-details.html">Read More...</a>
-                                        </div>
-                                    </div>
-                                    <!-- blog post item end -->
-                                </div>
+                                @endforeach
                             </div>
                             <!-- blog item wrapper end -->
 
@@ -326,7 +187,7 @@
 
     <!-- footer area start -->
     <footer class="footer-widget-area">
-        @include('client.components.footer');
+        @include('client.layouts.footer');
     </footer>
     <!-- footer area end -->
 

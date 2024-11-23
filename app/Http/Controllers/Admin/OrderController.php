@@ -37,7 +37,7 @@ class OrderController extends Controller
     private function refundCustomer(Order $order)
     {
         // Kiểm tra phương thức thanh toán của khách hàng
-        if (in_array($order->status_payment, [Order::STATUS_PAYMENT_MOMO, Order::STATUS_PAYMENT_PAYPAL])) {
+        if (in_array($order->status_payment, [Order::STATUS_PAYMENT_MOMO])) {
             $user = $order->user;
 
             // Kiểm tra nếu cần thiết: đảm bảo tài khoản của người dùng có đủ điểm (nếu cần)
@@ -110,6 +110,5 @@ class OrderController extends Controller
                 ->with('error', 'Đã xảy ra lỗi khi cập nhật trạng thái. Lỗi: ' . $e->getMessage());
         }
     }
-
 
 }
