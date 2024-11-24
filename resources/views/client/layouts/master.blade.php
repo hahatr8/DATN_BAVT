@@ -761,7 +761,9 @@
                                                         </a>
                                                     </div>
                                                     <div class="cart-hover">
-                                                        <button class="btn btn-cart">add to cart</button>
+                                                        <a href="{{ Route('product_detail', $p->id) }}">
+                                                            <button class="btn btn-cart">add to cart</button>
+                                                        </a>
                                                     </div>
                                                 </figure>
                                                 <div class="product-caption text-center">
@@ -817,7 +819,9 @@
                                                         </a>
                                                     </div>
                                                     <div class="cart-hover">
-                                                        <button class="btn btn-cart">add to cart</button>
+                                                        <a href="{{ Route('product_detail', $p->id) }}">
+                                                            <button class="btn btn-cart">add to cart</button>
+                                                        </a>
                                                     </div>
                                                 </figure>
                                                 <div class="product-caption text-center">
@@ -869,7 +873,9 @@
                                                         </a>
                                                     </div>
                                                     <div class="cart-hover">
-                                                        <button class="btn btn-cart">add to cart</button>
+                                                        <a href="{{ Route('product_detail', $p->id) }}">
+                                                            <button class="btn btn-cart">add to cart</button>
+                                                        </a>
                                                     </div>
                                                 </figure>
                                                 <div class="product-caption text-center">
@@ -921,7 +927,9 @@
                                                         </a>
                                                     </div>
                                                     <div class="cart-hover">
-                                                        <button class="btn btn-cart">add to cart</button>
+                                                        <a href="{{ Route('product_detail', $p->id) }}">
+                                                            <button class="btn btn-cart">add to cart</button>
+                                                        </a>
                                                     </div>
                                                 </figure>
                                                 <div class="product-caption text-center">
@@ -1068,7 +1076,9 @@
                                             </a>
                                         </div>
                                         <div class="cart-hover">
-                                            <button class="btn btn-cart">add to cart</button>
+                                            <a href="{{ Route('product_detail', $p->id) }}">
+                                                <button class="btn btn-cart">add to cart</button>
+                                            </a>
                                         </div>
                                     </figure>
                                     <div class="product-caption text-center">
@@ -1505,7 +1515,6 @@
 
     <!-- footer area start -->
     <footer class="footer-widget-area">
-<<<<<<< HEAD:resources/views/client/pages/home.blade.php
         <div class="footer-top section-padding">
             <div class="container">
                 <div class="row">
@@ -1605,9 +1614,6 @@
                 </div>
             </div>
         </div>
-=======
-        @include('client.layouts.footer')
->>>>>>> 73caf5cdf26e90fdb187db82716cf0639e5187c3:resources/views/client/layouts/master.blade.php
     </footer>
     <!-- footer area end -->
 

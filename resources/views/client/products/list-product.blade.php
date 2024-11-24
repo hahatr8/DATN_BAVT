@@ -325,7 +325,9 @@
                                             </a>
                                                                                   
                                             <div class="cart-hover">
-                                                <button class="btn btn-cart">add to cart</button>
+                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <button class="btn btn-cart">add to cart</button>
+                                                </a>
                                             </div>
                                         </figure>
                                         <div class="product-caption text-center">
@@ -366,7 +368,9 @@
                                             
                                             
                                             <div class="cart-hover">
-                                                <button class="btn btn-cart">add to cart</button>
+                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <button class="btn btn-cart">add to cart</button>
+                                                </a>
                                             </div>
                                         </figure>
                                         <div class="product-caption text-center">

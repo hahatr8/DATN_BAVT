@@ -121,6 +121,45 @@ class ProductController extends Controller
 //     return view('client.products.product-detail', compact('productDetail', 'relatedProducts'));
 // }
 // 
+// public function productDetail($id)
+// {
+//     // Lấy chi tiết sản phẩm, bao gồm ảnh và danh sách size
+//     $productDetail = Product::with([
+//         'productImgs' => function ($query) {
+//             $query->orderBy('created_at', 'asc'); // Sắp xếp ảnh theo thời gian thêm
+//         },
+//         'productSizes' // Load danh sách size (variant)
+//     ])->where('id', $id)->first();
+
+//     if (!$productDetail) {
+//         abort(404, 'Sản phẩm không tồn tại.');
+//     }
+
+//     // Kiểm tra trạng thái còn hàng
+//     $isAvailable = $productDetail->productSizes->sum('quantity') > 0;
+
+//     // Lấy sản phẩm cùng loại (cùng thương hiệu)
+//     $relatedProducts = Product::with([
+//         'productImgs' => function ($query) {
+//             $query->orderBy('created_at', 'asc'); // Sắp xếp ảnh
+//         }
+//     ])
+//     ->where('brand_id', $productDetail->brand_id) // Cùng thương hiệu
+//     ->where('id', '!=', $id) // Loại bỏ sản phẩm hiện tại
+//     ->limit(5) // Giới hạn 5 sản phẩm liên quan
+//     ->get();
+
+//     // Phân loại ảnh cho sản phẩm liên quan
+//     $relatedProducts = $relatedProducts->map(function ($product) {
+//         $images = $product->productImgs;
+//         $product->mainImage = $images->first(); // Ảnh chính
+//         $product->hoverImage = $images->skip(1)->first(); // Ảnh hover
+//         return $product;
+//     });
+
+//     return view('client.products.product-detail', compact('productDetail', 'relatedProducts', 'isAvailable'));
+// }
+
 public function productDetail($id)
 {
     // Lấy chi tiết sản phẩm, bao gồm ảnh và danh sách size
@@ -157,7 +196,15 @@ public function productDetail($id)
         return $product;
     });
 
-    return view('client.products.product-detail', compact('productDetail', 'relatedProducts', 'isAvailable'));
+    // Truyền dữ liệu size dưới dạng JSON cho JavaScript
+    $sizeData = $productDetail->productSizes->keyBy('id')->map(function ($size) {
+        return [
+            'quantity' => $size->quantity,
+            'price' => $size->price,
+        ];
+    });
+
+    return view('client.products.product-detail', compact('productDetail', 'relatedProducts', 'isAvailable', 'sizeData'));
 }
 
 

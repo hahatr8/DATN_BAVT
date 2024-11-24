@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\ProductSize;
 use App\Models\Voucher;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -83,6 +84,53 @@ class CartController extends Controller
     }
 
 
+    // public function addToCart(Request $request)
+    // {
+    //     try {
+    //         DB::transaction(function () use ($request) {
+    //             // Lấy thông tin sản phẩm từ bảng product_sizes
+    //             $productSize = ProductSize::find($request->product_size_id);
+    //             if (!$productSize) {
+    //                 throw new \Exception('Sản phẩm không tồn tại.');
+    //             }
+
+    //             // Kiểm tra số lượng sản phẩm có đủ hay không
+    //             if ($productSize->quantity < $request->quantity) {
+    //                 throw new \Exception('Số lượng sản phẩm không đủ, vui lòng chọn số lượng nhỏ hơn.');
+    //             }
+
+    //             // Kiểm tra sản phẩm có trong giỏ hàng chưa
+    //             $cartItem = Cart::where('user_id', 1) // Thay '1' bằng Auth::id() nếu có hệ thống đăng nhập
+    //                 ->where('product_size_id', $request->product_size_id)
+    //                 ->first();
+
+    //             if ($cartItem) {
+    //                 // Nếu đã tồn tại trong giỏ hàng, cập nhật số lượng
+    //                 $cartItem->quantity += $request->quantity;
+    //                 $cartItem->save();
+    //             } else {
+    //                 // Nếu chưa tồn tại, thêm mới
+    //                 Cart::create([
+    //                     'user_id' => 1, // Thay '1' bằng Auth::id() nếu có hệ thống đăng nhập
+    //                     'product_size_id' => $request->product_size_id,
+    //                     'quantity' => $request->quantity,
+    //                 ]);
+    //             }
+    //         });
+
+    //         // Trả về JSON nếu thêm vào giỏ hàng thành công
+    //         return response()->json([
+    //             'success' => true,
+    //             'message' => 'Sản phẩm đã được thêm vào giỏ hàng.'
+    //         ], 200);
+    //     } catch (\Exception $e) {
+    //         // Trả về JSON nếu có lỗi xảy ra
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => $e->getMessage()
+    //         ], 400);
+    //     }
+    // }
     public function addToCart(Request $request)
     {
         try {
@@ -99,7 +147,7 @@ class CartController extends Controller
                 }
 
                 // Kiểm tra sản phẩm có trong giỏ hàng chưa
-                $cartItem = Cart::where('user_id', 1) // Thay '1' bằng Auth::id() nếu có hệ thống đăng nhập
+                $cartItem = Cart::where('user_id', Auth::id()) // Thay '1' bằng Auth::id() nếu có hệ thống đăng nhập
                     ->where('product_size_id', $request->product_size_id)
                     ->first();
 
@@ -110,26 +158,21 @@ class CartController extends Controller
                 } else {
                     // Nếu chưa tồn tại, thêm mới
                     Cart::create([
-                        'user_id' => 1, // Thay '1' bằng Auth::id() nếu có hệ thống đăng nhập
+                        'user_id' => Auth::id(), // Thay '1' bằng Auth::id() nếu có hệ thống đăng nhập
                         'product_size_id' => $request->product_size_id,
                         'quantity' => $request->quantity,
                     ]);
                 }
             });
 
-            // Trả về JSON nếu thêm vào giỏ hàng thành công
-            return response()->json([
-                'success' => true,
-                'message' => 'Sản phẩm đã được thêm vào giỏ hàng.'
-            ], 200);
+            // Trả về trang hoặc thông báo thành công
+            return redirect()->back()->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
         } catch (\Exception $e) {
-            // Trả về JSON nếu có lỗi xảy ra
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ], 400);
+            // Trả về thông báo lỗi nếu có vấn đề
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
 
 
 

@@ -34,6 +34,9 @@ Route::get('/product/{id}', [ProductController::class, 'productDetail'])->name('
 // Giỏ hàng
 Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
 
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+
+
 // Áp dụng voucher
 Route::post('/cart/apply-voucher', [CartController::class, 'applyVoucher'])->name('cart.applyVoucher');
 

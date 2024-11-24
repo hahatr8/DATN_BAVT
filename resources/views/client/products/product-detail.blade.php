@@ -538,68 +538,96 @@
                 <div class="row">
                     <!-- product details wrapper start -->
                     <div class="col-lg-12 order-1 order-lg-2">
-                        <!-- product details inner end -->
                         <div class="product-details-inner">
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div class="product-large-slider">
                                         <div class="pro-large-img img-zoom">
-                                            <img src="../../images/{{ $productDetail->productImgs->first()->img ?? '/images/default.jpg' }}" 
-                                                 alt="{{ $productDetail->name }}" class="main-image">
+                                            <img src="../../images/{{ $productDetail->productImgs->first()->img ?? '/images/default.jpg' }}"
+                                                alt="{{ $productDetail->name }}" class="main-image">
                                         </div>
                                     </div>
                                 </div>
-                        
                                 <div class="col-lg-7">
                                     <div class="product-details-des">
                                         <h3 class="product-name">{{ $productDetail->name }}</h3>
                                         <div class="price-box">
                                             <span class="price-regular">${{ $productDetail->price }}</span>
                                         </div>
-                        
                                         <div class="availability">
                                             <p class="{{ $isAvailable ? 'text-success' : 'text-danger' }}">
                                                 {{ $isAvailable ? 'Còn hàng' : 'Hết hàng' }}
                                             </p>
                                         </div>
-                        
                                         <p class="pro-desc">{{ $productDetail->description }}</p>
-                        
-                                        <div class="quantity-cart-box d-flex align-items-center">
-                                            <h6 class="option-title">qty:</h6>
-                                            <div class="quantity">
-                                                <div class="pro-qty"><input type="text" value="1"></div>
-                                            </div>
-                                            <div class="action_link">
-                                                <a class="btn btn-cart2" href="#">Add to cart</a>
-                                            </div>
-                                        </div>
-                        
+
+                                        <!-- Chọn size -->
                                         <div class="pro-size">
-                                            <h6 class="option-title">size :</h6>
+
                                             @if ($productDetail->productSizes->isNotEmpty())
-                                                <div class="product-sizes">
-                                                    <select id="size-select">
-                                                        @foreach ($productDetail->productSizes as $size)
-                                                            <option value="{{ $size->id }}" >
-                                                                {{ $size->variant }} - {{$size->quantity}}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    
-                                                </div>
+                                                <form action="{{ route('cart.add') }}" method="POST">
+                                                    @csrf
+                                                    <div class="product-sizes">
+                                                        <h4 class="option-title">Size:</h4>
+                                                        <select id="size-select" name="product_size_id" required>
+                                                            @foreach ($productDetail->productSizes as $size)
+                                                                <option value="{{ $size->id }}"
+                                                                    data-quantity="{{ $size->quantity }}">
+                                                                    {{ $size->variant }} - ${{ $size->price }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        <br>
+
+                                                    </div>
+                                                    <br>
+                                                    <p id="size-quantity" class="mt-2"></p>
+
+                                                    <!-- Chọn số lượng -->
+
+                                                    <div class="quantity">
+                                                        <p class="">Số lượng:</p>
+                                                        <input type="number" id="quantity" name="quantity"
+                                                            min="1" value="1" class="custom-input"
+                                                            style="padding: 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 16px; 
+    width: 100%; max-width: 200px; transition: all 0.3s ease;">
+                                                    </div>
+
+
+                                                    <!-- Nút thêm vào giỏ hàng -->
+                                                    <button type="submit" class="btn btn-cart2"
+                                                        style="margin-top:5px">Thêm vào giỏ hàng</button>
+                                                </form>
                                             @else
                                                 <p>Sản phẩm này hiện không có size nào khả dụng.</p>
                                             @endif
                                         </div>
+                                        @if (session('success'))
+                                            <div class="alert alert-success">
+                                                {{ session('success') }}
+                                            </div>
+                                        @endif
+
+                                        @if (session('error'))
+                                            <div class="alert alert-danger">
+                                                {{ session('error') }}
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                       
-                        
-                        
+
+
+                        <!-- Truyền sizeData từ controller -->
+                        <script>
+                            const sizeData = @json($sizeData);
+                        </script>
+
+
+
+
+
                         <!-- product details inner end -->
 
                         <!-- product details reviews start -->
@@ -1100,6 +1128,41 @@
 
     <!-- JS
 ============================================ -->
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sizeList = document.querySelectorAll('ul.list li'); // Các `li` đại diện cho size
+            const sizeQuantity = document.getElementById('size-quantity'); // Phần tử hiển thị số lượng
+
+            // Hàm cập nhật số lượng
+            const updateQuantity = (selectedValue) => {
+                const selectedSize = sizeData[selectedValue]; // Lấy thông tin từ sizeData
+                const quantity = selectedSize ? selectedSize.quantity : 0; // Lấy số lượng
+                sizeQuantity.textContent = `Còn lại: ${quantity}`;
+            };
+
+            // Gán sự kiện click cho từng `li`
+            sizeList.forEach((item) => {
+                item.addEventListener('click', function() {
+                    // Xóa trạng thái selected khỏi các size khác
+                    sizeList.forEach((el) => el.classList.remove('selected', 'focus'));
+                    this.classList.add('selected', 'focus');
+
+                    const selectedValue = this.getAttribute('data-value'); // Lấy giá trị size
+                    updateQuantity(selectedValue); // Cập nhật số lượng
+                });
+            });
+
+            // Cập nhật lần đầu (size mặc định được chọn)
+            const defaultSelected = document.querySelector('li.option.selected');
+            if (defaultSelected) {
+                updateQuantity(defaultSelected.getAttribute('data-value'));
+            }
+        });
+    </script>
+
+
 
 
 
