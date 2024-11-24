@@ -60,6 +60,8 @@ class OrderController extends Controller
             Order::STATUS_ORDER_SHIPPING,
             Order::STATUS_ORDER_DELIVERED,
             Order::STATUS_ORDER_COMPLETED,
+            Order::STATUS_ORDER_CUSTOMER_CANCELLED,
+            Order::STATUS_CANCELLATION_REFUND_COMPLETED,
             Order::STATUS_ORDER_CANCELED,
             Order::STATUS_RETURN_REQUESTED,
             Order::STATUS_RETURN_APPROVED,
@@ -70,6 +72,7 @@ class OrderController extends Controller
             Order::STATUS_REFUND_SUCCESSFUL,
             Order::STATUS_RETURN_REJECTED,
             Order::STATUS_RETURN_REQUEST_CANCELLED,
+            Order::STATUS_RETURN_COMPLETED
         ];
 
         // dd($request->all());
@@ -84,9 +87,13 @@ class OrderController extends Controller
 
             DB::transaction(function () use ($request, $order) {
 
-                // Nếu trạng thái là 'canceled', cần xử lý hoàn tiền trước khi cập nhật
-                if ($order->status_order === Order::STATUS_ORDER_CANCELED) {
+                if ($order->status_order === Order::STATUS_CANCELLATION_REFUND_COMPLETED) {
                     // Hoàn tiền cho khách hàng khi đơn bị hủy
+                    $this->refundCustomer($order);
+                }
+
+                if ($order->status_order === Order::STATUS_REFUND_SUCCESSFUL) {
+                    // Hoàn tiền cho khách hàng khi đơn bị trả hàng
                     $this->refundCustomer($order);
                 }
 

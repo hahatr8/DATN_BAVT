@@ -34,6 +34,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/jqueryui.min.css') }}">
     <!-- main style css -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    
+    <link rel="stylesheet" href="{{ asset('assets/css/style1.css') }}">
 
 </head>
 

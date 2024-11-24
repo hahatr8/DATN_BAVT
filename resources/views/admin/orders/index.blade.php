@@ -75,6 +75,8 @@
                                                 'shipping' => 'bg-primary',
                                                 'delivered' => 'bg-success',
                                                 'completed' => 'bg-secondary',
+                                                'customer_cancelled' => 'bg-danger',
+                                                'cancellation_refund_completed' => 'bg-warning',
                                                 'canceled' => 'bg-danger',
                                                 'return_requested' => 'bg-warning',
                                                 'return_approved' => 'bg-info',
@@ -85,6 +87,7 @@
                                                 'refund_successful' => 'bg-danger',
                                                 'return_rejected' => 'bg-danger',
                                                 'return_request_cancelled' => 'bg-secondary',
+                                                'return_completed' => 'bg-purple',
                                             ];
 
                                             // Lấy màu sắc từ mảng ánh xạ, mặc định là 'bg-secondary' nếu không tìm thấy

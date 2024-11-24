@@ -16,9 +16,10 @@ class Order extends Model
         'preparing_goods' => 'Đang chuẩn bị hàng',
         'shipping' => 'Đang vận chuyển',
         'delivered' => 'Đã giao hàng',
-
         'completed' => 'Hoàn thành',
 
+        'customer_cancelled' => 'Khách hàng đã hủy đơn hàng',
+        'cancellation_refund_completed' => 'Hoàn tiền cho khách hàng đã hủy đơn',
         'canceled' => 'Đơn hàng đã bị hủy',
 
         'return_requested' => 'Khách hàng đã yêu cầu trả hàng',
@@ -30,6 +31,7 @@ class Order extends Model
         'refund_processing' => 'Đang xử lý hoàn tiền',
         'refund_successful' => 'Đã hoàn tiền cho khách hàng',
         'return_request_cancelled' => 'Yêu cầu trả hàng bị huỷ',
+        'return_completed' => 'Đơn hàng đã bị trả về'
     ];
 
 
@@ -45,7 +47,11 @@ class Order extends Model
 
     const STATUS_ORDER_COMPLETED = 'completed';
 
+    const STATUS_ORDER_CUSTOMER_CANCELLED = 'customer_cancelled';
+
     const STATUS_ORDER_CANCELED = 'canceled';
+
+    const STATUS_CANCELLATION_REFUND_COMPLETED = 'cancellation_refund_completed';
 
     const STATUS_RETURN_REQUESTED = 'return_requested';
 
@@ -64,6 +70,9 @@ class Order extends Model
     const STATUS_WAITING_FOR_RETURN = 'waiting_for_return';
 
     const STATUS_RETURN_REQUEST_CANCELLED = 'return_request_cancelled';
+
+    const STATUS_RETURN_COMPLETED = 'return_completed';
+
 
 
     const STATUS_PAYMENT_MOMO = 'momo';

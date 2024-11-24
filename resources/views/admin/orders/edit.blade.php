@@ -13,24 +13,23 @@
                 </ol>
             </div>
         </div>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="col-lg-12">
             <div class="card shadow-lg border-light rounded-3">
                 <div class="card-header d-flex justify-content-between bg-info rounded-top">
                     <h5 class="card-title mb-0" style="font-size: 1.5rem;">Cập nhật trạng thái đơn hàng #{{ $order->id }}
                     </h5>
                 </div>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
                 <div class="card-body">
 
                     <!-- Tab phân chia thông tin -->
@@ -152,7 +151,7 @@
                 <input type="hidden" name="status_payment" value="{{ $order->status_payment }}">
                 <input type="hidden" name="total_price" value="{{ $order->total_price }}">
 
-                <div class="section">
+                <div class="section m-auto">
                     @php
                         $status = $order->status_order;
                         $buttons = [
@@ -169,20 +168,23 @@
                             class="btn {{ $buttons[$status][2] }} px-4 py-2 my-2">
                             {{ $buttons[$status][1] }}
                         </button>
-                    @elseif ($status === 'canceled')
-                        <p class="alert alert-danger">Đơn hàng đã bị hủy</p>
+                    @elseif ($status === 'customer_cancelled')
+                        <p class="alert alert-danger">Khách hàng đã hủy đơn hàng</p>
 
                         @if (in_array($order->status_payment, ['momo']))
-                            <button type="submit" name="status_order" value="refund_successful"
+                            <button type="submit" name="status_order" value="cancellation_refund_completed"
                                 class="btn bg-success px-4 py-2 my-2">Hoàn tiền cho khách hàng</button>
                         @endif
 
-                        @if ($order->status_payment === 'cash' && $status !== 'completed')
-                            <button type="submit" name="status_order" value="completed"
-                                class="btn bg-secondary px-4 py-2 my-2">Hoàn thành</button>
+                        @if ($order->status_payment === 'cash' && $status !== 'canceled')
+                            <button type="submit" name="status_order" value="canceled"
+                                class="btn bg-secondary px-4 py-2 my-2">Xác nhận đơn hàng đã bị hủy</button>
                         @endif
-                    @elseif ($status === 'completed')
-                        <p class="alert alert-success">Đơn hàng đã được hoàn thành</p>
+                    @elseif ($status === 'cancellation_refund_completed')
+                        <p class="alert alert-info">Đã hoàn tiền cho khách hàng</p>
+
+                        <button type="submit" name="status_order" value="canceled"
+                            class="btn bg-secondary px-4 py-2 my-2">Xác nhận đơn hàng đã bị hủy</button>
                     @elseif ($status === 'return_requested')
                         <p class="alert alert-danger">Khách đã yêu cầu trả hàng</p>
 
@@ -203,6 +205,7 @@
                             class="btn bg-secondary px-4 py-2 my-2">Hoàn thành</button>
                     @elseif ($status === 'waiting_for_return')
                         <p class="alert alert-warning">Đang chờ khách hàng gửi trả hàng</p>
+
                         <button type="submit" name="status_order" value="return_in_transit"
                             class="btn bg-primary px-4 py-2 my-2">Hàng đang được trả về</button>
                     @elseif ($status === 'return_in_transit')
@@ -216,20 +219,28 @@
                         <button type="submit" name="status_order" value="refund_processing"
                             class="btn bg-info px-4 py-2 my-2">Đang xử lý hoàn tiền</button>
                     @elseif ($status === 'refund_processing')
-                        <p class="alert alert-info">Đang xử lý hoàn tiền</p>
+                        @if (in_array($order->status_payment, ['momo']))
+                            <p class="alert alert-info">Đang xử lý hoàn tiền</p>
 
-                        @if (in_array($order->status_payment, ['momo', 'PayPal']))
                             <button type="submit" name="status_order" value="refund_successful"
                                 class="btn bg-success px-4 py-2 my-2">Hoàn tiền cho khách hàng</button>
                         @endif
 
-                        @if ($order->status_payment === 'cash' && $status !== 'completed')
-                            <button type="submit" name="status_order" value="completed"
-                                class="btn bg-secondary px-4 py-2 my-2">Hoàn thành</button>
+                        @if ($order->status_payment === 'cash' && $status !== 'return_completed')
+                            <button type="submit" name="status_order" value="return_completed"
+                                class="btn bg-secondary px-4 py-2 my-2">Hoàn thành trả hàng</button>
                         @endif
                     @elseif ($status === 'refund_successful')
-                        <button type="submit" name="status_order" value="completed"
-                            class="btn bg-secondary px-4 py-2 my-2">Hoàn thành</button>
+                        <p class="alert alert-info">Đã hoàn tiền thành công cho khách hàng</p>
+
+                        <button type="submit" name="status_order" value="return_completed"
+                            class="btn bg-secondary px-4 py-2 my-2">Hoàn thành trả hàng</button>
+                    @elseif ($status === 'completed')
+                        <p class="alert alert-success">Đơn hàng đã được hoàn thành</p>
+                    @elseif ($status === 'canceled')
+                        <p class="alert alert-danger">Đơn hàng đã bị hủy</p>
+                    @elseif ($status === 'return_completed')
+                        <p class="alert alert-danger">Đơn hàng đã bị trả</p>
                     @endif
 
                 </div>
@@ -237,7 +248,7 @@
 
         </div>
 
-        <div class="card-footer text-center">
+        <div class="card-footer text-center btn">
             <a href="{{ route('admin.orders.index') }}" class="btn btn-warning">Trở về</a>
         </div>
     </div>
