@@ -24,7 +24,6 @@ class StoreCategoryRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|unique:categories,name',
             'display_order' => 'required|integer|min:0',
-            'status' => 'required|boolean',
         ];
     }
 }

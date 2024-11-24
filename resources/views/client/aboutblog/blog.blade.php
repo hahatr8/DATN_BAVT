@@ -103,7 +103,7 @@
                                 <div class="recent-post">
                                     <div class="recent-post-item">
                                         <figure class="product-thumb">
-                                            <a href="blog-details.html">
+                                            <a href="{{ route('client.blogDetail', $newBlog)}}">
                                                 <img src="{{ \Storage::url($newBlog->img) }}" width="50px" alt="blog image">
                                             </a>
                                         </figure>

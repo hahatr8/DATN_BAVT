@@ -56,7 +56,7 @@
                         <div class="col">
 
                             <div class="h-100">
-                                
+
                                 @yield('content')
 
                             </div> <!-- end .h-100-->
@@ -911,6 +911,9 @@
     <script src="{{ asset('theme/admin/assets/libs/feather-icons/feather.min.js') }}"></script>
     <script src="{{ asset('theme/admin/assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ asset('theme/admin/assets/js/plugins.js') }}"></script>
+
+    <!-- apexcharts -->
+    <script src="{{ asset('theme/admin/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
     <!-- ckeditor -->
     <script src="{{ asset('theme/admin/assets/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>

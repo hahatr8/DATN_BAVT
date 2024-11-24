@@ -13,7 +13,7 @@ class HomeController extends Controller
 
     public function home()
     {
-        $categories = Category::query()->orderBy('display_order', 'asc')->paginate(5);
+        $categories = Category::query()->where('status', 1)->orderBy('display_order', 'asc')->paginate(5);
 
         return view(self::PATH_VIEW, compact('categories'));
 
