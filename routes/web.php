@@ -4,7 +4,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Client\CartController;
-
+use App\Http\Controllers\Client\BrandController as ClientBrandController;
 use Illuminate\Support\Facades\Route;
 
 /*

@@ -24,12 +24,13 @@ class Order extends Model
         'return_requested' => 'Khách hàng đã yêu cầu trả hàng',
         'return_approved' => 'Chấp nhận yêu cầu trả hàng',
         'return_rejected' => 'Từ chối yêu cầu trả hàng',
-        'waiting_for_return' => 'Đang chờ khách hàng gửi trả hàng',
-        'return_in_transit' => 'Hàng đang được trả về',
+        // 'waiting_for_return' => 'Đang chờ khách hàng gửi trả hàng',
+        // 'return_in_transit' => 'Hàng đang được trả về',
         'returned_goods_received' => 'Đã nhận được hàng hoàn',
-        'refund_processing' => 'Đang xử lý hoàn tiền',
+        // 'refund_processing' => 'Đang xử lý hoàn tiền',
         'refund_successful' => 'Đã hoàn tiền cho khách hàng',
-        'return_request_cancelled' => 'Yêu cầu trả hàng bị huỷ',
+        // 'return_request_cancelled' => 'Yêu cầu trả hàng bị huỷ',
+        // 'return_completed' => 'Đơn hàng đã bị trả về'
     ];
 
 

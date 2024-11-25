@@ -40,6 +40,20 @@
     <!-- Start Header Area -->
     <header class="header-area header-wide">
         @include('client.layouts.header')
+        <div class="banner-content text-right">
+
+            {{-- <?php foreach ($brands as $add_brand)
+             : ?>
+            <h5 class="banner-text1">{{ $add_brand->name }}</h5>
+            
+            <h5 class="banner-text1">{{ $add_brand->logo }}</h5>
+           
+            <a href="shop.html" class="btn btn-text">Shop Now</a>
+
+            <?php endforeach; ?> --}}
+
+        </div>
+
     </header>
     <!-- end Header Area -->
 
@@ -173,60 +187,73 @@
         <!-- service policy area end -->
 
         <!-- banner statistics area start -->
-        <div class="banner-statistics-area">
+        <div class="brands-category-area">
             <div class="container">
+                <h2 class="section-title">THƯƠNG HIỆU SẢN PHẨM</h2><br>
                 <div class="row row-20 mtn-20">
-                    <div class="col-sm-6">
-                        <figure class="banner-statistics mt-20">
-                            <a href="#">
-                                <img src="assets/img/banner/img1-top.jpg" alt="product banner">
-                            </a>
-                            <div class="banner-content text-right">
-                                <h5 class="banner-text1">BEAUTIFUL</h5>
-                                <h2 class="banner-text2">Wedding<span>Rings</span></h2>
-                                <a href="shop.html" class="btn btn-text">Shop Now</a>
+                    @foreach ($brands as $brand)
+                        <a href="{{route('brand',$brand->id)}}">
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="brand-card" data-brand-id="{{ $brand->id }}">
+                                    <img src="{{ $brand->logo ? asset('storage/' . $brand->logo) : asset('images/default-logo.png') }}" 
+                                         alt="{{ $brand->name }}" class="brand-image">
+                                    <div class="brand-content">
+                                        <h5 class="brand-title">{{ $brand->name }}</h5>
+                                    </div>
+                                </div>
                             </div>
-                        </figure>
-                    </div>
-                    <div class="col-sm-6">
-                        <figure class="banner-statistics mt-20">
-                            <a href="#">
-                                <img src="assets/img/banner/img2-top.jpg" alt="product banner">
-                            </a>
-                            <div class="banner-content text-center">
-                                <h5 class="banner-text1">EARRINGS</h5>
-                                <h2 class="banner-text2">Tangerine Floral <span>Earring</span></h2>
-                                <a href="shop.html" class="btn btn-text">Shop Now</a>
-                            </div>
-                        </figure>
-                    </div>
-                    <div class="col-sm-6">
-                        <figure class="banner-statistics mt-20">
-                            <a href="#">
-                                <img src="assets/img/banner/img3-top.jpg" alt="product banner">
-                            </a>
-                            <div class="banner-content text-center">
-                                <h5 class="banner-text1">NEW ARRIVALLS</h5>
-                                <h2 class="banner-text2">Pearl<span>Necklaces</span></h2>
-                                <a href="shop.html" class="btn btn-text">Shop Now</a>
-                            </div>
-                        </figure>
-                    </div>
-                    <div class="col-sm-6">
-                        <figure class="banner-statistics mt-20">
-                            <a href="#">
-                                <img src="assets/img/banner/img4-top.jpg" alt="product banner">
-                            </a>
-                            <div class="banner-content text-right">
-                                <h5 class="banner-text1">NEW DESIGN</h5>
-                                <h2 class="banner-text2">Diamond<span>Jewelry</span></h2>
-                                <a href="shop.html" class="btn btn-text">Shop Now</a>
-                            </div>
-                        </figure>
+                        </a>
+                    @endforeach
+                </div>
+        
+                <!-- Khu vực hiển thị sản phẩm -->
+                <div class="products-area">
+                    <div class="row" id="product-list">
+                        <!-- Các sản phẩm sẽ được hiển thị ở đây -->
                     </div>
                 </div>
             </div>
         </div>
+        <?php foreach ($listproduct as $product):?>
+        <tr>
+            <td>{{ $product->id }}</td>
+            <td>{{ $product->name }}</td>
+            <td>
+                {!! $product->categories->pluck('name')->implode('<br>') !!}
+            </td>
+            <td>{{ $product->brand->name }}</td>
+            <td>
+                @if ($product->productImgs->isNotEmpty())
+                    @php
+                        // Lấy ảnh chính
+                        $mainImage = $product->productImgs->firstWhere('is_main', true);
+                    @endphp
+
+                    @if ($mainImage)
+                        <img width="150px" height="150px"
+                            src="{{ asset('storage/' . $mainImage->img) }}" alt="Ảnh chính"
+                            style="object-fit: cover;">
+                    @else
+                        <p>No main image available</p>
+                    @endif
+                @else
+                    <p>No image available</p>
+                @endif
+
+            </td>
+            <td>{{ $product->price }}</td>
+            <td>{{ $product->view }}</td>
+            <td>
+                <div class="">
+                    <a href="{{ route('admin.products.edit', $product) }}"
+                        class="btn btn-sm btn-warning">Chỉnh sửa</a>
+                    <a href="{{ route('admin.products.destroy', $product) }}"
+                        onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $product->name }} không?')"
+                        class="btn btn-sm btn-danger">Xóa mềm</a>
+                </div>
+            </td>
+        </tr>
+        <?php endforeach ?>
         <!-- banner statistics area end -->
 
         <!-- product area start -->
@@ -2675,10 +2702,8 @@
                                         </div>
                                     </div>
                                     <div class="useful-links">
-                                        <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                            class="pe-7s-refresh-2"></i>compare</a>
-                                        <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
-                                            class="pe-7s-like"></i>wishlist</a>
+                                        <a href="#" data-bs-toggle="tooltip" title="Compare"><i class="pe-7s-refresh-2"></i>compare</a>
+                                        <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i class="pe-7s-like"></i>wishlist</a>
                                     </div>
                                     <div class="like-icon">
                                         <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
@@ -2811,3 +2836,69 @@
 
 <!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:43 GMT -->
 </html>
+<style>
+    /* Toàn bộ khu vực brands */
+    .brands-category-area {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Card từng thương hiệu */
+.brand-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Đẩy nội dung xuống đáy card */
+    align-items: center;
+    border: none; /* Loại bỏ viền */
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    height: 350px; /* Tăng chiều cao để giống mẫu */
+    width: 250px; /* Tăng chiều rộng */
+    margin: 10px auto; /* Đặt khoảng cách giữa các card */
+}
+
+.brand-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Hình ảnh thương hiệu */
+.brand-image {
+    width: 100%;
+    height: 75%; /* Chiếm 75% chiều cao của card */
+    object-fit: cover; /* Ảnh cắt để phù hợp khung */
+    background-color: #f9f9f9;
+}
+
+/* Nội dung thương hiệu */
+.brand-content {
+    padding: 10px;
+    background-color: #f8f4f2; /* Màu nền giống mẫu */
+    width: 100%; /* Trải rộng toàn bộ khung */
+    text-align: center;
+    border-top: 1px solid #eaeaea; /* Đường phân cách nhẹ */
+}
+
+.brand-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 5px 0;
+}
+
+
+</style>
