@@ -2201,7 +2201,7 @@
     <script src="{{asset('assets/js/plugins/google-map.js')}}"></script>
     <!-- Main JS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
-</body>
+</body> 
 
 
 <!-- Mirrored from htmldemo.net/corano/corano/shop-list-left-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:59 GMT -->
