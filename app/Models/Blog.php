@@ -16,4 +16,10 @@ class Blog extends Model
         'img',
         'status'
     ];
+    // Quan hệ với Comment (nếu cần)
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'blog_id');
+    }
+    
 }

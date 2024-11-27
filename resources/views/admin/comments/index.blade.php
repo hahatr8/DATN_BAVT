@@ -19,6 +19,7 @@
                         <th>Content</th>
                         <th>User</th>
                         <th>Product</th>
+                        <th>Blog</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -29,6 +30,7 @@
                         <td>{{ $comment->content }}</td>
                         <td>{{ $comment->user->name }}</td>
                         <td>{{ $comment->product->name }}</td>
+                        <td>{{ $comment->blogs->title }}</td>
                         <td>
                             <div class="text-center">
                                 <a href="{{ route('admin.comments.destroy', $comment) }}"

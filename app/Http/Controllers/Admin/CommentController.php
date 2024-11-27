@@ -3,30 +3,53 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Comment;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
-    // Lưu bình luận mới
-    public function store(CommentRequest $request)
+//     // Lưu bình luận mới
+//     public function store(Request $request, Blog $blog)
+// {
+//     $request->validate([
+//         'content' => 'required|max:500',
+//     ]);
+
+//     Comment::create([
+//         'content' => $request->content,
+//         'user_id' => auth()->id(),
+//         'blog_id' => $blog->id,
+//         'parent_id' => $request->parent_id, // Null nếu không phải trả lời
+//         'status' => false, // Nếu cần duyệt
+//     ]);
+
+//     return redirect()->back()->with('success', 'Your comment has been submitted!');
+// }
+
+    public function store(Request $request, Blog $blog)
     {
-        // Lưu dữ liệu bình luận
+        $request->validate([
+            'content' => 'required|max:500',
+        ]);
+
         Comment::create([
             'content' => $request->content,
             'user_id' => auth()->id(),
-            'product_id' => $request->product_id,
-            'blog_id' => $request->blog_id,
-            'status' => $request->status ?? false,
+            'blog_id' => $blog->id,
+            'parent_id' => $request->parent_id, // Null nếu không phải trả lời
+            'status' => false, // Nếu cần duyệt
         ]);
 
-        return back()->with('success', 'Thêm bình luận thành công.');
+        return redirect()->back()->with('success', 'Your comment has been submitted!');
     }
+
 
     // Danh sách bình luận
     public function index()
     {
-        $comments = Comment::whereNull('deleted_at')->paginate(10);
+
+        $comments = Comment::whereNull('deleted_at')->with(['blogs'])->get();
         $totalComments = Comment::whereNull('deleted_at')->count();
         $trashedComments = Comment::onlyTrashed()->count();
 

@@ -29,4 +29,13 @@ class Comment extends Model
     {
         return $this->belongsTo(Product::class);
     }
+    // Quan hệ với Blog
+    public function blogs()
+    {
+        return $this->belongsTo(Blog::class, 'blog_id');
+    }
+        public function replies()
+    {
+        return $this->hasMany(Comment::class, 'parent_id');
+    }
 }

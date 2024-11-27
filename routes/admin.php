@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\CommentController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\Admin\CategoryController;
 
 Route::prefix('admin')
     ->as('admin.')
@@ -43,8 +44,6 @@ Route::prefix('admin')
                 Route::get('/', [CommentController::class, 'index'])->name('index');
                 Route::get('/trash', [CommentController::class, 'trash'])->name('trash');
                 Route::post('/restore/{id}', [CommentController::class, 'restore'])->name('restore');
-                Route::get('/create', [CommentController::class, 'create'])->name('create');
-                Route::post('/store', [CommentController::class, 'store'])->name('store');
                 Route::put('/{comment}', [CommentController::class, 'update'])->name('update');
                 Route::get('/{comment}', [CommentController::class, 'destroy'])->name('destroy');
             });

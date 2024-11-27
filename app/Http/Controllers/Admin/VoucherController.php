@@ -11,15 +11,6 @@ use Illuminate\Foundation\Auth\User;
 class VoucherController extends Controller
 
 {
-    // Danh sách Voucher bình thường
-    // public function index()
-    // {
-    //     $vouchers = Voucher::whereNull('deleted_at')->get();
-    //     $totalVouchers = Voucher::whereNull('deleted_at')->count();
-    //     $trashedVouchers = Voucher::onlyTrashed()->count();
-
-    //     return view('admin.vouchers.index', compact('vouchers', 'totalVouchers', 'trashedVouchers'));
-    // }
     public function index()
     {
         $vouchers = Voucher::whereNull('deleted_at')->paginate(10); // Số bản ghi mỗi trang
