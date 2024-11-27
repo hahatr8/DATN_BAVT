@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Brand extends Model
 {
+<<<<<<< HEAD
     use HasFactory, SoftDeletes;
+=======
+    use HasFactory; 
+>>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
 
     protected $fillable = [
         'name',
@@ -16,8 +20,7 @@ class Brand extends Model
         'description',
         'status',
         'logo',
-    ];
-
+    ];  
     // Thiết lập quan hệ với model `Product`
     public function products()
     {

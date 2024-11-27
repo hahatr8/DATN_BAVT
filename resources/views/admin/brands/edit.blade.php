@@ -3,16 +3,27 @@
 @section('content')
     <h1>Chỉnh sửa thương hiệu: {{ $brand->name }}</h1>
 
+<<<<<<< HEAD
     <form action="{{ route('admin.brands.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
+=======
+    <form action="{{ route('brands.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
+>>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
         @csrf
         @method('PUT')
 
         <div class="mb-3">
             <label for="name" class="form-label">Tên thương hiệu</label>
+<<<<<<< HEAD
             <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $brand->name) }}" >
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror   
+=======
+            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $brand->name) }}" required>
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+>>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
         </div>
 
         <div class="mb-3">
@@ -30,7 +41,11 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
         <div class="mb-3">
             <label for="status" class="form-label">Trạng thái</label>
             <select class="form-control" id="status" name="status">

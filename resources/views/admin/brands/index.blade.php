@@ -3,8 +3,12 @@
 @section('content')
     <h1>Danh sách thương hiệu</h1>
 
+<<<<<<< HEAD
     <a href="{{ route('admin.brands.create') }}" class="btn btn-primary mb-3">Thêm thương hiệu mới</a>
 
+=======
+    <a href="{{ route('brands.create') }}" class="btn btn-primary mb-3">Thêm thương hiệu mới</a>
+>>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
 
     <table class="table">
         <thead>
@@ -30,9 +34,15 @@
                         @endif
                     </td>
                     <td>
+<<<<<<< HEAD
                         <a href="{{ route('admin.brands.edit', $brand->id) }}" class="btn btn-sm btn-warning">Sửa</a>
 
                         <form action="{{ route('admin.brands.destroy', $brand->id) }}" method="POST" class="d-inline">
+=======
+                        <a href="{{ route('brands.edit', $brand->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+
+                        <form action="{{ route('brands.destroy', $brand->id) }}" method="POST" class="d-inline">
+>>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>

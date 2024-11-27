@@ -1,10 +1,16 @@
 <?php
 
+<<<<<<< HEAD
 
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\BrandController as ClientBrandController;
+=======
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
+>>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+<<<<<<< HEAD
 
 // Giỏ hàng
 Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
@@ -31,4 +38,23 @@ Route::put('/cart/update-quantity', [CartController::class, 'updateQuantity'])->
 
 // Xóa sản phẩm khỏi giỏ hàng
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+=======
+// Route Categories
+Route::resource('categories', CategoryController::class);
+
+// Route Sản Phẩm (Product Routes)
+Route::prefix('products')
+    ->as('products.')
+    ->group(function () {
+        Route::get('/',                 [ProductController::class, 'index'])->name('index');
+        Route::get('/create',           [ProductController::class, 'create'])->name('create');
+        Route::post('/store',           [ProductController::class, 'store'])->name('store');
+        Route::get('/show/{id}',        [ProductController::class, 'show'])->name('show');
+        Route::get('{id}/edit',         [ProductController::class, 'edit'])->name('edit');
+        Route::put('{id}/update', [ProductController::class, 'update'])->name('products.update');
+        Route::delete('{id}',           [ProductController::class, 'destroy'])->name('destroy'); // Sửa ở đây
+    });
+    Route::resource('brands', BrandController::class);
+
+>>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
 
