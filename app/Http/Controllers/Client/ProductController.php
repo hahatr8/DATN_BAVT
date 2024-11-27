@@ -16,4 +16,5 @@ class ProductController extends Controller
         // Trả về view và truyền danh sách sản phẩm
         return view('user.products.index', compact('products'));
     }
+    
 }
