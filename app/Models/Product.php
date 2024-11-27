@@ -19,7 +19,6 @@ class Product extends Model
         'content',
         'brand_id',
     ];
-
     // Thiết lập quan hệ với model `Brand`
     public function brand()
     {
