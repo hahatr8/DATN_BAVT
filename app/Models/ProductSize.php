@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductSize extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'product_id',
@@ -22,6 +23,11 @@ class ProductSize extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
     }
 }
 

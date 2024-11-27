@@ -43,13 +43,13 @@
 	// offcanvas mobile menu
     var $offCanvasNav = $('.mobile-menu'),
         $offCanvasNavSubMenu = $offCanvasNav.find('.dropdown');
-    
+
     /*Add Toggle Button With Off Canvas Sub Menu*/
     $offCanvasNavSubMenu.parent().prepend('<span class="menu-expand"><i></i></span>');
-    
+
     /*Close Off Canvas Sub Menu*/
     $offCanvasNavSubMenu.slideUp();
-    
+
     /*Category Sub Menu Toggle*/
     $offCanvasNav.on('click', 'li a, li .menu-expand', function(e) {
         var $this = $(this);
@@ -66,7 +66,7 @@
             }
         }
 	});
-	
+
 
 	// hero slider active js
 	$('.hero-slider-active').slick({
@@ -491,8 +491,8 @@
         $(this).addClass('active');
         shopProductWrap.removeClass('grid-view list-view').addClass(viewMode);
 	})
-	
-	
+
+
 	// pricing filter
 	var rangeSlider = $(".price-range"),
 		amount = $("#amount"),
@@ -520,7 +520,7 @@
     $("#ship_to_different").on("change", function () {
         $(".ship-to-different").slideToggle("100");
 	});
-	
+
 
     // Payment Method Accordion
     $('input[name="paymentmethod"]').on('click', function () {
@@ -543,7 +543,7 @@
 			scrollTop: 0
 		}, 1000);
 	});
-	
+
 
 	// Search trigger js
 	$(".search-trigger").on('click', function(){
@@ -599,6 +599,6 @@
 			}
 		]
 	})
-	
+
 })(jQuery);
 

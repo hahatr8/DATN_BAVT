@@ -20,9 +20,20 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $data = Category::query()->with(['products'])->latest('id')->get();
+        $data = Category::whereNull('deleted_at')->with(['products'])->latest('id')->get();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
+        $totalCategories = Category::whereNull('deleted_at')->count();
+        $trashedCategories = Category::onlyTrashed()->count();
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact( 'data', 'totalCategories', 'trashedCategories'));
+    }
+
+    public function trash()
+    {
+        $trashedCategories = Category::with(['products'])->onlyTrashed()->get();
+        $totalTrashedCategories = Category::onlyTrashed()->count();
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact( 'trashedCategories', 'totalTrashedCategories'));
     }
 
     /**
@@ -51,7 +62,7 @@ class CategoryController extends Controller
             /** @var Category $category */
             $category = Category::query()->create($dataCategory);
 
-            $category->products()->attach($dataCategoryProduct);
+            $category->products()->attach($dataCategoryProduct, ['created_at' => now(), 'updated_at' => now()]);
 
             DB::commit();
 
@@ -102,6 +113,8 @@ class CategoryController extends Controller
         try {
             DB::beginTransaction();
 
+            $dataCategory['status'] ??= 0;
+
             /** @var Category $category */
             $category->update($dataCategory);
 
@@ -120,19 +133,35 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+     public function softDestruction(Category $category)
+    {
+        $category->delete();
+
+        return back()->with('success', 'Thao tác thành công');
+    }
+     
     public function destroy(Category $category)
     {
         try {
             DB::transaction(function () use ($category) {
                 $category->products()->sync([]);
 
-                $category->delete();
+                $category->forceDelete();
             });
 
             return back()->with('success', 'Thao tác thành công');
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }
+    }
+
+    public function restore($id)
+    {
+        $category = Category::onlyTrashed()->findOrFail($id);
+        $category->restore();
+
+        return back()->with(['success' => 'Khôi phục sản phẩm thành công']);
     }
 
     private function handleData(StoreCategoryRequest|UpdateCategoryRequest $request)

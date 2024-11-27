@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('xu');
             $table->enum('type', [ User::TYPE_ADMIN, User::TYPE_MEMBER ])->default(User::TYPE_MEMBER);
             $table->boolean('status')->default(false);
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

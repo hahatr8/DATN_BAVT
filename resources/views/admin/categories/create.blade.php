@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
 
 @section('title')
     Thêm mới danh mục
@@ -73,17 +73,14 @@
                                 <div class="col-md-8">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="" class="form-label">Chọn ẩn/hiện danh mục:</label>
-                                            <div class="input-group">
-                                                <select class="form-select" id="inputGroupSelect04" class="status"
-                                                    aria-label="Example select with button addon">
-                                                    <option value="1">Hiển thị</option>
-                                                    <option value="0">Ẩn</option>
-                                                </select>
-                                            </div>
+                                            <div class="form-check form-switch form-switch-secondary">
+                                                <input class="form-check-input" type="checkbox" name="status" role="switch" id="SwitchCheck2" checked value="1">
+                                                <label class="form-check-label" for="SwitchCheck2">
+                                                    Ẩn/hiện
+                                                </label>
+                                              </div>
                                         </div>
                                     </div>
-
                                 </div>
 
                             </div>

@@ -1,4 +1,5 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
+
 
 @section('title')
     Chi tiết blog {{ $blog->title }}

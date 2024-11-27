@@ -14,7 +14,7 @@ class ProductSeeder extends Seeder
     // Seeder cho bảng Products
 public function run()
 {
-    Product::factory()->count(5)->create(); // Thêm 10 sản phẩm vào bảng products
+    Product::factory()->count(100)->create(); // Thêm 10 sản phẩm vào bảng products
 }
 
 }
