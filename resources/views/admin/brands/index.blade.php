@@ -3,9 +3,8 @@
 @section('content')
     <h1>Danh sách thương hiệu</h1>
 
+
     <a href="{{ route('admin.brands.create') }}" class="btn btn-primary mb-3">Thêm thương hiệu mới</a>
-
-
     <table class="table">
         <thead>
             <tr>
@@ -30,6 +29,7 @@
                         @endif
                     </td>
                     <td>
+
                         <a href="{{ route('admin.brands.edit', $brand->id) }}" class="btn btn-sm btn-warning">Sửa</a>
 
                         <form action="{{ route('admin.brands.destroy', $brand->id) }}" method="POST" class="d-inline">

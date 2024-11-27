@@ -25,7 +25,7 @@ class CategoryController extends Controller
         $totalCategories = Category::whereNull('deleted_at')->count();
         $trashedCategories = Category::onlyTrashed()->count();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact( 'data', 'totalCategories', 'trashedCategories'));
+        return view(self::PATH_VIEW . __FUNCTION__, compact('data', 'totalCategories', 'trashedCategories'));
     }
 
     public function trash()

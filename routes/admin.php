@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\OrderController;
@@ -53,5 +54,6 @@ Route::prefix('admin')
 
         // Cập nhật trạng thái đơn hàng
         Route::put('/orders/{order}/updateStatus', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+        Route::resource('brands', BrandController::class);
     });
 
