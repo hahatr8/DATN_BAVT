@@ -42,16 +42,6 @@
         @include('client.layouts.header')
         <div class="banner-content text-right">
 
-            {{-- <?php foreach ($brands as $add_brand)
-             : ?>
-            <h5 class="banner-text1">{{ $add_brand->name }}</h5>
-            
-            <h5 class="banner-text1">{{ $add_brand->logo }}</h5>
-           
-            <a href="shop.html" class="btn btn-text">Shop Now</a>
-
-            <?php endforeach; ?> --}}
-
         </div>
 
     </header>
@@ -187,73 +177,92 @@
         <!-- service policy area end -->
 
         <!-- banner statistics area start -->
-        <div class="brands-category-area">
+        {{-- thương hiệu sản phẩm --}}
+        <div class="brands-category-area py-5 bg-light">
             <div class="container">
-                <h2 class="section-title">THƯƠNG HIỆU SẢN PHẨM</h2><br>
-                <div class="row row-20 mtn-20">
+                <!-- Tiêu đề -->
+                <h2 class="section-title text-center mb-4 text-uppercase">Thương Hiệu Sản Phẩm</h2>
+        
+                <!-- Thẻ hiển thị các thương hiệu -->
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                     @foreach ($brands as $brand)
-                        <a href="{{route('brand',$brand->id)}}">
-                            <div class="col-sm-6 col-md-4 col-lg-3">
-                                <div class="brand-card" data-brand-id="{{ $brand->id }}">
-                                    <img src="{{ $brand->logo ? asset('storage/' . $brand->logo) : asset('images/default-logo.png') }}" 
-                                         alt="{{ $brand->name }}" class="brand-image">
-                                    <div class="brand-content">
-                                        <h5 class="brand-title">{{ $brand->name }}</h5>
+                        <div class="col">
+                            <a href="{{ route('brand', $brand->id) }}" class="text-decoration-none text-dark">
+                                <div class="card shadow-sm h-100">
+                                    <img src="{{ $brand->logo ? asset('storage/' . $brand->logo) : asset('images/default-logo.png') }}"
+                                         alt="{{ $brand->name }}" 
+                                         class="card-img-top img-fluid" 
+                                         style="height: 150px; object-fit: contain;">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">{{ $brand->name }}</h5>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     @endforeach
                 </div>
         
                 <!-- Khu vực hiển thị sản phẩm -->
-                <div class="products-area">
-                    <div class="row" id="product-list">
-                        <!-- Các sản phẩm sẽ được hiển thị ở đây -->
+                <div class="products-area mt-5">
+                    <h3 class="text-center mb-4 text-uppercase">Danh Sách Sản Phẩm</h3>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+                        @foreach ($listproduct as $product)
+                            <div class="col">
+                                <div class="product-card shadow-sm border-0">
+                                    <!-- Hình ảnh sản phẩm -->
+                                    <div class="position-relative">
+                                        @if ($product->productImgs->isNotEmpty())
+                                            @php
+                                                $mainImage = $product->productImgs->firstWhere('is_main', true) ?: $product->productImgs->first();
+                                            @endphp
+                                            <img src="{{ asset('storage/' . $mainImage->img) }}" 
+                                                 alt="{{ $product->name }}" 
+                                                 class="product-img img-fluid">
+                                        @else
+                                            <img src="{{ asset('images/no-image.png') }}" 
+                                                 alt="Không có hình ảnh" 
+                                                 class="product-img img-fluid">
+                                        @endif
+                
+                                        <!-- Giảm giá (nếu có) -->
+                                        @if ($product->discount)
+                                            <span class="badge-discount position-absolute top-0 start-0 m-2">
+                                                -{{ $product->discount }}%
+                                            </span>
+                                        @endif
+                                    </div>
+                
+                                    <!-- Nội dung sản phẩm -->
+                                    <div class="product-info text-center p-3">
+                                        <h6 class="product-brand text-uppercase">{{ $product->brand->name }}</h6>
+                                        <p class="product-name text-truncate">{{ $product->name }}</p>
+                                        <div class="product-price">
+                                            @if ($product->discount)
+                                                <span class="text-decoration-line-through text-muted">
+                                                    {{ number_format($product->price, 0, ',', '.') }} ₫
+                                                </span>
+                                                <span class="fw-bold text-danger ms-2">
+                                                    {{ number_format($product->price * (1 - $product->discount / 100), 0, ',', '.') }} ₫
+                                                </span>
+                                            @else
+                                                <span class="fw-bold text-primary">
+                                                    {{ number_format($product->price, 0, ',', '.') }} ₫
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="product-size mt-2">
+                                            @if ($product->sizes)
+                                                <small class="text-muted">Dung tích: {{ $product->sizes->pluck('size')->implode(', ') }}</small>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
-            </div>
-        </div>
-        <?php foreach ($listproduct as $product):?>
-        <tr>
-            <td>{{ $product->id }}</td>
-            <td>{{ $product->name }}</td>
-            <td>
-                {!! $product->categories->pluck('name')->implode('<br>') !!}
-            </td>
-            <td>{{ $product->brand->name }}</td>
-            <td>
-                @if ($product->productImgs->isNotEmpty())
-                    @php
-                        // Lấy ảnh chính
-                        $mainImage = $product->productImgs->firstWhere('is_main', true);
-                    @endphp
-
-                    @if ($mainImage)
-                        <img width="150px" height="150px"
-                            src="{{ asset('storage/' . $mainImage->img) }}" alt="Ảnh chính"
-                            style="object-fit: cover;">
-                    @else
-                        <p>No main image available</p>
-                    @endif
-                @else
-                    <p>No image available</p>
-                @endif
-
-            </td>
-            <td>{{ $product->price }}</td>
-            <td>{{ $product->view }}</td>
-            <td>
-                <div class="">
-                    <a href="{{ route('admin.products.edit', $product) }}"
-                        class="btn btn-sm btn-warning">Chỉnh sửa</a>
-                    <a href="{{ route('admin.products.destroy', $product) }}"
-                        onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $product->name }} không?')"
-                        class="btn btn-sm btn-danger">Xóa mềm</a>
-                </div>
-            </td>
-        </tr>
-        <?php endforeach ?>
+                
+        
         <!-- banner statistics area end -->
 
         <!-- product area start -->
@@ -2899,6 +2908,5 @@
     margin: 0;
     padding: 5px 0;
 }
-
 
 </style>

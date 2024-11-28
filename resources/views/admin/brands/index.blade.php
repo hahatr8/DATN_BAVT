@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
 
 @section('content')
     <h1>Danh sách thương hiệu</h1>
@@ -29,7 +29,6 @@
                         @endif
                     </td>
                     <td>
-
                         <a href="{{ route('admin.brands.edit', $brand->id) }}" class="btn btn-sm btn-warning">Sửa</a>
 
                         <form action="{{ route('admin.brands.destroy', $brand->id) }}" method="POST" class="d-inline">
