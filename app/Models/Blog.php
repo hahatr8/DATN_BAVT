@@ -16,4 +16,9 @@ class Blog extends Model
         'img',
         'status'
     ];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

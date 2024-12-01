@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
@@ -9,10 +10,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgetpasswordController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::middleware('auth')->group(function () {
     Route::middleware('auth.admin')->group(function () {
         Route::prefix('admin')
             ->as('admin.')
+
             ->group(function () {
                 Route::get('/', function () {
                     return view('admin.dashboard');
