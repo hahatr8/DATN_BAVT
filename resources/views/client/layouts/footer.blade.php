@@ -1,5 +1,10 @@
-<!-- footer area start -->
+
+<footer class="footer-widget-area">
+        <div class="footer-top section-padding">
+
+    <!-- footer area start -->
             <div class="footer-top section-padding">
+
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
@@ -93,4 +98,7 @@
                 </div>
             </div>
         </div>
+
+    </footer>
+
     <!-- footer area end -->

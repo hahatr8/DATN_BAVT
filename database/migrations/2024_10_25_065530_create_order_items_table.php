@@ -14,16 +14,16 @@ class CreateOrderItemsTable extends Migration
      * @return void
      */
     public function up()
-{
-    Schema::create('order_items', function (Blueprint $table) {
-        $table->id(); // Cột id tự tăng
-        $table->foreignIdFor(Order::class)->constrained()->onDelete('cascade');
-        $table->foreignIdFor(ProductSize::class)->constrained()->onDelete('cascade');
-        $table->integer('quantity'); // Số lượng sản phẩm
-        $table->integer('price'); // Số lượng sản phẩm
-        $table->timestamps(); // Tạo cột created_at và updated_at
-    });
-}
+    {
+        Schema::create('order_items', function (Blueprint $table) {
+            $table->id(); // Cột id tự tăng
+            $table->foreignIdFor(Order::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(ProductSize::class)->constrained()->onDelete('cascade');
+            $table->integer('quantity'); // Số lượng sản phẩm
+            $table->integer('price'); // Số lượng sản phẩm
+            $table->timestamps(); // Tạo cột created_at và updated_at
+        });
+    }
 
 
 
