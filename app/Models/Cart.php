@@ -21,15 +21,15 @@ class Cart extends Model
         return $this->belongsTo(User::class);
     }
 
-     // Mối quan hệ từ Cart đến ProductSize
-     public function productSize()
-     {
-         return $this->belongsTo(ProductSize::class);
-     }
+    // Mối quan hệ từ Cart đến ProductSize
+    public function productSize()
+    {
+        return $this->belongsTo(ProductSize::class);
+    }
 
-     // Mối quan hệ từ Cart đến Product thông qua ProductSize
-     public function product()
-     {
-         return $this->productSize->product();
-     }
+    // Mối quan hệ từ Cart đến Product thông qua ProductSize
+    public function product()
+    {
+        return $this->productSize->product();
+    }
 }
