@@ -539,7 +539,7 @@ class CartController extends Controller
                 $order = Order::create([
                     'user_id' => $pendingOrder['user_id'],
                     'address_id' => $pendingOrder['address_id'],
-                    'status_order' => Order::STATUS_ORDER_CONFIRMED,
+                    'status_order' => Order::STATUS_ORDER_PENDING,
                     'status_payment' => 'momo',
                     'total_price' => $pendingOrder['total_amount'],
                 ]);

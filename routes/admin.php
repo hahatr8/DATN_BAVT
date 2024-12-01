@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
                     Route::get('/', [OrderController::class, 'index'])->name('index');
                     Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('edit');
                     Route::put('/{order}/updateStatus', [OrderController::class, 'updateStatus'])->name('updateStatus');
+                    Route::post('/bulk-update', [OrderController::class, 'bulkUpdate'])->name('bulk-update');
                 });
 
 

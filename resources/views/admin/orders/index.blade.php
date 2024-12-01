@@ -23,28 +23,57 @@
         </div>
         <!-- end page title -->
 
+        <!-- Thông báo trạng thái -->
+        @if (session('success'))
+            <div class="alert alert-success text-center col-12">{{ session('success') }}</div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger text-center col-12">{{ session('error') }}</div>
+        @endif
+
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">Danh sách đơn hàng</h5>
                 </div>
                 <div class="card-body">
+
+                    <!-- Nút để cập nhật trạng thái -->
+                    <div class="mb-3">
+                        <select id="bulk-status" class="form-select" style="width: 200px; display: inline-block;">
+                            <option value="" selected disabled>Chọn trạng thái mới</option>
+                            @foreach ($statusOrderOptions as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
+                            @endforeach
+                        </select>
+                        <button id="bulk-update-btn" class="btn btn-warning">Cập nhật trạng thái</button>
+                    </div>
+
                     <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
                         style="width:100%">
                         <thead class="table-dark">
                             <tr>
+                                <th class="text-center">
+                                    {{-- <input type="checkbox" id="select-all"> <!-- Checkbox chọn tất cả --> --}}
+                                </th>
                                 <th class="text-center">Mã</th>
                                 <th class="text-center">Người dùng</th>
                                 <th class="text-center">Thời gian</th>
                                 <th class="text-center">Tổng tiền</th>
                                 <th class="text-center">Thanh toán</th>
                                 <th class="text-center">Trạng thái</th>
-                                <th class="text-center">Hành động</th>
+                                <th class="text-center">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($orders as $order)
-                                <tr>
+                                <tr onclick="window.location='{{ route('admin.orders.edit', $order->id) }}'"
+                                    style="cursor: pointer;">
+                                    <td class="text-center" onclick="event.stopPropagation();">
+                                        <input type="checkbox" class="order-checkbox" value="{{ $order->id }}"
+                                            data-status="{{ $order->status_order }}" onclick="validateSelection(event);">
+                                    </td>
                                     <td class="text-center">{{ $order->id }}</td>
                                     <td class="text-center">{{ $order->user->name }}</td>
                                     <td class="text-center">{{ $order->created_at->format('d-m-Y / H:i:s') }}</td>
@@ -69,43 +98,195 @@
                                     <td class="text-center">
                                         @php
                                             $statusColors = [
-                                                'pending' => 'bg-warning',
-                                                'confirmed' => 'bg-info',
-                                                'preparing_goods' => 'bg-success',
-                                                'shipping' => 'bg-primary',
-                                                'delivered' => 'bg-success',
-                                                'completed' => 'bg-secondary',
-                                                'customer_cancelled' => 'bg-danger',
-                                                'cancellation_refund_completed' => 'bg-warning',
-                                                'canceled' => 'bg-danger',
-                                                'return_requested' => 'bg-warning',
-                                                'return_approved' => 'bg-info',
-                                                'waiting_for_return' => 'bg-warning',
-                                                'return_in_transit' => 'bg-primary',
-                                                'returned_goods_received' => 'bg-purple',
-                                                'refund_processing' => 'bg-info',
-                                                'refund_successful' => 'bg-danger',
-                                                'return_rejected' => 'bg-danger',
-                                                'return_request_cancelled' => 'bg-secondary',
-                                                'return_completed' => 'bg-purple',
+                                                'pending' => 'bg-warning', // Chờ xác nhận
+                                                'confirmed' => 'bg-info', // Đã xác nhận
+                                                'shipping' => 'bg-primary', // Đang vận chuyển
+                                                'delivered' => 'bg-success', // Đã giao hàng
+                                                'completed' => 'bg-secondary', // Hoàn thành
+
+                                                'shop_cancelled' => 'bg-danger',
+
+                                                'customer_cancelled' => 'bg-danger', // Khách hàng đã hủy đơn hàng
+                                                'cancellation_refund_completed' => 'bg-warning', // Hoàn tiền cho khách hàng đã hủy đơn
+                                                'canceled' => 'bg-danger', // Đơn hàng đã bị hủy
+
+                                                'return_requested' => 'bg-warning', // Khách hàng đã yêu cầu trả hàng
+                                                'return_approved' => 'bg-info', // Chấp nhận yêu cầu trả hàng
+                                                'return_rejected' => 'bg-danger', // Từ chối yêu cầu trả hàng
+                                                'return_in_transit' => 'bg-primary', // Hàng đang được trả về
+                                                'refund_successful' => 'bg-success', // Đã hoàn tiền cho khách hàng
                                             ];
 
-                                            // Lấy màu sắc từ mảng ánh xạ, mặc định là 'bg-secondary' nếu không tìm thấy
-                                            $statusColor = $statusColors[$order->status_order] ?? 'bg-secondary';
+                                            // Lấy màu sắc từ mảng ánh xạ, mặc định là 'bg-purple' nếu không tìm thấy
+                                            $statusColor = $statusColors[$order->status_order] ?? 'bg-purple';
                                         @endphp
 
                                         <span class="badge {{ $statusColor }}">
                                             {{ $statusOrderOptions[$order->status_order] ?? 'Không xác định' }}
                                         </span>
                                     </td>
+                                    <td onclick="event.stopPropagation();">
+                                        @php
+                                            $orderButtons = [
+                                                'pending' => [
+                                                    [
+                                                        'value' => 'confirmed',
+                                                        'label' => 'Xác nhận',
+                                                        'class' => 'bg-warning',
+                                                    ],
+                                                    [
+                                                        'value' => 'shop_cancelled',
+                                                        'label' => 'Hủy đơn',
+                                                        'class' => 'bg-danger',
+                                                    ],
+                                                ],
+                                                'confirmed' => [
+                                                    [
+                                                        'value' => 'shipping',
+                                                        'label' => 'Giao hàng',
+                                                        'class' => 'bg-info',
+                                                    ],
+                                                    [
+                                                        'value' => 'shop_cancelled',
+                                                        'label' => 'Hủy đơn',
+                                                        'class' => 'bg-danger',
+                                                    ],
+                                                ],
+                                                'shipping' => [
+                                                    [
+                                                        'value' => 'delivered',
+                                                        'label' => 'Đã giao hàng',
+                                                        'class' => 'bg-primary',
+                                                    ],
+                                                    [
+                                                        'value' => 'shop_cancelled',
+                                                        'label' => 'Hủy đơn',
+                                                        'class' => 'bg-danger',
+                                                    ],
+                                                ],
+                                                'delivered' => [
+                                                    [
+                                                        'value' => 'completed',
+                                                        'label' => 'Hoàn thành',
+                                                        'class' => 'bg-success',
+                                                    ],
+                                                ],
+                                                'shop_cancelled' => [
+                                                    [
+                                                        'condition' => $order->status_payment === 'momo',
+                                                        'value' => 'cancellation_refund_completed',
+                                                        'label' => 'Hoàn tiền',
+                                                        'class' => 'bg-info',
+                                                    ],
+                                                    [
+                                                        'condition' => $order->status_payment === 'cash',
+                                                        'value' => 'canceled',
+                                                        'label' => 'Xác nhận hủy',
+                                                        'class' => 'bg-danger',
+                                                    ],
+                                                ],
+                                                'customer_cancelled' => [
+                                                    [
+                                                        'condition' => $order->status_payment === 'momo',
+                                                        'value' => 'cancellation_refund_completed',
+                                                        'label' => 'Hoàn tiền cho khách hàng',
+                                                        'class' => 'bg-info',
+                                                    ],
+                                                    [
+                                                        'condition' => $order->status_payment === 'cash',
+                                                        'value' => 'canceled',
+                                                        'label' => 'Xác nhận hủy',
+                                                        'class' => 'bg-danger',
+                                                    ],
+                                                ],
+                                                'cancellation_refund_completed' => [
+                                                    [
+                                                        'value' => 'canceled',
+                                                        'label' => 'Xác nhận hủy',
+                                                        'class' => 'bg-danger',
+                                                    ],
+                                                ],
+                                                'return_requested' => [
+                                                    [
+                                                        'value' => 'return_approved',
+                                                        'label' => 'Chấp nhận yêu cầu trả hàng',
+                                                        'class' => 'bg-info',
+                                                    ],
+                                                    [
+                                                        'value' => 'return_rejected',
+                                                        'label' => 'Từ chối yêu cầu trả hàng',
+                                                        'class' => 'bg-danger',
+                                                    ],
+                                                ],
+                                                'return_approved' => [
+                                                    [
+                                                        'value' => 'return_in_transit',
+                                                        'label' => 'Hàng đã được trả về',
+                                                        'class' => 'bg-primary',
+                                                    ],
+                                                ],
+                                                'return_in_transit' => [
+                                                    [
+                                                        'value' => 'refund_successful',
+                                                        'label' => 'Hoàn tiền cho khách hàng',
+                                                        'class' => 'bg-success',
+                                                    ],
+                                                ],
+                                                'refund_successful' => [
+                                                    'message' => 'Đơn hàng trả',
+                                                    'message_class' => 'alert-info',
+                                                ],
+                                                'completed' => [
+                                                    'message' => 'Hoàn thành',
+                                                    'message_class' => 'alert-success',
+                                                ],
+                                                'canceled' => [
+                                                    'message' => 'Đơn hàng hủy',
+                                                    'message_class' => 'alert-danger',
+                                                ],
+                                                'return_rejected' => [
+                                                    'message' => 'Từ chối trả hàng',
+                                                    'message_class' => 'alert-danger',
+                                                ],
+                                            ];
+                                        @endphp
 
-                                    <td class="text-center">
-                                        <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-warning">Cập
-                                            nhật trạng thái</a>
+                                        <form action="{{ route('admin.orders.updateStatus', $order) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="redirect_to" value="{{ request()->fullUrl() }}">
+                                            <input type="hidden" name="user_id" value="{{ $order->user_id }}">
+                                            <input type="hidden" name="address_id" value="{{ $order->address_id }}">
+                                            <input type="hidden" name="status_payment"
+                                                value="{{ $order->status_payment }}">
+                                            <input type="hidden" name="total_price" value="{{ $order->total_price }}">
+
+                                            <div class="text-center">
+                                                @if (isset($orderButtons[$order->status_order]))
+                                                    @if (isset($orderButtons[$order->status_order]['message']))
+                                                        <p
+                                                            class="alert {{ $orderButtons[$order->status_order]['message_class'] }}">
+                                                            {{ $orderButtons[$order->status_order]['message'] }}
+                                                        </p>
+                                                    @endif
+                                                    @foreach ($orderButtons[$order->status_order] as $button)
+                                                        @if (isset($button['value']) && (!isset($button['condition']) || $button['condition']))
+                                                            <button type="submit" name="status_order"
+                                                                value="{{ $button['value'] }}"
+                                                                class="btn {{ $button['class'] }} px-4 py-2 my-2">
+                                                                {{ $button['label'] }}
+                                                            </button>
+                                                            <br>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
+
                     </table>
                 </div>
             </div>
@@ -159,6 +340,89 @@
                     infoEmpty: "Không có dữ liệu để hiển thị",
                     infoFiltered: "(lọc từ _MAX_ đơn hàng)"
                 }
+            });
+        });
+    </script>
+
+    {{-- Checkbox của đơn hàng phải giống trạng thái với nhau --}}
+    <script>
+        function validateSelection(event) {
+            event.stopPropagation(); // Ngăn chặn sự kiện click lan tới <tr>
+
+            const selectedCheckbox = event.target;
+            const selectedStatus = selectedCheckbox.dataset.status; // Lấy trạng thái của checkbox được chọn
+            const allCheckboxes = document.querySelectorAll('.order-checkbox:checked');
+
+            // Kiểm tra trạng thái các checkbox đã chọn
+            let isValid = true;
+            allCheckboxes.forEach((checkbox) => {
+                if (checkbox.dataset.status !== selectedStatus) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                alert("Chỉ được chọn các đơn hàng có cùng trạng thái!");
+                selectedCheckbox.checked = false; // Bỏ chọn checkbox vừa được chọn
+            }
+        }
+    </script>
+
+    {{-- Cập nhật trạng thái nhiều đơn hàng cùng 1 lần  --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectAllCheckbox = document.getElementById('select-all');
+            const orderCheckboxes = document.querySelectorAll('.order-checkbox');
+            const bulkUpdateBtn = document.getElementById('bulk-update-btn');
+            const bulkStatus = document.getElementById('bulk-status');
+
+            // Checkbox chọn tất cả
+            // selectAllCheckbox.addEventListener('change', () => {
+            //     orderCheckboxes.forEach(checkbox => {
+            //         checkbox.checked = selectAllCheckbox.checked;
+            //     });
+            // });
+
+            // Xử lý cập nhật trạng thái
+            bulkUpdateBtn.addEventListener('click', () => {
+                const selectedOrderIds = Array.from(orderCheckboxes)
+                    .filter(checkbox => checkbox.checked)
+                    .map(checkbox => checkbox.value);
+
+                const newStatus = bulkStatus.value;
+
+                if (!selectedOrderIds.length) {
+                    alert('Vui lòng chọn ít nhất một đơn hàng.');
+                    return;
+                }
+
+                if (!newStatus) {
+                    alert('Vui lòng chọn trạng thái mới.');
+                    return;
+                }
+
+                // Gửi yêu cầu qua AJAX
+                fetch('{{ route('admin.orders.bulk-update') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            order_ids: selectedOrderIds,
+                            new_status: newStatus
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Cập nhật trạng thái thành công!');
+                            location.reload();
+                        } else {
+                            alert(data.message || 'Có lỗi xảy ra. Vui lòng thử lại.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
             });
         });
     </script>
