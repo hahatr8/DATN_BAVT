@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ForgetpasswordController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
@@ -46,6 +48,7 @@ Route::prefix('admin')
                 Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('edit');
                 Route::put('/{product}', [ProductController::class, 'update'])->name('update');
                 Route::get('/{product}', [ProductController::class, 'destroy'])->name('destroy');
+               
             });
         // Danh sách đơn hàng
         Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
@@ -56,4 +59,20 @@ Route::prefix('admin')
         Route::put('/orders/{order}/updateStatus', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
         Route::resource('brands', BrandController::class);
     });
+    
+Route::get('login', [AuthController::class, 'showFormLogin']);
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
+Route::get('forgetpassword', [ForgetpasswordController::class, 'forgetpassword'])->name('forgetpassword');
+Route::post('forgetpasswordPost', [ForgetpasswordController::class, 'forgetpasswordPost'])->name('forgetpasswordPost');
+
+Route::get('restpassword/{token}', [ForgetpasswordController::class, 'restpassword'])->name('restpassword');
+Route::post('restpasswordPost', [ForgetpasswordController::class, 'restpasswordPost'])->name('restpasswordPost');
+
+
+Route::get('register', [AuthController::class, 'showFormRegister']);
+Route::post('register', [AuthController::class, 'register'])->name('register');
+
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
 

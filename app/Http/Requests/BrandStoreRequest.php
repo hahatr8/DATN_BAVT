@@ -29,7 +29,7 @@ class BrandStoreRequest extends FormRequest
     }
 
     /**
-     * Tùy chỉnh thông báo lỗi.
+     * Tùy chỉnh thông báo lỗi.     
      */
     public function messages(): array
     {

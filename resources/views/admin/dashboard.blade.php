@@ -543,4 +543,4 @@
             revenueBrandChart.render();
         }
     </script>
-@endsection
+@endsection 

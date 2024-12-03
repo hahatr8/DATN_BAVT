@@ -1,150 +1,188 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
 
 @section('content')
     <h1>Thêm thương hiệu mới</h1>
 
-<<<<<<< HEAD
     <form action="{{ route('admin.brands.store') }}" method="POST" enctype="multipart/form-data">
-=======
-<<<<<<< HEAD
-    <form action="{{ route('admin.brands.store') }}" method="POST" enctype="multipart/form-data">
-=======
-    <form action="{{ route('brands.store') }}" method="POST" enctype="multipart/form-data">
->>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
->>>>>>> d91ed8b941224d42689f663c170055b630c8ecac
         @csrf
 
         <div class="mb-3">
             <label for="name" class="form-label">Tên thương hiệu</label>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> d91ed8b941224d42689f663c170055b630c8ecac
             <input type="text" class="form-control @error('name') is-invalid @enderror" 
                    id="name" name="name" 
-                   value="{{ old('name') }}">
+                   value="{{ old('name') }}" placeholder="Nhập tên thương hiệu">
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-<<<<<<< HEAD
-=======
-=======
-            <input type="text" class="form-control" id="name" name="name" required>
->>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
->>>>>>> d91ed8b941224d42689f663c170055b630c8ecac
         </div>
 
         <div class="mb-3">
             <label for="country" class="form-label">Quốc gia</label>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> d91ed8b941224d42689f663c170055b630c8ecac
             <input type="text" class="form-control @error('country') is-invalid @enderror" 
                    id="country" name="country" 
-                   value="{{ old('country') }}">
+                   value="{{ old('country') }}" placeholder="Nhập quốc gia">
             @error('country')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-<<<<<<< HEAD
-=======
-=======
-            <input type="text" class="form-control" id="country" name="country">
->>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
->>>>>>> d91ed8b941224d42689f663c170055b630c8ecac
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Mô tả</label>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> d91ed8b941224d42689f663c170055b630c8ecac
             <textarea class="form-control @error('description') is-invalid @enderror" 
-                      id="description" name="description">{{ old('description') }}</textarea>
+                      id="description" name="description" placeholder="Nhập mô tả">{{ old('description') }}</textarea>
             @error('description')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-<<<<<<< HEAD
-=======
-=======
-            <textarea class="form-control" id="description" name="description"></textarea>
->>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
->>>>>>> d91ed8b941224d42689f663c170055b630c8ecac
         </div>
 
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header d-flex justify-content-between">
                 <h5 class="card-title mb-0">Trạng thái</h5>
                 <label class="switch">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> d91ed8b941224d42689f663c170055b630c8ecac
-                    <input name="status" id="status" value="1" 
-                           type="checkbox" 
+                    <input name="status" type="checkbox" value="1" 
                            {{ old('status') == 1 ? 'checked' : '' }}>
-                    <div class="slider">
-                        <div class="circle"></div>
-                    </div>
+                    <div class="slider"></div>
                 </label>
             </div>
-<<<<<<< HEAD
-=======
-=======
-                    <input {{ old('status') == 1 ? 'checked' : '' }} name="status" id="status"
-                        value="1" type="checkbox">
-                    <div class="slider">
-                        <div class="circle">
-                            <svg class="cross" xml:space="preserve" style="enable-background:new 0 0 512 512"
-                                viewBox="0 0 365.696 365.696" y="0" x="0" height="6" width="6"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g>
-                                    <path data-original="#000000" fill="currentColor"
-                                        d="M243.188 182.86 356.32 69.726c12.5-12.5 12.5-32.766 0-45.247L341.238 9.398c-12.504-12.503-32.77-12.503-45.25 0L182.86 122.528 69.727 9.374c-12.5-12.5-32.766-12.5-45.247 0L9.375 24.457c-12.5 12.504-12.5 32.77 0 45.25l113.152 113.152L9.398 295.99c-12.503 12.503-12.503 32.769 0 45.25L24.48 356.32c12.5 12.5 32.766 12.5 45.247 0l113.132-113.132L295.99 356.32c12.503 12.5 32.769 12.5 45.25 0l15.081-15.082c12.5-12.504 12.5-32.77 0-45.25zm0 0">
-                                    </path>
-                                </g>
-                            </svg>
-                            <svg class="checkmark" xml:space="preserve" style="enable-background:new 0 0 512 512"
-                                viewBox="0 0 24 24" y="0" x="0" height="10" width="10"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g>
-                                    <path class="" data-original="#000000" fill="currentColor"
-                                        d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z">
-                                    </path>
-                                </g>
-                            </svg>
-                        </div>
-                    </div>
-                </label>
-            </div>
-
-            <!-- end card body -->
->>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
->>>>>>> d91ed8b941224d42689f663c170055b630c8ecac
-        </div>​
+        </div>
+        
+        
 
         <div class="mb-3">
             <label for="logo" class="form-label">Logo</label>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> d91ed8b941224d42689f663c170055b630c8ecac
             <input type="file" class="form-control @error('logo') is-invalid @enderror" 
                    id="logo" name="logo">
             @error('logo')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
-<<<<<<< HEAD
-=======
-=======
-            <input type="file" class="form-control" id="logo" name="logo">
->>>>>>> 7d338e55e99648f0805aef3b86ebbd57123a62fb
->>>>>>> d91ed8b941224d42689f663c170055b630c8ecac
         </div>
 
-        <button type="submit" class="btn btn-primary">Lưu</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success btn-lg">Lưu thương hiệu</button>
+        </div>
     </form>
+
+@endsection
+
+@section('styles')
+    <style>
+        /* Tăng cường giao diện cho các trường */
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            box-shadow: none;
+            padding: 12px;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+            border-color: #38b2ac;
+        }
+
+        /* Thiết kế cho phần trạng thái */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 50px;
+        }
+
+        .switch .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            border-radius: 50px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #38b2ac;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Nút Lưu */
+        .btn-success {
+            width: 200px;
+            font-size: 16px;
+        }
+
+        /* Thêm khoảng cách giữa các trường */
+        .mb-3 {
+            margin-bottom: 20px;
+        }
+        /* CSS cho toggle switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+    </style>
 @endsection
