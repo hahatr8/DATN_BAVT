@@ -26,7 +26,7 @@ class BlogController extends Controller
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('categories', 'blogs', 'newBlogs'));
     }
-
+    
     public function blogDetail(Blog $blog)
     {
         $categories = Category::query()->latest('id')->paginate(5);

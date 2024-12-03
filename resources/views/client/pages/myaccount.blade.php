@@ -1,4 +1,4 @@
-@extends('client.index')
+@extends('client.layouts.master')
 
 @section('content')
 
