@@ -39,14 +39,23 @@
             <div class="card-header d-flex justify-content-between">
                 <h5 class="card-title mb-0">Trạng thái</h5>
                 <label class="switch">
+<<<<<<< HEAD
                     <input name="status" type="checkbox" value="1" 
+=======
+                    <input name="status" id="status" value="1" 
+                           type="checkbox" 
+>>>>>>> e836f8f30cfbfd142ac07efd2b477c830a47b1be
                            {{ old('status') == 1 ? 'checked' : '' }}>
                     <div class="slider"></div>
                 </label>
             </div>
+<<<<<<< HEAD
         </div>
         
         
+=======
+        </div>​
+>>>>>>> e836f8f30cfbfd142ac07efd2b477c830a47b1be
 
         <div class="mb-3">
             <label for="logo" class="form-label">Logo</label>

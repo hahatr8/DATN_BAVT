@@ -4,10 +4,13 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 <<<<<<< HEAD
 use App\Http\Controllers\Admin\ProductController;
+<<<<<<< HEAD
 =======
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\ProductController;
 >>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
+=======
+>>>>>>> e836f8f30cfbfd142ac07efd2b477c830a47b1be
 use App\Http\Controllers\Client\CartController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,7 +53,21 @@ Route::prefix('products')
     });
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
 
+<<<<<<< HEAD
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+=======
+// Áp dụng voucher
+Route::post('/cart/apply-voucher', [CartController::class, 'applyVoucher'])->name('cart.applyVoucher');
+
+// Cập nhật số lượng sản phẩm trong giỏ hàng
+Route::put('/cart/update-quantity', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
+
+// Xóa sản phẩm khỏi giỏ hàng
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
+
+   
+>>>>>>> e836f8f30cfbfd142ac07efd2b477c830a47b1be
 
 
 // Áp dụng voucher

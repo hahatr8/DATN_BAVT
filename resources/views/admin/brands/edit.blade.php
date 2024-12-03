@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
+<<<<<<< HEAD
 
+=======
+>>>>>>> e836f8f30cfbfd142ac07efd2b477c830a47b1be
 @section('content')
     <h1>Chỉnh sửa thương hiệu: {{ $brand->name }}</h1>
 
@@ -9,7 +12,11 @@
 
         <div class="mb-3">
             <label for="name" class="form-label">Tên thương hiệu</label>
+<<<<<<< HEAD
             <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $brand->name) }}" placeholder="Nhập tên thương hiệu">
+=======
+            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $brand->name) }}" >
+>>>>>>> e836f8f30cfbfd142ac07efd2b477c830a47b1be
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror   
@@ -30,6 +37,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+<<<<<<< HEAD
 
         <!-- Phần trạng thái sử dụng toggle switch -->
         <div class="card mb-3">
@@ -41,6 +49,18 @@
                     <div class="slider"></div>
                 </label>
             </div>
+=======
+        
+        <div class="mb-3">
+            <label for="status" class="form-label">Trạng thái</label>
+            <select class="form-control" id="status" name="status">
+                <option value="1" {{ old('status', $brand->status) == 1 ? 'selected' : '' }}>Hoạt động</option>
+                <option value="0" {{ old('status', $brand->status) == 0 ? 'selected' : '' }}>Không hoạt động</option>
+            </select>
+            @error('status')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+>>>>>>> e836f8f30cfbfd142ac07efd2b477c830a47b1be
         </div>
 
         <div class="mb-3">
