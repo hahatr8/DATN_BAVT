@@ -2,7 +2,12 @@
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+<<<<<<< HEAD
 use App\Http\Controllers\Admin\ProductController;
+=======
+use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\ProductController;
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
 use App\Http\Controllers\Client\CartController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +22,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('client.home');
+});
+Route::get('/', [ProductController::class,'index'])->name('home');
+
+
+Route::get('/list-product',[ProductController::class,'list'])->name('list-product');
+
+Route::get('/product/{id}', [ProductController::class, 'productDetail'])->name('product_detail');
 
 // Route Categories
 Route::resource('categories', CategoryController::class);
@@ -36,6 +50,9 @@ Route::prefix('products')
     });
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
 
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+
+
 // Áp dụng voucher
 Route::post('/cart/apply-voucher', [CartController::class, 'applyVoucher'])->name('cart.applyVoucher');
 
@@ -44,6 +61,7 @@ Route::put('/cart/update-quantity', [CartController::class, 'updateQuantity'])->
 
 // Xóa sản phẩm khỏi giỏ hàng
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+<<<<<<< HEAD
 
 Route::get('/brands', [BrandController::class, 'index'])->name('client.brands.index');
    // web.php
@@ -99,3 +117,5 @@ Route::middleware(['auth'])->prefix('orders')->name('client.orders.')->group(fun
 
     
 
+=======
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90

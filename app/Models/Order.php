@@ -17,6 +17,10 @@ class Order extends Model
         'delivered' => 'Đã giao hàng',
         'completed' => 'Hoàn thành',
 
+        'shop_cancelled' => 'Cửa hàng đã hủy đơn',
+
+        'customer_cancelled' => 'Khách hàng đã hủy đơn',
+        'cancellation_refund_completed' => 'Hoàn tiền cho đơn hủy',
         'canceled' => 'Đơn hàng đã bị hủy',
 
         'return_requested' => 'Khách hàng đã yêu cầu trả hàng',

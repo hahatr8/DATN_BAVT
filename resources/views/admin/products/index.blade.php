@@ -92,7 +92,6 @@
                                         @else
                                             <p>No image available</p>
                                         @endif
-
                                     </td>
                                     <td>{{ $product->price }}</td>
                                     <td>{{ $product->view }}</td>

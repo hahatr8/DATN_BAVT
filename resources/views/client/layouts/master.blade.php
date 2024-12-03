@@ -65,7 +65,10 @@
     </nav> --}}
     <main>
         @yield('content')
+<<<<<<< HEAD
         
+=======
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
     </main>
 
     <!-- Scroll to top start -->
@@ -314,4 +317,9 @@
 
 <!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:43 GMT -->
 
+<<<<<<< HEAD
 </html>
+=======
+</html>
+
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90

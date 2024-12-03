@@ -280,6 +280,7 @@ class ProductController extends Controller
 
         return back()->with(['success' => 'Xóa sản phẩm thành công']);
     }
+    
 
     public function restore($id)
     {

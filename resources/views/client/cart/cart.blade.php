@@ -1,6 +1,6 @@
-<!doctype html>
-<html class="no-js" lang="zxx">
+@extends('client.layouts.master')
 
+<<<<<<< HEAD
 
 <!-- Mirrored from htmldemo.net/corano/corano/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:00 GMT -->
 
@@ -355,97 +355,24 @@
                                         <li><a href="index-5.html">Home version 05</a></li>
                                         <li><a href="index-6.html">Home version 06</a></li>
                                     </ul>
+=======
+@section('content')
+    <!-- breadcrumb area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-wrap">
+                        <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a>
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
                                 </li>
-                                <li class="menu-item-has-children"><a href="#">pages</a>
-                                    <ul class="megamenu dropdown">
-                                        <li class="mega-title menu-item-has-children"><a href="#">column 01</a>
-                                            <ul class="dropdown">
-                                                <li><a href="shop.html">shop grid left sidebar</a></li>
-                                                <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a>
-                                                </li>
-                                                <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a>
-                                                </li>
-                                                <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="mega-title menu-item-has-children"><a href="#">column 02</a>
-                                            <ul class="dropdown">
-                                                <li><a href="product-details.html">product details</a></li>
-                                                <li><a href="product-details-affiliate.html">product details
-                                                        affiliate</a></li>
-                                                <li><a href="product-details-variable.html">product details
-                                                        variable</a></li>
-                                                <li><a href="privacy-policy.html">privacy policy</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="mega-title menu-item-has-children"><a href="#">column 03</a>
-                                            <ul class="dropdown">
-                                                <li><a href="cart.html">cart</a></li>
-                                                <li><a href="checkout.html">checkout</a></li>
-                                                <li><a href="compare.html">compare</a></li>
-                                                <li><a href="wishlist.html">wishlist</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="mega-title menu-item-has-children"><a href="#">column 04</a>
-                                            <ul class="dropdown">
-                                                <li><a href="my-account.html">my-account</a></li>
-                                                <li><a href="login-register.html">login-register</a></li>
-                                                <li><a href="about-us.html">about us</a></li>
-                                                <li><a href="contact-us.html">contact us</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children "><a href="#">shop</a>
-                                    <ul class="dropdown">
-                                        <li class="menu-item-has-children"><a href="#">shop grid layout</a>
-                                            <ul class="dropdown">
-                                                <li><a href="shop.html">shop grid left sidebar</a></li>
-                                                <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a>
-                                                </li>
-                                                <li><a href="shop-grid-full-3-col.html">shop grid full 3 col</a></li>
-                                                <li><a href="shop-grid-full-4-col.html">shop grid full 4 col</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children"><a href="#">shop list layout</a>
-                                            <ul class="dropdown">
-                                                <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a>
-                                                </li>
-                                                <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a>
-                                                </li>
-                                                <li><a href="shop-list-full-width.html">shop list full width</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children"><a href="#">products details</a>
-                                            <ul class="dropdown">
-                                                <li><a href="product-details.html">product details</a></li>
-                                                <li><a href="product-details-affiliate.html">product details
-                                                        affiliate</a></li>
-                                                <li><a href="product-details-variable.html">product details
-                                                        variable</a></li>
-                                                <li><a href="product-details-group.html">product details group</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children "><a href="#">Blog</a>
-                                    <ul class="dropdown">
-                                        <li><a href="blog-left-sidebar.html">blog left sidebar</a></li>
-                                        <li><a href="blog-list-left-sidebar.html">blog list left sidebar</a></li>
-                                        <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                        <li><a href="blog-list-right-sidebar.html">blog list right sidebar</a></li>
-                                        <li><a href="blog-grid-full-width.html">blog grid full width</a></li>
-                                        <li><a href="blog-details.html">blog details</a></li>
-                                        <li><a href="blog-details-left-sidebar.html">blog details left sidebar</a></li>
-                                        <li><a href="blog-details-audio.html">blog details audio</a></li>
-                                        <li><a href="blog-details-video.html">blog details video</a></li>
-                                        <li><a href="blog-details-image.html">blog details image</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact-us.html">Contact us</a></li>
+                                <li class="breadcrumb-item"><a href="shop.html">shop</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">cart</li>
                             </ul>
                         </nav>
+<<<<<<< HEAD
                         <!-- mobile menu navigation end -->
                     </div>
                     <!-- mobile menu end -->
@@ -534,329 +461,356 @@
                                 </ul>
                             </nav>
                         </div>
+=======
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
                     </div>
                 </div>
             </div>
         </div>
-        <!-- breadcrumb area end -->
+    </div>
+    <!-- breadcrumb area end -->
 
-        <!-- cart main wrapper start -->
-        <div class="cart-main-wrapper section-padding">
-            <div class="container">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+    <!-- cart main wrapper start -->
+    <div class="cart-main-wrapper section-padding">
+        <div class="container">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
 
-                <div class="section-bg-color">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <!-- Cart Table Area -->
-                            <div class="cart-table table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
+            <div class="section-bg-color">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Cart Table Area -->
+                        <div class="cart-table table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="pro-thumbnail">Ảnh</th>
+                                        <th class="pro-title">Tên sản phẩm</th>
+                                        <th class="pro-size">Size</th>
+                                        <th class="pro-price">Giá</th>
+                                        <th class="pro-quantity">Số lượng</th>
+                                        <th class="pro-subtotal">Tổng</th>
+                                        <th class="pro-remove">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($cartItems as $item)
                                         <tr>
-                                            <th class="pro-thumbnail">Ảnh</th>
-                                            <th class="pro-title">Tên sản phẩm</th>
-                                            <th class="pro-size">Size</th>
-                                            <th class="pro-price">Giá</th>
-                                            <th class="pro-quantity">Số lượng</th>
-                                            <th class="pro-subtotal">Tổng</th>
-                                            <th class="pro-remove">Thao tác</th>
+                                            <td class="pro-thumbnail"><a href="#">
+                                                    @if ($item->productSize->product->productImgs->isNotEmpty())
+                                                        @php
+                                                            // Lấy ảnh chính
+                                                            $mainImage = $item->productSize->product->productImgs->firstWhere(
+                                                                'is_main',
+                                                                true,
+                                                            );
+                                                        @endphp
+
+                                                        @if ($mainImage)
+                                                            <img width="100px" height="100px"
+                                                                src="{{ asset('storage/' . $mainImage->img) }}"
+                                                                alt="Ảnh chính" style="object-fit: cover;">
+                                                        @else
+                                                            <p>No main image available</p>
+                                                        @endif
+                                                    @else
+                                                        <p>No image available</p>
+                                                    @endif
+                                                </a>
+                                            </td>
+                                            <td class="pro-title"><a
+                                                    href="#">{{ $item->productSize->product->name }}</a>
+                                            </td>
+                                            <td class="pro-size">{{ $item->productSize->variant }}</td>
+                                            <td class="pro-price">
+                                                <span class="product-price">
+                                                    {{ number_format($item->productSize->product->price + $item->productSize->price, 0, ',', '.') }}
+                                                    VND
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                <div class="quantity-container">
+                                                    <button type="button" class="btn-quantity decrease"
+                                                        data-id="{{ $item->id }}">-</button>
+                                                    <input type="number" class="quantity-input"
+                                                        name="quantities[{{ $item->id }}]" value="{{ $item->quantity }}"
+                                                        min="1" max="{{ $item->productSize->quantity }}" readonly>
+                                                    <button type="button" class="btn-quantity increase"
+                                                        data-id="{{ $item->id }}">+</button>
+                                                </div>
+                                            </td>
+
+                                            <td class="total-amount">
+                                                <span class="total-price">
+                                                    {{ number_format(($item->productSize->product->price + $item->productSize->price) * $item->quantity, 0, ',', '.') }}
+                                                    VND
+                                                </span>
+                                            </td>
+                                            <td class="pro-remove">
+                                                <form action="{{ route('cart.remove', $item->id) }}" method="POST"
+                                                    onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($cartItems as $item)
-                                            <tr>
-                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
-                                                            src="assets/img/product/product-1.jpg"
-                                                            alt="Product" /></a></td>
-                                                <td class="pro-title"><a
-                                                        href="#">{{ $item->productSize->product->name }}</a>
-                                                </td>
-                                                <td class="pro-size">{{ $item->productSize->variant }}</td>
-                                                <td class="pro-price">
-                                                    <span class="product-price">
-                                                        {{ number_format($item->productSize->product->price + $item->productSize->price, 0, ',', '.') }}
-                                                        VND
-                                                    </span>
-                                                </td>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
-                                                <td>
-                                                    <div class="quantity-container">
-                                                        <button type="button" class="btn-quantity decrease"
-                                                            data-id="{{ $item->id }}">-</button>
-                                                        <input type="number" class="quantity-input"
-                                                            name="quantities[{{ $item->id }}]"
-                                                            value="{{ $item->quantity }}" min="1"
-                                                            max="{{ $item->productSize->quantity }}" readonly>
-                                                        <button type="button" class="btn-quantity increase"
-                                                            data-id="{{ $item->id }}">+</button>
-                                                    </div>
-                                                </td>
-
-                                                <td class="total-amount">
-                                                    <span class="total-price">
-                                                        {{ number_format(($item->productSize->product->price + $item->productSize->price) * $item->quantity, 0, ',', '.') }}
-                                                        VND
-                                                    </span>
-                                                </td>
-                                                <td class="pro-remove">
-                                                    <form action="{{ route('cart.remove', $item->id) }}"
-                                                        method="POST"
-                                                        onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-link">
-                                                            <i class="fa fa-trash-o"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- Cart Update Option -->
+                        <!-- Cart Update Option -->
+                        @if ($totalAmount > 0)
                             <div class="cart-update-option d-block d-md-flex justify-content-between">
                                 <div class="apply-coupon-wrapper">
-                                    <form action="{{ route('cart.applyVoucher') }}" method="POST"
-                                        id="applyVoucherForm" class="d-block d-md-flex align-items-center">
+                                    <form action="{{ route('cart.applyVoucher') }}" method="POST" id="applyVoucherForm"
+                                        class="d-block d-md-flex align-items-center">
                                         @csrf
                                         <div class="d-flex align-items-center">
-                                            <select name="voucher_id" id="voucher"
-                                                class="form-control custom-select">
+                                            <select name="voucher_id" id="voucher" class="form-control custom-select"
+                                                required>
                                                 <option value="">Chọn Voucher :</option>
                                                 @foreach ($vouchers as $voucher)
-                                                    <option value="{{ $voucher->id }}">
+                                                    <option value="{{ $voucher->id }}"
+                                                        @if (session('appliedVoucher') == $voucher->id) selected @endif>
                                                         {{ $voucher->E_vorcher }} - Giảm {{ $voucher->discount }} %
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-sqr mt-3 mt-md-0 ml-md-3">
-                                            Áp Dụng
-                                        </button>
+                                        <button type="submit" class="btn btn-sqr mt-3 mt-md-0 ml-md-3">Áp Dụng</button>
                                     </form>
+
                                 </div>
                             </div>
+                        @endif
 
-                        </div>
                     </div>
-
-                    <!-- Cart Calculation Area -->
-                    <div class="row">
-                        <div class="col-lg-5 ml-auto">
-                            <div class="cart-calculator-wrapper">
-                                <div class="cart-calculate-items">
-                                    <h6>Chi tiết thanh toán</h6>
-                                    <div class="table-responsive">
-                                        <table class="table">
-
-                                            <tr>
-                                                <td>Tổng phụ</td>
-                                                <td class="cart-total" id="grandTotal">
-                                                    {{ number_format($totalAmount ?? 0, 0, ',', '.') }} VND
-                                                </td>
-                                            </tr>
-
-                                            <tr id="discountRow" style="display: none;">
-                                                <td>Được giảm</td>
-                                                <td id="discountAmount" class="text-danger">- 0 VND</td>
-                                            </tr>
-
-                                            <tr class="total">
-                                                <td>Tổng tiền thanh toán</td>
-                                                <td class="total-amount" id="finalAmount">
-                                                    {{ number_format($finalAmount ?? $totalAmount, 0, ',', '.') }} VND
-                                                </td>
-                                            </tr>
-
-                                        </table>
-                                    </div>
-                                </div>
-                                <a href="checkout.html" class="btn btn-sqr d-block">Tiến hành đặt hàng</a>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+
+                <!-- Cart Calculation Area -->
+                <div class="row">
+                    <div class="col-lg-5 ml-auto">
+                        <div class="cart-calculator-wrapper">
+                            <div class="cart-calculate-items">
+                                <h6>Chi tiết thanh toán</h6>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tr>
+                                            <td>Tổng phụ</td>
+                                            <td class="cart-total" id="grandTotal">
+                                                {{ number_format($totalAmount, 0, ',', '.') }} VND
+                                            </td>
+                                        </tr>
+
+                                        @if ($discount > 0)
+                                            <tr>
+                                                <td>Được giảm</td>
+                                                <td id="discountAmount" class="text-danger">
+                                                    - {{ number_format($discount, 0, ',', '.') }} VND
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        <tr class="total">
+                                            <td>Tổng tiền thanh toán</td>
+                                            <td class="total-amount" id="finalAmount">
+                                                {{ number_format($finalAmount, 0, ',', '.') }} VND
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            @if ($totalAmount > 0)
+                                <a href="{{ route('cart.checkout') }}" class="btn btn-sqr d-block">Tiến hành đặt hàng</a>
+                            @endif
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+    </div>
 
-        <!-- Include jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <script>
-            //Thay đổi số lượng sản phẩm
-            document.addEventListener('DOMContentLoaded', function() {
-                // Lắng nghe sự kiện thay đổi số lượng
-                document.querySelectorAll('.increase, .decrease').forEach(button => {
-                    button.addEventListener('click', function() {
-                        let input = this.closest('.quantity-container').querySelector(
-                            '.quantity-input');
-                        let newValue = parseInt(input.value);
 
-                        if (this.classList.contains('increase')) {
-                            newValue += 1; // Tăng số lượng
-                        } else if (this.classList.contains('decrease') && newValue > 1) {
-                            newValue -= 1; // Giảm số lượng
-                        }
+    <style>
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-                        input.value = newValue;
+        .quantity-container .btn-quantity {
+            width: 30px;
+            height: 30px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-                        // Tự động cập nhật giá trị tổng giá trị của sản phẩm trong giỏ
-                        updateRowTotal(this);
+        .quantity-container .btn-quantity:hover {
+            background-color: aquamarine;
+        }
 
-                        // Gửi yêu cầu AJAX cập nhật số lượng mới
-                        let itemId = input.name.split('[')[1].split(']')[
-                            0]; // Lấy ID sản phẩm từ tên input
+        .quantity-container .quantity-input {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-left: none;
+            border-right: none;
+            pointer-events: none;
+            /* Ngăn nhập từ bàn phím */
+        }
+    </style>
 
-                        $.ajax({
-                            url: '/cart/update-quantity',
-                            method: 'PUT',
-                            data: {
-                                _token: '{{ csrf_token() }}',
-                                quantities: {
-                                    [itemId]: newValue // Dữ liệu số lượng mới
-                                }
-                            },
-                            success: function(response) {
-                                // Cập nhật tổng tiền
-                                $('#grandTotal').text(response.totalAmount.toLocaleString(
-                                    'vi-VN') + ' VND');
-                                $('#finalAmount').text(response.totalAmount.toLocaleString(
-                                    'vi-VN') + ' VND');
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-                                // Cập nhật tổng tiền từng sản phẩm
-                                response.cartItems.forEach(item => {
-                                    $(`#item-${item.id} .total-price`).text(item
-                                        .totalPrice.toLocaleString('vi-VN') +
-                                        ' VND');
-                                });
-                            },
-                            error: function(xhr, status, error) {
-                                console.error('Cập nhật giỏ hàng thất bại:', error);
-                            }
-                        });
+    <script>
+        //Thay đổi số lượng sản phẩm
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lắng nghe sự kiện thay đổi số lượng
+            document.querySelectorAll('.increase, .decrease').forEach(button => {
+                button.addEventListener('click', function() {
+                    let input = this.closest('.quantity-container').querySelector(
+                        '.quantity-input');
+                    let newValue = parseInt(input.value);
 
-                    });
-                });
-
-                function updateRowTotal(button) {
-                    let row = button.closest('tr');
-                    let price = parseFloat(row.querySelector('.product-price').textContent.replace(/[^0-9]/g, ''));
-                    let quantity = parseInt(row.querySelector('.quantity-input').value);
-                    let total = price * quantity;
-
-                    row.querySelector('.total-price').textContent = total.toLocaleString('vi-VN') + ' VND';
-                }
-            });
-        </script>
-
-        <script>
-            //Sử dụng vocher
-            document.addEventListener('DOMContentLoaded', function() {
-                // Xử lý sự kiện khi nhấn "Áp Dụng" voucher
-                document.querySelector('form[action*="/cart/apply-voucher"]').addEventListener('submit', function(
-                event) {
-                    event.preventDefault(); // Ngăn chặn submit mặc định
-
-                    const voucherId = document.querySelector('#voucher').value;
-
-                    if (!voucherId) {
-                        alert('Vui lòng chọn voucher.');
-                        return;
+                    if (this.classList.contains('increase')) {
+                        newValue += 1; // Tăng số lượng
+                    } else if (this.classList.contains('decrease') && newValue > 1) {
+                        newValue -= 1; // Giảm số lượng
                     }
 
+                    input.value = newValue;
+
+                    // Tự động cập nhật giá trị tổng giá trị của sản phẩm trong giỏ
+                    updateRowTotal(this);
+
+                    // Gửi yêu cầu AJAX cập nhật số lượng mới
+                    let itemId = input.name.split('[')[1].split(']')[
+                        0]; // Lấy ID sản phẩm từ tên input
+
                     $.ajax({
-                        url: this.action, // URL được lấy từ action của form
-                        method: 'POST',
+                        url: '/cart/update-quantity',
+                        method: 'PUT',
                         data: {
                             _token: '{{ csrf_token() }}',
-                            voucher_id: voucherId
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                // Cập nhật thông tin giảm giá
-                                $('#discountRow').show(); // Hiển thị dòng "Được giảm"
-                                $('#discountAmount').text('- ' + formatCurrency(response.discount));
-                                $('#finalAmount').text(formatCurrency(response.finalAmount));
-
-                                alert('Voucher đã được áp dụng thành công!');
-                            } else {
-                                alert(response.message || 'Đã xảy ra lỗi.');
+                            quantities: {
+                                [itemId]: newValue // Dữ liệu số lượng mới
                             }
                         },
+                        success: function(response) {
+                            // Cập nhật tổng tiền
+                            $('#grandTotal').text(response.totalAmount.toLocaleString(
+                                'vi-VN') + ' VND');
+                            $('#finalAmount').text(response.totalAmount.toLocaleString(
+                                'vi-VN') + ' VND');
+
+                            // Cập nhật tổng tiền từng sản phẩm
+                            response.cartItems.forEach(item => {
+                                $(`#item-${item.id} .total-price`).text(item
+                                    .totalPrice.toLocaleString('vi-VN') +
+                                    ' VND');
+                            });
+                        },
                         error: function(xhr, status, error) {
-                            alert('Không thể áp dụng voucher: ' + (xhr.responseJSON?.message ||
-                                error));
+                            console.error('Cập nhật giỏ hàng thất bại:', error);
                         }
                     });
+
                 });
-
-                // Hàm định dạng tiền tệ
-                function formatCurrency(value) {
-                    return value.toLocaleString('vi-VN', {
-                        style: 'currency',
-                        currency: 'VND'
-                    });
-                }
             });
-        </script>
 
+            function updateRowTotal(button) {
+                let row = button.closest('tr');
+                let price = parseFloat(row.querySelector('.product-price').textContent.replace(/[^0-9]/g, ''));
+                let quantity = parseInt(row.querySelector('.quantity-input').value);
+                let total = price * quantity;
 
-        <style>
-            .quantity-container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                row.querySelector('.total-price').textContent = total.toLocaleString('vi-VN') + ' VND';
             }
+        });
+    </script>
 
-            .quantity-container .btn-quantity {
-                width: 30px;
-                height: 30px;
-                background-color: #f8f9fa;
-                border: 1px solid #ddd;
-                cursor: pointer;
-                text-align: center;
-                font-size: 18px;
-                font-weight: bold;
-                line-height: 1;
-                color: #333;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+    <script>
+        //Sử dụng vocher
+        document.addEventListener('DOMContentLoaded', function() {
+            // Xử lý sự kiện khi nhấn "Áp Dụng" voucher
+            document.querySelector('form[action*="/cart/apply-voucher"]').addEventListener('submit', function(
+                event) {
+                event.preventDefault(); // Ngăn chặn submit mặc định
+
+                const voucherId = document.querySelector('#voucher').value;
+
+                if (!voucherId) {
+                    alert('Vui lòng chọn voucher.');
+                    return;
+                }
+
+                $.ajax({
+                    url: this.action, // URL được lấy từ action của form
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        voucher_id: voucherId
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // Cập nhật thông tin giảm giá
+                            $('#discountRow').show(); // Hiển thị dòng "Được giảm"
+                            $('#discountAmount').text('- ' + formatCurrency(response.discount));
+                            $('#finalAmount').text(formatCurrency(response.finalAmount));
+
+                            alert('Voucher đã được áp dụng thành công!');
+                        } else {
+                            alert(response.message || 'Đã xảy ra lỗi.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Không thể áp dụng voucher: ' + (xhr.responseJSON?.message ||
+                            error));
+                    }
+                });
+            });
+
+            // Hàm định dạng tiền tệ
+            function formatCurrency(value) {
+                return value.toLocaleString('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                });
             }
-
-            .quantity-container .btn-quantity:hover {
-                background-color: aquamarine;
-            }
-
-            .quantity-container .quantity-input {
-                width: 50px;
-                height: 30px;
-                text-align: center;
-                border: 1px solid #ddd;
-                border-left: none;
-                border-right: none;
-                pointer-events: none;
-                /* Ngăn nhập từ bàn phím */
-            }
-        </style>
-
-        <!-- cart main wrapper end -->
-    </main>
+        });
+    </script>
 
 
+<<<<<<< HEAD
     <!-- Scroll to top start -->
     <div class="scroll-top not-visible">
         <i class="fa fa-angle-up"></i>
@@ -1207,3 +1161,7 @@
 <!-- Mirrored from htmldemo.net/corano/corano/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:00 GMT -->
 
 </html>
+=======
+    <!-- cart main wrapper end -->
+@endsection
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90

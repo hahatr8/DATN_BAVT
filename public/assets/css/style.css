@@ -60,6 +60,9 @@ p:last-child {
     margin: 0;
     line-height: 1.2;
 }
+.thep {
+    color: #fff;
+}
 
 .h1,
 .h2,
@@ -706,7 +709,6 @@ textarea:focus {
     padding-left: 0.5px;
     padding-right: 0.5px;
 }
-
 .row-2 {
     margin-left: -1px;
     margin-right: -1px;
@@ -1028,11 +1030,11 @@ textarea:focus {
 .header-top {
     padding: 10px 0;
     border-bottom: 1px solid #efefef;
-    background-color: red;
+    background-color: #e60023;
 }
 
 .header-top-settings ul li {
-    color: #555555;
+    color: #fff;
     cursor: pointer;
     font-size: 14px;
     position: relative;
@@ -1110,7 +1112,7 @@ textarea:focus {
 }
 
 .welcome-message p {
-    color: #555555;
+    color: #fff;
     font-size: 14px;
     line-height: 1;
 }
@@ -1198,6 +1200,7 @@ textarea:focus {
     -ms-transform: none;
     transform: none;
 }
+
 
 /*----------- header mini cart area end -----------*/
 /*------- header search area start -------*/
@@ -3335,10 +3338,10 @@ textarea:focus {
 }
 
 .product-label {
-    background: #feeeea;
+    background: #c29958;
     border-radius: 20px;
-    color: #ee4d2d;
-    font-size: 16px;
+    color: #fff;
+    font-size: 12px;
     font-weight: 400;
     left: 20px;
     line-height: 1;
@@ -3354,7 +3357,7 @@ textarea:focus {
     margin-top: -1px;
 }
 .product-label.discount {
-    background-color: #feeeea;
+    background-color: #222222;
 }
 .product-label:nth-child(1) {
     top: 20px;
@@ -3376,7 +3379,7 @@ textarea:focus {
     line-height: 1;
 }
 .price-regular {
-    color: #e52d27;
+    color: #c29958;
     font-weight: 500;
 }
 .price-old {
@@ -6026,6 +6029,7 @@ blockquote {
 .contact-block li {
     font-size: 14px;
     margin-bottom: 8px;
+    color: #fff;
 }
 .contact-block li:last-child {
     margin-bottom: 0;
@@ -6036,7 +6040,7 @@ blockquote {
     vertical-align: middle;
 }
 .contact-block li a {
-    color: #555555;
+    color: #fff;
 }
 .contact-block li a:hover {
     color: #c29958;
@@ -6052,7 +6056,7 @@ blockquote {
 }
 .info-list li a {
     font-size: 14px;
-    color: #555555;
+    color: #fff;
     text-transform: capitalize;
 }
 .info-list li a:hover {
@@ -6116,10 +6120,10 @@ blockquote {
     position: absolute;
     font-size: 14px;
     font-weight: 700;
-    color: #c29958;
+    color: #000;
 }
 .newsletter-inner .news-btn:hover {
-    color: #222222;
+    color: #fff;
 }
 
 .footer-payment {
