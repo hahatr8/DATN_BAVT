@@ -325,7 +325,9 @@
                                             </a>
                                                                                   
                                             <div class="cart-hover">
-                                                <button class="btn btn-cart">add to cart</button>
+                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <button class="btn btn-cart">add to cart</button>
+                                                </a>
                                             </div>
                                         </figure>
                                         <div class="product-caption text-center">
@@ -366,7 +368,9 @@
                                             
                                             
                                             <div class="cart-hover">
-                                                <button class="btn btn-cart">add to cart</button>
+                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <button class="btn btn-cart">add to cart</button>
+                                                </a>
                                             </div>
                                         </figure>
                                         <div class="product-caption text-center">
@@ -409,16 +413,8 @@
                             <!-- product item list wrapper end -->
 
                             <!-- start pagination area -->
-                            <div class="paginatoin-area text-center">
-                                <ul class="pagination-box">
-                                    <li><a class="previous" href="#"><i class="pe-7s-angle-left"></i></a>
-                                    </li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a class="next" href="#"><i class="pe-7s-angle-right"></i></a>
-                                    </li>
-                                </ul>
+                            <div class="pagination">
+                                {{ $products->links('pagination::bootstrap-4') }} <!-- Sử dụng Bootstrap 4 để hiển thị phân trang -->
                             </div>
                             <!-- end pagination area -->
                         </div>

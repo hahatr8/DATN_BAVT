@@ -8,8 +8,9 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\ProductSize;
 use App\Models\Voucher;
+use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -95,7 +96,6 @@ class CartController extends Controller
     }
 
 
-
     public function addToCart(Request $request)
     {
         try {
@@ -130,17 +130,11 @@ class CartController extends Controller
                 }
             });
 
-            // Trả về JSON nếu thêm vào giỏ hàng thành công
-            return response()->json([
-                'success' => true,
-                'message' => 'Sản phẩm đã được thêm vào giỏ hàng.'
-            ], 200);
+            // Trả về trang hoặc thông báo thành công
+            return redirect()->back()->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
         } catch (\Exception $e) {
-            // Trả về JSON nếu có lỗi xảy ra
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ], 400);
+            // Trả về thông báo lỗi nếu có vấn đề
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
