@@ -1,6 +1,15 @@
 @extends('client.layouts.master');
 
 @section('content')
+<<<<<<< HEAD
+
+    <!-- group product start -->
+    <nav class="header-area header-wide">
+        @include('client.brands.index')
+    </nav>
+  
+@endsection
+=======
        <!-- hero slider area start -->
        <section class="slider-area">
         <div class="hero-slider-active slick-arrow-style slick-arrow-style_hero slick-dot-style">
@@ -980,3 +989,4 @@
     </div>
     <!-- brand logo area end -->
 @endsection
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90

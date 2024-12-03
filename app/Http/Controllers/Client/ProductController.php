@@ -58,6 +58,17 @@ class ProductController extends Controller
 
         return view('client.home', compact('products', 'products_featured'));
     }
+<<<<<<< HEAD
+    public function show($id)
+    {
+        // Tìm sản phẩm theo ID
+        $product = Product::findOrFail($id);
+
+        // Trả về view chi tiết sản phẩm với dữ liệu sản phẩm
+        return view('product.show', compact('product'));
+    }
+    
+=======
     public function bestSellerProduct()
     {
         $bestSellerProduct = Product::with([
@@ -209,6 +220,7 @@ public function productDetail($id)
     });
 
     return view('client.products.product-detail', compact('productDetail', 'relatedProducts', 'isAvailable', 'sizeData'));
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
 }
 
 

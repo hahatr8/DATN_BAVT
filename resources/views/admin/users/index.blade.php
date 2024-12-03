@@ -46,7 +46,15 @@ Danh sách tài khoản
                     </thead>
 
                     <tbody style="text-align: center;">
+<<<<<<< HEAD
+                        <?php
+
+use Illuminate\Support\Facades\Auth;
+
+ foreach ($listUser as $index => $user) : ?>
+=======
                         <?php foreach ($listUser as $index => $user) : ?>
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
                             <tr>
                                 <td>{{$index + 1}}</td>
                                 <td>
@@ -68,9 +76,17 @@ Danh sách tài khoản
                                             <i>Xóa</i>
                                         </button>
                                     </form>
+<<<<<<< HEAD
+                                    <?php if($user->type == 'member'): ?>
                                     <a href="{{ route('admin.user.empower',$user->id) }}" class="btn btn-outline-success" >
                                         <span> Cấp quyền </span>
                                     </a>
+                                    <?php endif ?>
+=======
+                                    <a href="{{ route('admin.user.empower',$user->id) }}" class="btn btn-outline-success" >
+                                        <span> Cấp quyền </span>
+                                    </a>
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
                                     
                                 </td>
                                 <td class="">

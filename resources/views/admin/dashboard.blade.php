@@ -543,6 +543,10 @@
             revenueBrandChart.render();
         }
     </script>
+<<<<<<< HEAD
+<<<<<<< HEAD
+@endsection 
+=======
 @endsection
 
 @section('style-libs')
@@ -553,3 +557,7 @@
     <link href="{{ asset('theme/admin/assets/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @yield('js')
+>>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
+=======
+@endsection 
+>>>>>>> e836f8f30cfbfd142ac07efd2b477c830a47b1be
