@@ -29,4 +29,9 @@ class Comment extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function blog()
+    {
+        return $this->belongsTo(Blog::class);
+    }
 }
