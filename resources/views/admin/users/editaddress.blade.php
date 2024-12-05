@@ -1,18 +1,18 @@
 @extends('admin.dashboard')
 
 @section('title')
-Cap nhat
+Thêm mới tài khoản
 @endsection
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Cập nhật tài khoản: </h4>
+            <h4 class="mb-sm-0">Thêm mới địa chỉ</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tài khoản</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Địa chỉ</a></li>
                     <li class="breadcrumb-item active">Cập nhật</li>
                 </ol>
             </div>
@@ -22,7 +22,9 @@ Cap nhat
 </div>
 
 
-<form action="{{ route('admin.user.update',$user->id) }}" method="POST" enctype="multipart/form-data">
+
+
+<form action="{{ route('admin.user.updateAddress',$addresses->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">
@@ -34,36 +36,32 @@ Cap nhat
                 <div class="card-body">
                     <div class="live-preview">
                         <div class="row gy-4">
-                            <div class="col-md-4">
-                                <div>
-                                    <label for="" class="form-label">Name:</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Nhap ten"
-                                        name="name" value="{{$user->name}}">
-                                </div>
-
-                                <div>
-                                    <label for="" class="form-label">Email:</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Nhap email"
-                                        name="email" value="{{$user->email}}">
-                                </div>
-
-
-                                <div>
-                                    <label for="" class="form-label">Phone:</label>
-                                    <input type="number" class="form-control" id="phone" placeholder="Nhap phone"
-                                        name="phone" value="{{$user->phone}}">
-                                </div>
-
-                            </div>
 
                             <div class="col-md-4">
 
-                                <div class="mt-3">
-                                    <label for="" class="form-label">Ảnh đại diện:</label>
-                                    <input type="file" class="form-control " name="img" placeholder="Nhập hình ảnh" onchange="showImage(event)">
-                                    <img id="image" src="{{Storage::url($user->img)}}" alt="hình ảnh danh mục" style="width: 100px; ">
+                                <div>
+                                    <label for="" class="form-label">Country:</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Nhap country" name="country"
+                                        value="{{$addresses->country}}">
                                 </div>
 
+                                <div>
+                                    <label for="" class="form-label">City:</label>
+                                    <input type="text" class="form-control" id="city" placeholder="Nhap city" name="city"
+                                        value="{{$addresses->city}}">
+                                </div>
+
+                                <div>
+                                    <label for="" class="form-label">District:</label>
+                                    <input type="text" class="form-control" id="district" placeholder="Nhap district" name="District"
+                                        value="{{$addresses->District}}">
+                                </div>
+
+                                <div>
+                                    <label for="" class="form-label">Address:</label>
+                                    <input type="text" class="form-control" id="addresses" placeholder="Nhap address" name="address"
+                                        value="{{$addresses->address}}">
+                                </div>
                             </div>
 
                         </div>
@@ -94,19 +92,7 @@ Cap nhat
 @endsection
 
 @section('js')
-<script>
-    function showImage(event) {
-        const image = document.getElementById('image');
-        const file = event.target.files[0];
-        const render = new FileReader();
 
-        render.onload = function() {
-            image.src = render.result;
-            image.style.display = 'block';
-        }
-        if (file) {
-            render.readAsDataURL(file);
-        }
-    }
-</script>
+
+
 @endsection

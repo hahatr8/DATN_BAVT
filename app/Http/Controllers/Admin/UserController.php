@@ -26,10 +26,10 @@ class UserController extends Controller
     {
         return view('admin.users.create');
     }
-    public function createadd(string $id)
+    public function createaddress(string $id)
     {
         $user = User::query()->findOrFail($id);
-        return view('admin.users.createadd', compact('user'));
+        return view('admin.users.createaddress', compact('user'));
     }
     public function store(UserRequest $request)
     {
@@ -41,23 +41,13 @@ class UserController extends Controller
                 $params['img'] = null;
             }
 
-            $user = User::query()->create($params);
-
-            $user_id = $user->id;
-            $user->addresses()->create([
-                'user_id' => $user_id,
-                'country' => $params['country'],
-                'District' => $params['District'],
-                'city' => $params['city'],
-                'address' => $params['address'],
-            ]);
-
+            User::query()->create($params);
 
             return redirect()->route('admin.user.index');
         }
     }
 
-    public function storeadd(Request $request, string $id)
+    public function storeAddress(Request $request, string $id)
     {
         if ($request->isMethod('POST')) {
             $params = $request->except('_token');
@@ -74,7 +64,22 @@ class UserController extends Controller
             ]);
 
 
-            return redirect()->route('admin.user.index');
+            return redirect()->route('admin.user.detail',$user->id);
+        }
+    }
+    public function editAddress(string $id)
+    {
+        $addresses =  Address::query()->findOrFail($id);
+        return view('admin.users.editaddress', compact( 'addresses'));
+    }
+    public function updateAddress(Request $request, string $id)
+    {
+        if ($request->isMethod('PUT')) {
+            $params = $request->except('_token', '_method');
+            $address = Address::query()->findOrFail($id);
+            
+            $address->update($params);
+            return redirect()->route('admin.user.detail',$address->user_id);
         }
     }
     public function detail(string $id)
@@ -97,7 +102,6 @@ class UserController extends Controller
         if ($request->isMethod('PUT')) {
             $params = $request->except('_token', '_method');
             $user = User::query()->findOrFail($id);
-            $addresses = DB::table('addresses')->where('user_id', $id)->get();
 
             if ($request->hasFile('img')) {
                 if ($user->img && Storage::disk('public')->exists($user->img)) {
@@ -106,23 +110,6 @@ class UserController extends Controller
                 $params['img'] = $request->file('img')->store('uploads/user', 'public');
             } else {
                 $params['img'] = $user->img;
-            }
-
-            if ($user->addresses->pluck('user_id')) {
-                $user->addresses()->update([
-                    'country' => $params['country'],
-                    'District' => $params['District'],
-                    'city' => $params['city'],
-                    'address' => $params['address'],
-                ]);
-            } elseif (!isset($addresses)) {
-                $user->addresses()->create([
-                    'user_id' => $user->id,
-                    'country' => $params['country'],
-                    'District' => $params['District'],
-                    'city' => $params['city'],
-                    'address' => $params['address'],
-                ]);
             }
 
             $user->update($params);
@@ -134,17 +121,29 @@ class UserController extends Controller
         $user->update(['type'=>'admin']);
         return redirect()->route('admin.user.index');
     }
-    public function destroy(string $id)
-    {
+    public function remoteempower(string $id){
         $user = User::query()->findOrFail($id);
-        if ($user) {
-            $user->addresses()->delete();
-            $user->delete();
+        $user->update(['type'=>'customer']);
+        return redirect()->route('admin.user.index');
+    }
+    public function softDestruction(User $user)
+    {
+        $user->delete();
 
-            if ($user->img && Storage::disk('public')->exists($user->img)) {
-                Storage::disk('public')->delete($user->img);
-            }
-            return redirect()->route('admin.user.index');
-        }
+        return back()->with('success', 'Thao tác thành công');
+    }
+    public function trash()
+    {
+        $trashedCategories = User::with(['addresses'])->onlyTrashed()->get();
+        $totalTrashedCategories = User::onlyTrashed()->count();
+
+        return view('admin.users.trash', compact( 'trashedCategories', 'totalTrashedCategories'));
+    }
+    public function restore($id)
+    {
+        $User = User::onlyTrashed()->findOrFail($id);
+        $User->restore();
+
+        return back()->with(['success' => 'Khôi phục sản phẩm thành công']);
     }
 }

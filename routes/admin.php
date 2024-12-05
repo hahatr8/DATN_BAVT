@@ -6,14 +6,11 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Client\AddressController;
-use App\Http\Controllers\Client\HomeController;
-use App\Http\Controllers\Client\UserController as ClientUserController;
 use App\Http\Controllers\ForgetpasswordController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
-    Route::middleware('auth.admin')->group(function () {
+    Route::middleware('auth.member')->group(function () {
         Route::prefix('admin')
             ->as('admin.')
             ->group(function () {
@@ -72,25 +69,38 @@ Route::middleware('auth')->group(function () {
                 // Blog
                 Route::resource('blogs', BlogController::class);
 
+                
+            });
+    });
+});
+Route::middleware('auth')->group(function () {
+    Route::middleware('auth.admin')->group(function () {
+        Route::prefix('admin')
+            ->as('admin.')
+            ->group(function () {
                 Route::prefix('user')
                     ->as('user.')
                     ->group(function () {
-
                         Route::get('index', [UserController::class, 'index'])->name('index');
                         Route::get('create', [UserController::class, 'create'])->name('create');
                         Route::get('detail/{id}', [UserController::class, 'detail'])->name('detail');
-                        Route::get('createadd/{id}', [UserController::class, 'createadd'])->name('createadd');
+                        Route::get('createaddress/{id}', [UserController::class, 'createaddress'])->name('createaddress');
                         Route::post('store', [UserController::class, 'store'])->name('store');
-                        Route::post('storeadd/{id}', [UserController::class, 'storeadd'])->name('storeadd');
+                        Route::post('storeAddress/{id}', [UserController::class, 'storeAddress'])->name('storeAddress');
                         Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit');
+                        Route::get('editAddress/{id}', [UserController::class, 'editAddress'])->name('editAddress');
                         Route::put('update/{id}', [UserController::class, 'update'])->name('update');
-                        Route::delete('destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
+                        Route::put('updateAddress/{id}', [UserController::class, 'updateAddress'])->name('updateAddress');
+                        Route::delete('destroy/{user}', [UserController::class, 'destroy'])->name('destroy');
                         Route::get('empower/{id}', [UserController::class, 'empower'])->name('empower');
+                        Route::get('remoteempower/{id}', [UserController::class, 'remoteempower'])->name('remoteempower');
+                        Route::get('/trash', [UserController::class, 'trash'])->name('trash');
+                        Route::get('/{user}', [UserController::class, 'softDestruction'])->name('softDestruction');
+                        Route::post('/{id}', [UserController::class, 'restore'])->name('restore');
                     });
             });
     });
 });
-
 
 
 

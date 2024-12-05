@@ -1,4 +1,4 @@
-@extends('client.home')
+@extends('client.layouts.master');
 
 @section('content')
 
@@ -26,13 +26,13 @@
                 <?php foreach ($addresses as $add) : ?>
                     <?php if(isset($add) ){ ?>
                         {{$add->address}},{{$add->District}},{{$add->city}},{{$add->country}}.  
-                        <a href="{{route('client.address.edit',$add->id)}}">sửa</a>
+                        <a href="{{route('address.edit',$add->id)}}">sửa</a>
                         <br>
                     <?php } ?>
                 <?php endforeach; ?>   
             </p>
-            <p class=" fw-bolder" id=""><a href="{{route('client.address.createadd',Auth::user()->id)}}">thêm địa chỉ</a></p>
-            <p class=" fw-bolder" id=""><a href="{{route('client.myaccountEdit',Auth::user()->id)}}">Sửa thông tin</a></p>
+            <p class=" fw-bolder" id=""><a href="{{route('address.createadd',Auth::user()->id)}}">thêm địa chỉ</a></p>
+            <p class=" fw-bolder" id=""><a href="{{route('myaccountEdit',Auth::user()->id)}}">Sửa thông tin</a></p>
             
         </div>
     </div>

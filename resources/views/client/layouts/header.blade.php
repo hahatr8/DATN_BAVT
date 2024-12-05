@@ -1,5 +1,3 @@
-
-
 <header class="header-area header-wide">
     <!-- main header start -->
     <div class="main-header d-none d-lg-block">
@@ -183,11 +181,14 @@
                                         @if(Auth::user())
                                         <a href="#">
                                             <div class="icon icon-user-light">
-                                                <img src="{{ Storage::url(Auth::user()->img)  }}" alt="img" class="rounded-circle" width="30px">                                                
+                                                <img src="{{ Storage::url(Auth::user()->img)  }}" alt="img" class="rounded-circle" width="30px">
                                             </div>
                                         </a>
                                         <ul class="dropdown-list">
-                                            <li><a href="{{route('client.myaccount',Auth::user()->id)}}">my account</a></li>
+                                            @if(Auth::user()->type == 'admin' || Auth::user()->type == 'member' )
+                                                <li><a href="http://127.0.0.1:8000/admin/">Admin</a></li>
+                                            @endif
+                                            <li><a href="{{route('myaccount',Auth::user()->id)}}">my account</a></li>
                                             <li>
                                                 <form action="{{route('logout')}}" method="post">
                                                     @csrf
@@ -437,4 +438,3 @@
     <!-- off-canvas menu end -->
     <!-- offcanvas mobile menu end -->
 </header>
-

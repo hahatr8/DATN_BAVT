@@ -64,7 +64,7 @@
             <div class="card">
                 <div class="card-header align-items-center d-flex">
                     <button class="btn btn-primary" type="submit">Save</button>
-                    <button type="button" class="btn btn-success m-3 text-light-emphasis"><a href="{{ route('admin.user.index') }}">Q/L Trang chủ</a></button>
+                    <button type="button" class="btn btn-success m-3 text-light-emphasis"><a href="">Q/L Trang chủ</a></button>
                 </div><!-- end card header -->
             </div>
         </div>

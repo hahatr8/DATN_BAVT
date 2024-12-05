@@ -58,37 +58,6 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div>
-                                    <label for="" class="form-label">Country:</label>
-                                    <input type="text" class="form-control @error('country') is-invalid @enderror" id="name" placeholder="Nhap country" name="country" require value="{{ old('country') }}">
-                                    @error('country')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div>
-                                    <label for="" class="form-label">City:</label>
-                                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" placeholder="Nhap city" name="city" require value="{{ old('city') }}">
-                                    @error('city')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div>
-                                    <label for="" class="form-label">District:</label>
-                                    <input type="text" class="form-control @error('District') is-invalid @enderror" id="district" placeholder="Nhap district" name="District" require value="{{ old('District') }}">
-                                    @error('District')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div>
-                                    <label for="" class="form-label">Address:</label>
-                                    <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" placeholder="Nhap address" name="address" require value="{{ old('address') }}">
-                                    @error('address')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
                                 <div class="mb-4">
                                     <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree to the Velzon <a href="{{route('login')}}" class="text-primary text-decoration-underline fst-normal fw-medium">Terms of Use</a></p>
