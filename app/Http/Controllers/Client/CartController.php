@@ -8,8 +8,8 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\ProductSize;
 use App\Models\Voucher;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -83,9 +83,6 @@ class CartController extends Controller
         $discount = 0;
         $finalAmount = $totalAmount;
 
-<<<<<<< HEAD
-        return view('client.cart.cart', compact('vouchers', 'cartItems', 'totalAmount'));
-=======
         // Kiểm tra voucher áp dụng
         $appliedVoucherId = session('appliedVoucher');
         if ($appliedVoucherId) {
@@ -96,7 +93,6 @@ class CartController extends Controller
         }
 
         return view('client.cart.cart', compact('vouchers', 'cartItems', 'totalAmount', 'finalAmount', 'discount'));
->>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
     }
 
 

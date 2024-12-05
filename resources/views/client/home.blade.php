@@ -1,16 +1,8 @@
 @extends('client.layouts.master');
 
 @section('content')
-<<<<<<< HEAD
 
-    <!-- group product start -->
-    <nav class="header-area header-wide">
-        @include('client.brands.index')
-    </nav>
-  
-@endsection
-=======
-       <!-- hero slider area start -->
+      <!-- hero slider area start -->
        <section class="slider-area">
         <div class="hero-slider-active slick-arrow-style slick-arrow-style_hero slick-dot-style">
             <!-- single slider item start -->
@@ -138,60 +130,87 @@
     <!-- service policy area end -->
 
     <!-- banner statistics area start -->
-    <div class="banner-statistics-area">
-        <div class="container">
-            <div class="row row-20 mtn-20">
-                <div class="col-sm-6">
-                    <figure class="banner-statistics mt-20">
-                        <a href="#">
-                            <img src="assets/img/banner/img1-top.jpg" alt="product banner">
-                        </a>
-                        <div class="banner-content text-right">
-                            <h5 class="banner-text1">BEAUTIFUL</h5>
-                            <h2 class="banner-text2">Wedding<span>Rings</span></h2>
-                            <a href="shop.html" class="btn btn-text">Shop Now</a>
+    {{-- thương hiệu sản phẩm --}}
+    <div class="container py-5">
+        <h2 class="text-center mb-4 text-uppercase fw-bold">THƯƠNG HIỆU SẢN PHẨM</h2>
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4">
+            @foreach ($brands as $brand)
+                <div class="col">
+                    <a href="javascript:void(0);" class="text-decoration-none brand-filter" 
+                       data-brand-id="{{ $brand->id }}">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-img-container" style="overflow: hidden;">
+                                <img src="{{ $brand->logo ? asset('storage/' . $brand->logo) : asset('images/default-logo.png') }}"
+                                     alt="{{ $brand->name }}" 
+                                     class="img-fluid"
+                                     style="object-fit: cover; height: 200px; width: 100%; transition: transform 0.3s;">
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="text-center py-2" style="background-color: #f9f9f9;">
+                                    <h5 class="text-uppercase fw-bold mb-0" style="font-size: 14px;">{{ $brand->name }}</h5>
+                                </div>
+                            </div>
                         </div>
-                    </figure>
+                    </a>
                 </div>
-                <div class="col-sm-6">
-                    <figure class="banner-statistics mt-20">
-                        <a href="#">
-                            <img src="assets/img/banner/img2-top.jpg" alt="product banner">
-                        </a>
-                        <div class="banner-content text-center">
-                            <h5 class="banner-text1">EARRINGS</h5>
-                            <h2 class="banner-text2">Tangerine Floral <span>Earring</span></h2>
-                            <a href="shop.html" class="btn btn-text">Shop Now</a>
-                        </div>
-                    </figure>
-                </div>
-                <div class="col-sm-6">
-                    <figure class="banner-statistics mt-20">
-                        <a href="#">
-                            <img src="assets/img/banner/img3-top.jpg" alt="product banner">
-                        </a>
-                        <div class="banner-content text-center">
-                            <h5 class="banner-text1">NEW ARRIVALLS</h5>
-                            <h2 class="banner-text2">Pearl<span>Necklaces</span></h2>
-                            <a href="shop.html" class="btn btn-text">Shop Now</a>
-                        </div>
-                    </figure>
-                </div>
-                <div class="col-sm-6">
-                    <figure class="banner-statistics mt-20">
-                        <a href="#">
-                            <img src="assets/img/banner/img4-top.jpg" alt="product banner">
-                        </a>
-                        <div class="banner-content text-right">
-                            <h5 class="banner-text1">NEW DESIGN</h5>
-                            <h2 class="banner-text2">Diamond<span>Jewelry</span></h2>
-                            <a href="shop.html" class="btn btn-text">Shop Now</a>
-                        </div>
-                    </figure>
-                </div>
-            </div>
+            @endforeach
+    
+    
         </div>
     </div>
+    
+    <!-- Hiển thị sản phẩm -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 product-list">
+        @foreach ($listproduct as $product)
+            <div class="col product-card" data-brand-id="{{ $product->brand->id }}">
+                <div class="shadow-sm border-0">
+                    <div class="position-relative">
+                        @if ($product->productImgs->isNotEmpty())
+                            @php
+                                $mainImage = $product->productImgs->firstWhere('is_main', true) ?: $product->productImgs->first();
+                            @endphp
+                            <img src="{{ asset('storage/' . $mainImage->img) }}" 
+                                 alt="{{ $product->name }}" 
+                                 class="product-img img-fluid">
+                        @else
+                            <img src="{{ asset('images/no-image.png') }}" 
+                                 alt="Không có hình ảnh" 
+                                 class="product-img img-fluid">
+                        @endif
+                        @if ($product->discount)
+                            <span class="badge-discount position-absolute top-0 start-0 m-2">
+                                -{{ $product->discount }}%
+                            </span>
+                        @endif
+                    </div>
+                    <div class="product-info text-center p-3">
+                        <h6 class="product-brand text-uppercase">{{ $product->brand->name }}</h6>
+                        <p class="product-name text-truncate">{{ $product->name }}</p>
+                        <div class="product-price">
+                            @if ($product->discount)
+                                <span class="text-decoration-line-through text-muted">
+                                    {{ number_format($product->price, 0, ',', '.') }} ₫
+                                </span>
+                                <span class="fw-bold text-danger ms-2">
+                                    {{ number_format($product->price * (1 - $product->discount / 100), 0, ',', '.') }} ₫
+                                </span>
+                            @else
+                                <span class="fw-bold text-primary">
+                                    {{ number_format($product->price, 0, ',', '.') }} ₫
+                                </span>
+                            @endif
+                        </div>
+                        <div class="product-size mt-2">
+                            @if ($product->sizes)
+                                <small class="text-muted">Dung tích: {{ $product->sizes->pluck('size')->implode(', ') }}</small>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+   
     <!-- banner statistics area end -->
 
     <!-- product area start -->
@@ -222,234 +241,7 @@
                         <!-- product tab menu end -->
 
                         <!-- product tab content start -->
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="tab1">
-                                <div class="product-carousel-4 slick-row-10 slick-arrow-style">
-                                    <!-- product item start -->
-                                    @foreach ($products as $p)
-                                        <div class="product-item">
-                                            <figure class="product-thumb">
-                                                <a href="product-details.html">
-                                                    {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
-                                                    @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
-                                                        @if ($p->hoverImage)
-                                                            <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
-                                                                alt="product">
-                                                        @endif
-                                                    @else
-                                                        <img class="pri-img" src="../../images/default.jpg"
-                                                            alt="product">
-                                                        {{-- Ảnh mặc định nếu không có ảnh --}}
-                                                    @endif
-                                                </a>
-                                                <div class="button-group">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick_view">
-                                                        <span data-bs-toggle="tooltip" data-bs-placement="left"
-                                                            title="Quick View">
-                                                            <i class="pe-7s-search"></i>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                                <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <button class="btn btn-cart">add to cart</button>
-                                                    </a>
-                                                </div>
-                                            </figure>
-                                            <div class="product-caption text-center">
-                                                <h6 class="product-name">
-                                                    <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
-                                                </h6>
-                                                <div class="price-box">
-                                                    <span class="price-regular">${{ $p->price }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-
-
-                                    <!-- product item end -->
-
-
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="tab2">
-                                <div class="product-carousel-4 slick-row-10 slick-arrow-style">
-                                    <!-- product item start -->
-                                    @foreach ($products as $p)
-                                        <div class="product-item">
-                                            <figure class="product-thumb">
-                                                <a href="product-details.html">
-                                                    {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
-                                                    @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
-                                                        @if ($p->hoverImage)
-                                                            <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
-                                                                alt="product">
-                                                        @endif
-                                                    @else
-                                                        <img class="pri-img" src="../../images/default.jpg"
-                                                            alt="product">
-                                                        {{-- Ảnh mặc định nếu không có ảnh --}}
-                                                    @endif
-                                                </a>
-                                                <div class="button-group">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick_view">
-                                                        <span data-bs-toggle="tooltip" data-bs-placement="left"
-                                                            title="Quick View">
-                                                            <i class="pe-7s-search"></i>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                                <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <button class="btn btn-cart">add to cart</button>
-                                                    </a>
-                                                </div>
-                                            </figure>
-                                            <div class="product-caption text-center">
-                                                <h6 class="product-name">
-                                                    <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
-                                                </h6>
-                                                <div class="price-box">
-                                                    <span class="price-regular">${{ $p->price }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                    <!-- product item end -->
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="tab3">
-                                <div class="product-carousel-4 slick-row-10 slick-arrow-style">
-                                    <!-- product item start -->
-                                    @foreach ($products as $p)
-                                        <div class="product-item">
-                                            <figure class="product-thumb">
-                                                <a href="product-details.html">
-                                                    {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
-                                                    @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
-                                                        @if ($p->hoverImage)
-                                                            <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
-                                                                alt="product">
-                                                        @endif
-                                                    @else
-                                                        <img class="pri-img" src="../../images/default.jpg"
-                                                            alt="product">
-                                                        {{-- Ảnh mặc định nếu không có ảnh --}}
-                                                    @endif
-                                                </a>
-                                                <div class="button-group">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick_view">
-                                                        <span data-bs-toggle="tooltip" data-bs-placement="left"
-                                                            title="Quick View">
-                                                            <i class="pe-7s-search"></i>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                                <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <button class="btn btn-cart">add to cart</button>
-                                                    </a>
-                                                </div>
-                                            </figure>
-                                            <div class="product-caption text-center">
-                                                <h6 class="product-name">
-                                                    <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
-                                                </h6>
-                                                <div class="price-box">
-                                                    <span class="price-regular">${{ $p->price }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                    <!-- product item end -->
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="tab4">
-                                <div class="product-carousel-4 slick-row-10 slick-arrow-style">
-                                    <!-- product item start -->
-                                    @foreach ($products as $p)
-                                        <div class="product-item">
-                                            <figure class="product-thumb">
-                                                <a href="product-details.html">
-                                                    {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
-                                                    @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
-                                                        @if ($p->hoverImage)
-                                                            <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
-                                                                alt="product">
-                                                        @endif
-                                                    @else
-                                                        <img class="pri-img" src="../../images/default.jpg"
-                                                            alt="product">
-                                                        {{-- Ảnh mặc định nếu không có ảnh --}}
-                                                    @endif
-                                                </a>
-                                                <div class="button-group">
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#quick_view">
-                                                        <span data-bs-toggle="tooltip" data-bs-placement="left"
-                                                            title="Quick View">
-                                                            <i class="pe-7s-search"></i>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                                <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <button class="btn btn-cart">add to cart</button>
-                                                    </a>
-                                                </div>
-                                            </figure>
-                                            <div class="product-caption text-center">
-                                                <h6 class="product-name">
-                                                    <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
-                                                </h6>
-                                                <div class="price-box">
-                                                    <span class="price-regular">${{ $p->price }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                    <!-- product item end -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- product tab content end -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                   
     <!-- product area end -->
 
     <!-- product banner statistics area start -->
@@ -538,7 +330,7 @@
                     <!-- section title start -->
                 </div>
             </div>
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-12">
                     <div class="product-carousel-4_2 slick-row-10 slick-arrow-style">
                         <!-- product item start -->
@@ -547,47 +339,7 @@
                                 <figure class="product-thumb">
                                     <a href="product-details.html">
                                         {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
-                                        @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
-                                                        @if ($p->hoverImage)
-                                                            <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
-                                                                alt="product">
-                                                        @endif
-                                                    @else
-                                                        <img class="pri-img" src="../../images/default.jpg"
-                                                            alt="product">
-                                                        {{-- Ảnh mặc định nếu không có ảnh --}}
-                                                    @endif
-                                    </a>
-                                    <div class="button-group">
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view">
-                                            <span data-bs-toggle="tooltip" data-bs-placement="left"
-                                                title="Quick View">
-                                                <i class="pe-7s-search"></i>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="cart-hover">
-                                        <a href="{{ Route('product_detail', $p->id) }}">
-                                            <button class="btn btn-cart">add to cart</button>
-                                        </a>
-                                    </div>
-                                </figure>
-                                <div class="product-caption text-center">
-                                    <h6 class="product-name">
-                                        <a href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
-                                    </h6>
-                                    <div class="price-box">
-                                        <span class="price-regular">${{ $p->price }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
+                                       
                         <!-- product item end -->
                     </div>
                 </div>
@@ -709,46 +461,7 @@
                         <!-- section title start -->
 
                         <!-- group list carousel start -->
-                        <div class="group-list-item-wrapper">
-                            <div class="group-list-carousel">
-                                <!-- group list item start -->
-                                @foreach ($products_featured as $p)
-                                    <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
-                                                    @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
-                                                        @if ($p->hoverImage)
-                                                            <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
-                                                                alt="product">
-                                                        @endif
-                                                    @else
-                                                        <img class="pri-img" src="../../images/default.jpg"
-                                                            alt="product">
-                                                        {{-- Ảnh mặc định nếu không có ảnh --}}
-                                                    @endif
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name">
-                                                    <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
-                                                </h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">${{ $p->price }}</span>
-                                                    {{-- <span class="price-old"><del>$29.99</del></span> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
+                       
 
                                 <!-- group list item end -->
                             </div>
@@ -766,46 +479,7 @@
                         <!-- section title start -->
 
                         <!-- group list carousel start -->
-                        <div class="group-list-item-wrapper">
-                            <div class="group-list-carousel">
-                                <!-- group list item start -->
-                                @foreach ($products_featured as $p)
-                                    <div class="group-slide-item">
-                                        <div class="group-item">
-                                            <div class="group-item-thumb">
-                                                <a href="product-details.html">
-                                                    {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
-                                                    @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
-                                                        @if ($p->hoverImage)
-                                                            <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
-                                                                alt="product">
-                                                        @endif
-                                                    @else
-                                                        <img class="pri-img" src="../../images/default.jpg"
-                                                            alt="product">
-                                                        {{-- Ảnh mặc định nếu không có ảnh --}}
-                                                    @endif
-                                                </a>
-                                            </div>
-                                            <div class="group-item-desc">
-                                                <h5 class="group-product-name">
-                                                    <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
-                                                </h5>
-                                                <div class="price-box">
-                                                    <span class="price-regular">${{ $p->price }}</span>
-                                                    {{-- <span class="price-old"><del>$29.99</del></span> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
+                        
                                 <!-- group list item end -->
                             </div>
                         </div>
@@ -989,4 +663,107 @@
     </div>
     <!-- brand logo area end -->
 @endsection
->>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
+<style>
+    /* Toàn bộ khu vực brands */
+    .brands-category-area {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Card từng thương hiệu */
+.brand-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Đẩy nội dung xuống đáy card */
+    align-items: center;
+    border: none; /* Loại bỏ viền */
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    height: 350px; /* Tăng chiều cao để giống mẫu */
+    width: 250px; /* Tăng chiều rộng */
+    margin: 10px auto; /* Đặt khoảng cách giữa các card */
+}
+
+.brand-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Hình ảnh thương hiệu */
+.brand-image {
+    width: 100%;
+    height: 75%; /* Chiếm 75% chiều cao của card */
+    object-fit: cover; /* Ảnh cắt để phù hợp khung */
+    background-color: #f9f9f9;
+}
+
+/* Nội dung thương hiệu */
+.brand-content {
+    padding: 10px;
+    background-color: #f8f4f2; /* Màu nền giống mẫu */
+    width: 100%; /* Trải rộng toàn bộ khung */
+    text-align: center;
+    border-top: 1px solid #eaeaea; /* Đường phân cách nhẹ */
+}
+
+.brand-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 5px 0;
+}
+
+</style>
+<!-- JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const brandFilters = document.querySelectorAll('.brand-filter');
+    const productCards = document.querySelectorAll('.product-card');
+
+    // Ẩn tất cả sản phẩm khi tải trang
+    productCards.forEach(card => {
+        card.style.display = 'none';
+    });
+
+    // Lắng nghe sự kiện click trên các thương hiệu
+    brandFilters.forEach(filter => {
+        filter.addEventListener('click', function () {
+            const brandId = this.getAttribute('data-brand-id');
+
+            // Ẩn tất cả sản phẩm
+            productCards.forEach(card => {
+                card.style.display = 'none';
+            });
+
+            // Hiển thị sản phẩm phù hợp với thương hiệu được chọn
+            if (brandId === 'all') {
+                // Hiển thị tất cả sản phẩm nếu chọn "Tất cả"
+                productCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            } else {
+                // Chỉ hiển thị sản phẩm thuộc thương hiệu đã chọn
+                productCards.forEach(card => {
+                    if (card.getAttribute('data-brand-id') === brandId) {
+                        card.style.display = 'block';
+                    }
+                });
+            }
+        });
+    });
+});
+</script>

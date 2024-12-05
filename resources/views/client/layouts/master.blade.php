@@ -43,13 +43,10 @@
     <!-- Start Header Area -->
     <header class="header-area header-wide">
         @include('client.layouts.header')
-<<<<<<< HEAD
-=======
         <div class="banner-content text-right">
 
         </div>
 
->>>>>>> e836f8f30cfbfd142ac07efd2b477c830a47b1be
     </header>
     <!-- end Header Area -->
 
@@ -71,13 +68,9 @@
         @include('client.brands.index')
     </nav> --}}
     <main>
-<<<<<<< HEAD
+
         @yield('content')
-<<<<<<< HEAD
-        
-=======
->>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
-=======
+
         <!-- hero slider area start -->
         <section class="slider-area">
             <div class="hero-slider-active slick-arrow-style slick-arrow-style_hero slick-dot-style">
@@ -203,98 +196,7 @@
                 </div>
             </div>
         </div>
-        <!-- service policy area end -->
-
-        <!-- banner statistics area start -->
-        {{-- thương hiệu sản phẩm --}}
-        <div class="brands-category-area py-5 bg-light">
-            <div class="container">
-                <!-- Tiêu đề -->
-                <h2 class="section-title text-center mb-4 text-uppercase">Thương Hiệu Sản Phẩm</h2>
-        
-                <!-- Thẻ hiển thị các thương hiệu -->
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                    @foreach ($brands as $brand)
-                        <div class="col">
-                            <a href="{{ route('brand', $brand->id) }}" class="text-decoration-none text-dark">
-                                <div class="card shadow-sm h-100">
-                                    <img src="{{ $brand->logo ? asset('storage/' . $brand->logo) : asset('images/default-logo.png') }}"
-                                         alt="{{ $brand->name }}" 
-                                         class="card-img-top img-fluid" 
-                                         style="height: 150px; object-fit: contain;">
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">{{ $brand->name }}</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
-        
-                <!-- Khu vực hiển thị sản phẩm -->
-                <div class="products-area mt-5">
-                    <h3 class="text-center mb-4 text-uppercase">Danh Sách Sản Phẩm</h3>
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
-                        @foreach ($listproduct as $product)
-                            <div class="col">
-                                <div class="product-card shadow-sm border-0">
-                                    <!-- Hình ảnh sản phẩm -->
-                                    <div class="position-relative">
-                                        @if ($product->productImgs->isNotEmpty())
-                                            @php
-                                                $mainImage = $product->productImgs->firstWhere('is_main', true) ?: $product->productImgs->first();
-                                            @endphp
-                                            <img src="{{ asset('storage/' . $mainImage->img) }}" 
-                                                 alt="{{ $product->name }}" 
-                                                 class="product-img img-fluid">
-                                        @else
-                                            <img src="{{ asset('images/no-image.png') }}" 
-                                                 alt="Không có hình ảnh" 
-                                                 class="product-img img-fluid">
-                                        @endif
-                
-                                        <!-- Giảm giá (nếu có) -->
-                                        @if ($product->discount)
-                                            <span class="badge-discount position-absolute top-0 start-0 m-2">
-                                                -{{ $product->discount }}%
-                                            </span>
-                                        @endif
-                                    </div>
-                
-                                    <!-- Nội dung sản phẩm -->
-                                    <div class="product-info text-center p-3">
-                                        <h6 class="product-brand text-uppercase">{{ $product->brand->name }}</h6>
-                                        <p class="product-name text-truncate">{{ $product->name }}</p>
-                                        <div class="product-price">
-                                            @if ($product->discount)
-                                                <span class="text-decoration-line-through text-muted">
-                                                    {{ number_format($product->price, 0, ',', '.') }} ₫
-                                                </span>
-                                                <span class="fw-bold text-danger ms-2">
-                                                    {{ number_format($product->price * (1 - $product->discount / 100), 0, ',', '.') }} ₫
-                                                </span>
-                                            @else
-                                                <span class="fw-bold text-primary">
-                                                    {{ number_format($product->price, 0, ',', '.') }} ₫
-                                                </span>
-                                            @endif
-                                        </div>
-                                        <div class="product-size mt-2">
-                                            @if ($product->sizes)
-                                                <small class="text-muted">Dung tích: {{ $product->sizes->pluck('size')->implode(', ') }}</small>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                
-        
-        <!-- banner statistics area end -->
-
-        <!-- product area start -->
+      
         <section class="product-area section-padding">
             <div class="container">
                 <div class="row">
@@ -2891,14 +2793,9 @@
 
 <!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:43 GMT -->
 
-<<<<<<< HEAD
 </html>
-=======
-</html>
+<style>
 
-<<<<<<< HEAD
->>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
-=======
 .section-title {
     font-size: 24px;
     font-weight: bold;
@@ -2957,4 +2854,3 @@
 }
 
 </style>
->>>>>>> e836f8f30cfbfd142ac07efd2b477c830a47b1be
