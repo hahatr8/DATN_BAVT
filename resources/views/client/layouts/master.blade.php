@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/jqueryui.min.css') }}">
     <!-- main style css -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    
+
     <link rel="stylesheet" href="{{ asset('assets/css/style1.css') }}">
 
 </head>
@@ -45,7 +45,6 @@
         @include('client.layouts.header')
     </header>
     <!-- end Header Area -->
-
 
     <main>
         @yield('content')
@@ -77,46 +76,36 @@
                             <div class="col-lg-5">
                                 <div class="product-large-slider">
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img1.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img2.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img3.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img4.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img5.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
                                     </div>
                                 </div>
                                 <div class="pro-nav slick-row-10 slick-arrow-style">
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img1.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img2.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img3.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img4.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img5.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
                                     </div>
                                 </div>
                             </div>
@@ -166,10 +155,8 @@
                                     <div class="like-icon">
                                         <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
                                         <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
-                                        <a class="pinterest" href="#"><i
-                                                class="fa fa-pinterest"></i>save</a>
-                                        <a class="google" href="#"><i
-                                                class="fa fa-google-plus"></i>share</a>
+                                        <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
+                                        <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
                                     </div>
                                 </div>
                             </div>
@@ -206,23 +193,6 @@
                                     <p>
                                         <span class="cart-quantity">1 <strong>&times;</strong></span>
                                         <span class="cart-price">$100.00</span>
-                                    </p>
-                                </div>
-                                <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                            </li>
-                            <li class="minicart-item">
-                                <div class="minicart-thumb">
-                                    <a href="product-details.html">
-                                        <img src="assets/img/cart/cart-2.jpg" alt="product">
-                                    </a>
-                                </div>
-                                <div class="minicart-content">
-                                    <h3 class="product-name">
-                                        <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
-                                    </h3>
-                                    <p>
-                                        <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                        <span class="cart-price">$80.00</span>
                                     </p>
                                 </div>
                                 <button class="minicart-remove"><i class="pe-7s-close"></i></button>
@@ -298,4 +268,3 @@
 <!-- Mirrored from htmldemo.net/corano/corano/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:53:43 GMT -->
 
 </html>
-

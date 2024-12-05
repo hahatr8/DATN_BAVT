@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
-use App\Models\Category;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,14 +13,11 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
 
-    const PATH_VIEW = 'client.home';
+    const PATH_VIEW = 'client.layouts.master';
 
     public function home()
     {
-        $categories = Category::query()->where('status', 1)->orderBy('display_order', 'asc')->paginate(5);
-
-        return view(self::PATH_VIEW, compact('categories'));
-
+        return view(self::PATH_VIEW);
     }
     public function myAccount(string $id)
     {
@@ -30,4 +28,16 @@ class HomeController extends Controller
         return view('client.pages.myaccount', compact('listUser', 'addresses', 'address'));
     }
 
+
+    public function showCart()
+    {
+        $cartItems = Cart::where('user_id', Auth::id())->get();
+
+        $totalAmount = $this->calculateGrandTotal();
+        $discount = 0;
+        $finalAmount = $totalAmount;
+
+        // Trả về view giỏ hàng với danh sách sản phẩm
+        return view(self::PATH_VIEW, compact('cartItems', 'totalAmount', 'finalAmount', 'discount'));
+    }
 }

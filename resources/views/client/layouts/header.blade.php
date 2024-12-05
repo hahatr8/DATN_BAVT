@@ -61,7 +61,7 @@
                                 <!-- main menu navbar start -->
                                 <nav class="desktop-menu">
                                     <ul>
-                                        <<li class="active"><a href="{{ route('client.') }}">Home <i
+                                        <<li class="active"><a href="{{ route('client.home') }}">Home <i
                                                     class="fa fa-angle-down"></i></a>
                                             <ul class="dropdown">
                                                 <li><a href="index.html">Home version 01</a></li>
@@ -167,11 +167,12 @@
                                             </li>
                                             <li><a href="{{ route('client.blog') }}">Blog</a>
                                             </li>
-                                            <li><a href="{{ route('client.blog') }}">Categories <i
+                                            <li><a href="{{ route('client.list-product') }}">Categories <i
                                                         class="fa fa-angle-down"></i></a>
                                                 <ul class="dropdown">
-                                                    @foreach ($categories as $category)
-                                                        <li><a href="blog-left-sidebar.html">{{ $category->name }}</a>
+                                                    @foreach ($globalCategories as $category)
+                                                        <li><a
+                                                                href="{{ route('client.list-product'), $category->id }}">{{ $category->name }}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>

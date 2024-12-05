@@ -38,7 +38,9 @@
 </head>
 
 <body>
-
+    <header class="header-area header-wide">
+        @include('client.layouts.header');
+    </header>
     <main>
         <!-- breadcrumb area start -->
         <div class="breadcrumb-area">
@@ -71,12 +73,12 @@
                                 <h5 class="sidebar-title">categories</h5>
                                 <div class="sidebar-body">
                                     <ul class="shop-categories">
-                                        <li><a href="{{ route('list-product') }}"
-                                                class="{{ is_null($categoryId) ? 'active' : '' }}">Tất cả sản phẩm</a>
+                                        <li><a href="{{ route('client.list-product') }}"
+                                                class="{{ is_null($categoryId) ? 'active' : '' }}">Tất cả danh mục</a>
                                         </li>
                                         @foreach ($categories as $category)
                                             <li>
-                                                <a href="{{ route('list-product', ['category_id' => $category->id]) }}"
+                                                <a href="{{ route('client.list-product', ['category_id' => $category->id]) }}"
                                                     class="{{ $categoryId == $category->id ? 'active' : '' }}">
                                                     {{ $category->name }}
                                                 </a>
@@ -307,7 +309,7 @@
                                             <a href="product-details.html">
                                                 {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                 @if ($p->mainImage)
-                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                <a href="{{ Route('client.product_detail', $p->id) }}">
                                                     <img class="pri-img"
                                                         src="../../images/{{$p->mainImage->img }}"
                                                         alt="product">
@@ -325,7 +327,7 @@
                                             </a>
                                                                                   
                                             <div class="cart-hover">
-                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                <a href="{{ Route('client.product_detail', $p->id) }}">
                                                     <button class="btn btn-cart">add to cart</button>
                                                 </a>
                                             </div>
@@ -333,7 +335,7 @@
                                         <div class="product-caption text-center">
                                             <h6 class="product-name">
                                                 <a
-                                                    href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                    href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                             </h6>
                                             <div class="price-box">
                                                 <span class="price-regular">${{ $p->price }}</span>
@@ -349,7 +351,7 @@
                                             <a href="product-details.html">
                                                 {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                 @if ($p->mainImage)
-                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                <a href="{{ Route('client.product_detail', $p->id) }}">
                                                     <img class="pri-img"
                                                         src="../../images/{{$p->mainImage->img }}"
                                                         alt="product">
@@ -368,7 +370,7 @@
                                             
                                             
                                             <div class="cart-hover">
-                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                <a href="{{ Route('client.product_detail', $p->id) }}">
                                                     <button class="btn btn-cart">add to cart</button>
                                                 </a>
                                             </div>
@@ -376,7 +378,7 @@
                                         <div class="product-caption text-center">
                                             <h6 class="product-name">
                                                 <a
-                                                    href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                    href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                             </h6>
                                             <div class="price-box">
                                                 <span class="price-regular">${{ $p->price }}</span>
@@ -632,7 +634,9 @@
         </div>
     </div>
     <!-- offcanvas mini cart end -->
-
+    <footer class="footer-widget-area">
+        @include('client.layouts.footer');
+    </footer>
     <!-- JS
 ============================================ -->
 

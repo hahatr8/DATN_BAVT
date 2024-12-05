@@ -565,7 +565,7 @@
                                         <div class="pro-size">
 
                                             @if ($productDetail->productSizes->isNotEmpty())
-                                                <form action="{{ route('cart.add') }}" method="POST">
+                                                <form action="{{ route('cart.cart.add') }}" method="POST">
                                                     @csrf
                                                     <div class="product-sizes">
                                                         <h4 class="option-title">Size:</h4>
@@ -788,7 +788,7 @@
                             @foreach ($relatedProducts as $product)
                                 <div class="product-item">
                                     <figure class="product-thumb">
-                                        <a href="{{ Route('product_detail', $product->id) }}">
+                                        <a href="{{ Route('client.product_detail', $product->id) }}">
                                             <div class="product-image-wrapper">
                                                 @if ($product->mainImage)
                                                     <img src="../../images/{{ $product->mainImage->img }}"

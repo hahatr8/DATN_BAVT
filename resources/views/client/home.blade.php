@@ -1,8 +1,8 @@
 @extends('client.layouts.master');
 
 @section('content')
-       <!-- hero slider area start -->
-       <section class="slider-area">
+    <!-- hero slider area start -->
+    <section class="slider-area">
         <div class="hero-slider-active slick-arrow-style slick-arrow-style_hero slick-dot-style">
             <!-- single slider item start -->
             <div class="hero-single-slide hero-overlay">
@@ -67,7 +67,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="twitter-feed-content text-center">
-                        <p>Check out "Corano - Multipurpose eCommerce Bootstrap 5 template" on #Envato by @<a href="#">Corano</a> #Themeforest <a href="http://1.envato.market/9LbxW">http://1.envato.market/9LbxW</a></p>
+                        <p>Check out "Corano - Multipurpose eCommerce Bootstrap 5 template" on #Envato by @<a
+                                href="#">Corano</a> #Themeforest <a
+                                href="http://1.envato.market/9LbxW">http://1.envato.market/9LbxW</a></p>
                     </div>
                 </div>
             </div>
@@ -223,14 +225,14 @@
                                                 <a href="product-details.html">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
+                                                        <a href="{{ Route('client.product_detail', $p->id) }}">
+                                                            <img class="pri-img"
+                                                                src="../../images/{{ $p->mainImage->img }}"
+                                                                alt="product">
+                                                        </a>
                                                         @if ($p->hoverImage)
                                                             <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
+                                                                src="../../images/{{ $p->hoverImage->img }}"
                                                                 alt="product">
                                                         @endif
                                                     @else
@@ -249,7 +251,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <button class="btn btn-cart">add to cart</button>
                                                     </a>
                                                 </div>
@@ -257,7 +259,7 @@
                                             <div class="product-caption text-center">
                                                 <h6 class="product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>
@@ -281,14 +283,14 @@
                                                 <a href="product-details.html">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
+                                                        <a href="{{ Route('client.product_detail', $p->id) }}">
+                                                            <img class="pri-img"
+                                                                src="../../images/{{ $p->mainImage->img }}"
+                                                                alt="product">
+                                                        </a>
                                                         @if ($p->hoverImage)
                                                             <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
+                                                                src="../../images/{{ $p->hoverImage->img }}"
                                                                 alt="product">
                                                         @endif
                                                     @else
@@ -307,7 +309,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <button class="btn btn-cart">add to cart</button>
                                                     </a>
                                                 </div>
@@ -315,7 +317,7 @@
                                             <div class="product-caption text-center">
                                                 <h6 class="product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>
@@ -335,14 +337,14 @@
                                                 <a href="product-details.html">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
+                                                        <a href="{{ Route('client.product_detail', $p->id) }}">
+                                                            <img class="pri-img"
+                                                                src="../../images/{{ $p->mainImage->img }}"
+                                                                alt="product">
+                                                        </a>
                                                         @if ($p->hoverImage)
                                                             <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
+                                                                src="../../images/{{ $p->hoverImage->img }}"
                                                                 alt="product">
                                                         @endif
                                                     @else
@@ -361,7 +363,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <button class="btn btn-cart">add to cart</button>
                                                     </a>
                                                 </div>
@@ -369,7 +371,7 @@
                                             <div class="product-caption text-center">
                                                 <h6 class="product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>
@@ -389,14 +391,14 @@
                                                 <a href="product-details.html">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
+                                                        <a href="{{ Route('client.product_detail', $p->id) }}">
+                                                            <img class="pri-img"
+                                                                src="../../images/{{ $p->mainImage->img }}"
+                                                                alt="product">
+                                                        </a>
                                                         @if ($p->hoverImage)
                                                             <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
+                                                                src="../../images/{{ $p->hoverImage->img }}"
                                                                 alt="product">
                                                         @endif
                                                     @else
@@ -415,7 +417,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <button class="btn btn-cart">add to cart</button>
                                                     </a>
                                                 </div>
@@ -423,7 +425,7 @@
                                             <div class="product-caption text-center">
                                                 <h6 class="product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>
@@ -539,39 +541,35 @@
                                     <a href="product-details.html">
                                         {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                         @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
-                                                        @if ($p->hoverImage)
-                                                            <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
-                                                                alt="product">
-                                                        @endif
-                                                    @else
-                                                        <img class="pri-img" src="../../images/default.jpg"
-                                                            alt="product">
-                                                        {{-- Ảnh mặc định nếu không có ảnh --}}
-                                                    @endif
+                                            <a href="{{ Route('client.product_detail', $p->id) }}">
+                                                <img class="pri-img" src="../../images/{{ $p->mainImage->img }}"
+                                                    alt="product">
+                                            </a>
+                                            @if ($p->hoverImage)
+                                                <img class="sec-img" src="../../images/{{ $p->hoverImage->img }}"
+                                                    alt="product">
+                                            @endif
+                                        @else
+                                            <img class="pri-img" src="../../images/default.jpg" alt="product">
+                                            {{-- Ảnh mặc định nếu không có ảnh --}}
+                                        @endif
                                     </a>
                                     <div class="button-group">
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#quick_view">
-                                            <span data-bs-toggle="tooltip" data-bs-placement="left"
-                                                title="Quick View">
+                                            <span data-bs-toggle="tooltip" data-bs-placement="left" title="Quick View">
                                                 <i class="pe-7s-search"></i>
                                             </span>
                                         </a>
                                     </div>
                                     <div class="cart-hover">
-                                        <a href="{{ Route('product_detail', $p->id) }}">
+                                        <a href="{{ Route('client.product_detail', $p->id) }}">
                                             <button class="btn btn-cart">add to cart</button>
                                         </a>
                                     </div>
                                 </figure>
                                 <div class="product-caption text-center">
                                     <h6 class="product-name">
-                                        <a href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                        <a href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                     </h6>
                                     <div class="price-box">
                                         <span class="price-regular">${{ $p->price }}</span>
@@ -621,7 +619,9 @@
                     <div class="testimonial-content-wrapper">
                         <div class="testimonial-content-carousel">
                             <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
+                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
+                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
+                                    augue nec sapien. Cum sociis natoque</p>
                                 <div class="ratings">
                                     <span><i class="fa fa-star-o"></i></span>
                                     <span><i class="fa fa-star-o"></i></span>
@@ -632,7 +632,9 @@
                                 <h5 class="testimonial-author">lindsy niloms</h5>
                             </div>
                             <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
+                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
+                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
+                                    augue nec sapien. Cum sociis natoque</p>
                                 <div class="ratings">
                                     <span><i class="fa fa-star-o"></i></span>
                                     <span><i class="fa fa-star-o"></i></span>
@@ -643,7 +645,9 @@
                                 <h5 class="testimonial-author">Daisy Millan</h5>
                             </div>
                             <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
+                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
+                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
+                                    augue nec sapien. Cum sociis natoque</p>
                                 <div class="ratings">
                                     <span><i class="fa fa-star-o"></i></span>
                                     <span><i class="fa fa-star-o"></i></span>
@@ -654,7 +658,9 @@
                                 <h5 class="testimonial-author">Anamika lusy</h5>
                             </div>
                             <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci augue nec sapien. Cum sociis natoque</p>
+                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
+                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
+                                    augue nec sapien. Cum sociis natoque</p>
                                 <div class="ratings">
                                     <span><i class="fa fa-star-o"></i></span>
                                     <span><i class="fa fa-star-o"></i></span>
@@ -710,14 +716,14 @@
                                                 <a href="product-details.html">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
+                                                        <a href="{{ Route('client.product_detail', $p->id) }}">
+                                                            <img class="pri-img"
+                                                                src="../../images/{{ $p->mainImage->img }}"
+                                                                alt="product">
+                                                        </a>
                                                         @if ($p->hoverImage)
                                                             <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
+                                                                src="../../images/{{ $p->hoverImage->img }}"
                                                                 alt="product">
                                                         @endif
                                                     @else
@@ -730,7 +736,7 @@
                                             <div class="group-item-desc">
                                                 <h5 class="group-product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h5>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>
@@ -767,14 +773,14 @@
                                                 <a href="product-details.html">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
-                                                        <img class="pri-img"
-                                                            src="../../images/{{$p->mainImage->img }}"
-                                                            alt="product">
-                                                    </a>
+                                                        <a href="{{ Route('client.product_detail', $p->id) }}">
+                                                            <img class="pri-img"
+                                                                src="../../images/{{ $p->mainImage->img }}"
+                                                                alt="product">
+                                                        </a>
                                                         @if ($p->hoverImage)
                                                             <img class="sec-img"
-                                                                src="../../images/{{$p->hoverImage->img }}"
+                                                                src="../../images/{{ $p->hoverImage->img }}"
                                                                 alt="product">
                                                         @endif
                                                     @else
@@ -787,7 +793,7 @@
                                             <div class="group-item-desc">
                                                 <h5 class="group-product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h5>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>
@@ -836,7 +842,8 @@
                                     <p>25/03/2019 | <a href="#">Corano</a></p>
                                 </div>
                                 <h5 class="blog-title">
-                                    <a href="blog-details.html">Celebrity Daughter Opens Up About Having Her Eye Color Changed</a>
+                                    <a href="blog-details.html">Celebrity Daughter Opens Up About Having Her Eye Color
+                                        Changed</a>
                                 </h5>
                             </div>
                         </div>
@@ -854,7 +861,8 @@
                                     <p>25/03/2019 | <a href="#">Corano</a></p>
                                 </div>
                                 <h5 class="blog-title">
-                                    <a href="blog-details.html">Children Left Home Alone For 4 Days In TV series Experiment</a>
+                                    <a href="blog-details.html">Children Left Home Alone For 4 Days In TV series
+                                        Experiment</a>
                                 </h5>
                             </div>
                         </div>
@@ -872,7 +880,8 @@
                                     <p>25/03/2019 | <a href="#">Corano</a></p>
                                 </div>
                                 <h5 class="blog-title">
-                                    <a href="blog-details.html">Lotto Winner Offering Up Money To Any Man That Will Date Her</a>
+                                    <a href="blog-details.html">Lotto Winner Offering Up Money To Any Man That Will Date
+                                        Her</a>
                                 </h5>
                             </div>
                         </div>
@@ -890,7 +899,8 @@
                                     <p>25/03/2019 | <a href="#">Corano</a></p>
                                 </div>
                                 <h5 class="blog-title">
-                                    <a href="blog-details.html">People are Willing Lie When Comes Money, According to Research</a>
+                                    <a href="blog-details.html">People are Willing Lie When Comes Money, According to
+                                        Research</a>
                                 </h5>
                             </div>
                         </div>
@@ -908,7 +918,8 @@
                                     <p>25/03/2019 | <a href="#">Corano</a></p>
                                 </div>
                                 <h5 class="blog-title">
-                                    <a href="blog-details.html">romantic Love Stories Of Hollywoodâ€™s Biggest Celebrities</a>
+                                    <a href="blog-details.html">romantic Love Stories Of Hollywoodâ€™s Biggest
+                                        Celebrities</a>
                                 </h5>
                             </div>
                         </div>

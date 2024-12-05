@@ -5,6 +5,7 @@ use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\AddressController;
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\Client\UserController as ClientUserController;
 use App\Http\Controllers\ForgetpasswordController;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -28,6 +29,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/payment', [CartController::class, 'payment'])->name('payment');
 
         Route::get('/order-success', [CartController::class, 'orderSuccess'])->name('order.success');
+
+        Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     });
 
 });
@@ -40,6 +43,10 @@ Route::prefix('client')
         Route::get('myaccount/{id}', [HomeController::class, 'myAccount'])->name('myaccount');
         Route::get('myaccountEdit/{id}', [ClientUserController::class, 'edit'])->name('myaccountEdit');
         Route::put('myaccountUpdate/{id}', [ClientUserController::class, 'update'])->name('myaccountUpdate');
+
+        Route::get('/', [ProductController::class,'index'])->name('home');
+        Route::get('/list-product',[ProductController::class,'list'])->name('list-product');
+        Route::get('/product/{id}', [ProductController::class, 'productDetail'])->name('product_detail');
 
         Route::prefix('address')
             ->as('address.')
