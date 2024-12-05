@@ -7,15 +7,26 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Client\AddressController;
+use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\UserController as ClientUserController;
 use App\Http\Controllers\ForgetpasswordController;
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\Admin\BlogController;
+// use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\CommentController;
+// use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\VoucherController;
+// use App\Http\Controllers\Admin\CategoryController;
 
+Route::prefix('admin')
+    ->as('admin.')
+    ->group(function () {
+        Route::get('/', [DashBoardController::class, 'admin']);
 
-Route::middleware('auth')->group(function () {
-    Route::middleware('auth.admin')->group(function () {
-        Route::prefix('admin')
-            ->as('admin.')
-
+        // route category
+        Route::prefix('category')
+            ->as('category.')
             ->group(function () {
                 Route::get('/', function () {
                     return view('admin.dashboard');
@@ -32,17 +43,30 @@ Route::middleware('auth')->group(function () {
                 Route::resource('categories', CategoryController::class);
 
 
+                
                 // route blog
                 Route::prefix('blog')
                     ->as('blog.')
                     ->group(function () {
-                    Route::get('/trash', [BlogController::class, 'trash'])->name('trash');
-                    Route::post('/{id}', [BlogController::class, 'restore'])->name('restore');
-                    Route::get('/{blog}', [BlogController::class, 'softDestruction'])->name('softDestruction');
-                });
+                        Route::get('/trash', [BlogController::class, 'trash'])->name('trash');
+                        Route::post('/{id}', [BlogController::class, 'restore'])->name('restore');
+                        Route::get('/{blog}', [BlogController::class, 'softDestruction'])->name('softDestruction');
+                    });
                 Route::resource('blogs', BlogController::class);
 
 
+                //comment
+        Route::prefix('comments')
+        ->as('comments.')
+        ->group(function () {
+            Route::get('/', [CommentController::class, 'index'])->name('index');
+            Route::get('/trash', [CommentController::class, 'trash'])->name('trash');
+            Route::post('/restore/{id}', [CommentController::class, 'restore'])->name('restore');
+            Route::get('/create', [CommentController::class, 'create'])->name('create');
+            Route::post('/store', [CommentController::class, 'store'])->name('store');
+            Route::put('/{comment}', [CommentController::class, 'update'])->name('update');
+            Route::get('/{comment}', [CommentController::class, 'destroy'])->name('destroy');
+        });
                 Route::prefix('products')
                     ->as('products.')
                     ->group(function () {
@@ -59,13 +83,13 @@ Route::middleware('auth')->group(function () {
                         Route::get('/{product}', [ProductController::class, 'destroy'])->name('destroy');
                     });
 
-                Route::prefix('orders')->name('orders.')->group(function () {
-                    Route::get('/', [OrderController::class, 'index'])->name('index');
-                    Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('edit');
-                    Route::put('/{order}/updateStatus', [OrderController::class, 'updateStatus'])->name('updateStatus');
-                    Route::post('/bulk-update', [OrderController::class, 'bulkUpdate'])->name('bulk-update');
-                });
+                // Danh sách đơn hàng
+                Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 
+                Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
+
+                // Cập nhật trạng thái đơn hàng
+                Route::put('/orders/{order}/updateStatus', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
                 Route::resource('categories', CategoryController::class);
 
@@ -89,7 +113,7 @@ Route::middleware('auth')->group(function () {
                     });
             });
     });
-});
+
 
 
 

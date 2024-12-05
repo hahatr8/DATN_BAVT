@@ -16,4 +16,13 @@ class ProductController extends Controller
         // Trả về view và truyền danh sách sản phẩm
         return view('user.products.index', compact('products'));
     }
+    public function post_comment ($proID) {
+        $data = request()->all('comment');
+        $data['blog_id'] = $proID;
+        $data['user_id'] = auth()->id();
+        if (Product::create($data)) {
+            return redirect()->back();
+        }
+        return redirect()->back();
+    }
 }

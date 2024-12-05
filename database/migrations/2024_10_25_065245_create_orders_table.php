@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
         $table->foreignIdFor(Address::class)->constrained()->onDelete('cascade');
         $table->string('status_order')->default(\App\Models\Order::STATUS_ORDER_PENDING);
         $table->string('status_payment')->default(\App\Models\Order::STATUS_PAYMENT_MOMO);
-        $table->double('total_price', 15, 2);
+        $table->integer('total_price');
         $table->softDeletes();
         $table->timestamps(); // Tạo cột created_at và updated_at
     });

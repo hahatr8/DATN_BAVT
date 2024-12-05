@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Client\BlogController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\AuthController;
@@ -56,6 +57,9 @@ Route::prefix('client')
         Route::get('/blog', [BlogController::class, 'blog'])->name('blog');
         Route::get('/blogDetail/{blog}', [BlogController::class, 'blogDetail'])->name('blogDetail');
 
+        //gửi bình luận
+        Route::post('blog/comment/{blogID}',[BlogController::class,'post_comment'])->name('comment.store');
+        Route::post('product/comment{user_id}/{product_id}',[ProductController::class,'post_comment']);
 
     });
 

@@ -200,11 +200,13 @@
                                     @endforeach
                                 </ul>
                             </div>
+                            
                             <!-- Form thêm bình luận -->
                             <div class="blog-comment-wrapper">
                                 <h5>Leave a reply</h5>
                                 <p>Your email address will not be published. Required fields are marked *</p>
-                                <form action="{{ route('comment.store', $blog) }}" method="POST">
+                                @if(auth()->check())
+                                <form action="{{ route('client.comment.store', $blog) }}" method="POST">
                                     @csrf
                                     <div class="comment-post-box">
                                         <div class="row">
@@ -220,6 +222,12 @@
                                         </div>
                                     </div>
                                 </form>
+                                @else
+
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Đăng nhập để bình luận</strong>Click vào đây<a href="{{route('home.login')}}">Đăng nhập</a>
+                                </div>
+                                @endif
                             </div>
                             <!-- start blog comment box -->
                         </div>
