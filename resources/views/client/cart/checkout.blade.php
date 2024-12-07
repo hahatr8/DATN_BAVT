@@ -34,6 +34,47 @@
     <!-- checkout main wrapper start -->
     <div class="checkout-page-wrapper section-padding">
         <div class="container">
+            <div class="checkout-box-wrap mb-5">
+                <div class="single-input-item">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="ship_to_different">
+                        <label class="custom-control-label" for="ship_to_different">Thêm địa chỉ mới
+                            !</label>
+                    </div>
+                </div>
+                <div class="ship-to-different single-form-row">
+
+                    <form action="{{ route('cart.addAddress', Auth::id()) }}" method="POST">
+                        @csrf
+
+                        <div class="single-input-item">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" name="address" id="address" placeholder="Địa chỉ" />
+                        </div>
+
+                        <div class="single-input-item">
+                            <label for="District">Huyện</label>
+                            <input type="text" name="District" id="District" placeholder="Huyện" />
+                        </div>
+
+                        <div class="single-input-item">
+                            <label for="city">Thành phố</label>
+                            <input type="text" name="city" id="city" placeholder="Thành phố" />
+                        </div>
+
+                        <div class="single-input-item">
+                            <label for="country">Quốc gia</label>
+                            <input type="text" name="country" id="country" placeholder="Quốc gia" />
+                        </div>
+
+                        <div class="summary-footer-area mt-3 mb-5">
+                            <button type="submit" class="btn btn-sqr">Thêm địa chỉ</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
 
             <form action="{{ route('cart.storeOrder') }}" method="POST">
                 @csrf
@@ -45,8 +86,8 @@
                             <h5 class="checkout-title">Chọn địa chỉ giao hàng</h5>
                             <div class="billing-form-wrap">
                                 <!-- Hiển thị các địa chỉ trong bảng -->
-                                <table class="table table-striped table-bordered">
-                                    <thead class="thead-dark">
+                                <table class="table table-bordered align-middle" style="width:100%">
+                                    <thead style="background-color: #f8f9fa; color: #495057;">
                                         <tr>
                                             <th>Chọn</th>
                                             <th>Địa chỉ</th>
@@ -56,7 +97,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($addresses as $address)
-                                            <tr>
+                                            <tr class="selectable-row" data-radio="address-{{ $address->id }}">
                                                 <td>
                                                     <div class="custom-control custom-radio">
                                                         <input type="radio" id="address-{{ $address->id }}"
@@ -69,8 +110,7 @@
                                                 </td>
                                                 <td>
                                                     {{ $address->address }}, Huyện {{ $address->District }}, Thành phố
-                                                    {{ $address->city }},
-                                                    Quốc gia {{ $address->country }}
+                                                    {{ $address->city }}, Quốc gia {{ $address->country }}
                                                 </td>
                                                 <td>{{ $address->user->email }}</td>
                                                 <td>{{ $address->user->phone }}</td>
@@ -78,53 +118,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-
-                                <div class="checkout-box-wrap">
-                                    <div class="single-input-item">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="ship_to_different">
-                                            <label class="custom-control-label" for="ship_to_different">Thêm địa chỉ mới
-                                                !</label>
-                                        </div>
-                                    </div>
-                                    <div class="ship-to-different single-form-row">
-
-                                        <form action="{{ route('cart.addAddress', Auth::id()) }}" method="POST">
-                                            @csrf
-
-                                            <div class="single-input-item">
-                                                <label for="address">Địa chỉ</label>
-                                                <input type="text" name="address" id="address" placeholder="Địa chỉ" />
-                                            </div>
-
-                                            <div class="single-input-item">
-                                                <label for="District">Huyện</label>
-                                                <input type="text" name="District" id="District" placeholder="Huyện" />
-                                            </div>
-
-                                            <div class="single-input-item">
-                                                <label for="city">Thành phố</label>
-                                                <input type="text" name="city" id="city"
-                                                    placeholder="Thành phố" />
-                                            </div>
-
-                                            <div class="single-input-item">
-                                                <label for="country">Quốc gia</label>
-                                                <input type="text" name="country" id="country"
-                                                    placeholder="Quốc gia" />
-                                            </div>
-
-                                            <div class="summary-footer-area mt-3">
-                                                <button type="submit" class="btn btn-sqr">Thêm địa chỉ</button>
-                                            </div>
-
-                                        </form>
-
-                                    </div>
-                                </div>
-
                             </div>
-
                         </div>
                     </div>
 
@@ -226,6 +220,10 @@
 
     <!-- Các CSS tùy chỉnh -->
     <style>
+        thead {
+            font-weight: bold;
+        }
+
         .billing-form-wrap {
             padding-top: 20px;
         }
@@ -255,21 +253,54 @@
             padding: 0.3em 0.6em;
         }
 
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            padding: 0.5em 1.2em;
-            font-size: 1rem;
-            text-transform: uppercase;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-
         .text-center {
             text-align: center;
         }
+
+        /* Màu sắc mặc định cho bảng */
+        .table tbody tr {
+            background-color: #ffffff;
+            /* Màu nền mặc định */
+        }
+
+        .table tbody tr:hover {
+            background-color: yellow;
+            cursor: pointer;
+        }
+
+        /* Màu khi dòng được chọn */
+        .selectable-row.selected {
+            background-color: #FFC107 !important;
+            color: black;
+        }
     </style>
+
+    <script>
+        // Khi nhấn vào dòng
+        document.querySelectorAll('.selectable-row').forEach(row => {
+            row.addEventListener('click', function() {
+                const radioId = this.getAttribute('data-radio');
+                const radio = document.getElementById(radioId);
+                radio.checked = true;
+
+                // Loại bỏ class 'selected' khỏi tất cả các dòng khác
+                document.querySelectorAll('.selectable-row').forEach(r => r.classList.remove('selected'));
+
+                // Thêm class 'selected' cho dòng hiện tại
+                this.classList.add('selected');
+            });
+        });
+
+        // Đặt trạng thái ban đầu khi trang tải
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.selectable-row').forEach(row => {
+                const radioId = row.getAttribute('data-radio');
+                const radio = document.getElementById(radioId);
+
+                if (radio.checked) {
+                    row.classList.add('selected');
+                }
+            });
+        });
+    </script>
 @endsection

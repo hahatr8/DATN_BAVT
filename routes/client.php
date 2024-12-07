@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
     // Giỏ hàng
     Route::prefix('cart')->name('cart.')->group(function () {
         Route::get('/', [CartController::class, 'showCart'])->name('show');
+        Route::post('/add', [CartController::class, 'addToCart'])->name('add');
         Route::post('/apply-voucher', [CartController::class, 'applyVoucher'])->name('applyVoucher');
         Route::put('/update-quantity', [CartController::class, 'updateQuantity'])->name('updateQuantity');
         Route::delete('/remove/{id}', [CartController::class, 'remove'])->name('remove');
@@ -29,22 +30,20 @@ Route::middleware('auth')->group(function () {
         Route::get('/payment', [CartController::class, 'payment'])->name('payment');
 
         Route::get('/order-success', [CartController::class, 'orderSuccess'])->name('order.success');
-
-        Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     });
 
 });
 
-
 Route::prefix('client')
     ->as('client.')
     ->group(function () {
-        Route::get('/', [HomeController::class, 'home']);
+        Route::get('/', [HomeController::class, 'home'])->name('home');
+
         Route::get('myaccount/{id}', [HomeController::class, 'myAccount'])->name('myaccount');
         Route::get('myaccountEdit/{id}', [ClientUserController::class, 'edit'])->name('myaccountEdit');
         Route::put('myaccountUpdate/{id}', [ClientUserController::class, 'update'])->name('myaccountUpdate');
 
-        Route::get('/', [ProductController::class,'index'])->name('home');
+        // Route::get('/', [ProductController::class,'index'])->name('home');
         Route::get('/list-product',[ProductController::class,'list'])->name('list-product');
         Route::get('/product/{id}', [ProductController::class, 'productDetail'])->name('product_detail');
 
@@ -62,7 +61,6 @@ Route::prefix('client')
         //link den trang blog
         Route::get('/blog', [BlogController::class, 'blog'])->name('blog');
         Route::get('/blogDetail/{blog}', [BlogController::class, 'blogDetail'])->name('blogDetail');
-
 
     });
 
