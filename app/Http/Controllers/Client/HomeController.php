@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,13 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    const PATH_VIEW = 'client.home';
 
-    const PATH_VIEW = 'client.layouts.master';
-
-    public function home()
-    {
-        return view(self::PATH_VIEW);
-    }
     public function myAccount(string $id)
     {
         $address =  Address::query()->get();
@@ -29,15 +25,47 @@ class HomeController extends Controller
     }
 
 
-    public function showCart()
+    public function home()
     {
-        $cartItems = Cart::where('user_id', Auth::id())->get();
-
-        $totalAmount = $this->calculateGrandTotal();
-        $discount = 0;
-        $finalAmount = $totalAmount;
-
         // Trả về view giỏ hàng với danh sách sản phẩm
-        return view(self::PATH_VIEW, compact('cartItems', 'totalAmount', 'finalAmount', 'discount'));
+
+        $products = Product::with([
+            'productImgs' => function ($query) {
+                $query->select('id', 'product_id', 'img', 'created_at') // Thêm `created_at` để sắp xếp
+                    ->orderBy('created_at', 'asc'); // Sắp xếp theo thời gian
+            }
+        ])
+            ->limit(5) // Lấy tối đa 5 sản phẩm
+            ->get(['id', 'name', 'description', 'price']); // Chỉ lấy các cột cần thiết
+
+        // Phân loại ảnh cho từng sản phẩm
+        $products = $products->map(function ($product) {
+            $images = $product->productImgs;
+            $product->mainImage = $images->first(); // Ảnh chính
+            $product->hoverImage = $images->skip(1)->first(); // Ảnh hover
+            $product->albumImages = $images->skip(2); // Album ảnh
+            return $product;
+        });
+        //
+        $products_featured = Product::with([
+            'productImgs' => function ($query) {
+                $query->select('id', 'product_id', 'img'); // Chỉ lấy các cột cần thiết
+            }
+        ])
+            ->limit(10) // Lấy tối đa 5 sản phẩm
+            ->get(['id', 'name', 'description', 'price']);
+
+        return view(self::PATH_VIEW, compact('products', 'products_featured'));
+    }
+
+    public function remove($id, Request $request)
+    {
+        $cartItem = Cart::find($id);
+        if ($cartItem) {
+            $cartItem->delete();
+            return redirect($request->input('current_url'))->with('success', 'Sản phẩm đã được xóa khỏi giỏ hàng');
+        }
+
+        return redirect($request->input('current_url'))->with('error', 'Sản phẩm không tồn tại trong giỏ hàng');
     }
 }

@@ -34,7 +34,47 @@
     <!-- checkout main wrapper start -->
     <div class="checkout-page-wrapper section-padding">
         <div class="container">
+            <div class="checkout-box-wrap">
+                <div class="single-input-item">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="ship_to_different">
+                        <label class="custom-control-label mb-5" for="ship_to_different">Thêm địa chỉ mới
+                            !</label>
+                    </div>
+                </div>
+                <div class="ship-to-different single-form-row">
 
+                    <form action="{{ route('cart.addAddress', Auth::id()) }}" method="POST">
+                        @csrf
+
+                        <div class="single-input-item">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" name="address" id="address" placeholder="Địa chỉ" />
+                        </div>
+
+                        <div class="single-input-item">
+                            <label for="District">Huyện</label>
+                            <input type="text" name="District" id="District" placeholder="Huyện" />
+                        </div>
+
+                        <div class="single-input-item">
+                            <label for="city">Thành phố</label>
+                            <input type="text" name="city" id="city" placeholder="Thành phố" />
+                        </div>
+
+                        <div class="single-input-item">
+                            <label for="country">Quốc gia</label>
+                            <input type="text" name="country" id="country" placeholder="Quốc gia" />
+                        </div>
+
+                        <div class="summary-footer-area mt-3">
+                            <button type="submit" class="btn btn-sqr">Thêm địa chỉ</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
             <form action="{{ route('cart.storeOrder') }}" method="POST">
                 @csrf
 
@@ -79,49 +119,7 @@
                                     </tbody>
                                 </table>
 
-                                <div class="checkout-box-wrap">
-                                    <div class="single-input-item">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="ship_to_different">
-                                            <label class="custom-control-label" for="ship_to_different">Thêm địa chỉ mới
-                                                !</label>
-                                        </div>
-                                    </div>
-                                    <div class="ship-to-different single-form-row">
 
-                                        <form action="{{ route('cart.addAddress', Auth::id()) }}" method="POST">
-                                            @csrf
-
-                                            <div class="single-input-item">
-                                                <label for="address">Địa chỉ</label>
-                                                <input type="text" name="address" id="address" placeholder="Địa chỉ" />
-                                            </div>
-
-                                            <div class="single-input-item">
-                                                <label for="District">Huyện</label>
-                                                <input type="text" name="District" id="District" placeholder="Huyện" />
-                                            </div>
-
-                                            <div class="single-input-item">
-                                                <label for="city">Thành phố</label>
-                                                <input type="text" name="city" id="city"
-                                                    placeholder="Thành phố" />
-                                            </div>
-
-                                            <div class="single-input-item">
-                                                <label for="country">Quốc gia</label>
-                                                <input type="text" name="country" id="country"
-                                                    placeholder="Quốc gia" />
-                                            </div>
-
-                                            <div class="summary-footer-area mt-3">
-                                                <button type="submit" class="btn btn-sqr">Thêm địa chỉ</button>
-                                            </div>
-
-                                        </form>
-
-                                    </div>
-                                </div>
 
                             </div>
 
@@ -208,8 +206,7 @@
 
                                     <button type="submit" class="btn btn-sqr m-auto">Đặt hàng</button>
 
-                                    <a href="{{ route('cart.show') }}"
-                                        class="btn btn-sqr bg-warning text-dark m-auto">Trở
+                                    <a href="{{ route('cart.show') }}" class="btn btn-sqr bg-warning text-dark m-auto">Trở
                                         về</a>
 
                                 </div>
@@ -219,7 +216,6 @@
                 </div>
 
             </form>
-
         </div>
     </div>
     <!-- checkout main wrapper end -->
