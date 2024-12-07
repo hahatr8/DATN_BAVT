@@ -1,4 +1,4 @@
-@extends('client.layouts.master');
+@extends('client.layouts.master')
 
 @section('content')
     <!-- hero slider area start -->
