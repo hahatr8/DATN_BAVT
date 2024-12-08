@@ -280,12 +280,12 @@
                                     </td>
                                     <td>
                                         <select class="form-control" name="product_sizes[{{ $index }}][status]">
-                                            <option value="0"
-                                                {{ old("product_sizes.$index.status", $size->status) == 0 ? 'selected' : '' }}>
-                                                Hiển thị
-                                            </option>
                                             <option value="1"
                                                 {{ old("product_sizes.$index.status", $size->status) == 1 ? 'selected' : '' }}>
+                                                Hiển
+                                            </option>
+                                            <option value="0"
+                                                {{ old("product_sizes.$index.status", $size->status) == 0 ? 'selected' : '' }}>
                                                 Ẩn
                                             </option>
                                         </select>

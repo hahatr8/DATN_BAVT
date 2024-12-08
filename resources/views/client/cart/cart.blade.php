@@ -72,10 +72,10 @@
                                                                 src="{{ asset('storage/' . $mainImage->img) }}"
                                                                 alt="Ảnh chính" style="object-fit: cover;">
                                                         @else
-                                                            <p>No main image available</p>
+                                                            <p>Không có hình ảnh chính nào có sẵn</p>
                                                         @endif
                                                     @else
-                                                        <p>No image available</p>
+                                                        <p>Không có hình ảnh nào có sẵn</p>
                                                     @endif
                                                 </a>
                                             </td>
