@@ -543,7 +543,7 @@
             revenueBrandChart.render();
         }
     </script>
-@endsection
+@endsection 
 
 @section('style-libs')
     <!-- jsvectormap css -->
@@ -552,4 +552,4 @@
     <!--Swiper slider css-->
     <link href="{{ asset('theme/admin/assets/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
-@yield('js')
+

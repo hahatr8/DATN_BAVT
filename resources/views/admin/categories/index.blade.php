@@ -27,7 +27,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div>      
         </div>
         <!-- end page title -->
         <div class="col-lg-12">

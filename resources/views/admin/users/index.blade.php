@@ -46,7 +46,11 @@ Danh sách tài khoản
                     </thead>
 
                     <tbody style="text-align: center;">
-                        <?php foreach ($listUser as $index => $user) : ?>
+                        <?php
+
+use Illuminate\Support\Facades\Auth;
+
+ foreach ($listUser as $index => $user) : ?>
                             <tr>
                                 <td>{{$index + 1}}</td>
                                 <td>
@@ -68,9 +72,11 @@ Danh sách tài khoản
                                             <i>Xóa</i>
                                         </button>
                                     </form>
+                                    <?php if($user->type == 'member'): ?>
                                     <a href="{{ route('admin.user.empower',$user->id) }}" class="btn btn-outline-success" >
                                         <span> Cấp quyền </span>
                                     </a>
+                                    <?php endif ?>
                                     
                                 </td>
                                 <td class="">
@@ -116,6 +122,3 @@ Danh sách tài khoản
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-
-
-@endsection
