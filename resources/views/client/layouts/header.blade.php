@@ -48,7 +48,7 @@
                     <div class="col-lg-2">
                         <div class="logo">
                             <a href="{{ route('client.home') }}">
-                                <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Brand Logo">
+                                <img src="{{ asset('assets/img/logo/logo1.jpg') }}" style="height: 30%" width=" 70%" alt="Brand Logo">
                             </a>
                         </div>
                     </div>
