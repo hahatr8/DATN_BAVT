@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\Brand;
 use App\Models\Cart;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -69,8 +70,8 @@ class HomeController extends Controller
             ->where('products.status', 1) // Sản phẩm đang hoạt động
             ->take(20) // Giới hạn 20 sản phẩm
             ->get();
-      
-      $productsMiniCart = Product::with([
+
+        $productsMiniCart = Product::with([
             'productImgs' => function ($query) {
                 $query->select('id', 'product_id', 'img', 'created_at') // Thêm `created_at` để sắp xếp
                     ->orderBy('created_at', 'asc'); // Sắp xếp theo thời gian
@@ -88,7 +89,9 @@ class HomeController extends Controller
             return $product;
         });
 
-        return view(self::PATH_VIEW, compact('products', 'productViews', 'productHots', 'productSales', 'productsMiniCart'));
+        $brands = Brand::where('status', 1)->get(); // Chỉ lấy các thương hiệu đang hoạt động
+
+        return view(self::PATH_VIEW, compact('products', 'productViews', 'productHots', 'productSales', 'productsMiniCart', 'brands'));
     }
 
 
@@ -103,7 +106,7 @@ class HomeController extends Controller
     }
 
     public function remove($id, Request $request)
-    {   
+    {
         $cartItem = Cart::find($id);
         if ($cartItem) {
             $cartItem->delete();

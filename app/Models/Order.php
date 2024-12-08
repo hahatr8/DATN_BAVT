@@ -30,7 +30,6 @@ class Order extends Model
         'refund_successful' => 'Đã hoàn tiền cho khách hàng',
     ];
 
-
     const STATUS_ORDER_PENDING = 'pending';
     const STATUS_ORDER_CONFIRMED = 'confirmed';
     const STATUS_ORDER_SHIPPING = 'shipping';

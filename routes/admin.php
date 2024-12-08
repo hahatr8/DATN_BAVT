@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\OrderController;
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function () {
                     });
                 Route::resource('categories', CategoryController::class);
 
+                Route::resource('brands', BrandController::class);
 
                 // route blog
                 Route::prefix('blog')
@@ -55,6 +57,7 @@ Route::middleware('auth')->group(function () {
                         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('edit');
                         Route::put('/{product}', [ProductController::class, 'update'])->name('update');
                         Route::get('/{product}', [ProductController::class, 'destroy'])->name('destroy');
+                        
                     });
 
                 Route::prefix('orders')->name('orders.')->group(function () {

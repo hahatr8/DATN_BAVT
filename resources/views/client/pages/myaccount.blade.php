@@ -13,9 +13,6 @@
                 </div>
             </div>
             <div class="thumbnail-container">
-
-
-
             </div>
         </div>
         <div class="col-md-6">
