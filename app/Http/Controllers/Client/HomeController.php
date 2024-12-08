@@ -67,9 +67,28 @@ class HomeController extends Controller
             ->where('products.status', 1) // Sản phẩm đang hoạt động
             ->take(20) // Giới hạn 20 sản phẩm
             ->get();
+      
+      $productsMiniCart = Product::with([
+            'productImgs' => function ($query) {
+                $query->select('id', 'product_id', 'img', 'created_at') // Thêm `created_at` để sắp xếp
+                    ->orderBy('created_at', 'asc'); // Sắp xếp theo thời gian
+            }
+        ])
+            ->limit(5) // Lấy tối đa 5 sản phẩm
+            ->get(['id', 'name', 'description', 'price']); // Chỉ lấy các cột cần thiết
 
-        return view(self::PATH_VIEW, compact('products', 'productViews', 'productHots', 'productSales'));
+        // Phân loại ảnh cho từng sản phẩm
+        $productsMiniCart = $productsMiniCart->map(function ($product) {
+            $images = $product->productImgs;
+            $product->mainImage = $images->first(); // Ảnh chính
+            $product->hoverImage = $images->skip(1)->first(); // Ảnh hover
+            $product->albumImages = $images->skip(2); // Album ảnh
+            return $product;
+        });
+
+        return view(self::PATH_VIEW, compact('products', 'productViews', 'productHots', 'productSales', 'productsMiniCart'));
     }
+
 
 
     public function myAccount(string $id)
@@ -81,16 +100,14 @@ class HomeController extends Controller
         return view('client.pages.myaccount', compact('listUser', 'addresses', 'address'));
     }
 
-
-    public function showCart()
+    public function remove($id, Request $request)
     {
-        $cartItems = Cart::where('user_id', Auth::id())->get();
+        $cartItem = Cart::find($id);
+        if ($cartItem) {
+            $cartItem->delete();
+            return redirect($request->input('current_url'))->with('success', 'Sản phẩm đã được xóa khỏi giỏ hàng');
+        }
 
-        $totalAmount = $this->calculateGrandTotal();
-        $discount = 0;
-        $finalAmount = $totalAmount;
-
-        // Trả về view giỏ hàng với danh sách sản phẩm
-        return view(self::PATH_VIEW, compact('cartItems', 'totalAmount', 'finalAmount', 'discount'));
+        return redirect($request->input('current_url'))->with('error', 'Sản phẩm không tồn tại trong giỏ hàng');
     }
 }

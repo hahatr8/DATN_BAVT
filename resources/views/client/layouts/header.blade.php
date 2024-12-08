@@ -165,10 +165,23 @@
                                                     <li><a
                                                             href="{{ route('client.list-product', $category->id) }}">{{ $category->name }}</a>
                                                     </li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact-us.html">Contact us</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="{{ route('client.blog') }}">Blog</a>
+                                            </li>
+                                            <li><a href="{{ route('client.list-product') }}">Categories <i
+                                                        class="fa fa-angle-down"></i></a>
+                                                <ul class="dropdown">
+                                                    @foreach ($globalCategories as $category)
+                                                        <li><a href="{{ route('client.list-product', ['category_id' => $category->id]) }}"
+                                                                class="{{ $category->id == $category->id ? 'active' : '' }}">
+                                                                {{ $category->name }}
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                            <li><a href="contact-us.html">Contact us</a></li>
                                     </ul>
                                 </nav>
                                 <!-- main menu navbar end -->
@@ -184,11 +197,14 @@
                             <div class="header-search-container">
                                 <button class="search-trigger d-xl-none d-lg-block"><i
                                         class="pe-7s-search"></i></button>
-                                <form class="header-search-box d-lg-none d-xl-block">
-                                    <input type="text" placeholder="Search entire store hire"
-                                        class="header-search-field">
-                                    <button class="header-search-btn"><i class="pe-7s-search"></i></button>
+                                <form action="{{ route('client.products.search') }}" method="GET"
+                                    class="header-search-box d-lg-none d-xl-block">
+                                    <input type="text" name="query" placeholder="Search products..."
+                                        value="{{ request('query') }}" class="header-search-field">
+                                    <button type="submit" class="header-search-btn"><i
+                                            class="pe-7s-search"></i></button>
                                 </form>
+
                             </div>
                             <div class="header-configure-area">
                                 <ul class="nav justify-content-end">
@@ -232,7 +248,6 @@
                                     <li>
                                         <a href="#" class="minicart-btn">
                                             <i class="pe-7s-shopbag"></i>
-                                            <div class="notification">2</div>
                                         </a>
                                     </li>
                                 </ul>

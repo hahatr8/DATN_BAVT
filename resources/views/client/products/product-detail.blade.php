@@ -16,10 +16,13 @@
                                 <li class="breadcrumb-item active" aria-current="page">chi tiết sản phẩm</li>
                             </ul>
                         </nav>
+
+
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     <!-- breadcrumb area end -->
 
@@ -51,6 +54,7 @@
                                     @endforeach
                                 </div>
                             </div>
+
 
                             <div class="col-lg-6">
                                 <form action="{{ route('cart.add') }}" method="POST" id="add-to-cart-form">
@@ -112,8 +116,6 @@
                         </div>
                     </div>
                     <!-- product details inner end -->
-
-
 
                     <!-- product details reviews start -->
                     <div class="product-details-reviews section-padding pb-0">
@@ -364,6 +366,7 @@
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 -->
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const decreaseBtn = document.getElementById('decreaseBtn');
@@ -428,4 +431,5 @@
             });
         });
     </script>
+
 @endsection

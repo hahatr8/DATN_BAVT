@@ -34,6 +34,7 @@
     <!-- checkout main wrapper start -->
     <div class="checkout-page-wrapper section-padding">
         <div class="container">
+
             <div class="checkout-box-wrap mb-5">
                 <div class="single-input-item">
                     <div class="custom-control custom-checkbox">
@@ -66,8 +67,8 @@
                             <label for="country">Quốc gia</label>
                             <input type="text" name="country" id="country" placeholder="Quốc gia" />
                         </div>
-
                         <div class="summary-footer-area mt-3 mb-5">
+
                             <button type="submit" class="btn btn-sqr">Thêm địa chỉ</button>
                         </div>
 
@@ -118,6 +119,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>
@@ -202,8 +204,7 @@
 
                                     <button type="submit" class="btn btn-sqr m-auto">Đặt hàng</button>
 
-                                    <a href="{{ route('cart.show') }}"
-                                        class="btn btn-sqr bg-warning text-dark m-auto">Trở
+                                    <a href="{{ route('cart.show') }}" class="btn btn-sqr bg-warning text-dark m-auto">Trở
                                         về</a>
 
                                 </div>
@@ -213,7 +214,6 @@
                 </div>
 
             </form>
-
         </div>
     </div>
     <!-- checkout main wrapper end -->

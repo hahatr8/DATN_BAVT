@@ -1,4 +1,4 @@
-@extends('client.layouts.master');
+@extends('client.layouts.master')
 
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}">
