@@ -220,7 +220,7 @@
                                     @foreach ($products as $p)
                                         <div class="product-item">
                                             <figure class="product-thumb">
-                                                <a href="product-details.html">
+                                                <a href="{{ Route('product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
                                                     <a href="{{ Route('product_detail', $p->id) }}">
@@ -278,7 +278,7 @@
                                     @foreach ($products as $p)
                                         <div class="product-item">
                                             <figure class="product-thumb">
-                                                <a href="product-details.html">
+                                                <a href="{{ Route('product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
                                                     <a href="{{ Route('product_detail', $p->id) }}">
@@ -332,7 +332,7 @@
                                     @foreach ($products as $p)
                                         <div class="product-item">
                                             <figure class="product-thumb">
-                                                <a href="product-details.html">
+                                                <a href="{{ Route('product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
                                                     <a href="{{ Route('product_detail', $p->id) }}">
@@ -386,7 +386,7 @@
                                     @foreach ($products as $p)
                                         <div class="product-item">
                                             <figure class="product-thumb">
-                                                <a href="product-details.html">
+                                                <a href="{{ Route('product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
                                                     <a href="{{ Route('product_detail', $p->id) }}">
@@ -536,7 +536,7 @@
                         @foreach ($products_featured as $p)
                             <div class="product-item">
                                 <figure class="product-thumb">
-                                    <a href="product-details.html">
+                                    <a href="{{ Route('product_detail', $p->id) }}">
                                         {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                         @if ($p->mainImage)
                                                     <a href="{{ Route('product_detail', $p->id) }}">
@@ -707,7 +707,7 @@
                                     <div class="group-slide-item">
                                         <div class="group-item">
                                             <div class="group-item-thumb">
-                                                <a href="product-details.html">
+                                                <a href="{{ Route('product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
                                                     <a href="{{ Route('product_detail', $p->id) }}">
@@ -764,7 +764,7 @@
                                     <div class="group-slide-item">
                                         <div class="group-item">
                                             <div class="group-item-thumb">
-                                                <a href="product-details.html">
+                                                <a href="{{ Route('product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
                                                     <a href="{{ Route('product_detail', $p->id) }}">

@@ -36,10 +36,16 @@ Route::middleware('auth')->group(function () {
 Route::prefix('client')
     ->as('client.')
     ->group(function () {
-        Route::get('/', [HomeController::class, 'home']);
+        // Route::get('/', [HomeController::class, 'home']);
         Route::get('myaccount/{id}', [HomeController::class, 'myAccount'])->name('myaccount');
         Route::get('myaccountEdit/{id}', [ClientUserController::class, 'edit'])->name('myaccountEdit');
         Route::put('myaccountUpdate/{id}', [ClientUserController::class, 'update'])->name('myaccountUpdate');
+        Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
+        Route::get('/list-product', [HomeController::class, 'list'])->name('list-product');
+
+        Route::get('/product/{id}', [HomeController::class, 'productDetail'])->name('product_detail');
 
         Route::prefix('address')
             ->as('address.')
