@@ -1,4 +1,4 @@
-<header class="header-area header-wide">
+{{-- <header class="header-area header-wide">
     <!-- main header start -->
     <div class="main-header d-none d-lg-block">
         <!-- header top start -->
@@ -22,11 +22,11 @@
                                     </ul>
                                 </li>
                                 <li class="language">
-                                    <img src="{{asset('assets/img/icon/en.png')}}" alt="flag"> English
+                                    <img src="{{ asset('assets/img/icon/en.png') }}" alt="flag"> English
                                     <i class="fa fa-angle-down"></i>
                                     <ul class="dropdown-list">
-                                        <li><a href="#"><img src="{{asset('assets/img/icon/en.png')}}" alt="flag"> english</a></li>
-                                        <li><a href="#"><img src="{{asset('assets/img/icon/fr.png')}}" alt="flag"> french</a></li>
+                                        <li><a href="#"><img src="{{ asset('assets/img/icon/en.png') }}" alt="flag"> english</a></li>
+                                        <li><a href="#"><img src="{{ asset('assets/img/icon/fr.png') }}" alt="flag"> french</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -45,8 +45,8 @@
                     <!-- start logo area -->
                     <div class="col-lg-2">
                         <div class="logo">
-                            <a href="index.html">
-                                <img src="{{asset('assets/img/logo/logo.png')}}" alt="Brand Logo">
+                            <a href="{{ route('client.home') }}">
+                                <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Brand Logo">
                             </a>
                         </div>
                     </div>
@@ -59,31 +59,28 @@
                                 <!-- main menu navbar start -->
                                 <nav class="desktop-menu">
                                     <ul>
-                                        <li class="active"><a href="index.html">Home <i class="fa fa-angle-down"></i></a>
-                                            <ul class="dropdown">
-                                                <li><a href="index.html">Home version 01</a></li>
-                                                <li><a href="index-2.html">Home version 02</a></li>
-                                                <li><a href="index-3.html">Home version 03</a></li>
-                                                <li><a href="index-4.html">Home version 04</a></li>
-                                                <li><a href="index-5.html">Home version 05</a></li>
-                                                <li><a href="index-6.html">Home version 06</a></li>
-                                            </ul>
+                                        <li class="active"><a href="{{ route('client.home') }}">Home</a>
                                         </li>
                                         <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
                                             <ul class="megamenu dropdown">
                                                 <li class="mega-title"><span>column 01</span>
                                                     <ul>
                                                         <li><a href="shop.html">shop grid left sidebar</a></li>
-                                                        <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                        <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a></li>
-                                                        <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a></li>
+                                                        <li><a href="shop-grid-right-sidebar.html">shop grid right
+                                                                sidebar</a></li>
+                                                        <li><a href="shop-list-left-sidebar.html">shop list left
+                                                                sidebar</a></li>
+                                                        <li><a href="shop-list-right-sidebar.html">shop list right
+                                                                sidebar</a></li>
                                                     </ul>
                                                 </li>
                                                 <li class="mega-title"><span>column 02</span>
                                                     <ul>
                                                         <li><a href="product-details.html">product details</a></li>
-                                                        <li><a href="product-details-affiliate.html">product details affiliate</a></li>
-                                                        <li><a href="product-details-variable.html">product details variable</a></li>
+                                                        <li><a href="product-details-affiliate.html">product details
+                                                                affiliate</a></li>
+                                                        <li><a href="product-details-variable.html">product details
+                                                                variable</a></li>
                                                         <li><a href="privacy-policy.html">privacy policy</a></li>
                                                     </ul>
                                                 </li>
@@ -105,12 +102,12 @@
                                                 </li>
                                                 <li class="megamenu-banners d-none d-lg-block">
                                                     <a href="product-details.html">
-                                                        <img src="{{asset('assets/img/banner/img1-static-menu.jpg')}}" alt="">
+                                                        <img src="{{ asset('assets/img/banner/img1-static-menu.jpg') }}" alt="">
                                                     </a>
                                                 </li>
                                                 <li class="megamenu-banners d-none d-lg-block">
                                                     <a href="product-details.html">
-                                                        <img src="{{asset('assets/img/banner/img2-static-menu.jpg')}}" alt="">
+                                                        <img src="{{ asset('assets/img/banner/img2-static-menu.jpg') }}" alt="">
                                                     </a>
                                                 </li>
                                             </ul>
@@ -120,40 +117,47 @@
                                                 <li><a href="#">shop grid layout <i class="fa fa-angle-right"></i></a>
                                                     <ul class="dropdown">
                                                         <li><a href="shop.html">shop grid left sidebar</a></li>
-                                                        <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                        <li><a href="shop-grid-full-3-col.html">shop grid full 3 col</a></li>
-                                                        <li><a href="shop-grid-full-4-col.html">shop grid full 4 col</a></li>
+                                                        <li><a href="shop-grid-right-sidebar.html">shop grid right
+                                                                sidebar</a></li>
+                                                        <li><a href="shop-grid-full-3-col.html">shop grid full 3
+                                                                col</a></li>
+                                                        <li><a href="shop-grid-full-4-col.html">shop grid full 4
+                                                                col</a></li>
                                                     </ul>
                                                 </li>
                                                 <li><a href="#">shop list layout <i class="fa fa-angle-right"></i></a>
                                                     <ul class="dropdown">
-                                                        <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a></li>
-                                                        <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a></li>
-                                                        <li><a href="shop-list-full-width.html">shop list full width</a></li>
+                                                        <li><a href="shop-list-left-sidebar.html">shop list left
+                                                                sidebar</a></li>
+                                                        <li><a href="shop-list-right-sidebar.html">shop list right
+                                                                sidebar</a></li>
+                                                        <li><a href="shop-list-full-width.html">shop list full
+                                                                width</a></li>
                                                     </ul>
                                                 </li>
                                                 <li><a href="#">products details <i class="fa fa-angle-right"></i></a>
                                                     <ul class="dropdown">
                                                         <li><a href="product-details.html">product details</a></li>
-                                                        <li><a href="product-details-affiliate.html">product details affiliate</a></li>
-                                                        <li><a href="product-details-variable.html">product details variable</a></li>
-                                                        <li><a href="product-details-group.html">product details group</a></li>
+                                                        <li><a href="product-details-affiliate.html">product
+                                                                details affiliate</a></li>
+                                                        <li><a href="product-details-variable.html">product details
+                                                                variable</a></li>
+                                                        <li><a href="product-details-group.html">product details
+                                                                group</a></li>
                                                     </ul>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a href="blog-left-sidebar.html">Blog <i class="fa fa-angle-down"></i></a>
+                                        <li><a href="{{ route('client.blog') }}">Blog</a>
+                                        </li>
+                                        <li><a href="{{ route('client.list-product') }}">Categories <i class="fa fa-angle-down"></i></a>
                                             <ul class="dropdown">
-                                                <li><a href="blog-left-sidebar.html">blog left sidebar</a></li>
-                                                <li><a href="blog-list-left-sidebar.html">blog list left sidebar</a></li>
-                                                <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                                <li><a href="blog-list-right-sidebar.html">blog list right sidebar</a></li>
-                                                <li><a href="blog-grid-full-width.html">blog grid full width</a></li>
-                                                <li><a href="blog-details.html">blog details</a></li>
-                                                <li><a href="blog-details-left-sidebar.html">blog details left sidebar</a></li>
-                                                <li><a href="blog-details-audio.html">blog details audio</a></li>
-                                                <li><a href="blog-details-video.html">blog details video</a></li>
-                                                <li><a href="blog-details-image.html">blog details image</a></li>
+                                                @foreach ($globalCategories as $category)
+                                                <li><a href="{{ route('client.list-product', ['category_id' => $category->id]) }}" class="{{ $category->id == $category->id ? 'active' : '' }}">
+                                                        {{ $category->name }}
+                                                    </a>
+                                                </li>
+                                                @endforeach
                                             </ul>
                                         </li>
                                         <li><a href="contact-us.html">Contact us</a></li>
@@ -170,24 +174,26 @@
                         <div class="header-right d-flex align-items-center justify-content-xl-between justify-content-lg-end">
                             <div class="header-search-container">
                                 <button class="search-trigger d-xl-none d-lg-block"><i class="pe-7s-search"></i></button>
-                                <form class="header-search-box d-lg-none d-xl-block">
-                                    <input type="text" placeholder="Search entire store hire" class="header-search-field">
-                                    <button class="header-search-btn"><i class="pe-7s-search"></i></button>
+                                <form action="{{ route('client.products.search') }}" method="GET" class="header-search-box d-lg-none d-xl-block">
+                                    <input type="text" name="query" placeholder="Search products..." value="{{ request('query') }}" class="header-search-field">
+                                    <button type="submit" class="header-search-btn"><i class="pe-7s-search"></i></button>
                                 </form>
+
                             </div>
                             <div class="header-configure-area">
                                 <ul class="nav justify-content-end">
                                     <li class="user-hover">
-                                        @if(Auth::user())
+                                        @if (Auth::user())
                                         <a href="#">
                                             <div class="icon icon-user-light">
-                                                <img src="{{ Storage::url(Auth::user()->img)  }}" alt="img" class="rounded-circle" width="30px">
+                                                <img src="{{ Storage::url(Auth::user()->img) }}" alt="img" class="rounded-circle" width="30px">
                                             </div>
                                         </a>
                                         <ul class="dropdown-list">
-                                            <li><a href="{{route('client.myaccount',Auth::user()->id)}}">my account</a></li>
+                                            <li><a href="{{ route('client.myaccount', Auth::user()->id) }}">my
+                                                    account</a></li>
                                             <li>
-                                                <form action="{{route('logout')}}" method="post">
+                                                <form action="{{ route('logout') }}" method="post">
                                                     @csrf
                                                     <button type="submit" class="btn">
                                                         logout
@@ -195,15 +201,14 @@
                                                 </form>
                                             </li>
                                         </ul>
-
                                         @endif
-                                        @if(!Auth::user())
+                                        @if (!Auth::user())
                                         <a href="#">
                                             <i class="pe-7s-user"></i>
                                         </a>
                                         <ul class="dropdown-list">
-                                            <li><a href="{{route('login')}}">login</a></li>
-                                            <li><a href="{{route('register')}}">register</a></li>
+                                            <li><a href="{{ route('login') }}">login</a></li>
+                                            <li><a href="{{ route('register') }}">register</a></li>
                                         </ul>
                                         @endif
                                     </li>
@@ -216,7 +221,6 @@
                                     <li>
                                         <a href="#" class="minicart-btn">
                                             <i class="pe-7s-shopbag"></i>
-                                            <div class="notification">2</div>
                                         </a>
                                     </li>
                                 </ul>
@@ -242,7 +246,7 @@
                     <div class="mobile-main-header">
                         <div class="mobile-logo">
                             <a href="index.html">
-                                <img src="{{asset('assets/img/logo/logo.png')}}" alt="Brand Logo">
+                                <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Brand Logo">
                             </a>
                         </div>
                         <div class="mobile-menu-toggler">
@@ -315,8 +319,10 @@
                                     <li class="mega-title menu-item-has-children"><a href="#">column 02</a>
                                         <ul class="dropdown">
                                             <li><a href="product-details.html">product details</a></li>
-                                            <li><a href="product-details-affiliate.html">product details affiliate</a></li>
-                                            <li><a href="product-details-variable.html">product details variable</a></li>
+                                            <li><a href="product-details-affiliate.html">product details affiliate</a>
+                                            </li>
+                                            <li><a href="product-details-variable.html">product details variable</a>
+                                            </li>
                                             <li><a href="privacy-policy.html">privacy policy</a></li>
                                         </ul>
                                     </li>
@@ -350,8 +356,10 @@
                                     <li class="menu-item-has-children"><a href="#">products details</a>
                                         <ul class="dropdown">
                                             <li><a href="product-details.html">product details</a></li>
-                                            <li><a href="product-details-affiliate.html">product details affiliate</a></li>
-                                            <li><a href="product-details-variable.html">product details variable</a></li>
+                                            <li><a href="product-details-affiliate.html">product details affiliate</a>
+                                            </li>
+                                            <li><a href="product-details-variable.html">product details variable</a>
+                                            </li>
                                             <li><a href="product-details-group.html">product details group</a></li>
                                         </ul>
                                     </li>
@@ -434,4 +442,4 @@
     </aside>
     <!-- off-canvas menu end -->
     <!-- offcanvas mobile menu end -->
-</header>
+</header> --}}

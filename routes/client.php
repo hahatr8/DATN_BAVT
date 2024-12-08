@@ -31,17 +31,22 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/order-success', [CartController::class, 'orderSuccess'])->name('order.success');
     });
-
 });
 
 
 Route::prefix('client')
     ->as('client.')
     ->group(function () {
-        Route::get('/', [HomeController::class, 'home']);
+        Route::get('/', [HomeController::class, 'home'])->name('home');
+        Route::delete('/remove/{id}', [HomeController::class, 'remove'])->name('remove');
         Route::get('myaccount/{id}', [HomeController::class, 'myAccount'])->name('myaccount');
         Route::get('myaccountEdit/{id}', [ClientUserController::class, 'edit'])->name('myaccountEdit');
         Route::put('myaccountUpdate/{id}', [ClientUserController::class, 'update'])->name('myaccountUpdate');
+
+        Route::get('/list-product', [ProductController::class, 'list'])->name('list-product');
+        Route::get('/product/{id}', [ProductController::class, 'productDetail'])->name('product_detail');
+        Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+
 
         Route::prefix('address')
             ->as('address.')
@@ -57,8 +62,6 @@ Route::prefix('client')
         //link den trang blog
         Route::get('/blog', [BlogController::class, 'blog'])->name('blog');
         Route::get('/blogDetail/{blog}', [BlogController::class, 'blogDetail'])->name('blogDetail');
-
-
     });
 
 Route::get('login', [AuthController::class, 'showFormLogin']);
