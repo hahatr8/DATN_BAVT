@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
         // Trả về view giỏ hàng với danh sách sản phẩm
 
-        $products = Product::with([
+        $productsMiniCart = Product::with([
             'productImgs' => function ($query) {
                 $query->select('id', 'product_id', 'img', 'created_at') // Thêm `created_at` để sắp xếp
                     ->orderBy('created_at', 'asc'); // Sắp xếp theo thời gian
@@ -39,23 +39,15 @@ class HomeController extends Controller
             ->get(['id', 'name', 'description', 'price']); // Chỉ lấy các cột cần thiết
 
         // Phân loại ảnh cho từng sản phẩm
-        $products = $products->map(function ($product) {
+        $productsMiniCart = $productsMiniCart->map(function ($product) {
             $images = $product->productImgs;
             $product->mainImage = $images->first(); // Ảnh chính
             $product->hoverImage = $images->skip(1)->first(); // Ảnh hover
             $product->albumImages = $images->skip(2); // Album ảnh
             return $product;
         });
-        //
-        $products_featured = Product::with([
-            'productImgs' => function ($query) {
-                $query->select('id', 'product_id', 'img'); // Chỉ lấy các cột cần thiết
-            }
-        ])
-            ->limit(10) // Lấy tối đa 5 sản phẩm
-            ->get(['id', 'name', 'description', 'price']);
 
-        return view(self::PATH_VIEW, compact('products', 'products_featured'));
+        return view(self::PATH_VIEW, compact('productsMiniCart'));
     }
 
     public function remove($id, Request $request)
