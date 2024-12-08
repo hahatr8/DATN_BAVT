@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\Brand;
 use App\Models\Cart;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -88,7 +89,9 @@ class HomeController extends Controller
             return $product;
         });
 
-        return view(self::PATH_VIEW, compact('products', 'productViews', 'productHots', 'productSales', 'productsMiniCart'));
+        $brands = Brand::where('status', 1)->get(); // Chỉ lấy các thương hiệu đang hoạt động
+
+        return view(self::PATH_VIEW, compact('products', 'productViews', 'productHots', 'productSales', 'productsMiniCart', 'brands'));
     }
 
 

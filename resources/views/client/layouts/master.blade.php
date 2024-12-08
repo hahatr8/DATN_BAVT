@@ -66,7 +66,7 @@
 
     <!-- Quick view modal start -->
 
-    {{-- @include('client.layouts.miniCart') --}}
+    @include('client.layouts.miniCart')
 
     <!-- Quick view modal end -->
 

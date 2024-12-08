@@ -11,7 +11,9 @@ class BrandController extends Controller
     {
         // Lấy danh sách thương hiệu và trả về view Client
         $brands = Brand::where('status', 1)->get(); // Chỉ lấy các thương hiệu đang hoạt động
+       
         return view('client.brands.index', compact('brands'));
     }
+   
 
 }
