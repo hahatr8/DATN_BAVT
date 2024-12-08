@@ -33,7 +33,7 @@ class CategoryController extends Controller
         $trashedCategories = Category::with(['products'])->onlyTrashed()->get();
         $totalTrashedCategories = Category::onlyTrashed()->count();
 
-        return view(self::PATH_VIEW . __FUNCTION__, compact( 'trashedCategories', 'totalTrashedCategories'));
+        return view(self::PATH_VIEW . __FUNCTION__, compact('trashedCategories', 'totalTrashedCategories'));
     }
 
     /**
@@ -134,26 +134,19 @@ class CategoryController extends Controller
      * Remove the specified resource from storage.
      */
 
-     public function softDestruction(Category $category)
+    public function softDestruction(Category $category)
     {
         $category->delete();
 
         return back()->with('success', 'Thao tác thành công');
     }
-     
-    public function destroy(Category $category)
+
+    public function destroy($id)
     {
-        try {
-            DB::transaction(function () use ($category) {
-                $category->products()->sync([]);
-
-                $category->forceDelete();
-            });
-
-            return back()->with('success', 'Thao tác thành công');
-        } catch (\Exception $exception) {
-            return back()->with('error', $exception->getMessage());
-        }
+        $category = Category::withTrashed()->findOrFail($id);
+        $category->forceDelete();
+        return redirect()->route('admin.category.trash')
+            ->with('success', 'Danh mục đã được xóa cứng!');
     }
 
     public function restore($id)

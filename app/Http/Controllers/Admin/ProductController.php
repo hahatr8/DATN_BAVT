@@ -272,6 +272,7 @@ class ProductController extends Controller
             return back()->with('error', $exception->getMessage());
         }
     }
+    
 
 
     public function destroy(Product $product)

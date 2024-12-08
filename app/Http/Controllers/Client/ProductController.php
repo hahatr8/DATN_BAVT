@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -80,7 +81,7 @@ class ProductController extends Controller
         });
 
         return view('client.products.list-product', compact('categories', 'products', 'categoryId'));
-    } 
+    }
 
     public function search(Request $request)
     {
@@ -112,5 +113,17 @@ class ProductController extends Controller
         $categories = Category::query()->where('status', 1)->orderBy('display_order', 'asc')->paginate(5);
 
         return view('client.products.list-product', compact('products', 'query', 'categories', 'categoryId'));
+    }
+    public function showProducts($id)
+    {
+        $brandOfPro = Brand::findOrFail($id);
+        $brands = Brand::where('status', 1)->get(); // Chỉ lấy các thương hiệu đang hoạt động
+        // Lấy sản phẩm thuộc hãng
+        $products = Product::where('brand_id', $id)
+            ->where('status', 1)
+            ->get();
+
+        // Trả về view hiển thị sản phẩm
+        return view('client.brands.views', compact('brandOfPro','brands', 'products'));
     }
 }

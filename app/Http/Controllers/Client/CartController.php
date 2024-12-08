@@ -10,7 +10,6 @@ use App\Models\ProductSize;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -28,7 +27,6 @@ class CartController extends Controller
 
         return $grandTotal;
     }
-
 
     /**
      * Tính toán tổng tiền và giảm giá dựa trên voucher.
@@ -95,49 +93,45 @@ class CartController extends Controller
         return view('client.cart.cart', compact('vouchers', 'cartItems', 'totalAmount', 'finalAmount', 'discount'));
     }
 
-
     public function addToCart(Request $request)
     {
+        $request->validate([
+            'product_size_id' => 'required|exists:product_sizes,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
         try {
             DB::transaction(function () use ($request) {
-                // Lấy thông tin sản phẩm từ bảng product_sizes
-                $productSize = ProductSize::find($request->product_size_id);
-                if (!$productSize) {
-                    throw new \Exception('Sản phẩm không tồn tại.');
-                }
-
-                // Kiểm tra số lượng sản phẩm có đủ hay không
+                // Kiểm tra sản phẩm
+                $productSize = ProductSize::findOrFail($request->product_size_id);
                 if ($productSize->quantity < $request->quantity) {
                     throw new \Exception('Số lượng sản phẩm không đủ, vui lòng chọn số lượng nhỏ hơn.');
                 }
 
-                // Kiểm tra sản phẩm có trong giỏ hàng chưa
-                $cartItem = Cart::where('user_id', Auth::id())
-                    ->where('product_size_id', $request->product_size_id)
-                    ->first();
-
-                if ($cartItem) {
-                    // Nếu đã tồn tại trong giỏ hàng, cập nhật số lượng
-                    $cartItem->quantity += $request->quantity;
-                    $cartItem->save();
-                } else {
-                    // Nếu chưa tồn tại, thêm mới
-                    Cart::create([
-                        'user_id' => Auth::id(), // Thay '1' bằng Auth::id() nếu có hệ thống đăng nhập
+                // Thêm hoặc cập nhật sản phẩm vào giỏ hàng
+                Cart::updateOrCreate(
+                    [
+                        'user_id' => Auth::id(),
                         'product_size_id' => $request->product_size_id,
-                        'quantity' => $request->quantity,
-                    ]);
-                }
+                    ],
+                    [
+                        'quantity' => DB::raw("quantity + {$request->quantity}"),
+                    ]
+                );
             });
 
-            // Trả về trang hoặc thông báo thành công
-            return redirect()->back()->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
+            return response()->json([
+                'success' => true,
+                'message' => 'Sản phẩm đã được thêm vào giỏ hàng.',
+            ]);
+
         } catch (\Exception $e) {
-            // Trả về thông báo lỗi nếu có vấn đề
-            return redirect()->back()->with('error', $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
         }
     }
-
 
     public function updateQuantity(Request $request)
     {

@@ -18,29 +18,28 @@ Route::middleware('auth')->group(function () {
             ->as('admin.')
 
             ->group(function () {
-                Route::get('/', function () {
-                    return view('admin.dashboard');
-                });
+                Route::get('/', [DashBoardController::class, 'admin']);
 
                 // route category
                 Route::prefix('category')
                     ->as('category.')
                     ->group(function () {
-                    Route::get('/trash', [CategoryController::class, 'trash'])->name('trash');
-                    Route::post('/{id}', [CategoryController::class, 'restore'])->name('restore');
-                    Route::get('/{category}', [CategoryController::class, 'softDestruction'])->name('softDestruction');
-                });
+                        Route::get('/trash', [CategoryController::class, 'trash'])->name('trash');
+                        Route::post('/{id}', [CategoryController::class, 'restore'])->name('restore');
+                        Route::get('/{category}', [CategoryController::class, 'softDestruction'])->name('softDestruction');
+                    });
                 Route::resource('categories', CategoryController::class);
 
+                Route::resource('brands', BrandController::class);
 
                 // route blog
                 Route::prefix('blog')
                     ->as('blog.')
                     ->group(function () {
-                    Route::get('/trash', [BlogController::class, 'trash'])->name('trash');
-                    Route::post('/{id}', [BlogController::class, 'restore'])->name('restore');
-                    Route::get('/{blog}', [BlogController::class, 'softDestruction'])->name('softDestruction');
-                });
+                        Route::get('/trash', [BlogController::class, 'trash'])->name('trash');
+                        Route::post('/{id}', [BlogController::class, 'restore'])->name('restore');
+                        Route::get('/{blog}', [BlogController::class, 'softDestruction'])->name('softDestruction');
+                    });
                 Route::resource('blogs', BlogController::class);
 
 
@@ -58,6 +57,7 @@ Route::middleware('auth')->group(function () {
                         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('edit');
                         Route::put('/{product}', [ProductController::class, 'update'])->name('update');
                         Route::get('/{product}', [ProductController::class, 'destroy'])->name('destroy');
+                        
                     });
 
                 Route::prefix('orders')->name('orders.')->group(function () {
@@ -66,12 +66,6 @@ Route::middleware('auth')->group(function () {
                     Route::put('/{order}/updateStatus', [OrderController::class, 'updateStatus'])->name('updateStatus');
                     Route::post('/bulk-update', [OrderController::class, 'bulkUpdate'])->name('bulk-update');
                 });
-
-
-                Route::resource('categories', CategoryController::class);
-
-                // Blog
-                Route::resource('blogs', BlogController::class);
 
                 Route::prefix('user')
                     ->as('user.')

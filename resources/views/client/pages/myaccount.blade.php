@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-@extends('client.home')
-=======
-@extends('client.index')
->>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
+@extends('client.layouts.master')
 
 @section('content')
 
@@ -17,12 +13,6 @@
                 </div>
             </div>
             <div class="thumbnail-container">
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 6e62cc4e95506868ce9182e8089fb4ee09c1cf90
             </div>
         </div>
         <div class="col-md-6">

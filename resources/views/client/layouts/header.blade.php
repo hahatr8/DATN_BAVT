@@ -183,24 +183,34 @@
                             <div class="header-configure-area">
                                 <ul class="nav justify-content-end">
                                     <li class="user-hover">
-                                        @if (Auth::user())
+                                        @if(Auth::user())
                                         <a href="#">
                                             <div class="icon icon-user-light">
-                                                <img src="{{ Storage::url(Auth::user()->img) }}" alt="img" class="rounded-circle" width="30px">
+                                                <img src="{{ Storage::url(Auth::user()->img)  }}" alt="img" class="rounded-circle" width="30px">
                                             </div>
                                         </a>
                                         <ul class="dropdown-list">
-                                            <li><a href="{{ route('client.myaccount', Auth::user()->id) }}">my
-                                                    account</a></li>
                                             <li>
-                                                <form action="{{ route('logout') }}" method="post">
+                                                <a href="{{ route('client.orders.index') }}">
+                                                    <i class="pe-7s-box2 me-2"></i> Xem đơn hàng
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('client.myaccount', Auth::user()->id) }}">
+                                                    <i class="pe-7s-user me-2"></i> My Account
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <form action="{{ route('logout') }}" method="post" style="margin: 0;">
                                                     @csrf
-                                                    <button type="submit" class="btn">
-                                                        logout
+                                                    <button type="submit" class="btn dropdown-btn">
+                                                        <i class="pe-7s-power me-2"></i> Logout
                                                     </button>
                                                 </form>
                                             </li>
                                         </ul>
+
+
                                         @endif
                                         @if (!Auth::user())
                                         <a href="#">

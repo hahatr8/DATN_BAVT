@@ -21,75 +21,76 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- single slider item start -->
+                <!-- single slider item start -->
 
-            <!-- single slider item start -->
-            <div class="hero-single-slide hero-overlay">
-                <div class="hero-slider-item bg-img" data-bg="assets/img/slider/home1-slide3.jpg">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="hero-slider-content slide-2 float-md-end float-none">
-                                    <h2 class="slide-title">Diamonds Jewelry<span>Collection</span></h2>
-                                    <h4 class="slide-desc">Shukra Yogam & Silver Power Silver Saving Schemes.</h4>
-                                    <a href="shop.html" class="btn btn-hero">Read More</a>
+                <!-- single slider item start -->
+                <div class="hero-single-slide hero-overlay">
+                    <div class="hero-slider-item bg-img" data-bg="assets/img/slider/home1-slide3.jpg">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="hero-slider-content slide-2 float-md-end float-none">
+                                        <h2 class="slide-title">Diamonds Jewelry<span>Collection</span></h2>
+                                        <h4 class="slide-desc">Shukra Yogam & Silver Power Silver Saving Schemes.</h4>
+                                        <a href="shop.html" class="btn btn-hero">Read More</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- single slider item start -->
+                <!-- single slider item start -->
 
-            <!-- single slider item start -->
-            <div class="hero-single-slide hero-overlay">
-                <div class="hero-slider-item bg-img" data-bg="assets/img/slider/home1-slide1.jpg">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="hero-slider-content slide-3">
-                                    <h2 class="slide-title">Grace Designer<span>Jewelry</span></h2>
-                                    <h4 class="slide-desc">Rings, Occasion Pieces, Pandora & More.</h4>
-                                    <a href="shop.html" class="btn btn-hero">Read More</a>
+                <!-- single slider item start -->
+                <div class="hero-single-slide hero-overlay">
+                    <div class="hero-slider-item bg-img" data-bg="assets/img/slider/home1-slide1.jpg">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="hero-slider-content slide-3">
+                                        <h2 class="slide-title">Grace Designer<span>Jewelry</span></h2>
+                                        <h4 class="slide-desc">Rings, Occasion Pieces, Pandora & More.</h4>
+                                        <a href="shop.html" class="btn btn-hero">Read More</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- single slider item end -->
             </div>
-            <!-- single slider item end -->
-        </div>
     </section>
     <!-- hero slider area end -->
 
-    <!-- banner statistics area start -->
-    <div class="banner-statistics-area">
-        <div class="container">
-            <div class="row row-20 mtn-20">
+ <!-- brands statistics area start -->
+<div class="banner-statistics-area">
+    <div class="container">
+        <div class="row row-20 mtn-20">
 
-                @php
-                // Sắp xếp danh sách brand theo id giảm dần và chỉ lấy 4 brand
-                $filteredBrands = $brands->sortByDesc('id')->take(4);
-                @endphp
+            @php
+            // Sắp xếp danh sách brand theo id giảm dần và chỉ lấy 4 brand
+            $filteredBrands = $brands->sortByDesc('id')->take(4);
+            @endphp
 
-                @foreach ($filteredBrands as $brand)
-                <div class="col-sm-6">
-                    <figure class="banner-statistics mt-20">
-                        <a href="#">
-                            <img src="{{ asset('storage/' . $brand->logo) }}" alt="brand" style="width: 100%; object-fit: cover;">
-                            <div class="banner-content text-right">
-                                <h2 class="banner-text">{{ $brand->name }}</h2>
-                            </div>
-                        </a>
-                    </figure>
-                </div>
-                @endforeach
-
+            @foreach ($filteredBrands as $brand)
+            <div class="col-sm-6">
+                <figure class="banner-statistics mt-20">
+                    <!-- Liên kết tới trang sản phẩm của hãng -->
+                    <a href="{{ route('brand.products', ['id' => $brand->id]) }}">
+                        <img src="{{ asset('storage/' . $brand->logo) }}" alt="brand" style="width: 100%; height: 300px; object-fit: cover;">
+                        <div class="banner-content text-right">
+                            <h2 class="banner-text">{{ $brand->name }}</h2>
+                        </div>
+                    </a>
+                </figure>
             </div>
+            @endforeach
+
         </div>
     </div>
-    <!-- banner statistics area end -->
+</div>
+<!-- brands statistics area end -->
+
 
     <!-- product area start -->
     <section class="product-area section-padding">
@@ -157,7 +158,6 @@
                     <!-- product tab content end -->
                 </div>
             </div>
-        </div>
     </section>
     <!-- product area end -->
 
@@ -172,7 +172,7 @@
                         <div class="banner-slide-item">
                             <figure class="banner-statistics">
                                 <a href="#">
-                                    <img src="{{ asset('storage/' . $brand->logo) }}" alt="brand" style="width: 100%; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . $brand->logo) }}" alt="brand" style="width: 100%; height: 300px; object-fit: cover;">
                                     <div class="banner-content banner-content_style2">
                                         <h5 class="banner-text3">{{ $brand->name }}</h5>
                                     </div>
@@ -341,6 +341,98 @@
                     </div>
                 </div>
             </div>
+    </section>
+    <!-- featured product area end -->
+
+    <!-- testimonial area start -->
+    <section class="testimonial-area section-padding bg-img" data-bg="assets/img/testimonial/testimonials-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- section title start -->
+                    <div class="section-title text-center">
+                        <h2 class="title">testimonials</h2>
+                        <p class="sub-title">What they say</p>
+                    </div>
+                    <!-- section title start -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="testimonial-thumb-wrapper">
+                        <div class="testimonial-thumb-carousel">
+                            <div class="testimonial-thumb">
+                                <img src="assets/img/testimonial/testimonial-1.png" alt="testimonial-thumb">
+                            </div>
+                            <div class="testimonial-thumb">
+                                <img src="assets/img/testimonial/testimonial-2.png" alt="testimonial-thumb">
+                            </div>
+                            <div class="testimonial-thumb">
+                                <img src="assets/img/testimonial/testimonial-3.png" alt="testimonial-thumb">
+                            </div>
+                            <div class="testimonial-thumb">
+                                <img src="assets/img/testimonial/testimonial-2.png" alt="testimonial-thumb">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-content-wrapper">
+                        <div class="testimonial-content-carousel">
+                            <div class="testimonial-content">
+                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
+                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
+                                    augue nec sapien. Cum sociis natoque</p>
+                                <div class="ratings">
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                </div>
+                                <h5 class="testimonial-author">lindsy niloms</h5>
+                            </div>
+                            <div class="testimonial-content">
+                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
+                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
+                                    augue nec sapien. Cum sociis natoque</p>
+                                <div class="ratings">
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                </div>
+                                <h5 class="testimonial-author">Daisy Millan</h5>
+                            </div>
+                            <div class="testimonial-content">
+                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
+                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
+                                    augue nec sapien. Cum sociis natoque</p>
+                                <div class="ratings">
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                </div>
+                                <h5 class="testimonial-author">Anamika lusy</h5>
+                            </div>
+                            <div class="testimonial-content">
+                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
+                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
+                                    augue nec sapien. Cum sociis natoque</p>
+                                <div class="ratings">
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                    <span><i class="fa fa-star-o"></i></span>
+                                </div>
+                                <h5 class="testimonial-author">Maria Mora</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <!-- testimonial area end -->
@@ -384,8 +476,8 @@
                                             <a href="{{ route('client.product_detail', $product->id) }}">
                                                 <!-- Lấy ảnh chính (is_main = true) -->
                                                 <img class="pri-img" src="{{ $product->productImgs && $product->productImgs->where('is_main', true)->first()
-                                                                ? asset('storage/' . $product->productImgs->where('is_main', true)->first()->img)
-                                                                : asset('storage/default.jpg') }}" alt="product" style="width: 100%; height: 80px; object-fit: cover;">
+                                                            ? asset('storage/' . $product->productImgs->where('is_main', true)->first()->img)
+                                                            : asset('storage/default.jpg') }}" alt="product" style="width: 100%; height: 80px; object-fit: cover;">
                                             </a>
                                         </div>
                                         <div class="group-item-desc">
@@ -427,8 +519,8 @@
                                             <a href="{{ route('client.product_detail', $product->id) }}">
                                                 <!-- Lấy ảnh chính (is_main = true) -->
                                                 <img class="pri-img" src="{{ $product->productImgs && $product->productImgs->where('is_main', true)->first()
-                                                                ? asset('storage/' . $product->productImgs->where('is_main', true)->first()->img)
-                                                                : asset('storage/default.jpg') }}" alt="product" style="width: 100%; height: 80px; object-fit: cover;">
+                                                            ? asset('storage/' . $product->productImgs->where('is_main', true)->first()->img)
+                                                            : asset('storage/default.jpg') }}" alt="product" style="width: 100%; height: 80px; object-fit: cover;">
                                             </a>
                                         </div>
                                         <div class="group-item-desc">
@@ -637,86 +729,6 @@
     <i class="fa fa-angle-up"></i>
 </div>
 <!-- Scroll to Top End -->
-
-<!-- offcanvas mini cart start -->
-<div class="offcanvas-minicart-wrapper">
-    <div class="minicart-inner">
-        <div class="offcanvas-overlay"></div>
-        <div class="minicart-inner-content">
-            <div class="minicart-close">
-                <i class="pe-7s-close"></i>
-            </div>
-            <div class="minicart-content-box">
-                <div class="minicart-item-wrapper">
-                    <ul>
-                        <li class="minicart-item">
-                            <div class="minicart-thumb">
-                                <a href="product-details.html">
-                                    <img src="assets/img/cart/cart-1.jpg" alt="product">
-                                </a>
-                            </div>
-                            <div class="minicart-content">
-                                <h3 class="product-name">
-                                    <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
-                                </h3>
-                                <p>
-                                    <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                    <span class="cart-price">$100.00</span>
-                                </p>
-                            </div>
-                            <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                        </li>
-                        <li class="minicart-item">
-                            <div class="minicart-thumb">
-                                <a href="product-details.html">
-                                    <img src="assets/img/cart/cart-2.jpg" alt="product">
-                                </a>
-                            </div>
-                            <div class="minicart-content">
-                                <h3 class="product-name">
-                                    <a href="product-details.html">Dozen White Botanical Linen Dinner Napkins</a>
-                                </h3>
-                                <p>
-                                    <span class="cart-quantity">1 <strong>&times;</strong></span>
-                                    <span class="cart-price">$80.00</span>
-                                </p>
-                            </div>
-                            <button class="minicart-remove"><i class="pe-7s-close"></i></button>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="minicart-pricing-box">
-                    <ul>
-                        <li>
-                            <span>sub-total</span>
-                            <span><strong>$300.00</strong></span>
-                        </li>
-                        <li>
-                            <span>Eco Tax (-2.00)</span>
-                            <span><strong>$10.00</strong></span>
-                        </li>
-                        <li>
-                            <span>VAT (20%)</span>
-                            <span><strong>$60.00</strong></span>
-                        </li>
-                        <li class="total">
-                            <span>total</span>
-                            <span><strong>$370.00</strong></span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="minicart-button">
-                    <a href="cart.html"><i class="fa fa-shopping-cart"></i> View Cart</a>
-                    <a href="cart.html"><i class="fa fa-share"></i> Checkout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- offcanvas mini cart end -->
-
 
 
 <!-- Quick view modal start -->

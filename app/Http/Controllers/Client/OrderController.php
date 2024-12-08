@@ -42,28 +42,7 @@ class OrderController extends Controller
         return view('client.orders.index', compact('orders', 'statuses', 'status'));
     }
     
-    
-    
-    
-    
 
-    // Hiển thị chi tiết đơn hàng
-    public function show($id)
-    {
-        $order = Order::with(['orderItems.productSize.product', 'address', 'user'])
-            ->where('id', $id)
-            ->where('user_id', Auth::id())
-            ->first();
-    
-        if (!$order) {
-            abort(404, 'Không tìm thấy đơn hàng hoặc bạn không có quyền truy cập.');
-        }
-    
-        return view('client.orders.show', compact('order'));
-    }
-    
-    
-    
 
     // Yêu cầu hủy đơn hàng
     public function cancelOrder(Request $request, $id)
@@ -121,6 +100,14 @@ class OrderController extends Controller
     
         return redirect()->route('client.orders.show', $id)
             ->with('success', 'Yêu cầu trả hàng của bạn đã được gửi. Vui lòng chờ xác nhận.');
+    }
+    public function show($id)
+    {
+        // Lấy thông tin đơn hàng cùng với các sản phẩm liên quan
+        $order = Order::with(['orderItems.productSize.product.productImgs', 'user', 'address'])->findOrFail($id);
+
+        // Trả về view chi tiết đơn hàng
+        return view('client.orders.show', compact('order'));
     }
     
 }

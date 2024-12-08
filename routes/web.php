@@ -1,5 +1,4 @@
 <?php
-use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -62,6 +61,7 @@ Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('car
 
 
 
+Route::get('/admin/product/{id}', [ProductController::class, 'show'])->name('admin.product.show');
 
 // Áp dụng voucher
 Route::post('/cart/apply-voucher', [CartController::class, 'applyVoucher'])->name('cart.applyVoucher');
@@ -79,46 +79,8 @@ Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.s
 
 
 
-// Quản lý đơn hàng
-Route::middleware(['auth'])->prefix('orders')->name('client.orders.')->group(function () {
-    // Danh sách đơn hàng
-    Route::get('/', [OrderController::class, 'index'])
-        ->name('index');
 
-    // Chi tiết đơn hàng
-    Route::get('/{id}', [OrderController::class, 'show'])
-        ->whereNumber('id') // Ràng buộc chỉ cho phép số
-        ->name('show');
 
-    // Hủy đơn hàng
-    Route::put('/{id}/cancel', [OrderController::class, 'cancelOrder'])
-        ->whereNumber('id') // Ràng buộc chỉ cho phép số
-        ->name('cancel');
-
-    // Yêu cầu trả hàng (Route bạn cần thêm vào)
-    Route::put('/{id}/return', [OrderController::class, 'requestReturn'])
-        ->whereNumber('id') // Ràng buộc chỉ cho phép số
-        ->name('return'); // Đảm bảo route này có tên là 'client.orders.return'
-
-    // Phê duyệt yêu cầu trả hàng
-    Route::put('/{id}/approve-return', [OrderController::class, 'approveReturn'])
-        ->whereNumber('id')
-        ->name('approveReturn');
-
-    // Từ chối yêu cầu trả hàng
-    Route::put('/{id}/reject-return', [OrderController::class, 'rejectReturn'])
-        ->whereNumber('id')
-        ->name('rejectReturn');
-
-    // Chấp nhận yêu cầu trả hàng
-    Route::put('/{id}/accept-return', [OrderController::class, 'acceptReturn'])
-        ->whereNumber('id')
-        ->name('acceptReturn');
-
-    // Lịch sử trả hàng (Tùy chọn, nếu cần)
-    Route::get('/returns', [OrderController::class, 'returnHistory'])
-        ->name('returns');
-});
 
 
 

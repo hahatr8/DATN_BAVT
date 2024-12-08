@@ -17,16 +17,19 @@ class CreateCommentsTable extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id(); // Cột id tự tăng
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Khóa ngoại liên kết với bảng users
-            $table->foreignId('product_id')->constrained()->onDelete('cascade'); // Khóa ngoại liên kết với bảng products
-            $table->text('comment'); // Nội dung bình luận
-            $table->integer('rating')->nullable(); // Đánh giá của người dùng (nếu có)
-            $table->timestamps(); // Tạo cột created_at và updated_at
-        });
-    }
+{
+    Schema::create('comments', function (Blueprint $table) {
+        $table->id(); // Cột id tự tăng
+        $table->text('content'); // Nội dung bình luận
+        $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
+        $table->foreignIdFor(Product::class)->constrained()->nullable()->onDelete('cascade')->nullable();
+        $table->foreignIdFor(Blog::class)->constrained()->nullable()->onDelete('cascade')->nullable();
+        $table->boolean('status')->default(false);
+        $table->softDeletes();
+        $table->timestamps(); // Tạo cột created_at và updated_at
+    });
+}
+
 
     /**
      * Reverse the migrations.

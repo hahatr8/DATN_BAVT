@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\Client\BlogController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\AddressController;
+use App\Http\Controllers\Client\BrandController;
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\OrderController;
+use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\Client\UserController as ClientUserController;
 use App\Http\Controllers\ForgetpasswordController;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -17,6 +18,7 @@ Route::middleware('auth')->group(function () {
     // Giỏ hàng
     Route::prefix('cart')->name('cart.')->group(function () {
         Route::get('/', [CartController::class, 'showCart'])->name('show');
+        Route::post('/add', [CartController::class, 'addToCart'])->name('add');
         Route::post('/apply-voucher', [CartController::class, 'applyVoucher'])->name('applyVoucher');
         Route::put('/update-quantity', [CartController::class, 'updateQuantity'])->name('updateQuantity');
         Route::delete('/remove/{id}', [CartController::class, 'remove'])->name('remove');
@@ -32,7 +34,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/order-success', [CartController::class, 'orderSuccess'])->name('order.success');
     });
 });
-
 
 Route::prefix('client')
     ->as('client.')
@@ -78,3 +79,45 @@ Route::get('register', [AuthController::class, 'showFormRegister']);
 Route::post('register', [AuthController::class, 'register'])->name('register');
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/brand/{id}', [ProductController::class, 'showProducts'])->name('brand.products');
+
+
+// Quản lý đơn hàng
+Route::middleware(['auth'])->prefix('orders')->name('client.orders.')->group(function () {
+    // Danh sách đơn hàng
+    Route::get('/', [OrderController::class, 'index'])
+        ->name('index');
+
+    // Chi tiết đơn hàng
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('show');
+
+    // Hủy đơn hàng
+    Route::put('/{id}/cancel', [OrderController::class, 'cancelOrder'])
+        ->whereNumber('id') // Ràng buộc chỉ cho phép số
+        ->name('cancel');
+
+    // Yêu cầu trả hàng (Route bạn cần thêm vào)
+    Route::put('/{id}/return', [OrderController::class, 'requestReturn'])
+        ->whereNumber('id') // Ràng buộc chỉ cho phép số
+        ->name('return'); // Đảm bảo route này có tên là 'client.orders.return'
+
+    // Phê duyệt yêu cầu trả hàng
+    Route::put('/{id}/approve-return', [OrderController::class, 'approveReturn'])
+        ->whereNumber('id')
+        ->name('approveReturn');
+
+    // Từ chối yêu cầu trả hàng
+    Route::put('/{id}/reject-return', [OrderController::class, 'rejectReturn'])
+        ->whereNumber('id')
+        ->name('rejectReturn');
+
+    // Chấp nhận yêu cầu trả hàng
+    Route::put('/{id}/accept-return', [OrderController::class, 'acceptReturn'])
+        ->whereNumber('id')
+        ->name('acceptReturn');
+
+    // Lịch sử trả hàng (Tùy chọn, nếu cần)
+    Route::get('/returns', [OrderController::class, 'returnHistory'])
+        ->name('returns');
+});

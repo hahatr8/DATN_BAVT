@@ -13,7 +13,6 @@
         <table class="table table-striped table-bordered">
             <thead class="table-dark">
                 <tr>
-<<<<<<< HEAD
                     <th>#</th>
                     <th>Tên thương hiệu</th>
                     <th>Quốc gia</th>
@@ -21,26 +20,6 @@
                     <th>Trạng thái</th>
                     <th>Mô tả</th> 
                     <th>Hành động</th>
-=======
-                    <td>{{ $brand->id }}</td>
-                    <td>{{ $brand->name }}</td>
-                    <td>{{ $brand->country }}</td>
-                    <td>{{ $brand->status ? 'Hoạt động' : 'Không hoạt động' }}</td>
-                    <td>
-                        @if ($brand->logo)
-                            <img src="{{ asset('storage/' . $brand->logo) }}" alt="{{ $brand->name }}" width="50">
-                        @endif
-                    </td>
-                    <td>
-                        <a href="{{ route('admin.brands.edit', $brand->id) }}" class="btn btn-sm btn-warning">Sửa</a>
-
-                        <form action="{{ route('admin.brands.destroy', $brand->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
-                        </form>
-                    </td>
->>>>>>> e836f8f30cfbfd142ac07efd2b477c830a47b1be
                 </tr>
             </thead>
             <tbody>
