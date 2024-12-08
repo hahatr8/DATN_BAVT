@@ -19,6 +19,8 @@ class HomeController extends Controller
 
     public function home()
     {
+        // Trả về view giỏ hàng với danh sách sản phẩm
+
         $products = Product::with([
             'categories',
             'brand',
@@ -101,7 +103,7 @@ class HomeController extends Controller
     }
 
     public function remove($id, Request $request)
-    {
+    {   
         $cartItem = Cart::find($id);
         if ($cartItem) {
             $cartItem->delete();

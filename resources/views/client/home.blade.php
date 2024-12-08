@@ -1082,6 +1082,12 @@
                             });
 
                         } else {
+                            // Đóng modal
+                            $('#quick_view').modal('hide');
+                            // Ẩn backdrop modal
+                            $('.modal-backdrop').hide();
+
+                            // Sau đó hiển thị SweetAlert2
                             Swal.fire({
                                 title: 'Lỗi!',
                                 text: data.message,
@@ -1094,6 +1100,12 @@
                         }
                     })
                     .catch(error => {
+                        // Đóng modal
+                        $('#quick_view').modal('hide');
+                        // Ẩn backdrop modal
+                        $('.modal-backdrop').hide();
+
+                        // Sau đó hiển thị SweetAlert2
                         Swal.fire({
                             title: 'Lỗi!',
                             text: 'Đã xảy ra sự cố, vui lòng thử lại.',
