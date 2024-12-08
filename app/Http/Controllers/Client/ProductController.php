@@ -12,49 +12,28 @@ class ProductController extends Controller
 
     public function productDetail($id)
     {
-        // Lấy chi tiết sản phẩm, bao gồm ảnh và danh sách size
-        $productDetail = Product::with([
-            'productImgs' => function ($query) {
-                $query->orderBy('created_at', 'asc'); // Sắp xếp ảnh theo thời gian thêm
-            },
-            'productSizes' // Load danh sách size (variant)
-        ])->where('id', $id)->first();
-
-        if (!$productDetail) {
-            abort(404, 'Sản phẩm không tồn tại.');
-        }
-
-        // Kiểm tra trạng thái còn hàng
-        $isAvailable = $productDetail->productSizes->sum('quantity') > 0;
-
-        // Lấy sản phẩm cùng loại (cùng thương hiệu)
-        $relatedProducts = Product::with([
-            'productImgs' => function ($query) {
-                $query->orderBy('created_at', 'asc'); // Sắp xếp ảnh
+        // Lấy sản phẩm chi tiết theo ID
+        $product = Product::with([
+            'categories',       // Lấy các danh mục của sản phẩm
+            'brand',            // Lấy thông tin thương hiệu của sản phẩm
+            'productImgs',      // Lấy ảnh của sản phẩm
+            'productSizes' => function ($query) {
+                $query->where('status', 1);  // Lọc chỉ lấy size có status = 1
             }
         ])
-            ->where('brand_id', $productDetail->brand_id) // Cùng thương hiệu
-            ->where('id', '!=', $id) // Loại bỏ sản phẩm hiện tại
-            ->limit(5) // Giới hạn 5 sản phẩm liên quan
+            ->where('status', 1)  // Lọc chỉ lấy sản phẩm đang hoạt động
+            ->findOrFail($id);
+
+        // Lấy các sản phẩm khác có cùng thương hiệu với sản phẩm này
+        $brandId = $product->brand->id; // Lấy ID thương hiệu của sản phẩm hiện tại
+        $relatedProductsByBrand = Product::with('brand')
+            ->where('status', 1)  // Chỉ lấy sản phẩm đang hoạt động
+            ->where('brand_id', $brandId) // Lọc sản phẩm theo thương hiệu
+            ->where('id', '!=', $product->id) // Loại bỏ sản phẩm hiện tại
             ->get();
 
-        // Phân loại ảnh cho sản phẩm liên quan
-        $relatedProducts = $relatedProducts->map(function ($product) {
-            $images = $product->productImgs;
-            $product->mainImage = $images->first(); // Ảnh chính
-            $product->hoverImage = $images->skip(1)->first(); // Ảnh hover
-            return $product;
-        });
-
-        // Truyền dữ liệu size dưới dạng JSON cho JavaScript
-        $sizeData = $productDetail->productSizes->keyBy('id')->map(function ($size) {
-            return [
-                'quantity' => $size->quantity,
-                'price' => $size->price,
-            ];
-        });
-
-        return view('client.products.product-detail', compact('productDetail', 'relatedProducts', 'isAvailable', 'sizeData'));
+        // Trả về view với sản phẩm chi tiết và các sản phẩm liên quan
+        return view('client.products.product-detail', compact('product', 'relatedProductsByBrand'));
     }
 
     public function list(Request $request)
@@ -81,6 +60,7 @@ class ProductController extends Controller
         }
 
         // Thêm phân trang, hiển thị 10 sản phẩm mỗi trang
+
         $products = $query->paginate(10)->appends(['category_id' => $categoryId]); // Tự động trả về LengthAwarePaginator
 
         // Phân loại ảnh cho từng sản phẩm
