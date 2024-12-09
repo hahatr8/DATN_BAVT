@@ -1,49 +1,36 @@
 <?php
 
-use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DashBoardController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Client\AddressController;
-use App\Http\Controllers\Client\HomeController;
-use App\Http\Controllers\Client\UserController as ClientUserController;
-use App\Http\Controllers\ForgetpasswordController;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\Admin\BlogController;
-// use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CommentController;
-// use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\VoucherController;
-// use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\ForgetpasswordController;
+use App\Http\Controllers\Admin\DashBoardController;
 
-Route::prefix('admin')
-    ->as('admin.')
-    ->group(function () {
-        Route::get('/', [DashBoardController::class, 'admin']);
 
-        // route category
-        Route::prefix('category')
-            ->as('category.')
+Route::middleware('auth')->group(function () {
+    Route::middleware('auth.admin')->group(function () {
+        Route::prefix('admin')
+            ->as('admin.')
+
             ->group(function () {
-                Route::get('/', function () {
-                    return view('admin.dashboard');
-                });
+                Route::get('/', [DashBoardController::class, 'admin']);
 
                 // route category
                 Route::prefix('category')
                     ->as('category.')
                     ->group(function () {
-                    Route::get('/trash', [CategoryController::class, 'trash'])->name('trash');
-                    Route::post('/{id}', [CategoryController::class, 'restore'])->name('restore');
-                    Route::get('/{category}', [CategoryController::class, 'softDestruction'])->name('softDestruction');
-                });
+                        Route::get('/trash', [CategoryController::class, 'trash'])->name('trash');
+                        Route::post('/{id}', [CategoryController::class, 'restore'])->name('restore');
+                        Route::get('/{category}', [CategoryController::class, 'softDestruction'])->name('softDestruction');
+                    });
                 Route::resource('categories', CategoryController::class);
 
 
-                
                 // route blog
                 Route::prefix('blog')
                     ->as('blog.')
@@ -83,18 +70,12 @@ Route::prefix('admin')
                         Route::get('/{product}', [ProductController::class, 'destroy'])->name('destroy');
                     });
 
-                // Danh sách đơn hàng
-                Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-
-                Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
-
-                // Cập nhật trạng thái đơn hàng
-                Route::put('/orders/{order}/updateStatus', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
-
-                Route::resource('categories', CategoryController::class);
-
-                // Blog
-                Route::resource('blogs', BlogController::class);
+                Route::prefix('orders')->name('orders.')->group(function () {
+                    Route::get('/', [OrderController::class, 'index'])->name('index');
+                    Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('edit');
+                    Route::put('/{order}/updateStatus', [OrderController::class, 'updateStatus'])->name('updateStatus');
+                    Route::post('/bulk-update', [OrderController::class, 'bulkUpdate'])->name('bulk-update');
+                });
 
                 Route::prefix('user')
                     ->as('user.')
@@ -113,6 +94,7 @@ Route::prefix('admin')
                     });
             });
     });
+});
 
 
 

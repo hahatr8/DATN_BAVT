@@ -213,8 +213,8 @@
                                 </td>
                                 <td>
                                     <select class="form-control" name="product_sizes[0][status]">
-                                        <option value="0">Hiển thị</option>
-                                        <option value="1">Ẩn</option>
+                                        <option value="1">Hiển</option>
+                                        <option value="0">Ẩn</option>
                                     </select>
                                 </td>
                                 <td>

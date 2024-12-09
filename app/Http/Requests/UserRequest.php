@@ -47,4 +47,8 @@ class UserRequest extends FormRequest
 
         ];
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b0a27ac37762a958560fa9b36cbed582e89ed67a

@@ -10,6 +10,14 @@ class Voucher extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * Giảm số lượng voucher
+     */
+    public function decrementQuantity()
+    {
+        $this->decrement('quantity');
+    }
+
     protected $fillable = [
         'e_vorcher',
         'quantity',

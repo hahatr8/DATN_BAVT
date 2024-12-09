@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Client\BlogController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\AddressController;
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\Client\UserController as ClientUserController;
 use App\Http\Controllers\ForgetpasswordController;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
     // Giỏ hàng
     Route::prefix('cart')->name('cart.')->group(function () {
         Route::get('/', [CartController::class, 'showCart'])->name('show');
+        Route::post('/add', [CartController::class, 'addToCart'])->name('add');
         Route::post('/apply-voucher', [CartController::class, 'applyVoucher'])->name('applyVoucher');
         Route::put('/update-quantity', [CartController::class, 'updateQuantity'])->name('updateQuantity');
         Route::delete('/remove/{id}', [CartController::class, 'remove'])->name('remove');
@@ -30,17 +31,20 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/order-success', [CartController::class, 'orderSuccess'])->name('order.success');
     });
-
 });
-
 
 Route::prefix('client')
     ->as('client.')
     ->group(function () {
-        Route::get('/', [HomeController::class, 'home']);
+        Route::get('/', [HomeController::class, 'home'])->name('home');
+        Route::delete('/remove/{id}', [HomeController::class, 'remove'])->name('remove');
         Route::get('myaccount/{id}', [HomeController::class, 'myAccount'])->name('myaccount');
         Route::get('myaccountEdit/{id}', [ClientUserController::class, 'edit'])->name('myaccountEdit');
         Route::put('myaccountUpdate/{id}', [ClientUserController::class, 'update'])->name('myaccountUpdate');
+
+        Route::get('/list-product', [ProductController::class, 'list'])->name('list-product');
+        Route::get('/product/{id}', [ProductController::class, 'productDetail'])->name('product_detail');
+        Route::get('/search', [ProductController::class, 'search'])->name('products.search');
 
         Route::prefix('address')
             ->as('address.')
@@ -58,8 +62,13 @@ Route::prefix('client')
         Route::get('/blogDetail/{blog}', [BlogController::class, 'blogDetail'])->name('blogDetail');
 
         //gửi bình luận
-        Route::post('blog/comment/{blogID}',[BlogController::class,'post_comment'])->name('comment.store');
-        Route::post('product/comment{user_id}/{product_id}',[ProductController::class,'post_comment']);
+        Route::post('blog/comment/{blogID}', [BlogController::class, 'post_comment'])->name('comment.store');
+
+        // Product routes
+        Route::get('/product', [ProductController::class, 'product'])->name('product.index');
+
+        // Product comments
+        Route::post('/product/comment/{id}', [ProductController::class, 'post_comments'])->name('product.comment');
 
     });
 

@@ -552,4 +552,8 @@
     <!--Swiper slider css-->
     <link href="{{ asset('theme/admin/assets/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
+<<<<<<< HEAD
 @yield('js')
+=======
+@yield('js')
+>>>>>>> b0a27ac37762a958560fa9b36cbed582e89ed67a

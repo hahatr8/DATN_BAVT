@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 // use Nette\Utils\Random;
+use Nette\Utils\Random;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;

@@ -28,7 +28,7 @@ class BlogController extends Controller
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('categories', 'blogs', 'newBlogs'));
     }
-
+    
     public function blogDetail(Blog $blog)
     {
 
@@ -41,30 +41,13 @@ class BlogController extends Controller
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('blog', 'categories', 'newBlogs', 'comments'));
     }
-
-    // public function store(Request $request, Blog $blog)
+    // public function showBlog($id)
     // {
-    //     // Xác thực dữ liệu
-    //     $validated = $request->validate([
-    //         'content' => 'required|string|max:1000',
-    //     ]);
+    //     $blog = Blog::with('comments.user')->findOrFail($id); // Lấy blog và kèm theo bình luận, thông qua quan hệ
+    //     $comments = $blog->comments()->whereNull('parent_id')->get(); // Lấy các comment cha (không phải trả lời)
 
-    //     // Tạo bình luận mới
-    //     $blog->comments()->create([
-    //         'user_id' => auth()->id(), // ID người dùng hiện tại
-    //         'content' => $validated['content'],
-    //     ]);
-
-    //     // Chuyển hướng về trang chi tiết blog với thông báo thành công
-    //     return redirect()->route('blog.detail', $blog->id)->with('success', 'Comment added successfully.');
+    //     return view('blogs.show', compact('blog', 'comments'));
     // }
-    public function showBlog($id)
-    {
-        $blog = Blog::with('comments.user')->findOrFail($id); // Lấy blog và kèm theo bình luận, thông qua quan hệ
-        $comments = $blog->comments()->whereNull('parent_id')->get(); // Lấy các comment cha (không phải trả lời)
-
-        return view('blogs.show', compact('blog', 'comments'));
-    }
     public function post_comment($blogID)
     {
         // Lấy dữ liệu từ request
