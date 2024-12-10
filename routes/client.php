@@ -34,11 +34,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/order-success', [CartController::class, 'orderSuccess'])->name('order.success');
     });
 });
-
+Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::prefix('client')
     ->as('client.')
     ->group(function () {
-        Route::get('/', [HomeController::class, 'home'])->name('home');
         Route::delete('/remove/{id}', [HomeController::class, 'remove'])->name('remove');
         Route::get('myaccount/{id}', [HomeController::class, 'myAccount'])->name('myaccount');
         Route::get('myaccountEdit/{id}', [ClientUserController::class, 'edit'])->name('myaccountEdit');
@@ -72,7 +71,6 @@ Route::prefix('client')
 
         // Product comments
         Route::post('/product/comment/{id}', [ProductController::class, 'post_comments'])->name('product.comment');
-
     });
 
 Route::get('login', [AuthController::class, 'showFormLogin']);

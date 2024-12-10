@@ -18,7 +18,12 @@ class BlogController extends Controller
     public function blog()
     {
         //getAll category
-        $categories = Category::query()->latest('id')->paginate(5);
+        $categories = Category::query()
+            ->where('status', 1)
+            ->orderBy('display_order', 'asc')
+            ->latest('id')
+            ->paginate(5);
+
 
         //getAll blog
         $blogs = Blog::query()->latest('id')->where('status', 1)->paginate(5);
@@ -28,11 +33,16 @@ class BlogController extends Controller
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('categories', 'blogs', 'newBlogs'));
     }
-    
+
     public function blogDetail(Blog $blog)
     {
 
-        $categories = Category::query()->latest('id')->paginate(5);
+        $categories = Category::query()
+            ->where('status', 1)
+            ->orderBy('display_order', 'asc')
+            ->latest('id')
+            ->paginate(5);
+
 
         $newBlogs = Blog::query()->latest('created_at')->where('status', 1)->paginate(5);
 

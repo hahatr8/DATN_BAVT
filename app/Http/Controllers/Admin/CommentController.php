@@ -10,23 +10,6 @@ use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
-//     // Lưu bình luận mới
-//     public function store(Request $request, Blog $blog)
-// {
-//     $request->validate([
-//         'content' => 'required|max:500',
-//     ]);
-
-//     Comment::create([
-//         'content' => $request->content,
-//         'user_id' => auth()->id(),
-//         'blog_id' => $blog->id,
-//         'parent_id' => $request->parent_id, // Null nếu không phải trả lời
-//         'status' => false, // Nếu cần duyệt
-//     ]);
-
-//     return redirect()->back()->with('success', 'Your comment has been submitted!');
-// }
 
     public function store(Request $request, Blog $blog)
     {
@@ -50,7 +33,7 @@ class CommentController extends Controller
     public function index()
     {
 
-        $comments = Comment::whereNull('deleted_at')->with(['blogs'])->get();
+        $comments = Comment::whereNull('deleted_at')->with(['product'])->with(['blog'])->get();
         $totalComments = Comment::whereNull('deleted_at')->count();
         $trashedComments = Comment::onlyTrashed()->count();
 

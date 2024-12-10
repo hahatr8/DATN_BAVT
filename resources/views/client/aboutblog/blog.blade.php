@@ -1,7 +1,6 @@
 @extends('client.layouts.master')
 
 @section('content')
-
     <main>
         <!-- breadcrumb area start -->
         <div class="breadcrumb-area">
@@ -41,7 +40,10 @@
                                 <h5 class="title">categories</h5>
                                 <ul class="blog-archive blog-category">
                                     @foreach ($categories as $category)
-                                    <li><a href="#">{{ $category->name}}</a></li>
+                                        <li><a href="{{ route('client.list-product', ['category_id' => $category->id]) }}"
+                                                class="{{ $category->id == $category->id ? 'active' : '' }}">
+                                                {{ $category->name }}
+                                            </a></li>
                                     @endforeach
                                 </ul>
                             </div> <!-- single sidebar end -->
@@ -58,21 +60,22 @@
                             <div class="blog-sidebar">
                                 <h5 class="title">recent post</h5>
                                 @foreach ($newBlogs as $newBlog)
-                                <div class="recent-post">
-                                    <div class="recent-post-item">
-                                        <figure class="product-thumb">
-                                            <a href="{{ route('client.blogDetail', $newBlog)}}">
-                                                <img src="{{ \Storage::url($newBlog->img) }}" width="50px" alt="blog image">
-                                            </a>
-                                        </figure>
-                                        <div class="recent-post-description">
-                                            <div class="product-name">
-                                                <h6><a href="blog-details.html">{{ $newBlog->title}}</a></h6>
-                                                <p>{{ $newBlog->created_at}}</p>
+                                    <div class="recent-post">
+                                        <div class="recent-post-item">
+                                            <figure class="product-thumb">
+                                                <a href="{{ route('client.blogDetail', $newBlog) }}">
+                                                    <img src="{{ \Storage::url($newBlog->img) }}" width="50px"
+                                                        alt="blog image">
+                                                </a>
+                                            </figure>
+                                            <div class="recent-post-description">
+                                                <div class="product-name">
+                                                    <h6><a href="blog-details.html">{{ $newBlog->title }}</a></h6>
+                                                    <p>{{ $newBlog->created_at }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 @endforeach
                             </div> <!-- single sidebar end -->
                             <div class="blog-sidebar">
@@ -93,27 +96,30 @@
                             <!-- blog item wrapper end -->
                             <div class="row mbn-30">
                                 @foreach ($blogs as $blog)
-                                <div class="col-12">
-                                    <!-- blog post item start -->
-                                    <div class="blog-post-item mb-30">
-                                        <figure class="blog-thumb">
-                                            <a href="{{ route('client.blogDetail', $blog)}}">
-                                                <img src="{{ \Storage::url($blog->img) }}" width="50px" alt="blog image">
-                                            </a>
-                                        </figure>
-                                        <div class="blog-content">
-                                            <h4 class="blog-title">
-                                                <a href="{{ route('client.blogDetail', $blog)}}">{{ $blog->title}}</a>
-                                            </h4>
-                                            <div class="blog-meta">
-                                                <p>{{ $blog->created_at}} | <a href="{{ route('client.blogDetail', $blog)}}">Corano</a></p>
+                                    <div class="col-12">
+                                        <!-- blog post item start -->
+                                        <div class="blog-post-item mb-30">
+                                            <figure class="blog-thumb">
+                                                <a href="{{ route('client.blogDetail', $blog) }}">
+                                                    <img src="{{ \Storage::url($blog->img) }}" width="50px"
+                                                        alt="blog image">
+                                                </a>
+                                            </figure>
+                                            <div class="blog-content">
+                                                <h4 class="blog-title">
+                                                    <a
+                                                        href="{{ route('client.blogDetail', $blog) }}">{{ $blog->title }}</a>
+                                                </h4>
+                                                <div class="blog-meta">
+                                                    <p>{{ $blog->created_at }} | <a
+                                                            href="{{ route('client.blogDetail', $blog) }}">Corano</a></p>
+                                                </div>
+                                                <p>{{ $blog->content }}</p>
+                                                <a class="blog-read-more" href="blog-details.html">Read More...</a>
                                             </div>
-                                            <p>{{ $blog->content}}</p>
-                                            <a class="blog-read-more" href="blog-details.html">Read More...</a>
                                         </div>
+                                        <!-- blog post item end -->
                                     </div>
-                                    <!-- blog post item end -->
-                                </div>
                                 @endforeach
                             </div>
                             <!-- blog item wrapper end -->
@@ -216,7 +222,8 @@
                                         <i class="fa fa-check-circle"></i>
                                         <span>200 in stock</span>
                                     </div>
-                                    <p class="pro-desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
+                                    <p class="pro-desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                                        nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
                                     <div class="quantity-cart-box d-flex align-items-center">
                                         <h6 class="option-title">qty:</h6>
                                         <div class="quantity">
@@ -228,9 +235,9 @@
                                     </div>
                                     <div class="useful-links">
                                         <a href="#" data-bs-toggle="tooltip" title="Compare"><i
-                                            class="pe-7s-refresh-2"></i>compare</a>
+                                                class="pe-7s-refresh-2"></i>compare</a>
                                         <a href="#" data-bs-toggle="tooltip" title="Wishlist"><i
-                                            class="pe-7s-like"></i>wishlist</a>
+                                                class="pe-7s-like"></i>wishlist</a>
                                     </div>
                                     <div class="like-icon">
                                         <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
@@ -326,4 +333,4 @@
         </div>
     </div>
     <!-- offcanvas mini cart end -->
-    @endsection
+@endsection

@@ -563,98 +563,23 @@
                 <div class="col-12">
                     <div class="blog-carousel-active slick-row-10 slick-arrow-style">
                         <!-- blog post item start -->
+                        @foreach ($blogs as $blog)
                         <div class="blog-post-item">
                             <figure class="blog-thumb">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/blog/blog-img1.jpg" alt="blog image">
+                                <a href="{{ route('client.blogDetail', $blog)}}">
+                                    <img src="{{ \Storage::url($blog->img) }}" alt="blog image">
                                 </a>
                             </figure>
                             <div class="blog-content">
                                 <div class="blog-meta">
-                                    <p>25/03/2019 | <a href="#">Corano</a></p>
+                                    <p>{{ $blog->create_at}} | <a href="#">Corano</a></p>
                                 </div>
                                 <h5 class="blog-title">
-                                    <a href="blog-details.html">Celebrity Daughter Opens Up About Having Her Eye Color
-                                        Changed</a>
+                                    <a href="blog-details.html">{{ $blog->title}}</a>
                                 </h5>
                             </div>
                         </div>
-                        <!-- blog post item end -->
-
-                        <!-- blog post item start -->
-                        <div class="blog-post-item">
-                            <figure class="blog-thumb">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/blog/blog-img2.jpg" alt="blog image">
-                                </a>
-                            </figure>
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <p>25/03/2019 | <a href="#">Corano</a></p>
-                                </div>
-                                <h5 class="blog-title">
-                                    <a href="blog-details.html">Children Left Home Alone For 4 Days In TV series
-                                        Experiment</a>
-                                </h5>
-                            </div>
-                        </div>
-                        <!-- blog post item end -->
-
-                        <!-- blog post item start -->
-                        <div class="blog-post-item">
-                            <figure class="blog-thumb">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/blog/blog-img3.jpg" alt="blog image">
-                                </a>
-                            </figure>
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <p>25/03/2019 | <a href="#">Corano</a></p>
-                                </div>
-                                <h5 class="blog-title">
-                                    <a href="blog-details.html">Lotto Winner Offering Up Money To Any Man That Will
-                                        Date Her</a>
-                                </h5>
-                            </div>
-                        </div>
-                        <!-- blog post item end -->
-
-                        <!-- blog post item start -->
-                        <div class="blog-post-item">
-                            <figure class="blog-thumb">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/blog/blog-img4.jpg" alt="blog image">
-                                </a>
-                            </figure>
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <p>25/03/2019 | <a href="#">Corano</a></p>
-                                </div>
-                                <h5 class="blog-title">
-                                    <a href="blog-details.html">People are Willing Lie When Comes Money, According to
-                                        Research</a>
-                                </h5>
-                            </div>
-                        </div>
-                        <!-- blog post item end -->
-
-                        <!-- blog post item start -->
-                        <div class="blog-post-item">
-                            <figure class="blog-thumb">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/blog/blog-img5.jpg" alt="blog image">
-                                </a>
-                            </figure>
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <p>25/03/2019 | <a href="#">Corano</a></p>
-                                </div>
-                                <h5 class="blog-title">
-                                    <a href="blog-details.html">romantic Love Stories Of Hollywoodâ€™s Biggest
-                                        Celebrities</a>
-                                </h5>
-                            </div>
-                        </div>
+                        @endforeach
                         <!-- blog post item end -->
                     </div>
                 </div>

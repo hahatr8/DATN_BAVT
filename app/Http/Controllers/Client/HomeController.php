@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Cart;
 use App\Models\Product;
@@ -91,7 +92,10 @@ class HomeController extends Controller
 
         $brands = Brand::where('status', 1)->get(); // Chỉ lấy các thương hiệu đang hoạt động
 
-        return view(self::PATH_VIEW, compact('products', 'productViews', 'productHots', 'productSales', 'productsMiniCart', 'brands'));
+        $blogs = Blog::where('status', 1)->orderBy('created_at', 'desc')->limit(5)->get();
+
+
+        return view(self::PATH_VIEW, compact('blogs','products', 'productViews', 'productHots', 'productSales', 'productsMiniCart', 'brands'));
     }
 
 
