@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers\Client;
 
+
+use App\Models\Comment;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
-
     public function productDetail($id)
     {
         // Lấy sản phẩm chi tiết theo ID
@@ -33,8 +38,14 @@ class ProductController extends Controller
             ->where('id', '!=', $product->id) // Loại bỏ sản phẩm hiện tại
             ->get();
 
+        // bình luận
+        $comments = Comment::with('user')->where('status', 0)
+            ->where('product_id', $product->id)
+            ->get();
+
+        // dd($comments);
         // Trả về view với sản phẩm chi tiết và các sản phẩm liên quan
-        return view('client.products.product-detail', compact('product', 'relatedProductsByBrand'));
+        return view('client.products.product-detail', compact('comments', 'product', 'relatedProductsByBrand'));
     }
 
     public function list(Request $request)
@@ -114,6 +125,43 @@ class ProductController extends Controller
 
         return view('client.products.list-product', compact('products', 'query', 'categories', 'categoryId'));
     }
+    
+    public function post_comments(Request $request, $id)
+    {
+        // Lấy dữ liệu từ request
+        $data = $request->validate([
+            'content' => 'required|string',
+        ]);
+    
+        // Gán thêm các giá trị cho dữ liệu
+        $data['product_id'] = $id;
+        $data['user_id'] = auth()->id();
+        $data['status'] = false; // Mặc định status là false
+    
+        // Sử dụng transaction để đảm bảo tính toàn vẹn của dữ liệu
+        DB::beginTransaction(); // Bắt đầu transaction
+    
+        try {
+            // Lưu bình luận vào database
+            Comment::create($data);
+    
+            // Commit transaction nếu không có lỗi
+            DB::commit();
+    
+            // Điều hướng về trang sản phẩm với thông báo thành công
+            return redirect()->route('client.product_detail', $id)->with('success', 'Comment added successfully.');
+        } catch (\Exception $e) {
+            // Rollback nếu có lỗi xảy ra
+            DB::rollBack();
+    
+            // Log lỗi để dễ dàng debug
+            Log::error('Comment creation failed: ' . $e->getMessage());
+    
+            // Trả về thông báo lỗi
+            return redirect()->back()->with('error', 'Failed to add comment. Please try again.');
+        }
+    }
+
     public function showProducts($id)
     {
         $brandOfPro = Brand::findOrFail($id);
@@ -126,4 +174,4 @@ class ProductController extends Controller
         // Trả về view hiển thị sản phẩm
         return view('client.brands.views', compact('brandOfPro','brands', 'products'));
     }
-}
+

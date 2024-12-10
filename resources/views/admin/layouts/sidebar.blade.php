@@ -121,6 +121,42 @@
                     </li>
                 </ul>
 
+                {{-- mã giảm giá --}}
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarVouchers" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarVouchers">
+                        <i class="ri-compasses-2-line"></i> <span data-key="t-icons">Mã giảm giá</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarVouchers">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('admin.vouchers.index')}}" class="nav-link"><span
+                                        data-key="t-remix">Danh sách</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.vouchers.create')}}" class="nav-link"><span
+                                        data-key="t-boxicons">Thêm mới</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                {{-- comment --}}
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarComments" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarComments">
+                        <i class="ri-compasses-2-line"></i> <span data-key="t-icons">Bình luận</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarComments">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('admin.comments.index')}}" class="nav-link"><span
+                                        data-key="t-remix">Danh sách</span></a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </li>
+                {{-- đơn hàng --}}
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarOrders" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarOrders">
