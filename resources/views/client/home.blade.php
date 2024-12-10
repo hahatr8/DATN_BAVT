@@ -220,10 +220,10 @@
                                     @foreach ($products as $p)
                                         <div class="product-item">
                                             <figure class="product-thumb">
-                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                <a href="{{ Route('client.product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <img class="pri-img"
                                                             src="../../images/{{$p->mainImage->img }}"
                                                             alt="product">
@@ -249,7 +249,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <button class="btn btn-cart">add to cart</button>
                                                     </a>
                                                 </div>
@@ -257,7 +257,7 @@
                                             <div class="product-caption text-center">
                                                 <h6 class="product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>
@@ -278,10 +278,10 @@
                                     @foreach ($products as $p)
                                         <div class="product-item">
                                             <figure class="product-thumb">
-                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                <a href="{{ Route('client.product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <img class="pri-img"
                                                             src="../../images/{{$p->mainImage->img }}"
                                                             alt="product">
@@ -307,7 +307,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <button class="btn btn-cart">add to cart</button>
                                                     </a>
                                                 </div>
@@ -315,7 +315,7 @@
                                             <div class="product-caption text-center">
                                                 <h6 class="product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>
@@ -332,10 +332,10 @@
                                     @foreach ($products as $p)
                                         <div class="product-item">
                                             <figure class="product-thumb">
-                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                <a href="{{ Route('client.product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <img class="pri-img"
                                                             src="../../images/{{$p->mainImage->img }}"
                                                             alt="product">
@@ -361,7 +361,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <button class="btn btn-cart">add to cart</button>
                                                     </a>
                                                 </div>
@@ -369,7 +369,7 @@
                                             <div class="product-caption text-center">
                                                 <h6 class="product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>
@@ -386,10 +386,10 @@
                                     @foreach ($products as $p)
                                         <div class="product-item">
                                             <figure class="product-thumb">
-                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                <a href="{{ Route('client.product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <img class="pri-img"
                                                             src="../../images/{{$p->mainImage->img }}"
                                                             alt="product">
@@ -415,7 +415,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="cart-hover">
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <button class="btn btn-cart">add to cart</button>
                                                     </a>
                                                 </div>
@@ -423,7 +423,7 @@
                                             <div class="product-caption text-center">
                                                 <h6 class="product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h6>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>
@@ -536,10 +536,10 @@
                         @foreach ($products_featured as $p)
                             <div class="product-item">
                                 <figure class="product-thumb">
-                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                         {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                         @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <img class="pri-img"
                                                             src="../../images/{{$p->mainImage->img }}"
                                                             alt="product">
@@ -564,14 +564,14 @@
                                         </a>
                                     </div>
                                     <div class="cart-hover">
-                                        <a href="{{ Route('product_detail', $p->id) }}">
+                                        <a href="{{ Route('client.product_detail', $p->id) }}">
                                             <button class="btn btn-cart">add to cart</button>
                                         </a>
                                     </div>
                                 </figure>
                                 <div class="product-caption text-center">
                                     <h6 class="product-name">
-                                        <a href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                        <a href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                     </h6>
                                     <div class="price-box">
                                         <span class="price-regular">${{ $p->price }}</span>
@@ -694,7 +694,7 @@
                     <div class="categories-group-wrapper">
                         <!-- section title start -->
                         <div class="section-title-append">
-                            <h4>best seller product</h4>
+                            <h4>Most View Product</h4>
                             <div class="slick-append"></div>
                         </div>
                         <!-- section title start -->
@@ -703,14 +703,14 @@
                         <div class="group-list-item-wrapper">
                             <div class="group-list-carousel">
                                 <!-- group list item start -->
-                                @foreach ($products_featured as $p)
+                                @foreach ($popularProducts as $p)
                                     <div class="group-slide-item">
                                         <div class="group-item">
                                             <div class="group-item-thumb">
-                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                <a href="{{ Route('client.product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <img class="pri-img"
                                                             src="../../images/{{$p->mainImage->img }}"
                                                             alt="product">
@@ -730,7 +730,7 @@
                                             <div class="group-item-desc">
                                                 <h5 class="group-product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h5>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>
@@ -751,7 +751,7 @@
                     <div class="categories-group-wrapper">
                         <!-- section title start -->
                         <div class="section-title-append">
-                            <h4>on-sale product</h4>
+                            <h4>luxury product</h4>
                             <div class="slick-append"></div>
                         </div>
                         <!-- section title start -->
@@ -760,14 +760,14 @@
                         <div class="group-list-item-wrapper">
                             <div class="group-list-carousel">
                                 <!-- group list item start -->
-                                @foreach ($products_featured as $p)
+                                @foreach ($luxuryProducts as $p)
                                     <div class="group-slide-item">
                                         <div class="group-item">
                                             <div class="group-item-thumb">
-                                                <a href="{{ Route('product_detail', $p->id) }}">
+                                                <a href="{{ Route('client.product_detail', $p->id) }}">
                                                     {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
                                                     @if ($p->mainImage)
-                                                    <a href="{{ Route('product_detail', $p->id) }}">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
                                                         <img class="pri-img"
                                                             src="../../images/{{$p->mainImage->img }}"
                                                             alt="product">
@@ -787,7 +787,7 @@
                                             <div class="group-item-desc">
                                                 <h5 class="group-product-name">
                                                     <a
-                                                        href="{{ Route('product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
                                                 </h5>
                                                 <div class="price-box">
                                                     <span class="price-regular">${{ $p->price }}</span>

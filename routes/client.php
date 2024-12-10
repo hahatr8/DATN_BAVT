@@ -41,11 +41,11 @@ Route::prefix('client')
         Route::get('myaccountEdit/{id}', [ClientUserController::class, 'edit'])->name('myaccountEdit');
         Route::put('myaccountUpdate/{id}', [ClientUserController::class, 'update'])->name('myaccountUpdate');
         Route::get('/', [HomeController::class, 'index'])->name('home');
-
-
         Route::get('/list-product', [HomeController::class, 'list'])->name('list-product');
-
         Route::get('/product/{id}', [HomeController::class, 'productDetail'])->name('product_detail');
+        
+
+        
 
         Route::prefix('address')
             ->as('address.')

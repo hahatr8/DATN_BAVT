@@ -23,12 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('client.home');
 });
-Route::get('/', [ProductController::class,'index'])->name('home');
 
-
-Route::get('/list-product',[ProductController::class,'list'])->name('list-product');
-
-Route::get('/product/{id}', [ProductController::class, 'productDetail'])->name('product_detail');
 
 
 // Giỏ hàng

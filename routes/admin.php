@@ -17,10 +17,7 @@ Route::middleware('auth')->group(function () {
             ->as('admin.')
 
             ->group(function () {
-                Route::get('/', function () {
-                    return view('admin.dashboard');
-                });
-
+                Route::get('/', [DashBoardController::class, 'admin']);
                 // route category
                 Route::prefix('category')
                     ->as('category.')

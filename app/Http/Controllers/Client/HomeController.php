@@ -33,47 +33,106 @@ class HomeController extends Controller
     }
 
     public function index()
-    {
+{
+    $products = Product::with([
+        'productImgs' => function ($query) {
+            $query->select('id', 'product_id', 'img', 'created_at')
+                  ->orderBy('created_at', 'asc');
+        }
+    ])
+        ->limit(5)
+        ->get(['id', 'name', 'description', 'price']);
 
-        $products = Product::with([
-            'productImgs' => function ($query) {
-                $query->select('id', 'product_id', 'img', 'created_at') // Thêm `created_at` để sắp xếp
-                    ->orderBy('created_at', 'asc'); // Sắp xếp theo thời gian
-            }
-        ])
-            ->limit(5) // Lấy tối đa 5 sản phẩm
-            ->get(['id', 'name', 'description', 'price']); // Chỉ lấy các cột cần thiết
+    // Phân loại ảnh cho từng sản phẩm
+    $products = $products->map(function ($product) {
+        $images = $product->productImgs;
+        $product->mainImage = $images->first();
+        $product->hoverImage = $images->skip(1)->first();
+        $product->albumImages = $images->skip(2);
+        return $product;
+    });
 
-        // Phân loại ảnh cho từng sản phẩm
-        $products = $products->map(function ($product) {
-            $images = $product->productImgs;
-            $product->mainImage = $images->first(); // Ảnh chính
-            $product->hoverImage = $images->skip(1)->first(); // Ảnh hover
-            $product->albumImages = $images->skip(2); // Album ảnh
-            return $product;
-        });
-        //
-        $products_featured = Product::with([
-            'productImgs' => function ($query) {
-                $query->select('id', 'product_id', 'img'); // Chỉ lấy các cột cần thiết
-            }
-        ])
-            ->limit(10) // Lấy tối đa 5 sản phẩm
-            ->get(['id', 'name', 'description', 'price']);
+    $products_featured = Product::with([
+        'productImgs' => function ($query) {
+            $query->select('id', 'product_id', 'img', 'created_at')
+                  ->orderBy('created_at', 'desc');
+        }
+    ])
+        ->limit(6)
+        ->get(['id', 'name', 'description', 'price']);
 
-        return view('client.home', compact('products', 'products_featured'));
-    }
-    public function bestSellerProduct()
-    {
-        $bestSellerProduct = Product::with([
-            'productImgs' => function ($query) {
-                $query->select('id', 'product_id', 'img'); // Chỉ lấy các cột cần thiết
-            }
-        ])
-            ->limit(4) // Lấy tối đa 5 sản phẩm
-            ->get(['id', 'name', 'description', 'price']);
-        return view('client.home', compact('bestSellerProduct'));
-    }
+    // Phân loại ảnh cho từng sản phẩm
+    $products_featured = $products_featured->map(function ($product) {
+        $images = $product->productImgs;
+        $product->mainImage = $images->first();
+        $product->hoverImage = $images->skip(1)->first();
+        $product->albumImages = $images->skip(2);
+        return $product;
+    });
+    // $bestSellerProduct = Product::with([
+    //     'productImgs' => function ($query) {
+    //         $query->select('id', 'product_id', 'img', 'created_at')
+    //               ->orderBy('created_at', 'asc');
+    //     }
+    // ])
+    //     ->limit(10)
+    //     ->get(['id', 'name', 'description', 'price']);
+
+    // // Phân loại ảnh cho từng sản phẩm
+    // $bestSellerProduct = $bestSellerProduct->map(function ($product) {
+    //     $images = $product->productImgs;
+    //     $product->mainImage = $images->first();
+    //     $product->hoverImage = $images->skip(1)->first();
+    //     $product->albumImages = $images->skip(2);
+    //     return $product;
+    // });
+
+    
+    $popularProducts = Product::with([
+        'productImgs' => function ($query) {
+            $query->select('id', 'product_id', 'img', 'created_at')
+                  ->orderBy('created_at', 'asc'); // Sắp xếp ảnh theo thời gian tạo
+        }
+    ])
+        ->orderBy('view', 'desc') // Sắp xếp theo lượt xem giảm dần
+        ->limit(5) // Lấy 5 sản phẩm có nhiều lượt xem nhất
+        ->get(['id', 'name', 'description', 'price', 'view']); // Chỉ lấy cột cần thiết
+
+    // Phân loại ảnh cho từng sản phẩm
+    $popularProducts = $popularProducts->map(function ($product) {
+        $images = $product->productImgs;
+        $product->mainImage = $images->first(); // Ảnh chính
+        $product->hoverImage = $images->skip(1)->first(); // Ảnh hover
+        $product->albumImages = $images->skip(2); // Album ảnh
+        return $product;
+    });
+
+    $luxuryProducts = Product::with([
+        'productImgs' => function ($query) {
+            $query->select('id', 'product_id', 'img', 'created_at')
+                  ->orderBy('created_at', 'asc'); // Sắp xếp ảnh theo thời gian tạo
+        }
+    ])
+        ->orderBy('price', 'desc') // Sắp xếp theo giá tăng dần
+        ->limit(5) // Lấy 5 sản phẩm có giá rẻ nhất
+        ->get(['id', 'name', 'description', 'price']); // Chỉ lấy các cột cần thiết
+
+    // Phân loại ảnh cho từng sản phẩm
+    $luxuryProducts = $luxuryProducts->map(function ($product) {
+        $images = $product->productImgs;
+        $product->mainImage = $images->first(); // Ảnh chính
+        $product->hoverImage = $images->skip(1)->first(); // Ảnh hover
+        $product->albumImages = $images->skip(2); // Album ảnh
+        return $product;
+    });
+
+
+
+
+    return view('client.home', compact('products', 'popularProducts','luxuryProducts','products_featured'));
+}
+
+    
 
    
 
