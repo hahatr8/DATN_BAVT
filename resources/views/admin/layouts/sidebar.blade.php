@@ -49,6 +49,25 @@
                 </li> <!-- end Dashboard Menu -->
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarIcons" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarIcons">
+                        <i class="ri-user-2-line"></i> <span data-key="t-icons">danh sách tài khoản</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarIcons">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.user.index') }}" class="nav-link"><span
+                                        data-key="t-remix">Danh sách</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="icons-boxicons.html" class="nav-link"><span
+                                        data-key="t-boxicons">Thêm mới</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Danh mục</span>
@@ -83,7 +102,61 @@
                         </ul>
                     </div>
                 </li> <!-- end Dashboard Menu -->
+                <ul class="navbar-nav" id="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarBrands" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarBrands">
+                            <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Brands</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarBrands">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.brands.index') }}" class="nav-link" data-key="t-analytics"> Danh sách </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.brands.create') }}" class="nav-link" data-key="t-crm"> Thêm </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
 
+                {{-- mã giảm giá --}}
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarVouchers" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarVouchers">
+                        <i class="ri-compasses-2-line"></i> <span data-key="t-icons">Mã giảm giá</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarVouchers">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('admin.vouchers.index')}}" class="nav-link"><span
+                                        data-key="t-remix">Danh sách</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.vouchers.create')}}" class="nav-link"><span
+                                        data-key="t-boxicons">Thêm mới</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                {{-- comment --}}
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarComments" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarComments">
+                        <i class="ri-compasses-2-line"></i> <span data-key="t-icons">Bình luận</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarComments">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('admin.comments.index')}}" class="nav-link"><span
+                                        data-key="t-remix">Danh sách</span></a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </li>
+                {{-- đơn hàng --}}
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarOrders" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarOrders">

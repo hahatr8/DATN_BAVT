@@ -107,15 +107,12 @@ class BlogController extends Controller
         return back()->with('success', 'Thao tác thành công');
     }
 
-    public function destroy(Blog $blog)
+    public function destroy($id)
     {
-        $blog->delete();
-
-        if($blog->img && Storage::exists($blog->img)) {
-            Storage::delete($blog->img);
-        }
-
-        return back()->with('success', 'Thao tác thành công');
+        $blog = Blog::withTrashed()->findOrFail($id);
+        $blog->forceDelete();
+        return redirect()->route('admin.blog.trash')
+            ->with('success', 'Blog đã được xóa cứng!');
     }
 
     public function restore($id)
