@@ -102,6 +102,24 @@
                         </ul>
                     </div>
                 </li> <!-- end Dashboard Menu -->
+                <ul class="navbar-nav" id="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarBrands" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarBrands">
+                            <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Brands</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarBrands">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.brands.index') }}" class="nav-link" data-key="t-analytics"> Danh sách </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.brands.create') }}" class="nav-link" data-key="t-crm"> Thêm </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
 
                 {{-- mã giảm giá --}}
                 <li class="nav-item">

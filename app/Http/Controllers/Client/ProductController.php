@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Client;
 
+
 use App\Models\Comment;
+use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -121,15 +125,7 @@ class ProductController extends Controller
 
         return view('client.products.list-product', compact('products', 'query', 'categories', 'categoryId'));
     }
-    // xử lý bình luận
-    // public function showProduct($id)
-    // {
-    //     $product = Product::with('products.user')->findOrFail($id); // Lấy product và kèm theo bình luận, thông qua quan hệ
-    //     $comments = $product->comments()->whereNull('parent_id')->get(); // Lấy các comment cha (không phải trả lời)
-
-    //     return view('products.show', compact('product', 'comments'));
-    // }
-
+    
     public function post_comments(Request $request, $id)
     {
         // Lấy dữ liệu từ request
@@ -165,5 +161,17 @@ class ProductController extends Controller
             return redirect()->back()->with('error', 'Failed to add comment. Please try again.');
         }
     }
-    
-}
+
+    public function showProducts($id)
+    {
+        $brandOfPro = Brand::findOrFail($id);
+        $brands = Brand::where('status', 1)->get(); // Chỉ lấy các thương hiệu đang hoạt động
+        // Lấy sản phẩm thuộc hãng
+        $products = Product::where('brand_id', $id)
+            ->where('status', 1)
+            ->get();
+
+        // Trả về view hiển thị sản phẩm
+        return view('client.brands.views', compact('brandOfPro','brands', 'products'));
+    }
+

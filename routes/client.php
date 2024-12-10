@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\BlogController;
 use App\Http\Controllers\Client\CartController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\AddressController;
+use App\Http\Controllers\Client\BrandController;
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\Client\UserController as ClientUserController;
 use App\Http\Controllers\ForgetpasswordController;
@@ -46,6 +48,7 @@ Route::prefix('client')
         Route::get('/product/{id}', [ProductController::class, 'productDetail'])->name('product_detail');
         Route::get('/search', [ProductController::class, 'search'])->name('products.search');
 
+
         Route::prefix('address')
             ->as('address.')
             ->group(function () {
@@ -86,3 +89,45 @@ Route::get('register', [AuthController::class, 'showFormRegister']);
 Route::post('register', [AuthController::class, 'register'])->name('register');
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/brand/{id}', [ProductController::class, 'showProducts'])->name('brand.products');
+
+
+// Quản lý đơn hàng
+Route::middleware(['auth'])->prefix('orders')->name('client.orders.')->group(function () {
+    // Danh sách đơn hàng
+    Route::get('/', [OrderController::class, 'index'])
+        ->name('index');
+
+    // Chi tiết đơn hàng
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('show');
+
+    // Hủy đơn hàng
+    Route::put('/{id}/cancel', [OrderController::class, 'cancelOrder'])
+        ->whereNumber('id') // Ràng buộc chỉ cho phép số
+        ->name('cancel');
+
+    // Yêu cầu trả hàng (Route bạn cần thêm vào)
+    Route::put('/{id}/return', [OrderController::class, 'requestReturn'])
+        ->whereNumber('id') // Ràng buộc chỉ cho phép số
+        ->name('return'); // Đảm bảo route này có tên là 'client.orders.return'
+
+    // Phê duyệt yêu cầu trả hàng
+    Route::put('/{id}/approve-return', [OrderController::class, 'approveReturn'])
+        ->whereNumber('id')
+        ->name('approveReturn');
+
+    // Từ chối yêu cầu trả hàng
+    Route::put('/{id}/reject-return', [OrderController::class, 'rejectReturn'])
+        ->whereNumber('id')
+        ->name('rejectReturn');
+
+    // Chấp nhận yêu cầu trả hàng
+    Route::put('/{id}/accept-return', [OrderController::class, 'acceptReturn'])
+        ->whereNumber('id')
+        ->name('acceptReturn');
+
+    // Lịch sử trả hàng (Tùy chọn, nếu cần)
+    Route::get('/returns', [OrderController::class, 'returnHistory'])
+        ->name('returns');
+});
