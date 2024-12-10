@@ -131,89 +131,60 @@
                                 </div>
                             </div>
                             <!-- blog post item end -->
-
+{{-- @dd($comments) --}}
                             <!-- comment area start -->
                             <div class="comment-section section-padding">
                                 <h5>03 Comment</h5>
                                 <ul>
+                                    @foreach ($comments as $comment )
                                     <li>
                                         <div class="author-avatar">
-                                            <img src="assets/img/blog/comment-icon.png" alt="">
+                                            <img src="{{ \Storage::url($comment->user->img) }}">
                                         </div>
                                         <div class="comment-body">
                                             <span class="reply-btn"><a href="#">Reply</a></span>
-                                            <h5 class="comment-author">Admin</h5>
+                                            <h5 class="comment-author">
+                                                {{$comment->user->name}}
+                                            </h5>
                                             <div class="comment-post-date">
-                                                15 Dec, 2019 at 9:30pm
+                                                {{$comment->created_at}}
                                             </div>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim maiores
-                                                adipisci optio ex, laboriosam facilis non pariatur itaque illo sunt?</p>
+                                            <p>
+                                                {{$comment->content}}
+                                            </p>
                                         </div>
                                     </li>
-                                    <li class="comment-children">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/blog/comment-icon.png" alt="">
-                                        </div>
-                                        <div class="comment-body">
-                                            <span class="reply-btn"><a href="#">Reply</a></span>
-                                            <h5 class="comment-author">Admin</h5>
-                                            <div class="comment-post-date">
-                                                20 Nov, 2019 at 9:30pm
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim maiores
-                                                adipisci optio ex, laboriosam facilis non pariatur itaque illo sunt?</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="author-avatar">
-                                            <img src="assets/img/blog/comment-icon.png" alt="">
-                                        </div>
-                                        <div class="comment-body">
-                                            <span class="reply-btn"><a href="#">Reply</a></span>
-                                            <h5 class="comment-author">Admin</h5>
-                                            <div class="comment-post-date">
-                                                25 Jan, 2019 at 9:30pm
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim maiores
-                                                adipisci optio ex, laboriosam facilis non pariatur itaque illo sunt?</p>
-                                        </div>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
-                            <!-- comment area end -->
-
-                            <!-- start blog comment box -->
+                            
+                            <!-- Form thêm bình luận -->
                             <div class="blog-comment-wrapper">
                                 <h5>Leave a reply</h5>
                                 <p>Your email address will not be published. Required fields are marked *</p>
-                                <form action="#">
+                                @if(auth()->check())
+                                <form action="{{ route('client.comment.store', $blog) }}" method="POST">
+                                    @csrf
                                     <div class="comment-post-box">
                                         <div class="row">
                                             <div class="col-12">
                                                 <label>Comment</label>
-                                                <textarea name="commnet" placeholder="Write a comment"></textarea>
-                                            </div>
-                                            <div class="col-lg-4 col-md-4">
-                                                <label>Name</label>
-                                                <input type="text" class="coment-field" placeholder="Name">
-                                            </div>
-                                            <div class="col-lg-4 col-md-4">
-                                                <label>Email</label>
-                                                <input type="text" class="coment-field" placeholder="Email">
-                                            </div>
-                                            <div class="col-lg-4 col-md-4">
-                                                <label>Website</label>
-                                                <input type="text" class="coment-field" placeholder="Website">
+                                                <textarea name="content" placeholder="Write a comment" required></textarea>
                                             </div>
                                             <div class="col-12">
                                                 <div class="coment-btn">
-                                                    <input class="btn btn-sqr" type="submit" name="submit"
-                                                        value="Post Comment">
+                                                    <button type="submit" class="btn btn-sqr">Post Comment</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
+                                @else
+
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Đăng nhập để bình luận</strong>Click vào đây<a href="{{route('home.login')}}">Đăng nhập</a>
+                                </div>
+                                @endif
                             </div>
                             <!-- start blog comment box -->
                         </div>

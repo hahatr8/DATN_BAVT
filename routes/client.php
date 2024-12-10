@@ -63,6 +63,16 @@ Route::prefix('client')
         //link den trang blog
         Route::get('/blog', [BlogController::class, 'blog'])->name('blog');
         Route::get('/blogDetail/{blog}', [BlogController::class, 'blogDetail'])->name('blogDetail');
+
+        //gửi bình luận
+        Route::post('blog/comment/{blogID}', [BlogController::class, 'post_comment'])->name('comment.store');
+
+        // Product routes
+        Route::get('/product', [ProductController::class, 'product'])->name('product.index');
+
+        // Product comments
+        Route::post('/product/comment/{id}', [ProductController::class, 'post_comments'])->name('product.comment');
+
     });
 
 Route::get('login', [AuthController::class, 'showFormLogin']);
