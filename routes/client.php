@@ -43,7 +43,7 @@ Route::prefix('client')
         Route::get('myaccountEdit/{id}', [ClientUserController::class, 'edit'])->name('myaccountEdit');
         Route::put('myaccountUpdate/{id}', [ClientUserController::class, 'update'])->name('myaccountUpdate');
 
-        Route::get('/list-product',[ProductController::class,'list'])->name('list-product');
+        Route::get('/list-product', [ProductController::class, 'list'])->name('list-product');
         Route::get('/product/{id}', [ProductController::class, 'productDetail'])->name('product_detail');
         Route::get('/search', [ProductController::class, 'search'])->name('products.search');
 

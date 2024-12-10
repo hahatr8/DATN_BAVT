@@ -28,7 +28,7 @@
                     thời gian sớm nhất.
                 </p>
                 <a href="/orders" class="order-button">Xem đơn hàng</a>
-                <a href="/" class="order-secondary-button">Quay về trang chủ</a>
+                <a href="{{ route('client.home') }}" class="order-secondary-button">Quay về trang chủ</a>
             </div>
         </div>
     </div>

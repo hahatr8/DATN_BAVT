@@ -43,9 +43,6 @@ class CartController extends Controller
         // Nếu voucher áp dụng cho một sản phẩm cụ thể
         if ($voucher->product_id) {
             $cartItem = $cartItems->firstWhere('productSize.product_id', $voucher->product_id);
-            if (!$cartItem) {
-                throw new \Exception('Voucher không áp dụng được vì sản phẩm không có trong giỏ hàng.');
-            }
 
             // Tính giảm giá cho sản phẩm cụ thể
             $productPrice = $cartItem->productSize->product->price + $cartItem->productSize->price;
@@ -63,26 +60,17 @@ class CartController extends Controller
         return [$totalAmount, $discount];
     }
 
-
     public function showCart()
     {
-        // Lấy các voucher
-        $vouchers = Voucher::where('user_id', Auth::id())
-            ->where('quantity', '>', 0)
-            ->where('status', 1)
-            ->where('start_date', '<=', now())
-            ->where('end_date', '>=', now())
-            ->get();
-
-        // Lấy giỏ hàng
+        // Lấy thông tin giỏ hàng
         $cartItems = Cart::where('user_id', Auth::id())->get();
-
         $totalAmount = $this->calculateGrandTotal();
+
+        // Lấy voucher từ session (nếu có)
         $discount = 0;
         $finalAmount = $totalAmount;
+        $appliedVoucherId = session('appliedVoucher'); // Lấy voucher_id từ session
 
-        // Kiểm tra voucher áp dụng
-        $appliedVoucherId = session('appliedVoucher');
         if ($appliedVoucherId) {
             $voucher = Voucher::find($appliedVoucherId);
             if ($voucher) {
@@ -90,7 +78,18 @@ class CartController extends Controller
             }
         }
 
-        return view('client.cart.cart', compact('vouchers', 'cartItems', 'totalAmount', 'finalAmount', 'discount'));
+        // Lấy danh sách voucher có thể áp dụng
+        $vouchers = Voucher::where('user_id', Auth::id())
+            ->where('quantity', '>', 0)
+            ->where('status', 1)
+            ->where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->get();
+
+        $finalAmountV = $finalAmount;
+        $discountV = $discount;
+
+        return view('client.cart.cart', compact('cartItems', 'totalAmount', 'finalAmountV', 'discountV', 'vouchers', 'appliedVoucherId'));
     }
 
     public function addToCart(Request $request)
@@ -174,11 +173,18 @@ class CartController extends Controller
         }
     }
 
-
     public function applyVoucher(Request $request)
     {
         try {
             $voucherId = $request->input('voucher_id');
+
+            // Lưu thông tin voucher vào session
+            session(['appliedVoucher' => $voucherId]);
+
+            // Nếu voucher_id = 0, xóa session liên quan và quay lại giỏ hàng
+            if ($voucherId == 0) {
+                return redirect()->route('cart.show')->with('success', 'Voucher đã được gỡ bỏ.');
+            }
 
             // Tìm voucher
             $voucher = Voucher::find($voucherId);
@@ -192,26 +198,21 @@ class CartController extends Controller
                 throw new \Exception('Giỏ hàng rỗng.');
             }
 
-            // Tính giảm giá
-            [$totalAmount, $discount] = $this->calculateDiscount($cartItems, $voucher);
+            if ($voucher->product_id) {
+                $cartItem = $cartItems->firstWhere('productSize.product_id', $voucher->product_id);
+                // dd($cartItem);
+                if (!$cartItem) {
+                    session()->forget('appliedVoucher'); // Xóa session 'appliedVoucher'
 
-            // Lưu voucher áp dụng vào session
-            session(['appliedVoucher' => $voucherId]);
+                    return back()->with('error', 'Voucher không áp dụng được vì sản phẩm không có trong giỏ hàng.');
+                }
+            }
 
-            return response()->json([
-                'success' => true,
-                'discount' => $discount,
-                'finalAmount' => $totalAmount,
-                'voucher_id' => $voucherId
-            ]);
+            return redirect()->route('cart.show')->with('success', 'Voucher đã được áp dụng thành công!');
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ]);
+            return redirect()->route('cart.show')->with('error', $e->getMessage());
         }
     }
-
 
     public function remove($id)
     {
@@ -250,7 +251,10 @@ class CartController extends Controller
             }
         }
 
-        return view('client.cart.checkout', compact('addresses', 'cartItems', 'totalAmount', 'finalAmount', 'discount'));
+        $finalAmountV = $finalAmount;
+        $discountV = $discount;
+
+        return view('client.cart.checkout', compact('addresses', 'cartItems', 'totalAmount', 'finalAmountV', 'discountV'));
     }
 
 
@@ -562,7 +566,7 @@ class CartController extends Controller
 
                 DB::commit(); // Lưu các thay đổi
 
-                return redirect()->route('cart.order.success')->with(['success' => 'Thanh toán thành công, đơn hàng đã được xác nhận.']);
+                return redirect()->route('cart.order.success')->with(['success' => 'Thanh toán thành công, chúng tôi sẽ xác nhận đơn sớm nhất có thể.']);
             }
 
             if ($data['resultCode'] != 0) {

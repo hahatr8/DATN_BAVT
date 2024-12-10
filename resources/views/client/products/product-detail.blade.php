@@ -65,9 +65,6 @@
                                                 class="brand-link">{{ $product->brand->name }}</a>
                                         </div>
                                         <h3 class="product-name">{{ $product->name }}</h3>
-                                        <div class="category-name mb-3">
-                                            {!! $product->categories->pluck('name')->implode('<br>') !!}
-                                        </div>
                                         <p class="pro-desc">
                                             {{ $product->description }}
                                         </p>
@@ -84,7 +81,9 @@
                                                 <select name="product_size_id" id="size-selector" class="form-select">
                                                     <option value="">---Chọn---</option>
                                                     @foreach ($product->productSizes as $size)
-                                                        <option value="{{ $size->id }}">{{ $size->variant }}</option>
+                                                        <option value="{{ $size->id }}">
+                                                            {{ $size->variant }} ( +{{$size->price}} VND)
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -135,6 +134,15 @@
                                     </ul>
                                     <div class="tab-content reviews-tab">
                                         <div class="tab-pane fade show active" id="tab_one">
+                                            <div class="tab-one">
+                                                <h5>Danh mục sản phẩm : </h5>
+                                                    @foreach ($product->categories as $category)
+                                                        <span class="me-3">
+                                                            <a class="bg bg-info" href="">{{ $category->name }}</a>
+                                                        </span>
+                                                    @endforeach
+                                                <hr>
+                                            </div>
                                             <div class="tab-one">
                                                 <p>
                                                     {{ $product->content }}

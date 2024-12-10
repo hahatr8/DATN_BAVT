@@ -1,7 +1,6 @@
 @extends('client.layouts.master')
 
 @section('content')
-
     <main>
         <!-- breadcrumb area start -->
         <div class="breadcrumb-area">
@@ -57,8 +56,7 @@
                                     <div class="price-range-wrap">
                                         <div class="price-range" data-min="1" data-max="1000"></div>
                                         <div class="range-slider">
-                                            <form action="#"
-                                                class="d-flex align-items-center justify-content-between">
+                                            <form action="#" class="d-flex align-items-center justify-content-between">
                                                 <div class="price-input">
                                                     <label for="amount">Price: </label>
                                                     <input type="text" id="amount">
@@ -106,8 +104,7 @@
                                         </li>
                                         <li>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck5">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck5">
                                                 <label class="custom-control-label" for="customCheck5">devItems
                                                     (12)</label>
                                             </div>
@@ -124,40 +121,35 @@
                                     <ul class="checkbox-container categories-list">
                                         <li>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck12">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck12">
                                                 <label class="custom-control-label" for="customCheck12">black
                                                     (20)</label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck13">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck13">
                                                 <label class="custom-control-label" for="customCheck13">red
                                                     (6)</label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck14">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck14">
                                                 <label class="custom-control-label" for="customCheck14">blue
                                                     (8)</label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck11">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck11">
                                                 <label class="custom-control-label" for="customCheck11">green
                                                     (5)</label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck15">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck15">
                                                 <label class="custom-control-label" for="customCheck15">pink
                                                     (4)</label>
                                             </div>
@@ -174,29 +166,25 @@
                                     <ul class="checkbox-container categories-list">
                                         <li>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck111">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck111">
                                                 <label class="custom-control-label" for="customCheck111">S (4)</label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck222">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck222">
                                                 <label class="custom-control-label" for="customCheck222">M (5)</label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck333">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck333">
                                                 <label class="custom-control-label" for="customCheck333">L (7)</label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="customCheck444">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck444">
                                                 <label class="custom-control-label" for="customCheck444">XL
                                                     (3)</label>
                                             </div>
@@ -262,99 +250,99 @@
                             <!-- product item list wrapper start -->
                             <div class="shop-product-wrap list-view row mbn-30">
                                 @foreach ($products as $p)
-                                <!-- product single item start -->
-                                <div class="col-md-4 col-sm-6">
-                                    <!-- product grid start -->
-                                    <div class="product-item">
-                                        <figure class="product-thumb">
-                                            <a href="product-details.html">
-                                                {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
-                                                @if ($p->mainImage)
-                                                <a href="{{ Route('client.product_detail', $p->id) }}">
-                                                    <img class="pri-img"
-                                                        src="../../images/{{$p->mainImage->img }}"
-                                                        alt="product">
-                                                </a>
-                                                    @if ($p->hoverImage)
-                                                        <img class="sec-img"
-                                                            src="../../images/{{$p->hoverImage->img }}"
+                                    <!-- product single item start -->
+                                    <div class="col-md-4 col-sm-6">
+                                        <!-- product grid start -->
+                                        <div class="product-item">
+                                            <figure class="product-thumb">
+                                                <a href="product-details.html">
+                                                    {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
+                                                    @if ($p->mainImage)
+                                                        <a href="{{ Route('client.product_detail', $p->id) }}">
+                                                            <img class="pri-img"
+                                                                src="../../images/{{ $p->mainImage->img }}"
+                                                                alt="product">
+                                                        </a>
+                                                        @if ($p->hoverImage)
+                                                            <img class="sec-img"
+                                                                src="../../images/{{ $p->hoverImage->img }}"
+                                                                alt="product">
+                                                        @endif
+                                                    @else
+                                                        <img class="pri-img" src="../../images/default.jpg"
                                                             alt="product">
+                                                        {{-- Ảnh mặc định nếu không có ảnh --}}
                                                     @endif
-                                                @else
-                                                    <img class="pri-img" src="../../images/default.jpg"
-                                                        alt="product">
-                                                    {{-- Ảnh mặc định nếu không có ảnh --}}
-                                                @endif
-                                            </a>
-                                                                                  
-                                            <div class="cart-hover">
-                                                <a href="{{ Route('client.product_detail', $p->id) }}">
-                                                    <button class="btn btn-cart">add to cart</button>
                                                 </a>
-                                            </div>
-                                        </figure>
-                                        <div class="product-caption text-center">
-                                            <h6 class="product-name">
-                                                <a
-                                                    href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
-                                            </h6>
-                                            <div class="price-box">
-                                                <span class="price-regular">${{ $p->price }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- product grid end -->
 
-                                    <!-- product list item end -->
-                                    <div class="product-list-item">
-                                        <figure class="product-thumb">
-                                            <a href="product-details.html">
-                                                {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
-                                                @if ($p->mainImage)
-                                                <a href="{{ Route('client.product_detail', $p->id) }}">
-                                                    <img class="pri-img"
-                                                        src="../../images/{{$p->mainImage->img }}"
-                                                        alt="product">
-                                                </a>
-                                                    @if ($p->hoverImage)
-                                                        <img class="sec-img"
-                                                            src="../../images/{{$p->hoverImage->img }}"
-                                                            alt="product">
-                                                    @endif
-                                                @else
-                                                    <img class="pri-img" src="../../images/default.jpg"
-                                                        alt="product">
-                                                    {{-- Ảnh mặc định nếu không có ảnh --}}
-                                                @endif
-                                            </a>
-                                            
-                                            
-                                            <div class="cart-hover">
-                                                <a href="{{ Route('client.product_detail', $p->id) }}">
-                                                    <button class="btn btn-cart">add to cart</button>
-                                                </a>
+                                                <div class="cart-hover">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
+                                                        <button class="btn btn-cart">add to cart</button>
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                            <div class="product-caption text-center">
+                                                <h6 class="product-name">
+                                                    <a
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                </h6>
+                                                <div class="price-box">
+                                                    <span class="price-regular">${{ $p->price }}</span>
+                                                </div>
                                             </div>
-                                        </figure>
-                                        <div class="product-caption text-center">
-                                            <h6 class="product-name">
-                                                <a
-                                                    href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
-                                            </h6>
-                                            <div class="price-box">
-                                                <span class="price-regular">${{ $p->price }}</span>
-                                            </div>
-                                            <p>{{$p->description}}</p>
                                         </div>
-                                        
+
+                                        <!-- product grid end -->
+
+                                        <!-- product list item end -->
+                                        <div class="product-list-item">
+                                            <figure class="product-thumb">
+                                                <a href="product-details.html">
+                                                    {{-- Kiểm tra nếu sản phẩm có ảnh mới nhất --}}
+                                                    @if ($p->mainImage)
+                                                        <a href="{{ Route('client.product_detail', $p->id) }}">
+                                                            <img class="pri-img"
+                                                                src="../../images/{{ $p->mainImage->img }}"
+                                                                alt="product">
+                                                        </a>
+                                                        @if ($p->hoverImage)
+                                                            <img class="sec-img"
+                                                                src="../../images/{{ $p->hoverImage->img }}"
+                                                                alt="product">
+                                                        @endif
+                                                    @else
+                                                        <img class="pri-img" src="../../images/default.jpg"
+                                                            alt="product">
+                                                        {{-- Ảnh mặc định nếu không có ảnh --}}
+                                                    @endif
+                                                </a>
+
+
+                                                <div class="cart-hover">
+                                                    <a href="{{ Route('client.product_detail', $p->id) }}">
+                                                        <button class="btn btn-cart">add to cart</button>
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                            <div class="product-caption text-center">
+                                                <h6 class="product-name">
+                                                    <a
+                                                        href="{{ Route('client.product_detail', $p->id) }}">{{ $p->name }}</a>
+                                                </h6>
+                                                <div class="price-box">
+                                                    <span class="price-regular">${{ $p->price }}</span>
+                                                </div>
+                                                <p>{{ $p->description }}</p>
+                                            </div>
+
+                                        </div>
+                                        <!-- product list item end -->
                                     </div>
-                                    <!-- product list item end -->
-                                </div>
                                 @endforeach
                                 <!-- product single item start -->
 
                                 <!-- product single item start -->
-                            
+
                             </div>
                             <!-- product item list wrapper end -->
 
@@ -396,46 +384,36 @@
                             <div class="col-lg-5">
                                 <div class="product-large-slider">
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img1.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img2.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img3.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img4.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-large-img img-zoom">
-                                        <img src="assets/img/product/product-details-img5.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
                                     </div>
                                 </div>
                                 <div class="pro-nav slick-row-10 slick-arrow-style">
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img1.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img1.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img2.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img2.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img3.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img3.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img4.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img4.jpg" alt="product-details" />
                                     </div>
                                     <div class="pro-nav-thumb">
-                                        <img src="assets/img/product/product-details-img5.jpg"
-                                            alt="product-details" />
+                                        <img src="assets/img/product/product-details-img5.jpg" alt="product-details" />
                                     </div>
                                 </div>
                             </div>
@@ -485,10 +463,8 @@
                                     <div class="like-icon">
                                         <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>
                                         <a class="twitter" href="#"><i class="fa fa-twitter"></i>tweet</a>
-                                        <a class="pinterest" href="#"><i
-                                                class="fa fa-pinterest"></i>save</a>
-                                        <a class="google" href="#"><i
-                                                class="fa fa-google-plus"></i>share</a>
+                                        <a class="pinterest" href="#"><i class="fa fa-pinterest"></i>save</a>
+                                        <a class="google" href="#"><i class="fa fa-google-plus"></i>share</a>
                                     </div>
                                 </div>
                             </div>
@@ -577,4 +553,4 @@
             </div>
         </div>
     </div>
-    @endsection
+@endsection

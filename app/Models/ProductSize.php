@@ -29,5 +29,11 @@ class ProductSize extends Model
     {
         return $this->hasMany(Cart::class);
     }
+
+    public function vouchers()
+    {
+        return $this->hasMany(Voucher::class);
+
+    }
 }
 

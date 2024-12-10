@@ -34,8 +34,8 @@ class Voucher extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function product()
+    public function productSize()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(ProductSize::class);
     }
 }
