@@ -45,7 +45,7 @@
                     <!-- start logo area -->
                     <div class="col-lg-2">
                         <div class="logo">
-                            <a href="{{ route('client.home') }}">
+                            <a href="{{ route('home') }}">
                                 <img src="{{ asset('assets/img/logo/logo1.jpg') }}" style="height: 30%" width=" 70%" alt="Brand Logo">
                             </a>
                         </div>
@@ -59,7 +59,7 @@
                                 <!-- main menu navbar start -->
                                 <nav class="desktop-menu">
                                     <ul>
-                                        <li class="active"><a href="{{ route('client.home') }}">Home</a>
+                                        <li class="active"><a href="{{ route('home') }}">Home</a>
                                         </li>
                                         <li class="position-static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
                                             <ul class="megamenu dropdown">

@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Client;
 
 
 use App\Models\Comment;
-use App\Http\Controllers\Controller;
 use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -62,7 +60,7 @@ class ProductController extends Controller
                 $query->select('id', 'product_id', 'img', 'created_at') // Thêm `created_at` để sắp xếp
                     ->orderBy('created_at', 'asc'); // Sắp xếp ảnh theo thời gian
             }
-        ]);
+        ])->where('status', 1); // Chỉ lấy các sản phẩm có status là 1
 
         if ($categoryId) {
             // Nếu có category_id, lọc sản phẩm theo category_id
@@ -72,7 +70,6 @@ class ProductController extends Controller
         }
 
         // Thêm phân trang, hiển thị 10 sản phẩm mỗi trang
-
         $products = $query->paginate(10)->appends(['category_id' => $categoryId]); // Tự động trả về LengthAwarePaginator
 
         // Phân loại ảnh cho từng sản phẩm
@@ -93,6 +90,7 @@ class ProductController extends Controller
 
         return view('client.products.list-product', compact('categories', 'products', 'categoryId'));
     }
+
 
     public function search(Request $request)
     {
@@ -125,38 +123,38 @@ class ProductController extends Controller
 
         return view('client.products.list-product', compact('products', 'query', 'categories', 'categoryId'));
     }
-    
+
     public function post_comments(Request $request, $id)
     {
         // Lấy dữ liệu từ request
         $data = $request->validate([
             'content' => 'required|string',
         ]);
-    
+
         // Gán thêm các giá trị cho dữ liệu
         $data['product_id'] = $id;
         $data['user_id'] = auth()->id();
         $data['status'] = false; // Mặc định status là false
-    
+
         // Sử dụng transaction để đảm bảo tính toàn vẹn của dữ liệu
         DB::beginTransaction(); // Bắt đầu transaction
-    
+
         try {
             // Lưu bình luận vào database
             Comment::create($data);
-    
+
             // Commit transaction nếu không có lỗi
             DB::commit();
-    
+
             // Điều hướng về trang sản phẩm với thông báo thành công
             return redirect()->route('client.product_detail', $id)->with('success', 'Comment added successfully.');
         } catch (\Exception $e) {
             // Rollback nếu có lỗi xảy ra
             DB::rollBack();
-    
+
             // Log lỗi để dễ dàng debug
             Log::error('Comment creation failed: ' . $e->getMessage());
-    
+
             // Trả về thông báo lỗi
             return redirect()->back()->with('error', 'Failed to add comment. Please try again.');
         }
@@ -172,6 +170,6 @@ class ProductController extends Controller
             ->get();
 
         // Trả về view hiển thị sản phẩm
-        return view('client.brands.views', compact('brandOfPro','brands', 'products'));
+        return view('client.brands.views', compact('brandOfPro', 'brands', 'products'));
     }
-
+}

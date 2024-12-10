@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
 
 @section('content')
 <div class="">
@@ -29,8 +29,8 @@
                         <td>{{ $comment->id }}</td>
                         <td>{{ $comment->content }}</td>
                         <td>{{ $comment->user->name }}</td>
-                        <td>{{ $comment->product->name }}</td>
-                        <td>{{ $comment->blogs->title }}</td>
+                        <td>{{ $comment->product->name ?? 'N/A' }}</td>
+                        <td>{{ $comment->blog->name ?? 'N/A'}}</td>
                         <td>
                             <div class="text-center">
                                 <a href="{{ route('admin.comments.destroy', $comment) }}"

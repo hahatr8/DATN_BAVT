@@ -2,7 +2,6 @@
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Client\HomeController;
 // use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\Client\CartController;
 use Illuminate\Support\Facades\Route;
