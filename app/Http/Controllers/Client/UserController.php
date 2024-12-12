@@ -14,7 +14,7 @@ class UserController extends Controller
     {
 
         $user =  User::query()->findOrFail($id);
-        return view('client.users.edit', compact('user'));
+        return view('client.user.edit', compact('user'));
     }
     public function update(Request $request, string $id)
     {

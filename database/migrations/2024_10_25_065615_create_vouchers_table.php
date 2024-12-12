@@ -21,7 +21,7 @@ class CreateVouchersTable extends Migration
             $table->double('quantity'); // Mã voucher (duy nhất)
             $table->integer('discount');
             $table->boolean('status')->default(false);
-            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(User::class)->nullable()->constrained()->onDelete('cascade');
             $table->foreignIdFor(Product::class)->nullable()->constrained()->onDelete('cascade');
             $table->date('start_date'); // Ngày bắt đầu hiệu lực
             $table->date('end_date'); // Ngày hết hạn

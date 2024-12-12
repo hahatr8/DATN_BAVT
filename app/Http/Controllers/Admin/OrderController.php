@@ -47,9 +47,7 @@ class OrderController extends Controller
             }
         }
     }
-
-
-
+    
     public function updateStatus(Request $request, Order $order)
     {
         // Danh sách các trạng thái hợp lệ

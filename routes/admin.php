@@ -1,21 +1,22 @@
 <?php
 
-use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DashBoardController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ForgetpasswordController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\ForgetpasswordController;
+use App\Http\Controllers\Admin\DashBoardController;
+use App\Http\Controllers\Admin\VoucherController;
 
 Route::middleware('auth')->group(function () {
     Route::middleware('auth.admin')->group(function () {
         Route::prefix('admin')
             ->as('admin.')
-
             ->group(function () {
                 Route::get('/', [DashBoardController::class, 'admin']);
 
@@ -29,6 +30,21 @@ Route::middleware('auth')->group(function () {
                     });
                 Route::resource('categories', CategoryController::class);
 
+                // voucher
+                Route::prefix('vouchers')
+                    ->as('vouchers.')
+                    ->group(function () {
+                        Route::get('/', [VoucherController::class, 'index'])->name('index');
+                        Route::get('/trash', [VoucherController::class, 'trash'])->name('trash');
+                        Route::post('/restore/{id}', [VoucherController::class, 'restore'])->name('restore');
+                        Route::get('/create', [VoucherController::class, 'create'])->name('create');
+                        Route::post('/store', [VoucherController::class, 'store'])->name('store');
+                        Route::get('/{voucher}/edit', [VoucherController::class, 'edit'])->name('edit');
+                        Route::put('/{voucher}', [VoucherController::class, 'update'])->name('update');
+                        Route::get('/{voucher}', [VoucherController::class, 'destroy'])->name('destroy');
+                    });
+
+                Route::resource('brands', BrandController::class);
 
                 // route blog
                 Route::prefix('blog')
@@ -41,6 +57,18 @@ Route::middleware('auth')->group(function () {
                 Route::resource('blogs', BlogController::class);
 
 
+                //comment
+                Route::prefix('comments')
+                    ->as('comments.')
+                    ->group(function () {
+                        Route::get('/', [CommentController::class, 'index'])->name('index');
+                        Route::get('/trash', [CommentController::class, 'trash'])->name('trash');
+                        Route::post('/restore/{id}', [CommentController::class, 'restore'])->name('restore');
+                        Route::get('/create', [CommentController::class, 'create'])->name('create');
+                        Route::post('/store', [CommentController::class, 'store'])->name('store');
+                        Route::put('/{comment}', [CommentController::class, 'update'])->name('update');
+                        Route::get('/{comment}', [CommentController::class, 'destroy'])->name('destroy');
+                    });
                 Route::prefix('products')
                     ->as('products.')
                     ->group(function () {
@@ -82,6 +110,7 @@ Route::middleware('auth')->group(function () {
             });
     });
 });
+
 
 
 

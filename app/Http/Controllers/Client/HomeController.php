@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\Blog;
+use App\Models\Brand;
 use App\Models\Cart;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -43,7 +45,7 @@ class HomeController extends Controller
             ->take(20) // Giới hạn 20 sản phẩm
             ->get();
 
-        // Truy vấn 20 sản phẩm bán chạy nhất
+        // Truy vấn 10 sản phẩm bán chạy nhất
         $productHots = Product::select('products.*', DB::raw('SUM(order_items.quantity) as total_sold'))
             ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id') // Liên kết với bảng product_sizes qua product_id
             ->join('order_items', 'order_items.product_size_id', '=', 'product_sizes.id') // Liên kết với bảng order_items qua product_size_id
@@ -52,25 +54,26 @@ class HomeController extends Controller
             ->whereNull('product_sizes.deleted_at') // Kích thước chưa bị xóa mềm
             ->groupBy('products.id') // Nhóm theo sản phẩm
             ->orderByDesc('total_sold') // Sắp xếp theo tổng số lượng bán giảm dần
-            ->take(20) // Lấy 20 sản phẩm bán chạy nhất
+            ->take(10) // Lấy 20 sản phẩm bán chạy nhất
             ->get();
         // dd($productHots);
 
-        // Lấy 20 sản phẩm đang được giảm giá
+        // Lấy 10 sản phẩm đang được giảm giá
         $productSales = Product::select('products.*', 'vouchers.discount')
             ->join('vouchers', function ($join) {
                 $join->on('products.id', '=', 'vouchers.product_id')
+                    ->whereNotNull('vouchers.product_id') // product_id không được là null
+                    ->whereNull('vouchers.user_id') // user_id phải là null
                     ->where('vouchers.status', true) // Voucher phải còn hiệu lực
-                    ->where('vouchers.user_id', '=', Auth::id()) // Chỉ lấy voucher của người dùng hiện tại
-                    ->whereDate('vouchers.start_date', '<=', Carbon::today()) // Ngày bắt đầu voucher
-                    ->whereDate('vouchers.end_date', '>=', Carbon::today()); // Ngày kết thúc voucher
+                    ->whereDate('vouchers.start_date', '<=', Carbon::today()) // Ngày bắt đầu
+                    ->whereDate('vouchers.end_date', '>=', Carbon::today()); // Ngày kết thúc
             })
             ->whereNull('products.deleted_at') // Sản phẩm chưa bị xóa mềm
             ->where('products.status', 1) // Sản phẩm đang hoạt động
-            ->take(20) // Giới hạn 20 sản phẩm
+            ->take(10) // Giới hạn 20 sản phẩm
             ->get();
-      
-      $productsMiniCart = Product::with([
+
+        $productsMiniCart = Product::with([
             'productImgs' => function ($query) {
                 $query->select('id', 'product_id', 'img', 'created_at') // Thêm `created_at` để sắp xếp
                     ->orderBy('created_at', 'asc'); // Sắp xếp theo thời gian
@@ -88,7 +91,12 @@ class HomeController extends Controller
             return $product;
         });
 
-        return view(self::PATH_VIEW, compact('products', 'productViews', 'productHots', 'productSales', 'productsMiniCart'));
+        $brands = Brand::where('status', 1)->get(); // Chỉ lấy các thương hiệu đang hoạt động
+
+        $blogs = Blog::where('status', 1)->orderBy('created_at', 'desc')->limit(5)->get();
+
+
+        return view(self::PATH_VIEW, compact('blogs', 'products', 'productViews', 'productHots', 'productSales', 'productsMiniCart', 'brands'));
     }
 
 
@@ -103,7 +111,7 @@ class HomeController extends Controller
     }
 
     public function remove($id, Request $request)
-    {   
+    {
         $cartItem = Cart::find($id);
         if ($cartItem) {
             $cartItem->delete();

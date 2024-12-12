@@ -66,13 +66,13 @@
 
     <!-- Quick view modal start -->
 
-        @include('client.layouts.miniCart')
+    @include('client.layouts.miniCart')
 
     <!-- Quick view modal end -->
 
     <!-- offcanvas mini cart start -->
     {{-- cart trang home --}}
-    
+
     <!-- offcanvas mini cart end -->
 
     <!-- JS

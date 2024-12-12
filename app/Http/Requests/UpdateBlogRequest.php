@@ -26,7 +26,6 @@ class UpdateBlogRequest extends FormRequest
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'img' => ['image', Rule::requiredIf(empty(request('img_url')))], // Tối đa 2MB
-            'status' => 'required|boolean',
         ];
     }
 }
