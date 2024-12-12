@@ -17,7 +17,6 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id(); // Cột id tự tăng
             $table->string('name'); // Tên sản phẩm
-
             $table->string('description')->nullable(); // Mô tả sản phẩm
             $table->integer('view'); // Mô tả sản phẩm
             $table->integer('price'); // Giá sản phẩm 

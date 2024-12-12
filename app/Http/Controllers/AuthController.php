@@ -19,7 +19,7 @@ class AuthController extends Controller
         $user = $request->only('email', 'password');
 
         if (Auth::attempt($user)) {
-            return redirect()->intended('client');
+            return redirect()->intended('/');
         }
 
         return redirect()->back()->withErrors([
@@ -65,7 +65,7 @@ class AuthController extends Controller
 
         Auth::logout();
 
-        return redirect('/client')->with('success', 'Đăng xuất thành công!');
+        return redirect('/')->with('success', 'Đăng xuất thành công!');
     }
 
 
