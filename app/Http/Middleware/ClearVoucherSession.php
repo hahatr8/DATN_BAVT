@@ -16,7 +16,17 @@ class ClearVoucherSession
     public function handle(Request $request, Closure $next): Response
     {
         // Kiểm tra nếu URL không phải cart.show hoặc cart.checkout...
-        if (!$request->routeIs('cart.show', 'cart.applyVoucher', 'cart.updateQuantity', 'cart.checkout', 'cart.addAddress')) {
+        if (
+            !$request->routeIs(
+                'cart.show',
+                'cart.applyVoucher',
+                'cart.updateQuantity',
+                'cart.checkout',
+                'cart.addAddress',
+                'cart.storeOrder',
+                'cart.payment'
+            )
+        ) {
             // Xóa session liên quan đến giỏ hàng
             session()->forget(['appliedVoucher']);
         }

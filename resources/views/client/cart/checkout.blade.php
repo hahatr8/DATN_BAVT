@@ -169,6 +169,21 @@
                                                 <td><strong>{{ number_format($finalAmountV, 0, ',', '.') }} VNĐ</strong>
                                                 </td>
                                             </tr>
+                                            <tr class="bg-info">
+                                                <td colspan="2">
+                                                    @if ($user->xu > 0)
+                                                        <label for="xu">
+                                                            <input type="checkbox" id="xu" name="xu">
+                                                            Dùng xu
+                                                        </label>
+                                                    @else
+                                                        <p>Bạn không đủ xu để sử dụng</p>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    Số xu của bạn : {{ number_format($user->xu, 0, ',', '.') }} xu
+                                                </td>
+                                            </tr>
                                         </tfoot>
                                     </table>
                                 </div>

@@ -916,7 +916,7 @@
                                 const option = document.createElement('option');
                                 option.value = size.id;
                                 option.textContent =
-                                    `${size.variant} (+${parseFloat(size.price).toLocaleString()} VND)`;
+                                    `${size.variant} (+${parseFloat(size.price).toLocaleString()} VND) / Số lượng còn : ${size.stock}`;
                                 sizeSelect.appendChild(option);
 
                                 if (index === 0) { // Gán size mặc định
@@ -1042,12 +1042,9 @@
 
     <style>
         .quantity {
-            background-color: #f8f9fa;
-            /* Màu nền nhẹ */
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            /* Bo tròn */
+            background-color: white;
             display: flex;
+            border: 1px solid #C29958;
             align-items: center;
             /* Canh giữa theo trục dọc */
             justify-content: center;
@@ -1055,8 +1052,6 @@
         }
 
         .quantity-btn {
-            background-color: #f8f9fa;
-            /* Màu nền nhẹ */
             padding: 6px 6px;
             /* Khoảng cách bên trong */
             font-size: 18px;
@@ -1083,7 +1078,7 @@
             /* Canh giữa chữ */
             font-size: 16px;
             /* Kích thước chữ */
-            border: 1px solid #ced4da;
+            border: none;
             /* Viền nhẹ */
             border-radius: 4px;
             /* Bo tròn */

@@ -74,21 +74,6 @@
                                                 VND</span>
                                         </div>
 
-                                        <!-- Select Size -->
-                                        <div>
-                                            <h6 class="option-title">Size :</h6>
-                                            <div class="quantity-cart-box d-flex align-items-center">
-                                                <select name="product_size_id" id="size-selector" class="form-select">
-                                                    <option value="">---Chọn---</option>
-                                                    @foreach ($product->productSizes as $size)
-                                                        <option value="{{ $size->id }}">
-                                                            {{ $size->variant }} ( +{{$size->price}} VND)
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
                                         <!-- Select Quantity -->
                                         <div>
                                             <h6 class="option-title">Số lượng :</h6>
@@ -99,6 +84,21 @@
                                                         min="1" readonly>
                                                     <button type="button" id="increaseBtn" class="quantity-btn">+</button>
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Select Size -->
+                                        <div>
+                                            <h6 class="option-title">Chọn size :</h6>
+                                            <div class="size-cart-box d-flex align-items-center">
+                                                <select name="product_size_id" id="size-selector">
+                                                    <option value="">Chọn</option>
+                                                    @foreach ($product->productSizes as $size)
+                                                        <option value="{{ $size->id }}">
+                                                            {{ $size->variant }} ( +{{ $size->price }} VND) / Số lượng : {{ $size->quantity }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
 
@@ -136,11 +136,14 @@
                                         <div class="tab-pane fade show active" id="tab_one">
                                             <div class="tab-one">
                                                 <h5>Danh mục sản phẩm : </h5>
-                                                    @foreach ($product->categories as $category)
-                                                        <span class="me-3">
-                                                            <a class="bg bg-info" href="">{{ $category->name }}</a>
-                                                        </span>
-                                                    @endforeach
+                                                @foreach ($product->categories as $category)
+                                                    <span class="me-3">
+                                                        <a class="btn btn-warning"
+                                                            href="{{ route('client.list-product', ['category_id' => $category->id]) }}">
+                                                            {{ $category->name }}
+                                                        </a>
+                                                    </span>
+                                                @endforeach
                                                 <hr>
                                             </div>
                                             <div class="tab-one">
@@ -155,6 +158,7 @@
                                                     <th>Ảnh size</th>
                                                     <th>Tên size</th>
                                                     <th>Giá size</th>
+                                                    <th>Số lượng</th>
                                                 </thead>
                                                 <tbody class="text-center">
                                                     @foreach ($product->productSizes as $size)
@@ -166,7 +170,8 @@
                                                                     style="width: 100px; height: 100px; object-fit: cover;">
                                                             </td>
                                                             <td>{{ $size->variant }}</td>
-                                                            <td>{{ $size->price }}</td>
+                                                            <td>{{ $size->price }} VND</td>
+                                                            <td>{{ $size->quantity }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -301,7 +306,10 @@
                                         <p class="manufacturer-name"><a href="">{{ $product->brand->name }}</a>
                                         </p>
                                     </div>
-                                    <h6 class="product-name"><a href="">{{ $product->name }}</a>
+                                    <h6 class="product-name">
+                                        <a href="{{ route('client.product_detail', $product->id) }}">
+                                            {{ $product->name }}
+                                        </a>
                                     </h6>
                                     <div class="price-box">
                                         <span class="price-regular">{{ number_format($product->price, 0, ',', '.') }}
@@ -319,59 +327,6 @@
     </section>
     <!-- related products area end -->
 
-
-
-    <style>
-        .quantity {
-            background-color: #f8f9fa;
-            /* Màu nền nhẹ */
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            /* Bo tròn */
-            display: flex;
-            align-items: center;
-            /* Canh giữa theo trục dọc */
-            justify-content: center;
-            /* Canh giữa theo trục ngang */
-        }
-
-        .quantity-btn {
-            background-color: #f8f9fa;
-            /* Màu nền nhẹ */
-            padding: 6px 6px;
-            /* Khoảng cách bên trong */
-            font-size: 18px;
-            /* Kích thước chữ */
-            cursor: pointer;
-            /* Con trỏ chuột dạng click */
-            margin: 0 5px;
-            /* Khoảng cách giữa các nút */
-            transition: all 0.3s ease;
-            /* Hiệu ứng khi hover */
-        }
-
-        .quantity-btn:hover {
-            background-color: #C29958;
-            /* Màu nền khi hover */
-            border-color: #adb5bd;
-            /* Màu viền khi hover */
-        }
-
-        #quantity {
-            width: 70px;
-            /* Độ rộng của input */
-            text-align: center;
-            /* Canh giữa chữ */
-            font-size: 16px;
-            /* Kích thước chữ */
-            border: 1px solid #ced4da;
-            /* Viền nhẹ */
-            border-radius: 4px;
-            /* Bo tròn */
-            padding: 5px;
-            /* Khoảng cách bên trong */
-        }
-    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 -->
 
@@ -440,4 +395,50 @@
         });
     </script>
 
+    <style>
+        .quantity {
+            background-color: white;
+            display: flex;
+            border: 1px solid #C29958;
+            align-items: center;
+            /* Canh giữa theo trục dọc */
+            justify-content: center;
+            /* Canh giữa theo trục ngang */
+        }
+
+        .quantity-btn {
+            padding: 6px 6px;
+            /* Khoảng cách bên trong */
+            font-size: 18px;
+            /* Kích thước chữ */
+            cursor: pointer;
+            /* Con trỏ chuột dạng click */
+            margin: 0 5px;
+            /* Khoảng cách giữa các nút */
+            transition: all 0.3s ease;
+            /* Hiệu ứng khi hover */
+        }
+
+        .quantity-btn:hover {
+            background-color: #C29958;
+            /* Màu nền khi hover */
+            border-color: #adb5bd;
+            /* Màu viền khi hover */
+        }
+
+        #quantity {
+            width: 70px;
+            /* Độ rộng của input */
+            text-align: center;
+            /* Canh giữa chữ */
+            font-size: 16px;
+            /* Kích thước chữ */
+            border: none;
+            /* Viền nhẹ */
+            border-radius: 4px;
+            /* Bo tròn */
+            padding: 5px;
+            /* Khoảng cách bên trong */
+        }
+    </style>
 @endsection
