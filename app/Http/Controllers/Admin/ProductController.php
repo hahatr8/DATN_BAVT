@@ -146,7 +146,7 @@ class ProductController extends Controller
             DB::transaction(function () use ($request, $product) {
                 // Cập nhật thông tin cơ bản của sản phẩm
                 $product->update([
-                    'name' => $request->product['name'],    
+                    'name' => $request->product['name'],
                     'description' => $request->product['description'],
                     'price' => $request->product['price'],
                     'status' => $request->product['status'] ?? 0,
@@ -265,14 +265,14 @@ class ProductController extends Controller
                 }
 
             });
-          
+
 
             return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công');
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }
     }
-    
+
 
 
     public function destroy(Product $product)
@@ -281,7 +281,7 @@ class ProductController extends Controller
 
         return back()->with(['success' => 'Xóa sản phẩm thành công']);
     }
-    
+
 
     public function restore($id)
     {

@@ -72,10 +72,7 @@ Route::middleware('auth')->group(function () {
                 Route::prefix('products')
                     ->as('products.')
                     ->group(function () {
-                        Route::get('/', function () {
-                            return view('admin.dashboard');
-                        });
-                        Route::get('/index', [ProductController::class, 'index'])->name('index');
+                        Route::get('/', [ProductController::class, 'index'])->name('index');
                         Route::get('/trash', [ProductController::class, 'trash'])->name('trash');
                         Route::post('/restore/{id}', [ProductController::class, 'restore'])->name('restore');
                         Route::get('/create', [ProductController::class, 'create'])->name('create');

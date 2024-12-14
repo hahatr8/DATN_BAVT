@@ -42,10 +42,10 @@ class StoreProductRequest extends FormRequest
             'product_sizes.*.img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Ảnh của size
             'product_sizes.*.price' => 'required_with:product_sizes.*|numeric|min:0', // Giá của size
             'product_sizes.*.quantity' => 'required_with:product_sizes.*|integer|min:0', // Số lượng của size
-            'product_sizes.*.status' => 'required_with:product_sizes.*|boolean', // Trạng thái của size     
+            'product_sizes.*.status' => 'required_with:product_sizes.*|boolean', // Trạng thái của size
         ];
     }
-    
+
 
     /**
      * Tùy chỉnh thông báo lỗi.
@@ -90,9 +90,9 @@ class StoreProductRequest extends FormRequest
             'product_sizes.*.quantity.integer' => 'Số lượng size phải là một số nguyên.',
             'product_sizes.*.quantity.min' => 'Số lượng size không được nhỏ hơn 0.',
             'product_sizes.*.status.required_with' => 'Trạng thái size là bắt buộc khi có thông tin size.',
-            'product_sizes.*.status.boolean' => 'Trạng thái size không hợp lệ.',    
+            'product_sizes.*.status.boolean' => 'Trạng thái size không hợp lệ.',
         ];
-      
+
     }
-    
+
 }

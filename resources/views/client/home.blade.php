@@ -743,8 +743,10 @@
                                         </div>
                                     </div>
                                     <div class="action_link">
-                                        <button class="btn btn-cart2" data-url="{{ route('cart.add') }}">Thêm vào giỏ
+                                        <button class="btn btn-cart2" style="display: none;"
+                                            data-url="{{ route('cart.add') }}">Thêm vào giỏ
                                             hàng</button>
+                                        <p id="out-of-stock-message" style="display: none; color: red;">Hết hàng</p>
                                     </div>
                                 </div>
                             </div>
@@ -853,6 +855,9 @@
 
                     currentImageIndex = 0; // Đặt lại vị trí ảnh về 0 khi mở modal
 
+                    // Lấy phần tử thông báo hết hàng
+                    const outOfStockMessage = document.getElementById('out-of-stock-message');
+
                     // Xử lý các option size
                     if (productSizes.length > 0) {
                         sizeSelect.innerHTML = ''; // Xóa các option cũ
@@ -876,9 +881,13 @@
                         sizeQuantityContainer.innerHTML = '';
                         sizeQuantityContainer.appendChild(sizeSelect);
                         sizeQuantityContainer.style.display = 'flex'; // Hiển thị chọn size
+                        cartButton.style.display = 'block'; // Hiển thị nút thêm vào giỏ hàng
+                        outOfStockMessage.style.display = 'none'; // Ẩn thông báo hết hàng
                     } else {
-                        selectedSizeStock = Infinity; // Không giới hạn số lượng nếu không có size
+                        selectedSizeStock = 0; // Đặt số lượng tồn kho về 0
                         sizeQuantityContainer.style.display = 'none';
+                        cartButton.style.display = 'none'; // Ẩn nút thêm vào giỏ hàng
+                        outOfStockMessage.style.display = 'block'; // Hiển thị thông báo hết hàng
                     }
 
                     // Lắng nghe thay đổi size
@@ -986,6 +995,12 @@
     </script>
 
     <style>
+        #out-of-stock-message {
+            font-size: 16px;
+            font-weight: bold;
+            color: red;
+        }
+
         .quantity {
             background-color: white;
             display: flex;

@@ -192,13 +192,6 @@ class CartController extends Controller
                 throw new \Exception('Giỏ hàng rỗng.');
             }
 
-            // Kiểm tra tổng giá trị giỏ hàng
-            $totalCartValue = $this->calculateGrandTotal();
-
-            if ($totalCartValue < 100000) {
-                throw new \Exception('Giá trị giỏ hàng phải trên 100,000 VNĐ để sử dụng voucher.');
-            }
-
             // Kiểm tra nếu voucher áp dụng cho sản phẩm cụ thể
             if ($voucher->product_id) {
                 $cartItem = $cartItems->firstWhere('productSize.product_id', $voucher->product_id);
@@ -384,7 +377,7 @@ class CartController extends Controller
                 }
 
                 // Thanh toán qua MoMo
-                return $this->processMomoPayment($user, $finalAmount, $orderItems, $addressId, $useXu, $xuUsed);
+                return $this->processMomoPayment($finalAmount, $orderItems, $addressId, $useXu, $xuUsed);
             }
 
             // Nếu phương thức thanh toán không hợp lệ
@@ -398,6 +391,7 @@ class CartController extends Controller
             return back()->with(['error' => 'Đặt hàng không thành công: ' . $e->getMessage()]);
         }
     }
+
     private function processCashPayment($user, $userId, $addressId, $orderItems, $finalAmount, $useXu, $xuUsed)
     {
         DB::beginTransaction(); // Bắt đầu transaction
@@ -415,10 +409,6 @@ class CartController extends Controller
             // Lưu thông tin các sản phẩm vào bảng order_items
             foreach ($orderItems as $orderItem) {
                 $order->orderItems()->create($orderItem);
-
-                // Trừ số lượng sản phẩm trong kho
-                $productSize = ProductSize::find($orderItem['product_size_id']);
-                $productSize->decrement('quantity', $orderItem['quantity']);
             }
 
             // Kiểm tra và trừ số lượng voucher
@@ -477,7 +467,7 @@ class CartController extends Controller
         return $result;
     }
 
-    private function processMomoPayment($user, $finalAmount, $orderItems, $addressId, $useXu, $xuUsed)
+    private function processMomoPayment($finalAmount, $orderItems, $addressId, $useXu, $xuUsed)
     {
         $userId = Auth::id(); // Lấy ID người dùng
 
@@ -584,10 +574,6 @@ class CartController extends Controller
                         'quantity' => $item['quantity'],
                         'price' => $item['price'],
                     ]);
-
-                    // Trừ số lượng sản phẩm trong kho
-                    $productSize = ProductSize::find($item['product_size_id']);
-                    $productSize->decrement('quantity', $item['quantity']);
                 }
 
                 // Kiểm tra và trừ số lượng voucher
