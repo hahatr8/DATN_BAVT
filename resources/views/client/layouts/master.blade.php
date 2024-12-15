@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -48,9 +49,11 @@
     </header>
     <!-- end Header Area -->
 
+
     <main>
         @yield('content')
     </main>
+
 
     <!-- Scroll to top start -->
     <div class="scroll-top not-visible">
@@ -72,6 +75,8 @@
 
     <!-- offcanvas mini cart start -->
     {{-- cart trang home --}}
+
+
 
     <!-- offcanvas mini cart end -->
 

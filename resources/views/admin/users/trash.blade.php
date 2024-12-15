@@ -1,12 +1,25 @@
-
-@extends('admin.layouts.master')
-
+@extends('admin.dashboard')
 
 @section('title')
 Danh sách tài khoản
 @endsection
 
 @section('content')
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Thùng rác</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.categories.index') }}">Danh mục</a></li>
+                    <li class="breadcrumb-item active">Thùng rác</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <div class="row">
 
@@ -30,20 +43,29 @@ Danh sách tài khoản
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-
-                <div class="">
-                    <h5 class="card-title mb-0">Danh sách</h5>
-                    <div class="d-flex gap-2">
-                        <span>Tất cả </span>
-                        <div>||</div>
-                        <a href="{{ route('admin.user.trash') }}">Thùng rác </a>
+                <div class="d-flex justify-content-between items-content-center">
+                        <div>
+                            <h5 class="card-title mb-0">Danh sách danh mục đã bị xóa</h5>
+                            <div class="d-flex gap-2">
+                                <span>Tất cả ({{ $totalTrashedCategories }})</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Thêm mới</a>
+                <a href="{{ route('admin.user.index') }}" class="btn btn-primary">Quay lại</a>
             </div>
             <div class="card-body">
-                <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle">
+                @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
 
+                @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
+                <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle">
                     <thead style="text-align: center;">
                         <tr>
                             <th>ID</th>
@@ -53,17 +75,12 @@ Danh sách tài khoản
                             <th>Phone</th>
                             <th>Type</th>
                             <th>Action</th>
-
-                            <th>Permissions</th>
-
                         </tr>
                     </thead>
 
                     <tbody style="text-align: center;">
                         <?php
-
-                        foreach ($listUser as $index => $user) : ?>
-
+                        foreach ($trashedCategories as $index => $user) : ?>
                             <tr>
                                 <td>{{$index + 1}}</td>
                                 <td>
@@ -74,49 +91,19 @@ Danh sách tài khoản
                                 <td>{{$user->phone}}</td>
                                 <td>{{$user->type}}</td>
                                 <td>
+                                    <form action="{{ route('admin.user.restore', $user->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-info">Khôi phục</button>
+                                    </form>
 
-                                    <a href="{{ route('admin.user.edit',$user->id) }}" class="btn btn-outline-warning ">
-                                        <span> Sửa </span>
-                                    </a>
+                                    <form action="{{ route('admin.user.destroy', $user) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger"
+                                            onclick="return confirm('Bạn có chắc muốn xóa không')">Xóa</button>
+                                    </form>
 
-                                    <a href="{{ route('admin.user.softDestruction', $user) }}"
-                                        onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $user->name }} không?')"
-                                        class="btn btn-outline-danger">Xóa</a>
-                                </td>
-                                <td>
-                                    <?php if ($user->type == 'member'): ?>
-                                        <a href="{{ route('admin.user.empowerAdmin',$user->id) }}" class="btn btn-outline-success">
-                                            <span> Admin </span>
-                                        </a>
-                                        <a href="{{ route('admin.user.empowerCustomer',$user->id) }}" class="btn btn-outline-success">
-                                            <span> Customer </span>
-                                        </a>
-                                    <?php endif ?>
-
-                                    <?php if ($user->type == 'customer'): ?>
-                                        <a href="{{ route('admin.user.empowerAdmin',$user->id) }}" class="btn btn-outline-success">
-                                            <span> Admin </span>
-                                        </a>
-                                        <a href="{{ route('admin.user.empowerMember',$user->id) }}" class="btn btn-outline-success">
-                                            <span> Member </span>
-                                        </a>
-                                    <?php endif ?>
-
-                                    <?php if ($user->type == 'admin'): ?>
-                                        <a href="{{ route('admin.user.empowerMember',$user->id) }}" class="btn btn-outline-success">
-                                            <span> Member </span>
-                                        </a>
-                                        <a href="{{ route('admin.user.empowerCustomer',$user->id) }}" class="btn btn-outline-success">
-                                            <span> Customer </span>
-                                        </a>
-                                    <?php endif ?>
-
-
-                                </td>
-                                <td class="">
-                                    <a href="{{ route('admin.user.detail',$user->id) }}" class="btn btn-outline-info" style="width: 110px; ">
-                                        <span> Chi tiết </span>
-                                    </a>
                                 </td>
 
                             </tr>
@@ -158,6 +145,4 @@ Danh sách tài khoản
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 
 
-
 @endsection
-

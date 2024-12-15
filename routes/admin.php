@@ -9,9 +9,21 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\ForgetpasswordController;
 use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ForgetpasswordController;
+
+Route::middleware('auth')->group(function () {
+    Route::middleware('auth.member')->group(function () {
+        Route::prefix('admin')
+            ->as('admin.')
+            ->group(function () {
+                Route::get('/', function () {
+                    return view('admin.dashboard');
+                });
+
+
 
 Route::middleware('auth')->group(function () {
     Route::middleware('auth.admin')->group(function () {
@@ -30,6 +42,7 @@ Route::middleware('auth')->group(function () {
                     });
                 Route::resource('categories', CategoryController::class);
 
+
                 // voucher
                 Route::prefix('vouchers')
                     ->as('vouchers.')
@@ -46,6 +59,7 @@ Route::middleware('auth')->group(function () {
 
                 Route::resource('brands', BrandController::class);
 
+
                 // route blog
                 Route::prefix('blog')
                     ->as('blog.')
@@ -55,6 +69,7 @@ Route::middleware('auth')->group(function () {
                         Route::get('/{blog}', [BlogController::class, 'softDestruction'])->name('softDestruction');
                     });
                 Route::resource('blogs', BlogController::class);
+
 
 
                 //comment
@@ -124,5 +139,6 @@ Route::post('restpasswordPost', [ForgetpasswordController::class, 'restpasswordP
 
 Route::get('register', [AuthController::class, 'showFormRegister']);
 Route::post('register', [AuthController::class, 'register'])->name('register');
+
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
