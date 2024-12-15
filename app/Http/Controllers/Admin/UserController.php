@@ -116,12 +116,17 @@ class UserController extends Controller
             return redirect()->route('admin.user.index');
         }
     }
-    public function empower(string $id){
+    public function empowerAdmin(string $id){
         $user = User::query()->findOrFail($id);
         $user->update(['type'=>'admin']);
         return redirect()->route('admin.user.index');
     }
-    public function remoteempower(string $id){
+    public function empowerMember(string $id){
+        $user = User::query()->findOrFail($id);
+        $user->update(['type'=>'member']);
+        return redirect()->route('admin.user.index');
+    }
+    public function empowerCustomer(string $id){
         $user = User::query()->findOrFail($id);
         $user->update(['type'=>'customer']);
         return redirect()->route('admin.user.index');

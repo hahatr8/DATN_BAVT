@@ -5,7 +5,9 @@ use App\Http\Controllers\Client\AddressController;
 use App\Http\Controllers\Client\BlogController as ClientBlogController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\UserController as ClientUserController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::middleware('auth')->group(function () {
 
@@ -32,3 +34,4 @@ Route::middleware('auth')->group(function () {
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/blog', [ClientBlogController::class, 'blog'])->name('blog');
 Route::get('/blogDetail/{blog}', [ClientBlogController::class, 'blogDetail'])->name('blogDetail');
+

@@ -92,8 +92,9 @@ Route::middleware('auth')->group(function () {
                         Route::put('update/{id}', [UserController::class, 'update'])->name('update');
                         Route::put('updateAddress/{id}', [UserController::class, 'updateAddress'])->name('updateAddress');
                         Route::delete('destroy/{user}', [UserController::class, 'destroy'])->name('destroy');
-                        Route::get('empower/{id}', [UserController::class, 'empower'])->name('empower');
-                        Route::get('remoteempower/{id}', [UserController::class, 'remoteempower'])->name('remoteempower');
+                        Route::get('empowerMember/{id}', [UserController::class, 'empowerMember'])->name('empowerMember');
+                        Route::get('empowerCustomer/{id}', [UserController::class, 'empowerCustomer'])->name('empowerCustomer');
+                        Route::get('empowerAdmin/{id}', [UserController::class, 'empowerAdmin'])->name('empowerAdmin');
                         Route::get('/trash', [UserController::class, 'trash'])->name('trash');
                         Route::get('/{user}', [UserController::class, 'softDestruction'])->name('softDestruction');
                         Route::post('/{id}', [UserController::class, 'restore'])->name('restore');
@@ -106,6 +107,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('login', [AuthController::class, 'showFormLogin']);
+Route::get('verifyaccount/{email}', [AuthController::class, 'verify'])->name('verifyaccount');
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::get('forgetpassword', [ForgetpasswordController::class, 'forgetpassword'])->name('forgetpassword');

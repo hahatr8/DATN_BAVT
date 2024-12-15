@@ -27,15 +27,15 @@ Danh sách tài khoản
     <!-- end page title -->
     <div class="col-lg-12">
         <div class="card">
-        <div class="card-header d-flex justify-content-between">
-                    <div class="">
-                        <h5 class="card-title mb-0">Danh sách</h5>
-                        <div class="d-flex gap-2">
-                            <span>Tất cả </span>
-                            <div>||</div>
-                            <a href="{{ route('admin.user.trash') }}">Thùng rác </a>
-                        </div>
+            <div class="card-header d-flex justify-content-between">
+                <div class="">
+                    <h5 class="card-title mb-0">Danh sách</h5>
+                    <div class="d-flex gap-2">
+                        <span>Tất cả </span>
+                        <div>||</div>
+                        <a href="{{ route('admin.user.trash') }}">Thùng rác </a>
                     </div>
+                </div>
                 <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Thêm mới</a>
             </div>
             <div class="card-body">
@@ -49,6 +49,7 @@ Danh sách tài khoản
                             <th>Phone</th>
                             <th>Type</th>
                             <th>Action</th>
+                            <th>Permissions</th>
                         </tr>
                     </thead>
 
@@ -70,17 +71,34 @@ Danh sách tài khoản
                                     </a>
 
                                     <a href="{{ route('admin.user.softDestruction', $user) }}"
-                                            onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $user->name }} không?')"
-                                            class="btn btn-outline-danger">Xóa</a>
-                                    <?php if ($user->type == 'member' ): ?>
-                                        
-                                        <a href="{{ route('admin.user.remoteempower',$user->id) }}" class="btn btn-outline-warning">
-                                            <span> Xóa quyền </span>
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $user->name }} không?')"
+                                        class="btn btn-outline-danger">Xóa</a>
+                                </td>
+                                <td>
+                                    <?php if ($user->type == 'member'): ?>
+                                        <a href="{{ route('admin.user.empowerAdmin',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Admin </span>
+                                        </a>
+                                        <a href="{{ route('admin.user.empowerCustomer',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Customer </span>
                                         </a>
                                     <?php endif ?>
-                                    <?php if ( $user->type == 'customer'): ?>
-                                        <a href="{{ route('admin.user.empower',$user->id) }}" class="btn btn-outline-success">
-                                            <span> Cấp quyền </span>
+
+                                    <?php if ($user->type == 'customer'): ?>
+                                        <a href="{{ route('admin.user.empowerAdmin',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Admin </span>
+                                        </a>
+                                        <a href="{{ route('admin.user.empowerMember',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Member </span>
+                                        </a>
+                                    <?php endif ?>
+
+                                    <?php if ($user->type == 'admin'): ?>
+                                        <a href="{{ route('admin.user.empowerMember',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Member </span>
+                                        </a>
+                                        <a href="{{ route('admin.user.empowerCustomer',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Customer </span>
                                         </a>
                                     <?php endif ?>
 
