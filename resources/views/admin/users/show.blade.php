@@ -1,4 +1,6 @@
-@extends('admin.dashboard')
+
+@extends('admin.layouts.master')
+
 
 @section('title')
 Thông tin tài khoản
@@ -44,11 +46,13 @@ Thông tin tài khoản
             <p class=" fw-bolder" id="">Xu: {{$listUser->xu}}</p>
             <p class=" fw-bolder" id="">Type: {{$listUser->type}}</p>
             <p class=" fw-bolder" id="">Status: {{$listUser->status == 0 ? 'hoạt động' : 'không hoạt động'}}</p>
+
             <p class=" fw-bolder" id="">Địa chỉ: <br>
                 <?php foreach ($addresses as $index=>$add) : ?>
                     <?php if(isset($add) ){ ?>
                         {{$index+1}}: {{$add->address}},{{$add->District}},{{$add->city}},{{$add->country}} 
                         <a href="{{route('admin.user.editAddress',$add->id)}}"><button type="button" class="btn btn-warning m-3">Sửa</button></a><br>
+
                     <?php } ?>
                 <?php endforeach; ?>   
             </p>
@@ -60,7 +64,9 @@ Thông tin tài khoản
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
+
                         <a href="{{route('admin.user.createaddress',$listUser->id)}}"><button type="button" class="btn btn-info m-3">Thêm địa chỉ</button></a>
+
                         <a href=""><button type="button" class="btn btn-success m-3">Q/L Trang chủ</button></a>
                     </div><!-- end card header -->
                 </div>

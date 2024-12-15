@@ -6,11 +6,6 @@
 @endsection
 
 @section('content')
-    @if (session()->has('success'))
-        <div class="alert alert-success">
-            {{ session()->get('success') }}
-        </div>
-    @endif
 
     <div class="row">
         <div class="col-12">
@@ -27,6 +22,38 @@
             </div>
         </div>
     </div>
+
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
+
+    @if ($errors->any() || session('error'))
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        @if ($errors->any())
+                            <div class="alert alert-danger" style="width: 100%;">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @if (session('error'))
+                            <div class="alert alert-danger" style="width: 100%;">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
 
     <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">

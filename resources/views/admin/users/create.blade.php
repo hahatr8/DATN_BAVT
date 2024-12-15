@@ -1,4 +1,6 @@
-@extends('admin.dashboard')
+
+@extends('admin.layouts.master')
+
 
 @section('title')
 Thêm mới tài khoản
@@ -82,7 +84,43 @@ Thêm mới tài khoản
                                     @enderror
                                 </div>
 
-                            </div>  
+                            </div>
+
+                            <div class="col-md-4">
+                                <div>
+                                    <label for="" class="form-label">Country:</label>
+                                    <input type="text" class="form-control @error('country') is-invalid @enderror" id="name" placeholder="Nhap country" name="country" required>
+                                    @error('country')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="" class="form-label">City:</label>
+                                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" placeholder="Nhap city" name="city" required>
+                                    @error('city')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="" class="form-label">District:</label>
+                                    <input type="text" class="form-control @error('District') is-invalid @enderror" placeholder="Nhap district" name="District" required>
+                                    @error('District')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="" class="form-label">Address:</label>
+                                    <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" placeholder="Nhap address" name="address" required>
+                                    @error('address')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                            </div>
+
 
                         </div>
                     </div>

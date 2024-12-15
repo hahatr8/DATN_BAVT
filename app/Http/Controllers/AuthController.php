@@ -17,11 +17,13 @@ class AuthController extends Controller
     public function login(Request $request){
         $user =$request->only('email','password');
 
+
         if (Auth::attempt($user)) {
             return redirect()->intended('/');
         }
 
         return redirect()->back()->withErrors([
+
             'email'=> 'Thông tin người dùng không đúng',
         ]);
     }
@@ -34,6 +36,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|unique:users|max:255',
             'phone' => 'required',
             'password' => 'required',
+
         ]);
 
         if($acc = User::create($data)){
@@ -52,4 +55,5 @@ class AuthController extends Controller
     }
 
    
+
 }

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('img');
+            $table->string('img')->nullable();
             $table->string('phone');
-            $table->integer('xu');
+            $table->integer('xu')->nullable();
             $table->enum('type', [ User::TYPE_ADMIN, User::TYPE_MEMBER ])->default(User::TYPE_MEMBER);
             $table->boolean('status')->default(false);
             $table->softDeletes();

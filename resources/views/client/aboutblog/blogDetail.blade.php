@@ -1,49 +1,6 @@
-<!doctype html>
-<html class="no-js" lang="zxx">
+@extends('client.layouts.master')
 
-
-<!-- Mirrored from htmldemo.net/corano/corano/blog-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:05 GMT -->
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Corano - Jewelry Shop eCommerce Bootstrap 5 Template</title>
-    <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-
-    <!-- CSS
- ============================================ -->
-    <!-- google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css') }}">
-    <!-- Pe-icon-7-stroke CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/pe-icon-7-stroke.css') }}">
-    <!-- Font-awesome CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/font-awesome.min.css') }}">
-    <!-- Slick slider css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/slick.min.css') }}">
-    <!-- animate css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/animate.css') }}">
-    <!-- Nice Select css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/nice-select.css') }}">
-    <!-- jquery UI css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/jqueryui.min.css') }}">
-    <!-- main style css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
-</head>
-
-<body>
-    <!-- Start Header Area -->
-    <header class="header-area header-wide">
-        @include('client.layouts.header');
-    </header>
-    <!-- end Header Area -->
-
+@section('content')
 
     <main>
         <!-- breadcrumb area start -->
@@ -174,89 +131,60 @@
                                 </div>
                             </div>
                             <!-- blog post item end -->
-
+{{-- @dd($comments) --}}
                             <!-- comment area start -->
                             <div class="comment-section section-padding">
                                 <h5>03 Comment</h5>
                                 <ul>
+                                    @foreach ($comments as $comment )
                                     <li>
                                         <div class="author-avatar">
-                                            <img src="assets/img/blog/comment-icon.png" alt="">
+                                            <img src="{{ \Storage::url($comment->user->img) }}">
                                         </div>
                                         <div class="comment-body">
                                             <span class="reply-btn"><a href="#">Reply</a></span>
-                                            <h5 class="comment-author">Admin</h5>
+                                            <h5 class="comment-author">
+                                                {{$comment->user->name}}
+                                            </h5>
                                             <div class="comment-post-date">
-                                                15 Dec, 2019 at 9:30pm
+                                                {{$comment->created_at}}
                                             </div>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim maiores
-                                                adipisci optio ex, laboriosam facilis non pariatur itaque illo sunt?</p>
+                                            <p>
+                                                {{$comment->content}}
+                                            </p>
                                         </div>
                                     </li>
-                                    <li class="comment-children">
-                                        <div class="author-avatar">
-                                            <img src="assets/img/blog/comment-icon.png" alt="">
-                                        </div>
-                                        <div class="comment-body">
-                                            <span class="reply-btn"><a href="#">Reply</a></span>
-                                            <h5 class="comment-author">Admin</h5>
-                                            <div class="comment-post-date">
-                                                20 Nov, 2019 at 9:30pm
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim maiores
-                                                adipisci optio ex, laboriosam facilis non pariatur itaque illo sunt?</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="author-avatar">
-                                            <img src="assets/img/blog/comment-icon.png" alt="">
-                                        </div>
-                                        <div class="comment-body">
-                                            <span class="reply-btn"><a href="#">Reply</a></span>
-                                            <h5 class="comment-author">Admin</h5>
-                                            <div class="comment-post-date">
-                                                25 Jan, 2019 at 9:30pm
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim maiores
-                                                adipisci optio ex, laboriosam facilis non pariatur itaque illo sunt?</p>
-                                        </div>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
-                            <!-- comment area end -->
-
-                            <!-- start blog comment box -->
+                            
+                            <!-- Form thêm bình luận -->
                             <div class="blog-comment-wrapper">
                                 <h5>Leave a reply</h5>
                                 <p>Your email address will not be published. Required fields are marked *</p>
-                                <form action="#">
+                                @if(auth()->check())
+                                <form action="{{ route('client.comment.store', $blog) }}" method="POST">
+                                    @csrf
                                     <div class="comment-post-box">
                                         <div class="row">
                                             <div class="col-12">
                                                 <label>Comment</label>
-                                                <textarea name="commnet" placeholder="Write a comment"></textarea>
-                                            </div>
-                                            <div class="col-lg-4 col-md-4">
-                                                <label>Name</label>
-                                                <input type="text" class="coment-field" placeholder="Name">
-                                            </div>
-                                            <div class="col-lg-4 col-md-4">
-                                                <label>Email</label>
-                                                <input type="text" class="coment-field" placeholder="Email">
-                                            </div>
-                                            <div class="col-lg-4 col-md-4">
-                                                <label>Website</label>
-                                                <input type="text" class="coment-field" placeholder="Website">
+                                                <textarea name="content" placeholder="Write a comment" required></textarea>
                                             </div>
                                             <div class="col-12">
                                                 <div class="coment-btn">
-                                                    <input class="btn btn-sqr" type="submit" name="submit"
-                                                        value="Post Comment">
+                                                    <button type="submit" class="btn btn-sqr">Post Comment</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
+                                @else
+
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Đăng nhập để bình luận</strong>Click vào đây<a href="{{route('home.login')}}">Đăng nhập</a>
+                                </div>
+                                @endif
                             </div>
                             <!-- start blog comment box -->
                         </div>
@@ -272,12 +200,6 @@
         <i class="fa fa-angle-up"></i>
     </div>
     <!-- Scroll to Top End -->
-
-    <!-- footer area start -->
-    <footer class="footer-widget-area">
-        @include('client.layouts.footer');
-    </footer>
-    <!-- footer area end -->
 
     <!-- Quick view modal start -->
     <div class="modal" id="quick_view">
@@ -472,42 +394,4 @@
             </div>
         </div>
     </div>
-    <!-- offcanvas mini cart end -->
-
-    <!-- JS
-============================================ -->
-
-    <!-- Modernizer JS -->
-    <script src="{{ asset('assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
-    <!-- jQuery JS -->
-    <script src="{{ asset('assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
-    <!-- Bootstrap JS -->
-    <script src="{{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
-    <!-- slick Slider JS -->
-    <script src="{{ asset('assets/js/plugins/slick.min.js') }}"></script>
-    <!-- Countdown JS -->
-    <script src="{{ asset('assets/js/plugins/countdown.min.js') }}"></script>
-    <!-- Nice Select JS -->
-    <script src="{{ asset('assets/js/plugins/nice-select.min.js') }}"></script>
-    <!-- jquery UI JS -->
-    <script src="{{ asset('assets/js/plugins/jqueryui.min.js') }}"></script>
-    <!-- Image zoom JS -->
-    <script src="{{ asset('assets/js/plugins/image-zoom.min.js') }}"></script>
-    <!-- Images loaded JS -->
-    <script src="{{ asset('assets/js/plugins/imagesloaded.pkgd.min.js') }}"></script>
-    <!-- mail-chimp active js -->
-    <script src="{{ asset('assets/js/plugins/ajaxchimp.js') }}"></script>
-    <!-- contact form dynamic js -->
-    <script src="{{ asset('assets/js/plugins/ajax-mail.js') }}"></script>
-    <!-- google map api -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfmCVTjRI007pC1Yk2o2d_EhgkjTsFVN8"></script>
-    <!-- google map active js -->
-    <script src="{{ asset('assets/js/plugins/google-map.js') }}"></script>
-    <!-- Main JS -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-</body>
-
-
-<!-- Mirrored from htmldemo.net/corano/corano/blog-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 29 Jun 2024 09:54:06 GMT -->
-
-</html>
+@endsection

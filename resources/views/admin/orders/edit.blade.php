@@ -4,6 +4,7 @@
 
 @section('content')
     <div class="row">
+        <!-- Tiêu đề và breadcrumb -->
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                 <h4 class="mb-sm-0">Cập nhật trạng thái đơn hàng</h4>
@@ -14,263 +15,421 @@
             </div>
         </div>
 
-        <div class="col-lg-12">
-            <div class="card shadow-lg border-light rounded-3">
-                <div class="card-header d-flex justify-content-between bg-info rounded-top">
-                    <h5 class="card-title mb-0" style="font-size: 1.5rem;">Cập nhật trạng thái đơn hàng #{{ $order->id }}
-                    </h5>
+        <!-- Thông báo trạng thái -->
+        @if (session('success'))
+            <div class="alert alert-success text-center col-12">{{ session('success') }}</div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger text-center col-12">{{ session('error') }}</div>
+        @endif
+
+        <!-- Nội dung chính -->
+        <div class="col-12">
+            <div class="card shadow-lg border-light rounded-3 mb-4">
+                <div class="card-header bg-info text-white text-center rounded-top py-3">
+                    <h5 class="card-title mb-0">Cập nhật trạng thái đơn hàng #{{ $order->id }}</h5>
                 </div>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
 
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
-                <div class="card-body">
+                <!-- Form cập nhật trạng thái -->
+                <div class="card shadow-lg border-light rounded-3">
 
-                    <!-- Tab phân chia thông tin -->
-                    <ul class="nav nav-tabs justify-content-center" id="orderTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link active rounded-pill" id="user-info-tab" data-bs-toggle="tab"
-                                href="#user-info" role="tab" aria-controls="user-info" aria-selected="true">Thông tin
-                                người dùng</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link rounded-pill" id="address-info-tab" data-bs-toggle="tab" href="#address-info"
-                                role="tab" aria-controls="address-info" aria-selected="false">Thông tin địa chỉ</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link rounded-pill" id="order-info-tab" data-bs-toggle="tab" href="#order-info"
-                                role="tab" aria-controls="order-info" aria-selected="false">Thông tin đơn hàng</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link rounded-pill" id="products-tab" data-bs-toggle="tab" href="#products"
-                                role="tab" aria-controls="products" aria-selected="false">Sản phẩm trong đơn hàng</a>
-                        </li>
-                    </ul>
-
-
-                    <div class="tab-content mt-3" id="orderTabContent">
-                        <div class="tab-pane fade show active" id="user-info" role="tabpanel"
-                            aria-labelledby="user-info-tab">
-                            <div class="user-info">
-                                @if ($order->user->img)
-                                    <img src="{{ asset('storage/' . $order->user->img) }}" alt="Ảnh người dùng"
-                                        class="user-avatar">
-                                @else
-                                    <span>Chưa có ảnh</span>
-                                @endif
-                                <p><strong>Tên:</strong> {{ $order->user->name }}</p>
-                                <p><strong>Số điện thoại:</strong> {{ $order->user->phone ?? 'Chưa cập nhật' }}</p>
-                                <p><strong>Email:</strong> {{ $order->user->email }}</p>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="address-info" role="tabpanel" aria-labelledby="address-info-tab">
-                            <div class="address-info">
-                                <p><strong>Địa chỉ:</strong> {{ $order->address->address }}</p>
-                                <p><strong>Huyện:</strong> {{ $order->address->District }}</p>
-                                <p><strong>Thành phố:</strong> {{ $order->address->city }}</p>
-                                <p><strong>Quốc gia:</strong> {{ $order->address->country }}</p>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="order-info" role="tabpanel" aria-labelledby="order-info-tab">
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <p><strong>Trạng thái đơn hàng:</strong>
-                                        <span
-                                            class="badge bg-success">{{ $statusOrderOptions[$order->status_order] ?? 'Không xác định' }}</span>
-                                    </p>
-                                </div>
-                                <div class="col-md-4">
-                                    <p><strong>Phương thức thanh toán:</strong>
-                                        <span
-                                            class="badge bg-primary">{{ $statusPaymentOptions[$order->status_payment] ?? 'Không xác định' }}</span>
-                                    </p>
-                                </div>
-                                <div class="col-md-4">
-                                    <p><strong>Tổng giá trị:</strong>
-                                        <span class="fw-bold">{{ number_format($order->total_price, 0, ',', '.') }}
-                                            VND</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab">
-                            <div class="products-info">
-                                @if ($order->orderItems->isEmpty())
-                                    <p class="alert alert-warning" style="font-size: 1.2rem;">Không có sản phẩm nào trong
-                                        đơn hàng này.</p>
-                                @else
-                                    <table class="table table-striped table-bordered table-hover"
-                                        style="font-size: 1.1rem;">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th>Sản phẩm</th>
-                                                <th>Số lượng</th>
-                                                <th>Giá</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($order->orderItems as $item)
-                                                <tr>
-                                                    <td>{{ $item->productSize->product->name ?? 'N/A' }} -
-                                                        {{ $item->productSize->size ?? 'N/A' }}</td>
-                                                    <td>{{ $item->quantity }}</td>
-                                                    <td>{{ number_format($item->price, 0, ',', '.') }} VND</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Cập nhật trạng thái -->
-            <form action="{{ route('admin.orders.updateStatus', $order) }}" method="POST"
-                class="update-status-form text-center">
-                @csrf
-                @method('PUT')
-
-                <input type="hidden" name="user_id" value="{{ $order->user_id }}">
-                <input type="hidden" name="address_id" value="{{ $order->address_id }}">
-                <input type="hidden" name="status_payment" value="{{ $order->status_payment }}">
-                <input type="hidden" name="total_price" value="{{ $order->total_price }}">
-
-                <div class="section">
                     @php
-                        $status = $order->status_order;
-                        $buttons = [
-                            'pending' => ['confirmed', 'Xác nhận đơn hàng', 'bg-warning'],
-                            'confirmed' => ['preparing_goods', 'Chuẩn bị hàng', 'bg-info'],
-                            'preparing_goods' => ['shipping', 'Giao hàng', 'bg-primary'],
-                            'shipping' => ['delivered', 'Đã giao hàng', 'bg-warning'],
-                            'delivered' => ['completed', 'Hoàn thành', 'bg-success'],
+                        $orderButtons = [
+                            'pending' => [
+                                [
+                                    'value' => 'confirmed',
+                                    'label' => 'Xác nhận',
+                                    'class' => 'bg-warning',
+                                ],
+                                [
+                                    'value' => 'shop_cancelled',
+                                    'label' => 'Hủy đơn',
+                                    'class' => 'bg-danger',
+                                ],
+                                'message' => 'Đơn hàng đã được đặt',
+                                'message_class' => 'alert-warning',
+                            ],
+                            'confirmed' => [
+                                [
+                                    'value' => 'shipping',
+                                    'label' => 'Giao hàng',
+                                    'class' => 'bg-info',
+                                ],
+                                [
+                                    'value' => 'shop_cancelled',
+                                    'label' => 'Hủy đơn',
+                                    'class' => 'bg-danger',
+                                ],
+                                'message' => 'Đơn hàng đã được xác nhận',
+                                'message_class' => 'alert-info',
+                            ],
+                            'shipping' => [
+                                [
+                                    'value' => 'delivered',
+                                    'label' => 'Đã giao hàng',
+                                    'class' => 'bg-primary',
+                                ],
+                                [
+                                    'value' => 'shop_cancelled',
+                                    'label' => 'Hủy đơn',
+                                    'class' => 'bg-danger',
+                                ],
+                                'message' => 'Đơn hàng đang được giao',
+                                'message_class' => 'alert-primary',
+                            ],
+                            'delivered' => [
+                                [
+                                    'value' => 'completed',
+                                    'label' => 'Hoàn thành',
+                                    'class' => 'bg-success',
+                                ],
+                                'message' => 'Đã giao hàng thành công',
+                                'message_class' => 'alert-success',
+                            ],
+                            'shop_cancelled' => [
+                                [
+                                    'condition' => $order->status_payment === 'momo',
+                                    'value' => 'cancellation_refund_completed',
+                                    'label' => 'Hoàn tiền',
+                                    'class' => 'bg-info',
+                                ],
+                                [
+                                    'condition' => $order->status_payment === 'cash',
+                                    'value' => 'canceled',
+                                    'label' => 'Xác nhận hủy',
+                                    'class' => 'bg-danger',
+                                ],
+                                'message' => 'Cửa hàng đã hủy đơn hàng',
+                                'message_class' => 'alert-danger',
+                            ],
+                            'customer_cancelled' => [
+                                [
+                                    'condition' => $order->status_payment === 'momo',
+                                    'value' => 'cancellation_refund_completed',
+                                    'label' => 'Hoàn tiền cho khách hàng',
+                                    'class' => 'bg-info',
+                                ],
+                                [
+                                    'condition' => $order->status_payment === 'cash',
+                                    'value' => 'canceled',
+                                    'label' => 'Xác nhận hủy',
+                                    'class' => 'bg-danger',
+                                ],
+                                'message' => 'Khách hàng đã hủy đơn hàng',
+                                'message_class' => 'alert-danger',
+                            ],
+                            'cancellation_refund_completed' => [
+                                [
+                                    'value' => 'canceled',
+                                    'label' => 'Xác nhận hủy',
+                                    'class' => 'bg-danger',
+                                ],
+                                'message' => 'Đã hoàn tiền cho khách hàng',
+                                'message_class' => 'alert-success',
+                            ],
+                            'return_requested' => [
+                                [
+                                    'value' => 'return_approved',
+                                    'label' => 'Chấp nhận yêu cầu trả hàng',
+                                    'class' => 'bg-info',
+                                ],
+                                [
+                                    'value' => 'return_rejected',
+                                    'label' => 'Từ chối yêu cầu trả hàng',
+                                    'class' => 'bg-danger',
+                                ],
+                                'message' => 'Khách đã yêu cầu trả hàng',
+                                'message_class' => 'alert-danger',
+                            ],
+                            'return_approved' => [
+                                [
+                                    'value' => 'return_in_transit',
+                                    'label' => 'Hàng đã được trả về',
+                                    'class' => 'bg-primary',
+                                ],
+                                'message' => 'Yêu cầu trả hàng đã được chấp nhận',
+                                'message_class' => 'alert-info',
+                            ],
+                            'return_in_transit' => [
+                                [
+                                    'value' => 'refund_successful',
+                                    'label' => 'Hoàn tiền cho khách hàng',
+                                    'class' => 'bg-success',
+                                ],
+                                'message' => 'Đã nhận được hàng trả từ khách hàng',
+                                'message_class' => 'alert-info',
+                            ],
+                            'refund_successful' => [
+                                'message' => 'Đã hoàn tiền thành công cho khách trả hàng',
+                                'message_class' => 'alert-info',
+                            ],
+                            'completed' => [
+                                'message' => 'Đơn hàng đã được hoàn thành',
+                                'message_class' => 'alert-success',
+                            ],
+                            'canceled' => [
+                                'message' => 'Đơn hàng đã bị hủy',
+                                'message_class' => 'alert-danger',
+                            ],
+                            'return_rejected' => [
+                                'message' => 'Yêu cầu trả hàng đã bị từ chối',
+                                'message_class' => 'alert-danger',
+                            ],
                         ];
                     @endphp
 
-                    @if (isset($buttons[$status]))
-                        <button type="submit" name="status_order" value="{{ $buttons[$status][0] }}"
-                            class="btn {{ $buttons[$status][2] }} px-4 py-2 my-2">
-                            {{ $buttons[$status][1] }}
-                        </button>
-                    @elseif ($status === 'canceled')
-                        <p class="alert alert-danger">Đơn hàng đã bị hủy</p>
+                    <form action="{{ route('admin.orders.updateStatus', $order) }}" method="POST" class="p-4">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="redirect_to" value="{{ request()->fullUrl() }}">
+                        <input type="hidden" name="user_id" value="{{ $order->user_id }}">
+                        <input type="hidden" name="address_id" value="{{ $order->address_id }}">
+                        <input type="hidden" name="status_payment" value="{{ $order->status_payment }}">
+                        <input type="hidden" name="total_price" value="{{ $order->total_price }}">
 
-                        @if (in_array($order->status_payment, ['momo', 'PayPal']))
-                            <button type="submit" name="status_order" value="refund_successful"
-                                class="btn bg-success px-4 py-2 my-2">Hoàn tiền cho khách hàng</button>
-                        @endif
+                        <div class="text-center">
+                            @if (isset($orderButtons[$order->status_order]))
+                                @if (isset($orderButtons[$order->status_order]['message']))
+                                    <p class="alert {{ $orderButtons[$order->status_order]['message_class'] }}">
+                                        {{ $orderButtons[$order->status_order]['message'] }}
+                                    </p>
+                                @endif
+                                @foreach ($orderButtons[$order->status_order] as $button)
+                                    @if (isset($button['value']) && (!isset($button['condition']) || $button['condition']))
+                                        <button type="submit" name="status_order" value="{{ $button['value'] }}"
+                                            class="btn {{ $button['class'] }} px-4 py-2 my-2">
+                                            {{ $button['label'] }}
+                                        </button>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+                    </form>
 
-                        @if ($order->status_payment === 'cash' && $status !== 'completed')
-                            <button type="submit" name="status_order" value="completed"
-                                class="btn bg-secondary px-4 py-2 my-2">Hoàn thành</button>
-                        @endif
-                    @elseif ($status === 'completed')
-                        <p class="alert alert-success">Đơn hàng đã được hoàn thành</p>
-                    @elseif ($status === 'return_requested')
-                        <p class="alert alert-danger">Khách đã yêu cầu trả hàng</p>
-
-                        <button type="submit" name="status_order" value="return_approved"
-                            class="btn bg-info px-4 py-2 my-2">Chấp nhận yêu cầu trả hàng</button>
-
-                        <button type="submit" name="status_order" value="return_rejected"
-                            class="btn bg-danger px-4 py-2 my-2">Từ chối yêu cầu trả hàng</button>
-                    @elseif ($status === 'return_approved')
-                        <p class="alert alert-info">Yêu cầu trả hàng đã được chấp nhận</p>
-
-                        <button type="submit" name="status_order" value="waiting_for_return"
-                            class="btn bg-warning px-4 py-2 my-2">Đang chờ khách hàng gửi trả hàng</button>
-                    @elseif ($status === 'return_rejected')
-                        <p class="alert alert-danger">Yêu cầu trả hàng đã bị từ chối</p>
-
-                        <button type="submit" name="status_order" value="completed"
-                            class="btn bg-secondary px-4 py-2 my-2">Hoàn thành</button>
-                    @elseif ($status === 'waiting_for_return')
-                        <p class="alert alert-warning">Đang chờ khách hàng gửi trả hàng</p>
-                        <button type="submit" name="status_order" value="return_in_transit"
-                            class="btn bg-primary px-4 py-2 my-2">Hàng đang được trả về</button>
-                    @elseif ($status === 'return_in_transit')
-                        <p class="alert alert-primary">Hàng đang được trả về</p>
-
-                        <button type="submit" name="status_order" value="returned_goods_received"
-                            class="btn bg-info px-4 py-2 my-2">Đã nhận được hàng hoàn</button>
-                    @elseif ($status === 'returned_goods_received')
-                        <p class="alert alert-info">Đã nhận được hàng hoàn</p>
-
-                        <button type="submit" name="status_order" value="refund_processing"
-                            class="btn bg-info px-4 py-2 my-2">Đang xử lý hoàn tiền</button>
-                    @elseif ($status === 'refund_processing')
-                        <p class="alert alert-info">Đang xử lý hoàn tiền</p>
-
-                        @if (in_array($order->status_payment, ['momo', 'PayPal']))
-                            <button type="submit" name="status_order" value="refund_successful"
-                                class="btn bg-success px-4 py-2 my-2">Hoàn tiền cho khách hàng</button>
-                        @endif
-
-                        @if ($order->status_payment === 'cash' && $status !== 'completed')
-                            <button type="submit" name="status_order" value="completed"
-                                class="btn bg-secondary px-4 py-2 my-2">Hoàn thành</button>
-                        @endif
-                    @elseif ($status === 'refund_successful')
-                        <button type="submit" name="status_order" value="completed"
-                            class="btn bg-secondary px-4 py-2 my-2">Hoàn thành</button>
-                    @endif
-
+                    <div class="text-center">
+                        <a class="btn btn-warning mb-3" href="{{ route('admin.orders.index') }}">Danh sách đơn hàng</a>
+                    </div>
                 </div>
-            </form>
+
+                <div class="card-body">
+                    <div class="grid row">
+                        <!-- Nửa trái: Thông tin người dùng -->
+                        <div class="col-md-6 section">
+                            <h5 class="section-title">Thông tin người dùng</h5>
+                            <div class="user-info d-flex align-items-center">
+                                @if ($order->user->img)
+                                    <img src="{{ asset('storage/' . $order->user->img) }}" alt="Ảnh người dùng"
+                                        class="user-avatar me-3 rounded-circle">
+                                @else
+                                    <div class="placeholder-avatar me-3">Chưa có ảnh</div>
+                                @endif
+                                <div>
+                                    <p><strong>Tên:</strong> {{ $order->user->name }}</p>
+                                    <p><strong>Số điện thoại:</strong> {{ $order->user->phone ?? 'Chưa cập nhật' }}</p>
+                                    <p><strong>Email:</strong> {{ $order->user->email }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nửa phải: Thông tin địa chỉ -->
+                        <div class="col-md-6 section">
+                            <h5 class="section-title">Thông tin địa chỉ</h5>
+                            <p><strong>Địa chỉ:</strong> {{ $order->address->address }}</p>
+                            <p><strong>Huyện:</strong> {{ $order->address->District }}</p>
+                            <p><strong>Thành phố:</strong> {{ $order->address->city }}</p>
+                            <p><strong>Quốc gia:</strong> {{ $order->address->country }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin đơn hàng -->
+                    <div class="section">
+                        <h5 class="section-title">Thông tin đơn hàng</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                @php
+                                    $statusColors = [
+                                        'pending' => 'bg-warning', // Chờ xác nhận
+                                        'confirmed' => 'bg-info', // Đã xác nhận
+                                        'shipping' => 'bg-primary', // Đang vận chuyển
+                                        'delivered' => 'bg-success', // Đã giao hàng
+                                        'completed' => 'bg-secondary', // Hoàn thành
+
+                                        'shop_cancelled' => 'bg-danger',
+
+                                        'customer_cancelled' => 'bg-danger', // Khách hàng đã hủy đơn hàng
+                                        'cancellation_refund_completed' => 'bg-warning', // Hoàn tiền cho khách hàng đã hủy đơn
+                                        'canceled' => 'bg-danger', // Đơn hàng đã bị hủy
+
+                                        'return_requested' => 'bg-warning', // Khách hàng đã yêu cầu trả hàng
+                                        'return_approved' => 'bg-info', // Chấp nhận yêu cầu trả hàng
+                                        'return_rejected' => 'bg-danger', // Từ chối yêu cầu trả hàng
+                                        'return_in_transit' => 'bg-primary', // Hàng đang được trả về
+                                        'refund_successful' => 'bg-success', // Đã hoàn tiền cho khách hàng
+                                    ];
+
+                                    // Lấy màu sắc từ mảng ánh xạ, mặc định là 'bg-purple' nếu không tìm thấy
+                                    $statusColor = $statusColors[$order->status_order] ?? 'bg-purple';
+                                @endphp
+                                <strong>Trạng thái đơn hàng:</strong>
+                                <span class="badge {{ $statusColor }}">
+                                    {{ $statusOrderOptions[$order->status_order] ?? 'Không xác định' }}
+                                </span>
+
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Phương thức thanh toán:</strong>
+                                <span
+                                    class="badge bg-primary">{{ $statusPaymentOptions[$order->status_payment] ?? 'Không xác định' }}</span>
+
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Tổng giá trị:</strong>
+                                <span class="fw-bold text-danger">{{ number_format($order->total_price, 0, ',', '.') }}
+                                    VND</span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sản phẩm trong đơn hàng -->
+                    <div class="section">
+                        <h5 class="section-title">Sản phẩm trong đơn hàng</h5>
+                        @if ($order->orderItems->isEmpty())
+                            <p class="alert alert-warning text-center">Không có sản phẩm nào trong đơn hàng này.</p>
+                        @else
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="table-secondary text-center">
+                                        <th>Sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($order->orderItems as $item)
+                                        <tr>
+                                            <td>{{ $item->productSize->product->name ?? 'N/A' }} -
+                                                {{ $item->productSize->variant ?? 'N/A' }}</td>
+                                            <td class="text-center">{{ $item->quantity }}</td>
+                                            <td class="text-end">{{ number_format($item->price, 0, ',', '.') }} VND
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2" class="text-end">Tổng tiền:</td>
+                                        <td class="text-end">{{ number_format($order->total_price, 0, ',', '.') }} VND
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
 
         </div>
-
-        <div class="card-footer text-center">
-            <a href="{{ route('admin.orders.index') }}" class="btn btn-warning">Trở về</a>
-        </div>
-    </div>
     </div>
 @endsection
 
 @section('style-libs')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .card {
-            border-radius: 12px;
+        .page-title-box {
+            margin-bottom: 20px;
         }
 
-        .nav-tabs .nav-link {
-            border-radius: 15px;
-            font-size: 1rem;
+        .section {
+            margin-bottom: 20px;
         }
 
-        .btn {
-            font-size: 1.1rem;
-            padding: 0.5rem 1.25rem;
-            border-radius: 12px;
-        }
-
-        .update-status-form .btn {
-            margin-top: 10px;
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            border-left: 4px solid #17a2b8;
+            padding-left: 10px;
         }
 
         .user-avatar {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            margin-right: 10px;
         }
 
-        .tab-content {
-            padding: 1rem;
-            border-radius: 12px;
-            background: #f8f9fa;
+        .placeholder-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .card-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .table-bordered {
+            border: 1px solid #dee2e6;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+
+        .alert {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .grid {
+            margin: 20px 0;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            border-left: 4px solid #007bff;
+            padding-left: 10px;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .placeholder-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
         }
     </style>
 @endsection

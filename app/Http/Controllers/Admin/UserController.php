@@ -112,15 +112,19 @@ class UserController extends Controller
                 $params['img'] = $user->img;
             }
 
+
             $user->update($params);
             return redirect()->route('admin.user.index');
         }
     }
+
     public function empowerAdmin(string $id){
+
         $user = User::query()->findOrFail($id);
         $user->update(['type'=>'admin']);
         return redirect()->route('admin.user.index');
     }
+
     public function empowerMember(string $id){
         $user = User::query()->findOrFail($id);
         $user->update(['type'=>'member']);
@@ -150,5 +154,6 @@ class UserController extends Controller
         $User->restore();
 
         return back()->with(['success' => 'Khôi phục sản phẩm thành công']);
+
     }
 }

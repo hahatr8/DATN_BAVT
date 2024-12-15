@@ -52,4 +52,5 @@ class AddressController extends Controller
             return redirect()->route('client.myaccount',$address->user_id);
         }
     }
+
 }

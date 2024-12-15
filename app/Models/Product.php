@@ -11,6 +11,7 @@ class Product extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'id',
         'name',
         'description',
         'view',
@@ -19,7 +20,6 @@ class Product extends Model
         'content',
         'brand_id',
     ];
-
     // Thiết lập quan hệ với model `Brand`
     public function brand()
     {
@@ -29,7 +29,17 @@ class Product extends Model
     // Thiết lập quan hệ với model `ProductImg`
     public function productImgs()
     {
-        return $this->hasMany(ProductImg::class);
+        return $this->hasMany(ProductImg::class, 'product_id');
+    }
+
+    public function latestImg()
+    {
+        return $this->hasOne(ProductImg::class, 'product_id')->latestOfMany(); // Ảnh mới nhất
+    }
+
+    public function firstImage()
+    {
+        return $this->productImgs()->orderBy('created_at', 'asc')->first();
     }
 
     // Thiết lập quan hệ với model `ProductSize`
@@ -42,5 +52,9 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_product', 'product_id', 'category_id');
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
