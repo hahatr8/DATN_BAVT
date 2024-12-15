@@ -58,6 +58,7 @@ class Order extends Model
 
     const STATUS_PAYMENT = [
         'momo' => 'Momo',
+        'vnpay' => 'VNPAY',
         'cash' => 'Tiền mặt',
     ];
 

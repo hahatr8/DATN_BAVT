@@ -1,6 +1,20 @@
 @extends('client.layouts.master')
 
 @section('content')
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+
 <div class="container py-5">
     <!-- Tiêu đề -->
     <h1 class="text-center mb-5 fw-bold text-uppercase">Chi tiết đơn hàng</h1>

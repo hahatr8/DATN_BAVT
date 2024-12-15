@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\ProductSize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,7 +48,7 @@ class OrderController extends Controller
             }
         }
     }
-    
+
     public function updateStatus(Request $request, Order $order)
     {
         // Danh sách các trạng thái hợp lệ
@@ -57,21 +58,16 @@ class OrderController extends Controller
             Order::STATUS_ORDER_SHIPPING,
             Order::STATUS_ORDER_DELIVERED,
             Order::STATUS_ORDER_COMPLETED,
-
             Order::STATUS_ORDER_SHOP_CANCELLED,
-
             Order::STATUS_ORDER_CUSTOMER_CANCELLED,
             Order::STATUS_CANCELLATION_REFUND_COMPLETED,
             Order::STATUS_ORDER_CANCELED,
-
             Order::STATUS_RETURN_REQUESTED,
             Order::STATUS_RETURN_APPROVED,
             Order::STATUS_RETURN_REJECTED,
             Order::STATUS_RETURN_IN_TRANSIT,
             Order::STATUS_REFUND_SUCCESSFUL,
         ];
-
-        // dd($request->all());
 
         // Nếu trạng thái gửi lên không hợp lệ, trả về lỗi
         if (!in_array($request->status_order, $validStatuses)) {
@@ -80,14 +76,17 @@ class OrderController extends Controller
         }
 
         try {
-
             DB::transaction(function () use ($request, $order) {
 
-                if ($order->status_order === Order::STATUS_CANCELLATION_REFUND_COMPLETED || $order->status_order === Order::STATUS_REFUND_SUCCESSFUL) {
-                    // Hoàn tiền cho khách hàng
+                // Xử lý hoàn tiền nếu trạng thái trước đó yêu cầu
+                if (
+                    $order->status_order === Order::STATUS_CANCELLATION_REFUND_COMPLETED ||
+                    $order->status_order === Order::STATUS_REFUND_SUCCESSFUL
+                ) {
                     $this->refundCustomer($order);
                 }
 
+                // Cập nhật trạng thái đơn hàng
                 $order->update([
                     'user_id' => $request->user_id,
                     'status_order' => $request->status_order,
@@ -96,17 +95,51 @@ class OrderController extends Controller
                     'total_price' => $request->total_price,
                 ]);
 
+                // **Trừ số lượng sản phẩm khi trạng thái là COMPLETED**
+                if ($request->status_order === Order::STATUS_ORDER_COMPLETED) {
+                    $orderItems = $order->orderItems; // Lấy danh sách các sản phẩm trong đơn hàng
+
+                    foreach ($orderItems as $item) {
+                        $productSize = ProductSize::find($item->product_size_id);
+
+                        if ($productSize) {
+                            // Kiểm tra số lượng còn trong kho
+                            if ($productSize->quantity >= $item->quantity) {
+                                // Trừ số lượng
+                                $productSize->decrement('quantity', $item->quantity);
+                            } else {
+                                throw new \Exception("Sản phẩm '{$productSize->name}' không đủ số lượng trong kho.");
+                            }
+                        } else {
+                            throw new \Exception("Sản phẩm với ID '{$item->product_size_id}' không tồn tại.");
+                        }
+                    }
+                }
+
+                // **Tăng lại số lượng sản phẩm khi trạng thái là RETURN_IN_TRANSIT**
+                if ($request->status_order === Order::STATUS_RETURN_IN_TRANSIT) {
+                    $orderItems = $order->orderItems; // Lấy danh sách các sản phẩm trong đơn hàng
+
+                    foreach ($orderItems as $item) {
+                        $productSize = ProductSize::find($item->product_size_id);
+
+                        if ($productSize) {
+                            // Tăng số lượng sản phẩm trả lại
+                            $productSize->increment('quantity', $item->quantity);
+                        } else {
+                            throw new \Exception("Sản phẩm với ID '{$item->product_size_id}' không tồn tại.");
+                        }
+                    }
+                }
             });
 
             return redirect($request->redirect_to)
                 ->with('success', 'Trạng thái đơn hàng đã được cập nhật.');
-
         } catch (\Exception $e) {
             return redirect($request->redirect_to)
                 ->with('error', 'Đã xảy ra lỗi khi cập nhật trạng thái. Lỗi: ' . $e->getMessage());
         }
     }
-
 
     public function bulkUpdate(Request $request)
     {
@@ -146,10 +179,47 @@ class OrderController extends Controller
 
                 // Kiểm tra trạng thái hiện tại có thể chuyển đổi sang trạng thái mới không
                 if (!in_array($newStatus, $statusTransitions[$currentStatus] ?? [])) {
-                    throw new \Exception("Trạng thái vừa chọn không hợp lệ. Vui lòng chọn trạng thái khác!");
+                    throw new \Exception("Không thể chuyển từ trạng thái '{$currentStatus}' sang '{$newStatus}' cho đơn hàng ID: {$order->id}");
                 }
 
-                // Kiểm tra nếu trạng thái yêu cầu hoàn tiền
+                // **Xử lý các trường hợp đặc biệt**
+                // 1. Nếu trạng thái là `completed`, trừ số lượng sản phẩm
+                if ($newStatus === 'completed') {
+                    $orderItems = $order->orderItems;
+
+                    foreach ($orderItems as $item) {
+                        $productSize = ProductSize::find($item->product_size_id);
+
+                        if ($productSize) {
+                            // Kiểm tra tồn kho và trừ số lượng
+                            if ($productSize->quantity >= $item->quantity) {
+                                $productSize->decrement('quantity', $item->quantity);
+                            } else {
+                                throw new \Exception("Không đủ số lượng cho sản phẩm '{$productSize->name}' trong đơn hàng ID: {$order->id}");
+                            }
+                        } else {
+                            throw new \Exception("Không tìm thấy sản phẩm với ID: {$item->product_size_id} trong đơn hàng ID: {$order->id}");
+                        }
+                    }
+                }
+
+                // 2. Nếu trạng thái là `return_in_transit`, tăng số lượng sản phẩm
+                if ($newStatus === 'return_in_transit') {
+                    $orderItems = $order->orderItems;
+
+                    foreach ($orderItems as $item) {
+                        $productSize = ProductSize::find($item->product_size_id);
+
+                        if ($productSize) {
+                            // Tăng lại số lượng sản phẩm trả về
+                            $productSize->increment('quantity', $item->quantity);
+                        } else {
+                            throw new \Exception("Không tìm thấy sản phẩm với ID: {$item->product_size_id} trong đơn hàng ID: {$order->id}");
+                        }
+                    }
+                }
+
+                // 3. Nếu trạng thái yêu cầu hoàn tiền
                 if (in_array($newStatus, ['cancellation_refund_completed', 'refund_successful'])) {
                     $this->refundCustomer($order); // Thực hiện hoàn tiền
                 }
@@ -169,7 +239,5 @@ class OrderController extends Controller
             return response()->json(['success' => false, 'message' => 'Lỗi: ' . $e->getMessage()]);
         }
     }
-
-
 
 }

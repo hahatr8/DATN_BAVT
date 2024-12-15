@@ -158,17 +158,30 @@
                                                 <td><strong>{{ number_format($totalAmount, 0, ',', '.') }} VNĐ</strong>
                                                 </td>
                                             </tr>
-                                            @if ($discount > 0)
-                                                <tr>
-                                                    <td colspan="2">Giảm giá</td>
-                                                    <td><strong class="text-danger">-
-                                                            {{ number_format($discount, 0, ',', '.') }} VNĐ</strong>
-                                                    </td>
-                                                </tr>
-                                            @endif
+                                            <tr>
+                                                <td colspan="2">Giảm giá</td>
+                                                <td><strong class="text-danger">-
+                                                        {{ number_format($discountV, 0, ',', '.') }} VNĐ</strong>
+                                                </td>
+                                            </tr>
                                             <tr class="bg-warning">
                                                 <td colspan="2">Tổng tiền phải trả</td>
-                                                <td><strong>{{ number_format($finalAmount, 0, ',', '.') }} VNĐ</strong>
+                                                <td><strong>{{ number_format($finalAmountV, 0, ',', '.') }} VNĐ</strong>
+                                                </td>
+                                            </tr>
+                                            <tr class="bg-info">
+                                                <td colspan="2">
+                                                    @if ($user->xu > 0)
+                                                        <label for="xu">
+                                                            <input type="checkbox" id="xu" name="xu">
+                                                            Dùng xu
+                                                        </label>
+                                                    @else
+                                                        <p>Bạn không đủ xu để sử dụng</p>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    Số xu của bạn : {{ number_format($user->xu, 0, ',', '.') }} xu
                                                 </td>
                                             </tr>
                                         </tfoot>
@@ -197,6 +210,15 @@
                                         </div>
                                     </div>
 
+                                    <div class="single-payment-method">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="payment-vn" name="status_payment" value="vnpay"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label" for="payment-vn"
+                                                aria-label="Thanh toán qua VNPay">VNPay</label>
+                                        </div>
+                                    </div>
+
                                 </div>
 
 
@@ -204,7 +226,8 @@
 
                                     <button type="submit" class="btn btn-sqr m-auto">Đặt hàng</button>
 
-                                    <a href="{{ route('cart.show') }}" class="btn btn-sqr bg-warning text-dark m-auto">Trở
+                                    <a href="{{ route('cart.show') }}"
+                                        class="btn btn-sqr bg-warning text-dark m-auto">Trở
                                         về</a>
 
                                 </div>

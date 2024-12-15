@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store-order', [CartController::class, 'storeOrder'])->name('storeOrder');
 
         Route::get('/payment', [CartController::class, 'payment'])->name('payment');
+        Route::get('/paymentVNPay', [CartController::class, 'paymentVNPay'])->name('paymentVNPay');
 
         Route::get('/order-success', [CartController::class, 'orderSuccess'])->name('order.success');
     });

@@ -79,6 +79,7 @@
                             <p class="mb-1">Số lượng: x{{ $item->quantity }}</p>
                             <p class="mb-0">Giá: {{ number_format($item->price, 0, ',', '.') }} ₫</p>
                         </div>
+                        <span><strong>Ngày tạo:</strong> {{ $order->created_at ? $order->created_at->format('d/m/Y') : 'Không xác định' }}</span>
                     </div>
                     @endforeach
                 @endif
