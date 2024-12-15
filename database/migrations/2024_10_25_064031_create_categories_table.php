@@ -16,6 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id(); // Tự động tạo cột id tự tăng
             $table->string('name'); // Cột tên của category
+            $table->boolean('status')->default(1);
             $table->string('Display_oder')->nullable(); // Thứ tự oder
             $table->timestamps(); // Tạo cột created_at và updated_at
         });

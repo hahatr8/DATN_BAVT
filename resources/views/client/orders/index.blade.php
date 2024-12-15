@@ -36,23 +36,19 @@
                             'delivered' => 'Đã giao hàng',
                             'completed' => 'Hoàn thành',
                             'customer_cancelled' => 'Khách hàng đã hủy',
-                            'canceled' => 'Đã hủy',
                             'return_requested' => 'Yêu cầu trả hàng',
-                            'return_approved' => 'Chấp nhận trả hàng',
-                            'return_rejected' => 'Từ chối trả hàng',
+                            'canceled' => 'Đã hủy',
                         ];
 
                         $statusColors = [
-                            'pending' => 'bg-warning text-dark',
+                            'pending' => 'bg-warning',
                             'confirmed' => 'bg-info',
                             'shipping' => 'bg-primary',
                             'delivered' => 'bg-success',
                             'completed' => 'bg-secondary',
                             'customer_cancelled' => 'bg-danger',
-                            'canceled' => 'bg-danger',
                             'return_requested' => 'bg-warning',
-                            'return_approved' => 'bg-info',
-                            'return_rejected' => 'bg-danger',
+                            'canceled' => 'bg-danger',
                         ];
 
                         $statusLabel = $statusLabels[$order->status_order] ?? 'Không xác định';
@@ -61,8 +57,8 @@
 
                     <span class="badge {{ $statusColor }}">{{ $statusLabel }}</span>
                 </span>
-                {{-- <span>Ngày đặt: {{ $order->created_at->format('d/m/Y H:i') }}</span> --}}
             </div>
+
             <div class="card-body">
                 <!-- Hiển thị thông tin sản phẩm trong đơn hàng -->
                 @if ($order->orderItems->isEmpty())
@@ -83,6 +79,7 @@
                             <p class="mb-1">Số lượng: x{{ $item->quantity }}</p>
                             <p class="mb-0">Giá: {{ number_format($item->price, 0, ',', '.') }} ₫</p>
                         </div>
+                        <span><strong>Ngày tạo:</strong> {{ $order->created_at ? $order->created_at->format('d/m/Y') : 'Không xác định' }}</span>
                     </div>
                     @endforeach
                 @endif

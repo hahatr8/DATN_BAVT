@@ -57,7 +57,9 @@
                                 <tbody>
                                     @foreach ($cartItems as $item)
                                         <tr>
-                                            <td class="pro-thumbnail"><a href="#">
+                                            <td class="pro-thumbnail">
+                                                <a
+                                                    href="{{ route('client.product_detail', $item->productSize->product->id) }}">
                                                     @if ($item->productSize->product->productImgs->isNotEmpty())
                                                         @php
                                                             // Lấy ảnh chính
@@ -79,8 +81,11 @@
                                                     @endif
                                                 </a>
                                             </td>
-                                            <td class="pro-title"><a
-                                                    href="#">{{ $item->productSize->product->name }}</a>
+                                            <td class="pro-title">
+                                                <a
+                                                    href="{{ route('client.product_detail', $item->productSize->product->id) }}">
+                                                    {{ $item->productSize->product->name }}
+                                                </a>
                                             </td>
                                             <td class="pro-size">{{ $item->productSize->variant }}</td>
                                             <td class="pro-price">
@@ -95,8 +100,9 @@
                                                     <button type="button" class="btn-quantity decrease"
                                                         data-id="{{ $item->id }}">-</button>
                                                     <input type="number" class="quantity-input"
-                                                        name="quantities[{{ $item->id }}]" value="{{ $item->quantity }}"
-                                                        min="1" max="{{ $item->productSize->quantity }}" readonly>
+                                                        name="quantities[{{ $item->id }}]"
+                                                        value="{{ $item->quantity }}" min="1"
+                                                        max="{{ $item->productSize->quantity }}" readonly>
                                                     <button type="button" class="btn-quantity increase"
                                                         data-id="{{ $item->id }}">+</button>
                                                 </div>
@@ -125,31 +131,22 @@
                         </div>
 
                         <!-- Cart Update Option -->
-                        @if ($totalAmount > 0)
-                            <div class="cart-update-option d-block d-md-flex justify-content-between">
-                                <div class="apply-coupon-wrapper">
-                                    <form action="{{ route('cart.applyVoucher') }}" method="POST" id="applyVoucherForm"
-                                        class="d-block d-md-flex align-items-center">
-                                        @csrf
-                                        <div class="d-flex align-items-center">
-                                            <select name="voucher_id" id="voucher" class="form-control custom-select"
-                                                required>
-                                                <option value="">Chọn Voucher :</option>
-                                                @foreach ($vouchers as $voucher)
-                                                    <option value="{{ $voucher->id }}"
-                                                        @if (session('appliedVoucher') == $voucher->id) selected @endif>
-                                                        {{ $voucher->E_vorcher }} - Giảm {{ $voucher->discount }} %
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-sqr mt-3 mt-md-0 ml-md-3">Áp Dụng</button>
-                                    </form>
+                        <div class="cart-update-option d-block d-md-flex justify-content-between">
 
-                                </div>
+                            <div class="apply-coupon-wrapper">
+                                <form action="{{ route('cart.applyVoucher') }}" method="POST" class="d-block d-md-flex">
+                                    @csrf
+                                    <input type="text" name="E_voucher" value="{{ session('appliedVoucher') }}"
+                                        placeholder="Hãy nhập code...">
+                                    <button class="btn btn-sqr">Áp dụng</button>
+                                </form>
                             </div>
-                        @endif
 
+                            <div class="cart-update">
+                                <a href="{{ route('cart.show') }}" class="btn btn-sqr">Cập nhật</a>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
@@ -162,25 +159,23 @@
                                 <div class="table-responsive">
                                     <table class="table">
                                         <tr>
-                                            <td>Tổng phụ</td>
+                                            <td>Tổng</td>
                                             <td class="cart-total" id="grandTotal">
                                                 {{ number_format($totalAmount, 0, ',', '.') }} VND
                                             </td>
                                         </tr>
 
-                                        @if ($discount > 0)
-                                            <tr>
-                                                <td>Được giảm</td>
-                                                <td id="discountAmount" class="text-danger">
-                                                    - {{ number_format($discount, 0, ',', '.') }} VND
-                                                </td>
-                                            </tr>
-                                        @endif
+                                        <tr class="discountRow">
+                                            <td>Được giảm</td>
+                                            <td id="discountAmount" class="text-danger">
+                                                - {{ number_format($discountV, 0, ',', '.') }} VND
+                                            </td>
+                                        </tr>
 
                                         <tr class="total">
                                             <td>Tổng tiền thanh toán</td>
                                             <td class="total-amount" id="finalAmount">
-                                                {{ number_format($finalAmount, 0, ',', '.') }} VND
+                                                {{ number_format($finalAmountV, 0, ',', '.') }} VND
                                             </td>
                                         </tr>
                                     </table>
@@ -243,6 +238,7 @@
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
     <script>
         //Thay đổi số lượng sản phẩm
         document.addEventListener('DOMContentLoaded', function() {
@@ -278,17 +274,10 @@
                             }
                         },
                         success: function(response) {
-                            // Cập nhật tổng tiền
-                            $('#grandTotal').text(response.totalAmount.toLocaleString(
-                                'vi-VN') + ' VND');
-                            $('#finalAmount').text(response.totalAmount.toLocaleString(
-                                'vi-VN') + ' VND');
-
                             // Cập nhật tổng tiền từng sản phẩm
                             response.cartItems.forEach(item => {
-                                $(`#item-${item.id} .total-price`).text(item
-                                    .totalPrice.toLocaleString('vi-VN') +
-                                    ' VND');
+                                $(`#item-${item.id} .total-price`).text(
+                                    formatCurrency(item.totalPrice));
                             });
                         },
                         error: function(xhr, status, error) {
@@ -305,62 +294,17 @@
                 let quantity = parseInt(row.querySelector('.quantity-input').value);
                 let total = price * quantity;
 
-                row.querySelector('.total-price').textContent = total.toLocaleString('vi-VN') + ' VND';
+                row.querySelector('.total-price').textContent = formatCurrency(total);
             }
-        });
-    </script>
-
-    <script>
-        //Sử dụng vocher
-        document.addEventListener('DOMContentLoaded', function() {
-            // Xử lý sự kiện khi nhấn "Áp Dụng" voucher
-            document.querySelector('form[action*="/cart/apply-voucher"]').addEventListener('submit', function(
-                event) {
-                event.preventDefault(); // Ngăn chặn submit mặc định
-
-                const voucherId = document.querySelector('#voucher').value;
-
-                if (!voucherId) {
-                    alert('Vui lòng chọn voucher.');
-                    return;
-                }
-
-                $.ajax({
-                    url: this.action, // URL được lấy từ action của form
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        voucher_id: voucherId
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            // Cập nhật thông tin giảm giá
-                            $('#discountRow').show(); // Hiển thị dòng "Được giảm"
-                            $('#discountAmount').text('- ' + formatCurrency(response.discount));
-                            $('#finalAmount').text(formatCurrency(response.finalAmount));
-
-                            alert('Voucher đã được áp dụng thành công!');
-                        } else {
-                            alert(response.message || 'Đã xảy ra lỗi.');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        alert('Không thể áp dụng voucher: ' + (xhr.responseJSON?.message ||
-                            error));
-                    }
-                });
-            });
 
             // Hàm định dạng tiền tệ
             function formatCurrency(value) {
                 return value.toLocaleString('vi-VN', {
-                    style: 'currency',
-                    currency: 'VND'
-                });
+                    style: 'decimal',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0 // Ẩn số sau dấu phẩy
+                }) + ' VND';
             }
         });
     </script>
-
-
-    <!-- cart main wrapper end -->
 @endsection
