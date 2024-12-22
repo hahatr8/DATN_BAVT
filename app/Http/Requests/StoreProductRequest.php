@@ -29,7 +29,6 @@ class StoreProductRequest extends FormRequest
             'product.brand' => 'required|exists:brands,id', // Hãng phải tồn tại
             'product.description' => 'required|string|max:500', // Mô tả ngắn không quá 500 ký tự
             'product.content' => 'required|string|min:10', // Mô tả chi tiết phải có ít nhất 10 ký tự
-            'product.status' => 'required|boolean', // Trạng thái sản phẩm phải đúng kiểu boolean
 
               // Ảnh đại diện và album
 

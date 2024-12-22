@@ -84,7 +84,7 @@
 
                                             @if ($mainImage)
                                                 <img width="150px" height="150px"
-                                                    src="{{ asset('storage/' . $mainImage->img) }}" alt="Ảnh chính"
+                                                    src="{{ \Storage::url($mainImage->img) }}" alt="Ảnh chính"
                                                     style="object-fit: cover;">
                                             @else
                                                 <p>No main image available</p>

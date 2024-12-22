@@ -168,7 +168,7 @@
                                     <div class="comment-post-box">
                                         <div class="row">
                                             <div class="col-12">
-                                                <label>Comment</label>
+                                                <label>Bình luận</label>
                                                 <textarea name="content" placeholder="Write a comment" required></textarea>
                                             </div>
                                             <div class="col-12">

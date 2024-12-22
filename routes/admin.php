@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CommentController;
@@ -22,8 +21,11 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', function () {
                     return view('admin.dashboard');
                 });
+            });
+    });
+});
 
-
+Route::get('verifyaccount/{email}', [AuthController::class, 'verify'])->name('verifyaccount');
 
 Route::middleware('auth')->group(function () {
     Route::middleware('auth.admin')->group(function () {
@@ -111,13 +113,20 @@ Route::middleware('auth')->group(function () {
                         Route::get('index', [UserController::class, 'index'])->name('index');
                         Route::get('create', [UserController::class, 'create'])->name('create');
                         Route::get('detail/{id}', [UserController::class, 'detail'])->name('detail');
-                        Route::get('createadd/{id}', [UserController::class, 'createadd'])->name('createadd');
+                        Route::get('createaddress/{id}', [UserController::class, 'createaddress'])->name('createaddress');
                         Route::post('store', [UserController::class, 'store'])->name('store');
-                        Route::post('storeadd/{id}', [UserController::class, 'storeadd'])->name('storeadd');
+                        Route::post('storeAddress/{id}', [UserController::class, 'storeAddress'])->name('storeAddress');
                         Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit');
+                        Route::get('editAddress/{id}', [UserController::class, 'editAddress'])->name('editAddress');
                         Route::put('update/{id}', [UserController::class, 'update'])->name('update');
-                        Route::delete('destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
-                        Route::get('empower/{id}', [UserController::class, 'empower'])->name('empower');
+                        Route::put('updateAddress/{id}', [UserController::class, 'updateAddress'])->name('updateAddress');
+                        Route::delete('destroy/{user}', [UserController::class, 'destroy'])->name('destroy');
+                        Route::get('empowerMember/{id}', [UserController::class, 'empowerMember'])->name('empowerMember');
+                        Route::get('empowerCustomer/{id}', [UserController::class, 'empowerCustomer'])->name('empowerCustomer');
+                        Route::get('empowerAdmin/{id}', [UserController::class, 'empowerAdmin'])->name('empowerAdmin');
+                        Route::get('/trash', [UserController::class, 'trash'])->name('trash');
+                        Route::get('/{user}', [UserController::class, 'softDestruction'])->name('softDestruction');
+                        Route::post('/{id}', [UserController::class, 'restore'])->name('restore');
                     });
             });
     });

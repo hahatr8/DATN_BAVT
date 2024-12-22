@@ -631,24 +631,24 @@ class CartController extends Controller
         DB::beginTransaction(); // Bắt đầu transaction
         try {
             $data = $request->all();
-    
+
             if ($data['vnp_ResponseCode'] == '00') { // Thanh toán thành công
-    
+
                 // Lấy thông tin đơn hàng từ session
                 $pendingOrder = session('pendingOrder');
                 if (!$pendingOrder) {
                     return back()->with(['error' => 'Không có đơn hàng nào cần thanh toán.']);
                 }
-    
+
                 // Lưu đơn hàng vào cơ sở dữ liệu
                 $order = Order::create([
                     'user_id' => $pendingOrder['user_id'],
                     'address_id' => $pendingOrder['address_id'],
                     'status_order' => Order::STATUS_ORDER_PENDING,
-                    'status_payment' => 'vn_pay',
+                    'status_payment' => 'vnpay',
                     'total_price' => $pendingOrder['total_amount'],
                 ]);
-    
+
                 // Lưu các item trong giỏ hàng vào bảng order_items
                 foreach ($pendingOrder['order_items'] as $item) {
                     $order->orderItems()->create([
@@ -657,7 +657,7 @@ class CartController extends Controller
                         'price' => $item['price'],
                     ]);
                 }
-    
+
                 // Kiểm tra và trừ số lượng voucher
                 $E_voucher = session('appliedVoucher');
                 if ($E_voucher) {
@@ -666,7 +666,7 @@ class CartController extends Controller
                         $voucher->decrement('quantity');
                     }
                 }
-    
+
                 // Trừ xu của người dùng sau khi thanh toán thành công (nếu có)
                 $useXu = $pendingOrder['useXu']; // Kiểm tra xem người dùng có sử dụng xu không
                 $xuUsed = $pendingOrder['xuUsed']; // Lấy số xu đã sử dụng
@@ -675,25 +675,25 @@ class CartController extends Controller
                     $user->xu -= $xuUsed; // Trừ xu
                     $user->save();
                 }
-    
+
                 // Xóa giỏ hàng
                 Cart::where('user_id', $pendingOrder['user_id'])->delete();
-    
+
                 // Xóa thông tin đơn hàng và voucher trong session
                 session()->forget(['pendingOrder', 'appliedVoucher', 'useXu']);
-    
+
                 DB::commit(); // Lưu các thay đổi
-    
+
                 return redirect()->route('cart.order.success')->with(['success' => 'Thanh toán thành công, chúng tôi sẽ xác nhận đơn sớm nhất có thể.']);
             }
-    
+
             if ($data['vnp_ResponseCode'] != '00') {
                 DB::rollBack(); // Rollback nếu thanh toán thất bại
                 return redirect()->route('cart.show')->with(['error' => 'Thanh toán không thành công. Vui lòng thử lại.']);
             }
         } catch (\Exception $e) {
             DB::rollBack(); // Rollback nếu có lỗi
-    
+
             Log::error('Thanh toán không thành công:', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
@@ -701,7 +701,7 @@ class CartController extends Controller
             return back()->with(['error' => 'Đặt hàng không thành công.']);
         }
     }
-    
+
     private function processVNPayment($finalAmount, $orderItems, $addressId, $useXu, $xuUsed)
     {
         $userId = Auth::id(); // Lấy ID người dùng

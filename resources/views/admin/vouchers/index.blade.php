@@ -2,7 +2,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="mb-4 text-center">Voucher List</h1>
+        <h1 class="mb-4 text-center">Danh sách mã giảm giá</h1>
         <div class="d-flex justify-content-between mb-3">
             <div>
                 <div class="d-flex gap-2">
@@ -21,14 +21,14 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Voucher Code</th>
-                        <th>Quantity</th>
-                        <th>Discount</th>
-                        <th>Status</th>
-                        <th>User</th>
-                        <th>Product</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
+                        <th>Mã giảm giá</th>
+                        <th>Số lượng</th>
+                        <th>Giảm giá</th>
+                        <th>Trạng thái</th>
+                        <th>Người dùng</th>
+                        <th>Sản phẩm</th>
+                        <th>Ngày bắt đầu</th>
+                        <th>Ngày kết thúc</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -44,8 +44,8 @@
                                 {{ $voucher->status ? 'Active' : 'Inactive' }}
                             </span>
                         </td>
-                        <td>{{ $voucher->user->name }}</td>
-                        <td>{{ $voucher->product ? $voucher->product->name : 'N/A' }}</td>
+                        <td>{{ $voucher->user ? $voucher->user->name : 'NULL' }}</td>
+                        <td>{{ $voucher->product ? $voucher->product->name : 'NULL' }}</td>
                         <td>{{ $voucher->start_date }}</td>
                         <td>{{ $voucher->end_date }}</td>
                         <td>
@@ -60,7 +60,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="10" class="text-center">Không có voucher nào!</td>
+                        <td colspan="10" class="text-center">Không có mã giảm giá nào!</td>
                     </tr>
                     @endforelse
                 </tbody>

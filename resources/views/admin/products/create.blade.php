@@ -16,14 +16,6 @@
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
-
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Sản phẩm</a></li>
-                    <li class="breadcrumb-item active">{{ $title }}</li>
-                </ol>
-            </div>
-
         </div>
     </div>
 </div>
@@ -223,8 +215,9 @@
                             </td>
                             <td>
                                 <select class="form-control" name="product_sizes[0][status]">
-                                    <option value="0" {{ old('product_sizes.0.status') == '0' ? 'selected' : '' }}>Ẩn</option>
                                     <option value="1" {{ old('product_sizes.0.status') == '1' ? 'selected' : '' }}>Hiển thị</option>
+                                    <option value="0" {{ old('product_sizes.0.status') == '0' ? 'selected' : '' }}>Ẩn</option>
+                                    
                                 </select>
                                 @if ($errors->has('product_sizes.0.status'))
                                 <small class="text-danger">{{ $errors->first('product_sizes.0.status') }}</small>

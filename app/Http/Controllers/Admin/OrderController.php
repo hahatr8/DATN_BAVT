@@ -38,12 +38,13 @@ class OrderController extends Controller
     private function refundCustomer(Order $order)
     {
         // Kiểm tra phương thức thanh toán của khách hàng
-        if (in_array($order->status_payment, [Order::STATUS_PAYMENT_MOMO])) {
+        if (in_array($order->status_payment, [Order::STATUS_PAYMENT_MOMO, Order::STATUS_PAYMENT_VNPAY])) {
             $user = $order->user;
 
             // Kiểm tra nếu cần thiết: đảm bảo tài khoản của người dùng có đủ điểm (nếu cần)
-            if ($user->xu + $order->total_price >= 0) {
-                $user->xu += $order->total_price; // Hoàn tiền cho khách hàng dưới dạng xu
+            $newXuBalance = $user->xu + $order->total_price;
+            if ($newXuBalance >= 0) {
+                $user->xu = $newXuBalance; // Hoàn tiền cho khách hàng dưới dạng xu
                 $user->save();
             }
         }
@@ -80,9 +81,11 @@ class OrderController extends Controller
 
                 // Xử lý hoàn tiền nếu trạng thái trước đó yêu cầu
                 if (
-                    $order->status_order === Order::STATUS_CANCELLATION_REFUND_COMPLETED ||
-                    $order->status_order === Order::STATUS_REFUND_SUCCESSFUL
+                    $order->status_order === Order::STATUS_RETURN_IN_TRANSIT ||
+                    $order->status_order === Order::STATUS_ORDER_CUSTOMER_CANCELLED ||
+                    $order->status_order === Order::STATUS_ORDER_SHOP_CANCELLED
                 ) {
+                    
                     $this->refundCustomer($order);
                 }
 
@@ -153,7 +156,7 @@ class OrderController extends Controller
             'shipping' => ['delivered', 'shop_cancelled'],
             'delivered' => ['completed'],
             'completed' => ['return_requested'],
-            'shop_cancelled' => ['cancellation_refund_completed'],
+            'shop_cancelled' => ['cancellation_refund_completed', 'canceled'],
             'customer_cancelled' => ['cancellation_refund_completed'],
             'cancellation_refund_completed' => ['canceled'],
             'canceled' => [],
@@ -221,7 +224,9 @@ class OrderController extends Controller
 
                 // 3. Nếu trạng thái yêu cầu hoàn tiền
                 if (in_array($newStatus, ['cancellation_refund_completed', 'refund_successful'])) {
-                    $this->refundCustomer($order); // Thực hiện hoàn tiền
+                    if (in_array($order->status_payment, ['momo', 'vnpay'])) {
+                        $this->refundCustomer($order); // Thực hiện hoàn tiền
+                    }
                 }
 
                 // Cập nhật trạng thái đơn hàng
@@ -239,5 +244,4 @@ class OrderController extends Controller
             return response()->json(['success' => false, 'message' => 'Lỗi: ' . $e->getMessage()]);
         }
     }
-
 }
