@@ -16,11 +16,11 @@
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
-                        <th>Content</th>
-                        <th>User</th>
-                        <th>Product</th>
-                        <th>Blog</th>
-                        <th>Actions</th>
+                        <th>Nội dung</th>
+                        <th>Người dùng</th>
+                        <th>Sản phẩm</th>
+                        <th>Bài viết</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>

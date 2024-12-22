@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="">
-    <h1 class="mb-4 text-center">Create New Voucher</h1>
+    <h1 class="mb-4 text-center">Tạo mới mã giảm giá</h1>
     <form action="{{ route('admin.vouchers.store') }}" method="POST" class="p-4 bg-light shadow-sm rounded">
         @csrf
         <div class="mb-3">
-            <label for="E_vorcher" class="form-label">Voucher Code</label>
+            <label for="E_vorcher" class="form-label">Mã giảm giá</label>
             <input type="text" 
                    class="form-control @error('E_vorcher') is-invalid @enderror" 
                    id="E_vorcher" 
@@ -19,7 +19,7 @@
         </div>
         
         <div class="mb-3">
-            <label for="quantity" class="form-label">Quantity</label>
+            <label for="quantity" class="form-label">Số lượng</label>
             <input type="number" 
                    class="form-control @error('quantity') is-invalid @enderror" 
                    id="quantity" 
@@ -32,7 +32,7 @@
         </div>
         
         <div class="mb-3">
-            <label for="discount" class="form-label">Discount (%)</label>
+            <label for="discount" class="form-label">Giảm giá (%)</label>
             <input type="number" 
                    class="form-control @error('discount') is-invalid @enderror" 
                    id="discount" 
@@ -45,11 +45,11 @@
         </div>
         
         <div class="mb-3">
-            <label for="status" class="form-label">Status</label>
+            <label for="status" class="form-label">Trạng thái</label>
             <select class="form-select @error('status') is-invalid @enderror" name="status">
-                <option value="" disabled {{ old('status') === null ? 'selected' : '' }}>Select status</option>
-                <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Active</option>
-                <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Inactive</option>
+                <option value="" disabled {{ old('status') === null ? 'selected' : '' }}>Chọn trạng thái</option>
+                <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Hoạt động</option>
+                <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Không hoạt động</option>
             </select>
             @error('status')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -57,9 +57,9 @@
         </div>
         
         <div class="mb-3">
-            <label for="user_id" class="form-label">User</label>
+            <label for="user_id" class="form-label">Người dùng</label>
             <select class="form-select @error('user_id') is-invalid @enderror" id="user_id" name="user_id">
-                <option value="" disabled {{ old('user_id') === null ? 'selected' : '' }}>Select user</option>
+                <option value="" disabled {{ old('user_id') === null ? 'selected' : '' }}>Chọn người dùng</option>
                 @foreach ($users as $user)
                     <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
                         {{ $user->name }}
@@ -72,9 +72,9 @@
         </div>
         
         <div class="mb-3">
-            <label for="product_id" class="form-label">Product (Optional)</label>
+            <label for="product_id" class="form-label">Sản phẩm (Tùy chọn)</label>
             <select class="form-select @error('product_id') is-invalid @enderror" id="product_id" name="product_id">
-                <option value="">None</option>
+                <option value="">Không</option>
                 @foreach ($products as $product)
                     <option value="{{ $product->id }}" {{ old('product_id') == $product->id ? 'selected' : '' }}>
                         {{ $product->name }}
@@ -88,7 +88,7 @@
         
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label for="start_date" class="form-label">Start Date</label>
+                <label for="start_date" class="form-label">Ngày bắt đầu</label>
                 <input type="date" 
                        class="form-control @error('start_date') is-invalid @enderror" 
                        id="start_date" 
@@ -100,7 +100,7 @@
             </div>
             
             <div class="col-md-6 mb-3">
-                <label for="end_date" class="form-label">End Date</label>
+                <label for="end_date" class="form-label">Ngày kết thúc</label></label>
                 <input type="date" 
                        class="form-control @error('end_date') is-invalid @enderror" 
                        id="end_date" 
@@ -114,10 +114,10 @@
         
         <div class="text-center">
             <button type="submit" class="btn btn-primary">
-                <i class="bi bi-save"></i> Create
+                <i class="bi bi-save"></i> Tạo mới
             </button>
             <a href="{{ route('admin.vouchers.index') }}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left"></i> Back
+                <i class="bi bi-arrow-left"></i> Quay lại
             </a>
         </div>
     </form>

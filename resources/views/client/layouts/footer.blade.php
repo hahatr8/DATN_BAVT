@@ -1,8 +1,11 @@
-<footer class="footer-widget-area">
-    <div class="footer-top section-padding">
 
-        <!-- footer area start -->
+
+<footer class="footer-widget-area">
         <div class="footer-top section-padding">
+
+    <!-- footer area start -->
+            <div class="footer-top section-padding">
+
 
             <div class="container">
                 <div class="row">
@@ -11,7 +14,7 @@
                             <div class="widget-title">
                                 <div class="widget-logo">
                                     <a href="index.html">
-                                        <img src="assets/img/logo/logo.png" alt="brand logo">
+                                        <img src="assets/img/logo/logosymphony1.png" alt="brand logo">
                                     </a>
                                 </div>
                             </div>
@@ -91,13 +94,15 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="copyright-text text-center">
-                            <p>&copy; 2022 <b>Corano</b> Made with <i class="fa fa-heart text-danger"></i> by <a href="https://hasthemes.com/"><b>HasThemes</b></a></p>
+                            <p>&copy; 2024 <b>Symphony</b> Made with <i class="fa fa-heart text-danger"></i> by <a href="https://hasthemes.com/"><b>HasThemes</b></a></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-</footer>
 
-<!-- footer area end -->
+    </footer>
+
+    <!-- footer area end -->
+

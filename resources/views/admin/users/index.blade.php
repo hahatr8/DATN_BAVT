@@ -1,10 +1,13 @@
+
 @extends('admin.layouts.master')
+
 
 @section('title')
 Danh sách tài khoản
 @endsection
 
 @section('content')
+
 <div class="row">
 
     <!-- start page title -->
@@ -27,12 +30,20 @@ Danh sách tài khoản
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h5 class="card-title mb-0">Danh sách</h5>
+
+                <div class="">
+                    <h5 class="card-title mb-0">Danh sách</h5>
+                    <div class="d-flex gap-2">
+                        <span>Tất cả </span>
+                        <div>||</div>
+                        <a href="{{ route('admin.user.trash') }}">Thùng rác </a>
+                    </div>
+                </div>
                 <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Thêm mới</a>
             </div>
             <div class="card-body">
-                <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
-                    >
+                <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle">
+
                     <thead style="text-align: center;">
                         <tr>
                             <th>ID</th>
@@ -42,15 +53,17 @@ Danh sách tài khoản
                             <th>Phone</th>
                             <th>Type</th>
                             <th>Action</th>
+
+                            <th>Permissions</th>
+
                         </tr>
                     </thead>
 
                     <tbody style="text-align: center;">
                         <?php
 
-use Illuminate\Support\Facades\Auth;
+                        foreach ($listUser as $index => $user) : ?>
 
- foreach ($listUser as $index => $user) : ?>
                             <tr>
                                 <td>{{$index + 1}}</td>
                                 <td>
@@ -61,23 +74,44 @@ use Illuminate\Support\Facades\Auth;
                                 <td>{{$user->phone}}</td>
                                 <td>{{$user->type}}</td>
                                 <td>
-                                    <a href="{{ route('admin.user.edit',$user->id) }}" class="btn btn-outline-warning " >
+
+                                    <a href="{{ route('admin.user.edit',$user->id) }}" class="btn btn-outline-warning ">
                                         <span> Sửa </span>
                                     </a>
-                                    
-                                    <form action="{{ route('admin.user.destroy',$user->id) }}" class="d-inline" method="POST" onsubmit="return confirm('Bạn có đồng ý xóa hay không?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger" >
-                                            <i>Xóa</i>
-                                        </button>
-                                    </form>
-                                    <?php if($user->type == 'member'): ?>
-                                    <a href="{{ route('admin.user.empower',$user->id) }}" class="btn btn-outline-success" >
-                                        <span> Cấp quyền </span>
-                                    </a>
+
+                                    <a href="{{ route('admin.user.softDestruction', $user) }}"
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $user->name }} không?')"
+                                        class="btn btn-outline-danger">Xóa</a>
+                                </td>
+                                <td>
+                                    <?php if ($user->type == 'member'): ?>
+                                        <a href="{{ route('admin.user.empowerAdmin',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Admin </span>
+                                        </a>
+                                        <a href="{{ route('admin.user.empowerCustomer',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Customer </span>
+                                        </a>
                                     <?php endif ?>
-                                    
+
+                                    <?php if ($user->type == 'customer'): ?>
+                                        <a href="{{ route('admin.user.empowerAdmin',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Admin </span>
+                                        </a>
+                                        <a href="{{ route('admin.user.empowerMember',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Member </span>
+                                        </a>
+                                    <?php endif ?>
+
+                                    <?php if ($user->type == 'admin'): ?>
+                                        <a href="{{ route('admin.user.empowerMember',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Member </span>
+                                        </a>
+                                        <a href="{{ route('admin.user.empowerCustomer',$user->id) }}" class="btn btn-outline-success">
+                                            <span> Customer </span>
+                                        </a>
+                                    <?php endif ?>
+
+
                                 </td>
                                 <td class="">
                                     <a href="{{ route('admin.user.detail',$user->id) }}" class="btn btn-outline-info" style="width: 110px; ">
@@ -122,3 +156,8 @@ use Illuminate\Support\Facades\Auth;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+
+
+@endsection
+

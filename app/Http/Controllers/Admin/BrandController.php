@@ -98,3 +98,4 @@ class BrandController extends Controller
         return redirect()->route('admin.brands.index')->with('success', 'Thương hiệu đã được xóa thành công.');
     }
 }
+

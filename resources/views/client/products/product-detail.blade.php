@@ -57,26 +57,36 @@
 
 
                             <div class="col-lg-6">
+                                @php
+                                    $hasActiveSizes = $product->productSizes->contains(function ($size) {
+                                        return $size->status == 1;
+                                    });
+                                @endphp
+
                                 <form action="{{ route('cart.add') }}" method="POST" id="add-to-cart-form">
                                     @csrf
                                     <div class="product-details-des ms-3">
                                         <div class="manufacturer-name">
+                                            <label for="" class="form-label">Hãng nước hoa:</label>
                                             <a href="product-details.html"
                                                 class="brand-link">{{ $product->brand->name }}</a>
                                         </div>
-                                        <h3 class="product-name">{{ $product->name }}</h3>
-                                        <div class="category-name mb-3">
-                                            {!! $product->categories->pluck('name')->implode('<br>') !!}
-                                        </div>
-                                        <p class="pro-desc">
-                                            {{ $product->description }}
-                                        </p>
+                                        <label for="" class="form-label">Tên sản phẩm:</label>
+                                        <span class="product-name">{{ $product->name }}</span>
+                                        {{-- <div class="category-name mb-3'>
+                                        {!! $product->categories->pluck('name')->implode('<br>') !!}
+                                    </div> --}}
+                                        <p class="pro-desc">{{ $product->description }}</p>
                                         <div class="price-box mb-3">
+                                            <label for="" class="form-label">Giá:</label>
                                             <span class="price-regular"
                                                 id="product-price">{{ number_format($product->price, 0, ',', '.') }}
                                                 VND</span>
                                         </div>
-
+                                        <div class="price-box mb-3">
+                                            <label for="" class="form-label">Số lượng còn lại:</label>
+                                            <span class="product-name">{{ $totalQuantity }}</span>
+                                        </div>
                                         <!-- Select Size -->
                                         <div>
                                             <h6 class="option-title">Size :</h6>
@@ -84,7 +94,11 @@
                                                 <select name="product_size_id" id="size-selector" class="form-select">
                                                     <option value="">---Chọn---</option>
                                                     @foreach ($product->productSizes as $size)
-                                                        <option value="{{ $size->id }}">{{ $size->variant }}</option>
+                                                        @if ($size->status == 1)
+                                                            <option value="{{ $size->id }}">
+                                                                {{ $size->variant }} (Số lượng: {{ $size->quantity }})
+                                                            </option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -107,11 +121,19 @@
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
 
                                         <!-- Add to Cart Button -->
-                                        <div class="action_link mt-2">
-                                            <button type="submit" class="btn btn-cart2">Thêm vào giỏ hàng</button>
-                                        </div>
+                                        @if ($hasActiveSizes)
+                                            <div class="action_link mt-2">
+                                                <button type="submit" class="btn btn-cart2">Thêm vào giỏ hàng</button>
+                                            </div>
+                                        @else
+                                            <div class="alert alert-warning mt-2">
+                                                Không có kích thước khả dụng để thêm vào giỏ hàng.
+                                            </div>
+                                        @endif
                                     </div>
                                 </form>
+
+
                             </div>
                         </div>
                     </div>
@@ -171,54 +193,56 @@
                                                 <h5>1 review for <span>Chaz Kangeroo</span></h5>
                                                 <div class="total-reviews">
                                                     {{-- hiển thị bình luận --}}
-                                                    @foreach ($comments as $comment )
-                                                    <div class="rev-avatar">
-                                                        <img src="{{ \Storage::url($comment->user->img) }}">
-                                                    </div>
-                                                    <div class="review-box">
-                                                        <div class="post-author">
-                                                            <p><span>{{$comment->user->name}}</span>{{$comment->created_at}}</p>
+                                                    @foreach ($comments as $comment)
+                                                        <div class="rev-avatar">
+                                                            <img src="{{ \Storage::url($comment->user->img) }}">
                                                         </div>
-                                                        <p>{{$comment->content}}</p>
-                                                    </div>
+                                                        <div class="review-box">
+                                                            <div class="post-author">
+                                                                <p><span>{{ $comment->user->name }}</span>{{ $comment->created_at }}
+                                                                </p>
+                                                            </div>
+                                                            <p>{{ $comment->content }}</p>
+                                                        </div>
                                                     @endforeach
                                                     {{-- end hiển thị --}}
                                                 </div>
                                             </form> <!-- end of review-form -->
 
-                                                <div class="form-group row">
-                                                    <div class="col">
-                                                        <label class="col-form-label"><span class="text-danger">*</span>
-                                                            Your Review</label>
+                                            <div class="form-group row">
+                                                <div class="col">
+                                                    <label class="col-form-label"><span class="text-danger">*</span>
+                                                        Your Review</label>
 
-                                                        @if(auth()->check())
-                                                            <form action="{{ route('client.product.comment', $product->id) }}" method="POST">
-                                                                @csrf
-                                                                <div class="comment-post-box">
-                                                                    <div class="row">
-                                                                        <div class="col-12">
-                                                                            <label>Comment</label>
-                                                                            <textarea name="content" placeholder="Write a comment" required></textarea>
-                                                                        </div>
-                                                                        <div class="col-12">
-                                                                            <div class="coment-btn">
-                                                                                <button type="submit" class="btn btn-sqr">Post Comment</button>
-                                                                            </div>
+                                                    @if (auth()->check())
+                                                        <form action="{{ route('client.product.comment', $product->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <div class="comment-post-box">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <label>Comment</label>
+                                                                        <textarea name="content" placeholder="Write a comment" required></textarea>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="coment-btn">
+                                                                            <button type="submit"
+                                                                                class="btn btn-sqr">Post Comment</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </form>
-                                                            
-                                                            @else
-
-                                                            <div class="alert alert-danger" role="alert">
-                                                                <strong>Đăng nhập để bình luận</strong>Click vào đây<a href="{{route('home.login')}}">Đăng nhập</a>
                                                             </div>
-                                                            @endif
-                                                    </div>
+                                                        </form>
+                                                    @else
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <strong>Đăng nhập để bình luận</strong>Click vào đây<a
+                                                                href="{{ route('login') }}">Đăng nhập</a>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                                {{-- end bình luận --}}
-                                                {{-- <div class="buttons">
+                                            </div>
+                                            {{-- end bình luận --}}
+                                            {{-- <div class="buttons">
                                                     <button class="btn btn-sqr" type="submit">Continue</button>
                                                 </div> --}}
                                         </div>
@@ -417,5 +441,4 @@
             });
         });
     </script>
-
 @endsection

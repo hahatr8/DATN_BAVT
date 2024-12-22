@@ -1,4 +1,6 @@
+
 @extends('admin.layouts.master')
+
 
 @section('title')
 Thêm mới tài khoản
@@ -118,6 +120,7 @@ Thêm mới tài khoản
                                 </div>
 
                             </div>
+
 
                         </div>
                     </div>

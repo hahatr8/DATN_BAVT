@@ -1,4 +1,6 @@
+
 @extends('admin.layouts.master')
+
 
 @section('title')
 Cap nhat
@@ -8,12 +10,14 @@ Cap nhat
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Cập nhật Danh mục: </h4>
+
+            <h4 class="mb-sm-0">Cập nhật tài khoản: </h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Sản phẩm</a></li>
-                    <li class="breadcrumb-item active">Thêm mới</li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tài khoản</a></li>
+                    <li class="breadcrumb-item active">Cập nhật</li>
+
                 </ol>
             </div>
 
@@ -63,47 +67,6 @@ Cap nhat
                                     <input type="file" class="form-control " name="img" placeholder="Nhập hình ảnh" onchange="showImage(event)">
                                     <img id="image" src="{{Storage::url($user->img)}}" alt="hình ảnh danh mục" style="width: 100px; ">
                                 </div>
-
-                            </div>
-
-                            <div class="col-md-4">
-
-                                <div>
-                                    <label for="" class="form-label">Country:</label>
-
-                                    <input type="text" class="form-control" id="name" placeholder="Nhap country" name="country"
-                                        <?php foreach ($addresses as $address) : ?>
-                                        value="{{$address->country}}"
-                                        <?php endforeach; ?>>
-
-                                </div>
-
-                                <div>
-                                    <label for="" class="form-label">City:</label>
-                                    <input type="text" class="form-control" id="city" placeholder="Nhap city" name="city"
-                                        <?php foreach ($addresses as $address) : ?>
-                                        value="{{$address->city}}"
-                                        <?php endforeach; ?>>
-                                </div>
-
-                                <div>
-                                    <label for="" class="form-label">District:</label>
-                                    <input type="text" class="form-control" id="district" placeholder="Nhap district" name="District"
-                                        <?php foreach ($addresses as $address) : ?>
-                                        value="{{$address->District}}"
-                                        <?php endforeach; ?>>
-                                </div>
-
-                                <div>
-                                    <label for="" class="form-label">Address:</label>
-                                    <input type="text" class="form-control" id="address" placeholder="Nhap address" name="address"
-                                        <?php foreach ($addresses as $address) : ?>
-                                        value="{{$address->address}}"
-                                        <?php endforeach; ?>>
-                                </div>
-                                <?php foreach ($addresses as $address) : ?>
-                                    <input type="hidden" class="form-control" name="{{$address->id}}" value="{{$address->id}}">
-                                <?php endforeach; ?>
 
                             </div>
 

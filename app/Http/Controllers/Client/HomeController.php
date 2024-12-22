@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\Category;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Cart;
@@ -119,4 +120,5 @@ class HomeController extends Controller
 
         return redirect($request->input('current_url'))->with('error', 'Sản phẩm không tồn tại trong giỏ hàng');
     }
+    
 }

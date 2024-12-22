@@ -8,87 +8,30 @@
         <div class="hero-slider-active slick-arrow-style slick-arrow-style_hero slick-dot-style">
             <!-- single slider item start -->
             <div class="hero-single-slide hero-overlay">
-                <div class="hero-slider-item bg-img" data-bg="assets/img/slider/home1-slide2.jpg">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="hero-slider-content slide-1">
-                                    <h2 class="slide-title">Family Jewelry <span>Collection</span></h2>
-                                    <h4 class="slide-desc">Designer Jewelry Necklaces-Bracelets-Earings</h4>
-                                    <a href="shop.html" class="btn btn-hero">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="hero-slider-item bg-img" data-bg="assets/img/banner/banner1.jpg">
                 </div>
-                <!-- single slider item start -->
-
-                <!-- single slider item start -->
-                <div class="hero-single-slide hero-overlay">
-                    <div class="hero-slider-item bg-img" data-bg="assets/img/slider/home1-slide3.jpg">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="hero-slider-content slide-2 float-md-end float-none">
-                                        <h2 class="slide-title">Diamonds Jewelry<span>Collection</span></h2>
-                                        <h4 class="slide-desc">Shukra Yogam & Silver Power Silver Saving Schemes.</h4>
-                                        <a href="shop.html" class="btn btn-hero">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- single slider item start -->
-
-                <!-- single slider item start -->
-                <div class="hero-single-slide hero-overlay">
-                    <div class="hero-slider-item bg-img" data-bg="assets/img/slider/home1-slide1.jpg">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="hero-slider-content slide-3">
-                                        <h2 class="slide-title">Grace Designer<span>Jewelry</span></h2>
-                                        <h4 class="slide-desc">Rings, Occasion Pieces, Pandora & More.</h4>
-                                        <a href="shop.html" class="btn btn-hero">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- single slider item end -->
             </div>
+            <!-- single slider item start -->
+
+            <!-- single slider item start -->
+            <div class="hero-single-slide hero-overlay">
+                <div class="hero-slider-item bg-img" data-bg="assets/img/banner/banner2.jpg">
+                </div>
+            </div>
+            <!-- single slider item start -->
+
+            <!-- single slider item start -->
+            <div class="hero-single-slide hero-overlay">
+                <div class="hero-slider-item bg-img" data-bg="assets/img/banner/banner1.jpg">
+                </div>
+            </div>
+            <!-- single slider item end -->
+        </div>
     </section>
     <!-- hero slider area end -->
 
  <!-- brands statistics area start -->
-<div class="banner-statistics-area">
-    <div class="container">
-        <div class="row row-20 mtn-20">
 
-            @php
-            // Sắp xếp danh sách brand theo id giảm dần và chỉ lấy 4 brand
-            $filteredBrands = $brands->sortByDesc('id')->take(4);
-            @endphp
-
-            @foreach ($filteredBrands as $brand)
-            <div class="col-sm-6">
-                <figure class="banner-statistics mt-20">
-                    <!-- Liên kết tới trang sản phẩm của hãng -->
-                    <a href="{{ route('brand.products', ['id' => $brand->id]) }}">
-                        <img src="{{ asset('storage/' . $brand->logo) }}" alt="brand" style="width: 100%; height: 300px; object-fit: cover;">
-                        <div class="banner-content text-right">
-                            <h2 class="banner-text">{{ $brand->name }}</h2>
-                        </div>
-                    </a>
-                </figure>
-            </div>
-            @endforeach
-
-        </div>
-    </div>
-</div>
 <!-- brands statistics area end -->
 
 
@@ -130,7 +73,13 @@
                                             </a>
 
                                             <div class="cart-hover">
-                                                <button class="btn btn-cart" data-bs-toggle="modal" data-bs-target="#quick_view" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ number_format($product->price, 0, ',', '.') }} VND" data-brand="{{ $product->brand->name }}" data-description="{{ $product->description }}" data-images="{{ $product->productImgs->pluck('img')->implode(',') }}" data-sizes="{{ $product->productSizes->where('status', 1)->map(fn($size) => ['id' => $size->id, 'variant' => $size->variant, 'price' => $size->price, 'stock' => $size->quantity])->toJson() }}">
+                                                <button class="btn btn-cart" data-bs-toggle="modal"
+                                                 data-bs-target="#quick_view" data-id="{{ $product->id }}" data-name="{{ $product->name }}" 
+                                                 data-price="{{ number_format($product->price, 0, ',', '.') }} VND" data-brand="{{ $product->brand->name }}" 
+                                                 data-description="{{ $product->description }}" 
+                                                 data-images="{{ $product->productImgs->pluck('img')->implode(',') }}" 
+                                                 data-sizes="{{ $product->productSizes->where('status', 1)
+                                                 ->map(fn($size) => ['id' => $size->id, 'variant' => $size->variant, 'price' => $size->price, 'stock' => $size->quantity])->toJson() }}">
                                                     Thêm vào giỏ hàng
                                                 </button>
                                             </div>
@@ -166,13 +115,25 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                    <!-- section title start -->
+                    <div class="section-title text-center">
+                        <h2 class="title">Hãng nước hoa</h2>
+                    </div>
+                    <!-- section title start -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
                     <div class="product-banner-carousel slick-row-10">
 
                         @foreach ($brands as $brand)
                         <div class="banner-slide-item">
                             <figure class="banner-statistics">
-                                <a href="#">
-                                    <img src="{{ asset('storage/' . $brand->logo) }}" alt="brand" style="width: 100%; height: 300px; object-fit: cover;">
+                                <a href="{{ route('brand.products', ['id' => $brand->id])}}">
+                                    <div>
+                                        <img src="{{ asset('storage/' . $brand->logo) }}" alt="brand" style="width: 300px; height: 200px; object-fit: cover;">
+                                    </div>
+
                                     <div class="banner-content banner-content_style2">
                                         <h5 class="banner-text3">{{ $brand->name }}</h5>
                                     </div>
@@ -252,210 +213,11 @@
     </section>
     <!-- featured product area end -->
 
-    <!-- testimonial area start -->
-    <section class="testimonial-area section-padding bg-img" data-bg="assets/img/testimonial/testimonials-bg.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <!-- section title start -->
-                    <div class="section-title text-center">
-                        <h2 class="title">testimonials</h2>
-                        <p class="sub-title">What they say</p>
-                    </div>
-                    <!-- section title start -->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="testimonial-thumb-wrapper">
-                        <div class="testimonial-thumb-carousel">
-                            <div class="testimonial-thumb">
-                                <img src="assets/img/testimonial/testimonial-1.png" alt="testimonial-thumb">
-                            </div>
-                            <div class="testimonial-thumb">
-                                <img src="assets/img/testimonial/testimonial-2.png" alt="testimonial-thumb">
-                            </div>
-                            <div class="testimonial-thumb">
-                                <img src="assets/img/testimonial/testimonial-3.png" alt="testimonial-thumb">
-                            </div>
-                            <div class="testimonial-thumb">
-                                <img src="assets/img/testimonial/testimonial-2.png" alt="testimonial-thumb">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-content-wrapper">
-                        <div class="testimonial-content-carousel">
-                            <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
-                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
-                                    augue nec sapien. Cum sociis natoque</p>
-                                <div class="ratings">
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                </div>
-                                <h5 class="testimonial-author">lindsy niloms</h5>
-                            </div>
-                            <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
-                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
-                                    augue nec sapien. Cum sociis natoque</p>
-                                <div class="ratings">
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                </div>
-                                <h5 class="testimonial-author">Daisy Millan</h5>
-                            </div>
-                            <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
-                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
-                                    augue nec sapien. Cum sociis natoque</p>
-                                <div class="ratings">
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                </div>
-                                <h5 class="testimonial-author">Anamika lusy</h5>
-                            </div>
-                            <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
-                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
-                                    augue nec sapien. Cum sociis natoque</p>
-                                <div class="ratings">
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                </div>
-                                <h5 class="testimonial-author">Maria Mora</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </section>
-    <!-- featured product area end -->
-
-    <!-- testimonial area start -->
-    <section class="testimonial-area section-padding bg-img" data-bg="assets/img/testimonial/testimonials-bg.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <!-- section title start -->
-                    <div class="section-title text-center">
-                        <h2 class="title">testimonials</h2>
-                        <p class="sub-title">What they say</p>
-                    </div>
-                    <!-- section title start -->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="testimonial-thumb-wrapper">
-                        <div class="testimonial-thumb-carousel">
-                            <div class="testimonial-thumb">
-                                <img src="assets/img/testimonial/testimonial-1.png" alt="testimonial-thumb">
-                            </div>
-                            <div class="testimonial-thumb">
-                                <img src="assets/img/testimonial/testimonial-2.png" alt="testimonial-thumb">
-                            </div>
-                            <div class="testimonial-thumb">
-                                <img src="assets/img/testimonial/testimonial-3.png" alt="testimonial-thumb">
-                            </div>
-                            <div class="testimonial-thumb">
-                                <img src="assets/img/testimonial/testimonial-2.png" alt="testimonial-thumb">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-content-wrapper">
-                        <div class="testimonial-content-carousel">
-                            <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
-                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
-                                    augue nec sapien. Cum sociis natoque</p>
-                                <div class="ratings">
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                </div>
-                                <h5 class="testimonial-author">lindsy niloms</h5>
-                            </div>
-                            <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
-                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
-                                    augue nec sapien. Cum sociis natoque</p>
-                                <div class="ratings">
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                </div>
-                                <h5 class="testimonial-author">Daisy Millan</h5>
-                            </div>
-                            <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
-                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
-                                    augue nec sapien. Cum sociis natoque</p>
-                                <div class="ratings">
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                </div>
-                                <h5 class="testimonial-author">Anamika lusy</h5>
-                            </div>
-                            <div class="testimonial-content">
-                                <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
-                                    scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed venenatis orci
-                                    augue nec sapien. Cum sociis natoque</p>
-                                <div class="ratings">
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                    <span><i class="fa fa-star-o"></i></span>
-                                </div>
-                                <h5 class="testimonial-author">Maria Mora</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- testimonial area end -->
-
     <!-- group product start -->
     <section class="group-product-area section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="group-product-banner">
-                        <figure class="banner-statistics">
-                            <a href="#">
-                                <img src="assets/img/banner/img-bottom-banner.jpg" alt="product banner">
-                            </a>
-                            <div class="banner-content banner-content_style3 text-center">
-                                <h6 class="banner-text1">BEAUTIFUL</h6>
-                                <h2 class="banner-text2">Wedding Rings</h2>
-                                <a href="shop.html" class="btn btn-text">Shop Now</a>
-                            </div>
-                        </figure>
-                    </div>
-                </div>
-                <div class="col-lg-3">
                     <div class="categories-group-wrapper">
                         <!-- section title start -->
                         <div class="section-title-append">
@@ -498,7 +260,7 @@
                         <!-- group list carousel start -->
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-6">
                     <div class="categories-group-wrapper">
                         <!-- section title start -->
                         <div class="section-title-append">
@@ -553,8 +315,8 @@
                 <div class="col-12">
                     <!-- section title start -->
                     <div class="section-title text-center">
-                        <h2 class="title">latest blogs</h2>
-                        <p class="sub-title">There are latest blog posts</p>
+                        <h2 class="title">Bài viết mới</h2>
+                        <p class="sub-title">Có những bài đăng mới nhất</p>
                     </div>
                     <!-- section title start -->
                 </div>
@@ -572,7 +334,7 @@
                             </figure>
                             <div class="blog-content">
                                 <div class="blog-meta">
-                                    <p>{{ $blog->create_at}} | <a href="#">Corano</a></p>
+                                    <p>{{ $blog->create_at}}</p>
                                 </div>
                                 <h5 class="blog-title">
                                     <a href="blog-details.html">{{ $blog->title}}</a>
@@ -588,65 +350,6 @@
     </section>
     <!-- latest blog area end -->
 
-    <!-- brand logo area start -->
-    <div class="brand-logo section-padding pt-0">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="brand-logo-carousel slick-row-10 slick-arrow-style">
-                        <!-- single brand start -->
-                        <div class="brand-item">
-                            <a href="#">
-                                <img src="assets/img/brand/1.png" alt="">
-                            </a>
-                        </div>
-                        <!-- single brand end -->
-
-                        <!-- single brand start -->
-                        <div class="brand-item">
-                            <a href="#">
-                                <img src="assets/img/brand/2.png" alt="">
-                            </a>
-                        </div>
-                        <!-- single brand end -->
-
-                        <!-- single brand start -->
-                        <div class="brand-item">
-                            <a href="#">
-                                <img src="assets/img/brand/3.png" alt="">
-                            </a>
-                        </div>
-                        <!-- single brand end -->
-
-                        <!-- single brand start -->
-                        <div class="brand-item">
-                            <a href="#">
-                                <img src="assets/img/brand/4.png" alt="">
-                            </a>
-                        </div>
-                        <!-- single brand end -->
-
-                        <!-- single brand start -->
-                        <div class="brand-item">
-                            <a href="#">
-                                <img src="assets/img/brand/5.png" alt="">
-                            </a>
-                        </div>
-                        <!-- single brand end -->
-
-                        <!-- single brand start -->
-                        <div class="brand-item">
-                            <a href="#">
-                                <img src="assets/img/brand/6.png" alt="">
-                            </a>
-                        </div>
-                        <!-- single brand end -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- brand logo area end -->
 </main>
 
 <!-- Scroll to top start -->
@@ -700,8 +403,10 @@
                                     </div>
                                 </div>
                                 <div class="action_link">
-                                    <button class="btn btn-cart2" data-url="{{ route('cart.add') }}">Thêm vào giỏ
+                                    <button class="btn btn-cart2" style="display: none;"
+                                        data-url="{{ route('cart.add') }}">Thêm vào giỏ
                                         hàng</button>
+                                    <p id="out-of-stock-message" style="display: none; color: red;">Hết hàng</p>
                                 </div>
                             </div>
                         </div>
@@ -810,6 +515,9 @@
 
                 currentImageIndex = 0; // Đặt lại vị trí ảnh về 0 khi mở modal
 
+                // Lấy phần tử thông báo hết hàng
+                const outOfStockMessage = document.getElementById('out-of-stock-message');
+
                 // Xử lý các option size
                 if (productSizes.length > 0) {
                     sizeSelect.innerHTML = ''; // Xóa các option cũ
@@ -818,7 +526,7 @@
                             const option = document.createElement('option');
                             option.value = size.id;
                             option.textContent =
-                                `${size.variant} (+${parseFloat(size.price).toLocaleString()} VND)`;
+                                `${size.variant} (+${parseFloat(size.price).toLocaleString()} VND) / Số lượng còn : ${size.stock}`;
                             sizeSelect.appendChild(option);
 
                             if (index === 0) { // Gán size mặc định
@@ -833,9 +541,13 @@
                     sizeQuantityContainer.innerHTML = '';
                     sizeQuantityContainer.appendChild(sizeSelect);
                     sizeQuantityContainer.style.display = 'flex'; // Hiển thị chọn size
+                    cartButton.style.display = 'block'; // Hiển thị nút thêm vào giỏ hàng
+                    outOfStockMessage.style.display = 'none'; // Ẩn thông báo hết hàng
                 } else {
-                    selectedSizeStock = Infinity; // Không giới hạn số lượng nếu không có size
+                    selectedSizeStock = 0; // Đặt số lượng tồn kho về 0
                     sizeQuantityContainer.style.display = 'none';
+                    cartButton.style.display = 'none'; // Ẩn nút thêm vào giỏ hàng
+                    outOfStockMessage.style.display = 'block'; // Hiển thị thông báo hết hàng
                 }
 
                 // Lắng nghe thay đổi size
@@ -865,17 +577,17 @@
             const quantity = parseInt(document.getElementById('quantity').value);
 
             fetch(cartUrl, {
-                    method: 'POST'
-                    , headers: {
-                        'Content-Type': 'application/json'
-                        , 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                            .getAttribute('content')
-                    , }
-                    , body: JSON.stringify({
-                        product_size_id: productSizeId
-                        , quantity: quantity
-                    , })
-                , })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                            .getAttribute('content'),
+                    },
+                    body: JSON.stringify({
+                        product_size_id: productSizeId,
+                        quantity: quantity,
+                    }),
+                })
                 .then(response => {
                     if (response.ok) {
                         return response.json();
@@ -891,12 +603,12 @@
 
                         // Sau đó hiển thị SweetAlert2
                         Swal.fire({
-                            title: 'Thành công!'
-                            , text: 'Sản phẩm đã được thêm vào giỏ hàng.'
-                            , icon: 'success'
-                            , timer: 5000
-                            , showConfirmButton: false
-                            , position: 'center'
+                            title: 'Thành công!',
+                            text: 'Sản phẩm đã được thêm vào giỏ hàng.',
+                            icon: 'success',
+                            timer: 5000,
+                            showConfirmButton: false,
+                            position: 'center'
                         }).then(() => {
                             // Sau khi SweetAlert2 đóng, hiển thị lại modal nếu cần
                             $('.modal-backdrop').show();
@@ -910,14 +622,14 @@
 
                         // Sau đó hiển thị SweetAlert2
                         Swal.fire({
-                            title: 'Lỗi!'
-                            , text: data.message
-                            , icon: 'error'
-                            , timer: 5000
-                            , showConfirmButton: true, // Hiển thị nút "OK"
-                            confirmButtonText: 'OK'
-                            , allowOutsideClick: false
-                        , });
+                            title: 'Lỗi!',
+                            text: data.message,
+                            icon: 'error',
+                            timer: 5000,
+                            showConfirmButton: true, // Hiển thị nút "OK"
+                            confirmButtonText: 'OK',
+                            allowOutsideClick: false,
+                        });
                     }
                 })
                 .catch(error => {
@@ -928,22 +640,26 @@
 
                     // Sau đó hiển thị SweetAlert2
                     Swal.fire({
-                        title: 'Lỗi!'
-                        , text: 'Đã xảy ra sự cố, vui lòng thử lại.'
-                        , icon: 'error'
-                        , timer: 5000
-                        , showConfirmButton: true
-                        , confirmButtonText: 'OK'
-                        , allowOutsideClick: false
-                    , });
+                        title: 'Lỗi!',
+                        text: 'Đã xảy ra sự cố, vui lòng thử lại.',
+                        icon: 'error',
+                        timer: 5000,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        allowOutsideClick: false,
+                    });
                 });
         });
 
     });
-
 </script>
 
 <style>
+     #out-of-stock-message {
+            font-size: 16px;
+            font-weight: bold;
+            color: red;
+        }
     .quantity {
         background-color: #f8f9fa;
         /* Màu nền nhẹ */

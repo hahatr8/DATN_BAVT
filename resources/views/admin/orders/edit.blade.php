@@ -89,7 +89,7 @@
                             ],
                             'shop_cancelled' => [
                                 [
-                                    'condition' => $order->status_payment === 'momo',
+                                    'condition' => $order->status_payment === 'momo' || $order->status_payment === 'vnpay',                                    
                                     'value' => 'cancellation_refund_completed',
                                     'label' => 'Hoàn tiền',
                                     'class' => 'bg-info',
@@ -105,7 +105,7 @@
                             ],
                             'customer_cancelled' => [
                                 [
-                                    'condition' => $order->status_payment === 'momo',
+                                    'condition' => $order->status_payment === 'momo' || $order->status_payment === 'vnpay',                                    
                                     'value' => 'cancellation_refund_completed',
                                     'label' => 'Hoàn tiền cho khách hàng',
                                     'class' => 'bg-info',
@@ -279,9 +279,21 @@
                             </div>
                             <div class="col-md-4">
                                 <strong>Phương thức thanh toán:</strong>
-                                <span
-                                    class="badge bg-primary">{{ $statusPaymentOptions[$order->status_payment] ?? 'Không xác định' }}</span>
+                                @php
+                                            // Mảng ánh xạ trạng thái thanh toán với màu sắc
+                                            $paymentColors = [
+                                                'momo' => 'bg-success', // Momo
+                                                'cash' => 'bg-warning', // Tiền mặt
+                                                'vnpay' => 'bg-primary', // VNPay
+                                            ];
 
+                                            // Lấy màu sắc từ mảng ánh xạ, mặc định là 'bg-secondary' nếu không tìm thấy
+                                            $paymentColor = $paymentColors[$order->status_payment] ?? 'bg-secondary';
+                                        @endphp
+
+                                        <span class="badge {{ $paymentColor }}">
+                                            {{ $statusPaymentOptions[$order->status_payment] ?? 'Không xác định' }}
+                                        </span>
                             </div>
                             <div class="col-md-4">
                                 <strong>Tổng giá trị:</strong>

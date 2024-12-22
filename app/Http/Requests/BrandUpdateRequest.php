@@ -16,7 +16,7 @@ class BrandUpdateRequest extends FormRequest
             'country' => 'required|string|max:255',
             'description' => 'required|string',
             'status' => 'required|boolean',
-            'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'logo' => 'required|image|max:5048',
         ];
     }
 
@@ -34,8 +34,8 @@ class BrandUpdateRequest extends FormRequest
             'description.required' => 'Mô tả là bắt buộc.',
             'logo.required' => 'Logo là bắt buộc.',
             'logo.image' => 'Logo phải là tệp ảnh.',
-            'logo.mimes' => 'Logo chỉ được chấp nhận các định dạng: jpeg, png, jpg, gif.',
-            'logo.max' => 'Logo không được vượt quá 2MB.',
+            
+            'logo.max' => 'Logo không được vượt quá 5MB.',
             'status.required' => 'Trạng thái là bắt buộc.',
         ];
     }

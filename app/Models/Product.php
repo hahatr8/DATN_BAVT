@@ -36,7 +36,11 @@ class Product extends Model
     {
         return $this->hasOne(ProductImg::class, 'product_id')->latestOfMany(); // Ảnh mới nhất
     }
-    
+
+    public function firstImage()
+    {
+        return $this->productImgs()->orderBy('created_at', 'asc')->first();
+    }
 
     // Thiết lập quan hệ với model `ProductSize`
     public function productSizes()
@@ -53,5 +57,4 @@ class Product extends Model
     {
         return $this->hasMany(Comment::class);
     }
-    
 }

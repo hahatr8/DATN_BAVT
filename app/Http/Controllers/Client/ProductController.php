@@ -28,6 +28,9 @@ class ProductController extends Controller
             ->where('status', 1)  // Lọc chỉ lấy sản phẩm đang hoạt động
             ->findOrFail($id);
 
+        // Kiểm tra nếu có bất kỳ ProductSize nào có status là 0
+        $hasInactiveSizes = $product->productSizes()->where('status', 0)->exists();
+        $totalQuantity = $product->productSizes()->where('status', 1)->sum('quantity');
         // Lấy các sản phẩm khác có cùng thương hiệu với sản phẩm này
         $brandId = $product->brand->id; // Lấy ID thương hiệu của sản phẩm hiện tại
         $relatedProductsByBrand = Product::with('brand')
@@ -43,7 +46,7 @@ class ProductController extends Controller
 
         // dd($comments);
         // Trả về view với sản phẩm chi tiết và các sản phẩm liên quan
-        return view('client.products.product-detail', compact('comments', 'product', 'relatedProductsByBrand'));
+        return view('client.products.product-detail', compact('totalQuantity', 'hasInactiveSizes', 'comments', 'product', 'relatedProductsByBrand'));
     }
 
     public function list(Request $request)
@@ -70,23 +73,18 @@ class ProductController extends Controller
         }
 
         // Thêm phân trang, hiển thị 10 sản phẩm mỗi trang
-        $products = $query->paginate(10)->appends(['category_id' => $categoryId]); // Tự động trả về LengthAwarePaginator
 
         // Phân loại ảnh cho từng sản phẩm
-        $products->getCollection()->transform(function ($product) {
-            $images = $product->productImgs;
-
-            // Ảnh chính (first)
-            $product->mainImage = $images->first();
-
-            // Ảnh hover (second image)
-            $product->hoverImage = $images->skip(1)->first();
-
-            // Album ảnh (các ảnh còn lại)
-            $product->albumImages = $images->skip(2);
-
-            return $product;
-        });
+        $products = Product::with([
+            'categories',
+            'brand',
+            'productImgs',
+            'productSizes'
+        ])
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc')  // Sắp xếp từ mới đến cũ
+            ->get();
+        $products = $query->paginate(10)->appends(['category_id' => $categoryId]); // Tự động trả về LengthAwarePaginator
 
         return view('client.products.list-product', compact('categories', 'products', 'categoryId'));
     }

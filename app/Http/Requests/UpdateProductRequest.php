@@ -31,20 +31,19 @@ class UpdateProductRequest extends FormRequest
             'product.brand' => 'required|exists:brands,id', // Hãng phải tồn tại
             'product.description' => 'required|string|max:500', // Mô tả ngắn không quá 500 ký tự
             'product.content' => 'required|string|min:10', // Mô tả chi tiết phải có ít nhất 10 ký tự
-            'product.status' => 'required|boolean', // Trạng thái sản phẩm phải đúng kiểu boolean
+
 
             // Ảnh đại diện và album
 
-            'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Ảnh đại diện không bắt buộc nhưng nếu có phải hợp lệ
-            'array_img.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Ảnh album không bắt buộc nhưng phải hợp lệ
+            // 'img' => 'required|image|mimes:jpg,png,jpg,gif|max:2048', // Ảnh đại diện không bắt buộc nhưng nếu có phải hợp lệ
+            // 'array_img.*' => 'required|image|mimes:jpg,png,jpg,gif|max:2048', // Ảnh album không bắt buộc nhưng phải hợp lệ
             // Thông tin size
 
             'product_sizes' => 'nullable|array', // Mảng thông tin size
             'product_sizes.*.variant' => 'required_with:product_sizes.*|string|max:100', // Tên size
-            'product_sizes.*.img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Ảnh của size
+            'product_sizes.*.img' => 'required|image|mimes:jpg,png,jpg,gif|max:2048', // Ảnh của size
             'product_sizes.*.price' => 'required_with:product_sizes.*|numeric|min:0', // Giá của size
-            'product_sizes.*.quantity' => 'required_with:product_sizes.*|integer|min:0', // Số lượng của size
-            'product_sizes.*.status' => 'required_with:product_sizes.*|boolean', // Trạng thái của size     
+            'product_sizes.*.quantity' => 'required_with:product_sizes.*|integer|min:0', // Số lượng của size  
         ];
     }
     public function messages(): array
@@ -64,8 +63,6 @@ class UpdateProductRequest extends FormRequest
             'product.description.max' => 'Mô tả ngắn không được vượt quá 500 ký tự.',
             'product.content.required' => 'Mô tả chi tiết là bắt buộc.',
             'product.content.min' => 'Mô tả chi tiết phải có ít nhất 10 ký tự.',
-            'product.status.required' => 'Trạng thái sản phẩm là bắt buộc.',
-            'product.status.boolean' => 'Trạng thái sản phẩm không hợp lệ.',
             'img.image' => 'Ảnh đại diện phải là một tệp hình ảnh.',
             'img.required' => 'Ảnh đại diện bắt buộc phải nhập',
             'img.mimes' => 'Ảnh đại diện chỉ được chấp nhận các định dạng jpeg, png, jpg, gif.',
@@ -86,8 +83,6 @@ class UpdateProductRequest extends FormRequest
             'product_sizes.*.quantity.required_with' => 'Số lượng size là bắt buộc khi có thông tin size.',
             'product_sizes.*.quantity.integer' => 'Số lượng size phải là một số nguyên.',
             'product_sizes.*.quantity.min' => 'Số lượng size không được nhỏ hơn 0.',
-            'product_sizes.*.status.required_with' => 'Trạng thái size là bắt buộc khi có thông tin size.',
-            'product_sizes.*.status.boolean' => 'Trạng thái size không hợp lệ.',
         ];
     }
 }

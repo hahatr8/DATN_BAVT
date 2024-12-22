@@ -29,17 +29,17 @@
                                             </div>
                                             <div class="carousel-inner text-center text-white-50 pb-5">
                                                 <div class="carousel-item active">
-                                                    <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
+                                                    <p class="fs-15 fst-italic">" Chào mừng bạn đến với thế giới nước hoa SYMPHONY "</p>
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <p class="fs-15 fst-italic">" The theme is really great with an amazing customer support."</p>
+                                                    <p class="fs-15 fst-italic">" Thao tác tiện lợi giúp bạn có trải nghiệm tốt "</p>
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <p class="fs-15 fst-italic">" Great! Clean code, clean design, easy for customization. Thanks very much! "</p>
+                                                    <p class="fs-15 fst-italic">" Tuyệt, rất vui khi được gặp bạn "</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- end carousel -->
+<!-- end carousel -->
                                     </div>
                                 </div>
                             </div>
@@ -54,8 +54,8 @@
                                         {{ session('success') }}
                                     </div>
                                     @endif
-                                    <h5 class="text-primary">Welcome Back !</h5>
-                                    <p class="text-muted">Sign in to continue to Velzon.</p>
+                                    <h5 class="text-primary">Chào mừng bạn quay trở lại !</h5>
+                                    <p class="text-muted">Đăng nhập để tiếp tục vào SHYMPHONY.</p>
                                 </div>
 
                                 <div class="mt-4">
@@ -63,7 +63,7 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label for="emailaddress" class="form-label">Email</label>
-                                            <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" required="" placeholder="Enter your email" value="{{ old('email') }}">
+                                            <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" required="" placeholder="Nhập email" value="{{ old('email') }}">
                                             @error('email')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -71,22 +71,22 @@
 
                                         <div class="mb-3">
                                             <div class="float-end">
-                                                <a href="{{route('forgetpassword')}}" class="text-muted">Forgot password?</a>
+                                                <a href="{{route('forgetpassword')}}" class="text-muted">Quên mật khẩu?</a>
                                             </div>
-                                            <label class="form-label" for="password-input">Password</label>
+                                            <label class="form-label" for="password-input">Mật khẩu</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
-                                                <input type="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input" name="password">
+                                                <input type="password" class="form-control pe-5 password-input" placeholder="Nhập mật khẩu" id="password-input" name="password">
                                                 <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                             </div>
                                         </div>
 
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
-                                            <label class="form-check-label" for="auth-remember-check">Remember me</label>
+<label class="form-check-label" for="auth-remember-check">Ghi nhớ</label>
                                         </div>
 
                                         <div class="mt-4">
-                                            <button class="btn btn-success w-100" type="submit">Sign In</button>
+                                            <button class="btn btn-success w-100" type="submit">Đăng nhập</button>
                                         </div>
 
 
@@ -94,7 +94,7 @@
                                 </div>
 
                                 <div class="mt-5 text-center">
-                                    <p class="mb-0">Don't have an account ? <a href="{{route('register')}}" class="fw-semibold text-primary text-decoration-underline"> Signup</a> </p>
+                                    <p class="mb-0">Không có tài khoản ? <a href="{{route('register')}}" class="fw-semibold text-primary text-decoration-underline"> Đăng ký</a> </p>
                                 </div>
                             </div>
                         </div>

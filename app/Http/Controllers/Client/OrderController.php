@@ -79,7 +79,7 @@ class OrderController extends Controller
     {
         $order = Order::where('id', $id)
             ->where('user_id', Auth::id())
-            ->where('status_order', 'completed') // Chỉ trả hàng khi trạng thái là completed
+            ->where('status_order', 'completed') // Chỉ cho phép trả hàng nếu trạng thái là 'completed'
             ->first();
     
         if (!$order) {
@@ -87,10 +87,10 @@ class OrderController extends Controller
                 ->with('error', 'Không thể yêu cầu trả hàng cho đơn hàng này.');
         }
     
-        // Kiểm tra nếu đơn hàng đã quá 3 ngày kể từ ngày cập nhật
-        if (now()->diffInDays($order->updated_at) > 3) {
+        // Kiểm tra nếu đã quá 3 ngày kể từ ngày tạo (created_at) so với ngày cập nhật (updated_at)
+        if ($order->created_at->diffInDays($order->updated_at) > 3) {
             return redirect()->route('client.orders.show', $id)
-                ->with('error', 'Đã quá 3 ngày kể từ khi đơn hàng được giao. Không thể yêu cầu trả hàng.');
+                ->with('error', 'Đã quá 3 ngày kể từ ngày đơn hàng được cập nhật. Không thể yêu cầu trả hàng.');
         }
     
         // Nếu chưa quá 3 ngày, cập nhật trạng thái đơn hàng
@@ -101,6 +101,7 @@ class OrderController extends Controller
         return redirect()->route('client.orders.show', $id)
             ->with('success', 'Yêu cầu trả hàng của bạn đã được gửi. Vui lòng chờ xác nhận.');
     }
+    
     public function show($id)
     {
         // Lấy thông tin đơn hàng cùng với các sản phẩm liên quan

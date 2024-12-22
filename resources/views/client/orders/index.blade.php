@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container py-5">
-    <h1 class="mb-4">Quản lý đơn hàng</h1>
+    <h1 class="mb-4 text-center">Quản Lý Đơn Hàng</h1>
 
     <!-- Tabs lọc trạng thái -->
     <ul class="nav nav-tabs mb-4">
@@ -27,7 +27,7 @@
         <div class="card mb-3">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>
-                    <strong>Đơn hàng #{{ $order->id }}</strong> - 
+                    <strong>Đơn Hàng #{{ $order->id }}</strong> - 
                     @php
                         $statusLabels = [
                             'pending' => 'Chờ xử lý',
@@ -35,24 +35,32 @@
                             'shipping' => 'Đang vận chuyển',
                             'delivered' => 'Đã giao hàng',
                             'completed' => 'Hoàn thành',
+                            'shop_cancelled' => 'Cửa hàng đã hủy đơn',
                             'customer_cancelled' => 'Khách hàng đã hủy',
                             'canceled' => 'Đã hủy',
                             'return_requested' => 'Yêu cầu trả hàng',
-                            'return_approved' => 'Chấp nhận trả hàng',
-                            'return_rejected' => 'Từ chối trả hàng',
+                            'cancellation_refund_completed' => 'Hoàn tiền cho đơn hủy',
+                            'return_approved' => 'Chấp nhận yêu cầu trả hàng',
+                            'return_rejected' => 'Từ chối yêu cầu trả hàng',
+                            'return_in_transit' => 'Hàng đã được trả về',
+                            'refund_successful' => 'Đã hoàn tiền cho khách hàng'
                         ];
 
                         $statusColors = [
-                            'pending' => 'bg-warning text-dark',
+                            'pending' => 'bg-warning',
                             'confirmed' => 'bg-info',
                             'shipping' => 'bg-primary',
                             'delivered' => 'bg-success',
                             'completed' => 'bg-secondary',
+                            'shop_cancelled' => 'bg-danger',
                             'customer_cancelled' => 'bg-danger',
                             'canceled' => 'bg-danger',
                             'return_requested' => 'bg-warning',
+                            'cancellation_refund_completed' => 'bg-success',
                             'return_approved' => 'bg-info',
                             'return_rejected' => 'bg-danger',
+                            'return_in_transit' => 'bg-primary',
+                            'refund_successful' => 'bg-success'
                         ];
 
                         $statusLabel = $statusLabels[$order->status_order] ?? 'Không xác định';
@@ -61,8 +69,11 @@
 
                     <span class="badge {{ $statusColor }}">{{ $statusLabel }}</span>
                 </span>
-                {{-- <span>Ngày đặt: {{ $order->created_at->format('d/m/Y H:i') }}</span> --}}
+                <div class="text-muted small">
+                    <strong>Ngày:</strong> {{ $order->created_at ? $order->created_at->format('d/m/Y') : 'Không xác định' }}
+                </div>
             </div>
+
             <div class="card-body">
                 <!-- Hiển thị thông tin sản phẩm trong đơn hàng -->
                 @if ($order->orderItems->isEmpty())
@@ -83,6 +94,7 @@
                             <p class="mb-1">Số lượng: x{{ $item->quantity }}</p>
                             <p class="mb-0">Giá: {{ number_format($item->price, 0, ',', '.') }} ₫</p>
                         </div>
+                       
                     </div>
                     @endforeach
                 @endif
@@ -92,8 +104,14 @@
                     <strong>Tổng tiền: {{ number_format($order->total_price, 0, ',', '.') }} ₫</strong>
                 </div>
                 <div>
-                    <a href="{{ route('client.orders.show', $order->id) }}" class="btn btn-primary btn-sm">Xem chi tiết</a>
+                    <a href="{{ route('client.orders.show', $order->id) }}" 
+                       class="btn btn-primary btn-lg rounded-pill px-4 fw-bold shadow-lg d-inline-flex align-items-center justify-content-center"
+                       style="font-size: 1.2rem;">
+                        <i class="bi bi-eye me-2" style="font-size: 1.7rem;"></i> Xem chi tiết
+                    </a>
                 </div>
+                
+                
             </div>
         </div>
         @endforeach
@@ -105,6 +123,7 @@
     @endif
 </div>
 @endsection
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
 /* Tabs trạng thái */

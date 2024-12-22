@@ -3,15 +3,29 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\ForgetpasswordController;
 use App\Http\Controllers\Admin\DashBoardController;
 use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ForgetpasswordController;
+
+Route::middleware('auth')->group(function () {
+    Route::middleware('auth.member')->group(function () {
+        Route::prefix('admin')
+            ->as('admin.')
+            ->group(function () {
+                Route::get('/', function () {
+                    return view('admin.dashboard');
+                });
+            });
+    });
+});
+
+Route::get('verifyaccount/{email}', [AuthController::class, 'verify'])->name('verifyaccount');
 
 Route::middleware('auth')->group(function () {
     Route::middleware('auth.admin')->group(function () {
@@ -30,6 +44,7 @@ Route::middleware('auth')->group(function () {
                     });
                 Route::resource('categories', CategoryController::class);
 
+
                 // voucher
                 Route::prefix('vouchers')
                     ->as('vouchers.')
@@ -46,6 +61,7 @@ Route::middleware('auth')->group(function () {
 
                 Route::resource('brands', BrandController::class);
 
+
                 // route blog
                 Route::prefix('blog')
                     ->as('blog.')
@@ -55,6 +71,7 @@ Route::middleware('auth')->group(function () {
                         Route::get('/{blog}', [BlogController::class, 'softDestruction'])->name('softDestruction');
                     });
                 Route::resource('blogs', BlogController::class);
+
 
 
                 //comment
@@ -72,9 +89,6 @@ Route::middleware('auth')->group(function () {
                 Route::prefix('products')
                     ->as('products.')
                     ->group(function () {
-                        Route::get('/', function () {
-                            return view('admin.dashboard');
-                        });
                         Route::get('/index', [ProductController::class, 'index'])->name('index');
                         Route::get('/trash', [ProductController::class, 'trash'])->name('trash');
                         Route::post('/restore/{id}', [ProductController::class, 'restore'])->name('restore');
@@ -99,13 +113,20 @@ Route::middleware('auth')->group(function () {
                         Route::get('index', [UserController::class, 'index'])->name('index');
                         Route::get('create', [UserController::class, 'create'])->name('create');
                         Route::get('detail/{id}', [UserController::class, 'detail'])->name('detail');
-                        Route::get('createadd/{id}', [UserController::class, 'createadd'])->name('createadd');
+                        Route::get('createaddress/{id}', [UserController::class, 'createaddress'])->name('createaddress');
                         Route::post('store', [UserController::class, 'store'])->name('store');
-                        Route::post('storeadd/{id}', [UserController::class, 'storeadd'])->name('storeadd');
+                        Route::post('storeAddress/{id}', [UserController::class, 'storeAddress'])->name('storeAddress');
                         Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit');
+                        Route::get('editAddress/{id}', [UserController::class, 'editAddress'])->name('editAddress');
                         Route::put('update/{id}', [UserController::class, 'update'])->name('update');
-                        Route::delete('destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
-                        Route::get('empower/{id}', [UserController::class, 'empower'])->name('empower');
+                        Route::put('updateAddress/{id}', [UserController::class, 'updateAddress'])->name('updateAddress');
+                        Route::delete('destroy/{user}', [UserController::class, 'destroy'])->name('destroy');
+                        Route::get('empowerMember/{id}', [UserController::class, 'empowerMember'])->name('empowerMember');
+                        Route::get('empowerCustomer/{id}', [UserController::class, 'empowerCustomer'])->name('empowerCustomer');
+                        Route::get('empowerAdmin/{id}', [UserController::class, 'empowerAdmin'])->name('empowerAdmin');
+                        Route::get('/trash', [UserController::class, 'trash'])->name('trash');
+                        Route::get('/{user}', [UserController::class, 'softDestruction'])->name('softDestruction');
+                        Route::post('/{id}', [UserController::class, 'restore'])->name('restore');
                     });
             });
     });
@@ -113,7 +134,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-
+Route::get('/vn_pay', [OrderController::class, 'vn_pay'])->name('vn_pay');
 
 Route::get('login', [AuthController::class, 'showFormLogin']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
@@ -127,5 +148,6 @@ Route::post('restpasswordPost', [ForgetpasswordController::class, 'restpasswordP
 
 Route::get('register', [AuthController::class, 'showFormRegister']);
 Route::post('register', [AuthController::class, 'register'])->name('register');
+
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
