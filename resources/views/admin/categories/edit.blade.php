@@ -75,14 +75,21 @@
                                         <input type="text" class="form-control" id="name"
                                             placeholder="Nhập tên danh mục" name="name" value="{{ $category->name }}">
                                     </div>
-                                    <div class="mt-3">
-                                        <label for="" class="form-label">Thứ tự muốn hiển thị:</label>
-                                        <input type="text" class="form-control" id="display_order" name="display_order"
-                                            value="{{ $category->display_order }}">
-                                    </div>
                                 </div>
 
                                 <div class="col-md-8">
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-check form-switch form-switch-secondary">
+                                                <label for="SwitchCheck2" class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" value="1" role="switch"
+                                                        @if ($category->display_order) checked @endif name="display_order" id="SwitchCheck2"> Hiển thị trên tiêu đề
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-check form-switch form-switch-secondary">

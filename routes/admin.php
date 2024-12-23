@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\BlogController;
@@ -72,7 +73,15 @@ Route::middleware('auth')->group(function () {
                     });
                 Route::resource('blogs', BlogController::class);
 
-
+                // route banner
+                Route::prefix('banner')
+                    ->as('banner.')
+                    ->group(function () {
+                        Route::get('/trash', [BannerController::class, 'trash'])->name('trash');
+                        Route::post('/{id}', [BannerController::class, 'restore'])->name('restore');
+                        Route::get('/{banner}', [BannerController::class, 'softDestruction'])->name('softDestruction');
+                    });
+                Route::resource('banners', BannerController::class);
 
                 //comment
                 Route::prefix('comments')

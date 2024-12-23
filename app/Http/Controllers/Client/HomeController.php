@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Blog;
 use App\Models\Brand;
@@ -62,9 +63,8 @@ class HomeController extends Controller
         // Lấy 20 sản phẩm đang được giảm giá
         $productSales = Product::select('products.*', 'vouchers.discount')
             ->join('vouchers', function ($join) {
-                $join->on('products.id', '=', 'vouchers.product_id')
+                $join
                     ->where('vouchers.status', true) // Voucher phải còn hiệu lực
-                    ->where('vouchers.user_id', '=', Auth::id()) // Chỉ lấy voucher của người dùng hiện tại
                     ->whereDate('vouchers.start_date', '<=', Carbon::today()) // Ngày bắt đầu voucher
                     ->whereDate('vouchers.end_date', '>=', Carbon::today()); // Ngày kết thúc voucher
             })
@@ -95,8 +95,9 @@ class HomeController extends Controller
 
         $blogs = Blog::where('status', 1)->orderBy('created_at', 'desc')->limit(5)->get();
 
+        $banners = Banner::where('status', 1)->get();
 
-        return view(self::PATH_VIEW, compact('blogs','products', 'productViews', 'productHots', 'productSales', 'productsMiniCart', 'brands'));
+        return view(self::PATH_VIEW, compact('banners','blogs','products', 'productViews', 'productHots', 'productSales', 'productsMiniCart', 'brands'));
     }
 
 

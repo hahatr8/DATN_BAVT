@@ -12,7 +12,7 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->word, // Tên ngẫu nhiên cho category
-            'display_order' => $this->faker->randomNumber(), // Thứ tự ngẫu nhiên
+            'display_order' => $this->faker->boolean(), // Thứ tự ngẫu nhiên
             'status' => $this->faker->boolean(), // Trạng thái ngẫu nhiên
         ];
     }

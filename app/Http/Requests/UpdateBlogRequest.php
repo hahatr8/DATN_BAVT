@@ -23,7 +23,7 @@ class UpdateBlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:255|unique:blogs,title,' . $this->blog->id,
             'content' => 'required|string',
             'img' => ['image', Rule::requiredIf(empty(request('img_url')))], // Tối đa 2MB
         ];

@@ -20,8 +20,9 @@ return new class extends Migration
             $table->string('img')->nullable();
             $table->string('phone');
             $table->integer('xu')->nullable();
-            $table->enum('type', [ User::TYPE_ADMIN, User::TYPE_MEMBER ])->default(User::TYPE_MEMBER);
+            $table->enum('type', [ User::TYPE_ADMIN, User::TYPE_MEMBER, User::TYPE_CUSTOMER ])->default(User::TYPE_MEMBER);
             $table->boolean('status')->default(false);
+            $table->date('email_verified_at')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

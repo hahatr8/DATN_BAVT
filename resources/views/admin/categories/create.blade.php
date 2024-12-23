@@ -63,14 +63,21 @@
                                         <input type="text" class="form-control" id="name"
                                             placeholder="Nhập tên danh mục" name="name" value="{{ old('name') }}">
                                     </div>
-                                    <div class="mt-3">
-                                        <label for="" class="form-label">Thứ tự muốn hiển thị:</label>
-                                        <input type="text" class="form-control" id="display_order" name="display_order"
-                                            value="{{ old('display_order') }}">
-                                    </div>
                                 </div>
 
                                 <div class="col-md-8">
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-check form-switch form-switch-secondary">
+                                                <input class="form-check-input" type="checkbox" name="display_order" role="switch" id="SwitchCheck2" checked value="1">
+                                                <label class="form-check-label" for="SwitchCheck2">
+                                                    Hiển thị header
+                                                </label>
+                                              </div>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-check form-switch form-switch-secondary">

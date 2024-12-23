@@ -120,6 +120,6 @@ class BlogController extends Controller
         $blog = Blog::onlyTrashed()->findOrFail($id);
         $blog->restore();
 
-        return back()->with(['success' => 'Khôi phục sản phẩm thành công']);
+        return back()->with(['success' => 'Khôi phục banner thành công']);
     }
 }

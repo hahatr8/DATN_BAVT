@@ -159,6 +159,22 @@
                         </ul>
                     </div>
                 </li>
+                {{-- banner --}}
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarBanner" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarBanner">
+                        <i class="ri-compasses-2-line"></i> <span data-key="t-icons">Banner</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarBanner">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.banners.index') }}" class="nav-link"><span
+                                        data-key="t-remix">Danh sách</span></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
                 {{-- đơn hàng --}}
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarOrders" data-bs-toggle="collapse" role="button"

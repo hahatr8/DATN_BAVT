@@ -50,7 +50,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Tên danh mục</th>
-                                <th>display_order</th>
+                                <th>Hiển thị trên tiêu đề</th>
                                 <th>Trạng thái</th>
                                 <th>Sản phẩm</th>
                                 <th>created_at</th>
@@ -63,7 +63,13 @@
                                 <tr>
                                     <td>{{ $categories->id }}</td>
                                     <td>{{ $categories->name }}</td>
-                                    <td>{{ $categories->display_order }}</td>
+                                    <td>
+                                        @if ($categories->display_order == 1)
+                                            <span class="badge bg-success">Hiển thị</span>
+                                        @else
+                                            <span class="badge bg-danger">Ẩn</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         @if ($categories->status == 1)
                                             <span class="badge bg-success">Hiển thị</span>

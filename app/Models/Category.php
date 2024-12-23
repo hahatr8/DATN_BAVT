@@ -14,6 +14,7 @@ class Category extends Model
         'name',
         'display_order',
         'status',
+        'updated_at',
     ];
 
     

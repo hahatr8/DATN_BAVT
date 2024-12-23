@@ -114,7 +114,9 @@ class CategoryController extends Controller
             DB::beginTransaction();
 
             $dataCategory['status'] ??= 0;
-
+            $dataCategory['display_order'] ??= 0;
+            $dataCategory['updated_at'] = now();
+            
             /** @var Category $category */
             $category->update($dataCategory);
 
@@ -154,7 +156,7 @@ class CategoryController extends Controller
         $category = Category::onlyTrashed()->findOrFail($id);
         $category->restore();
 
-        return back()->with(['success' => 'Khôi phục sản phẩm thành công']);
+        return back()->with(['success' => 'Khôi phục danh mục thành công']);
     }
 
     private function handleData(StoreCategoryRequest|UpdateCategoryRequest $request)

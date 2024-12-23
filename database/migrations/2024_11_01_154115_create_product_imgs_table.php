@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Product::class)->constrained()->onDelete('cascade'); 
             $table->string('img');
+            $table->boolean('is_main')->default(false); // Mặc định là ảnh phụ
             $table->softDeletes();
             $table->timestamps();
         });
