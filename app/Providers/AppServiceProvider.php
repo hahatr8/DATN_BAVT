@@ -24,7 +24,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $categories = Category::query()->where('status', 1)->orderBy('display_order', 'asc')->paginate(5);
+        $categories = Category::query()
+        ->where('status', 1)
+        ->where('display_order', 1)
+        ->orderBy('updated_at', 'desc')
+        ->paginate(5);
+
         view()->share('globalCategories', $categories);
 
         // Sử dụng view composer để chia sẻ biến với tất cả các view

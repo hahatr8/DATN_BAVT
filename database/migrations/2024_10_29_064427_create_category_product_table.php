@@ -9,10 +9,10 @@ class CreateCategoryProductTable extends Migration
     public function up()
     {
         Schema::create('category_product', function (Blueprint $table) {
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade')->nullable();
+            $table->foreignId('product_id')->constrained()->onDelete('cascade')->nullable();
             $table->primary(['category_id', 'product_id']);
-            $table->timestamps(); // Thêm cột `timestamps`
+            $table->timestamps(); // Thêm cột `timestamps`            
         });
     }
 

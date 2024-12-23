@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-   Thùng rác
+    Thùng rác
 @endsection
 
 @section('content')
@@ -68,42 +68,49 @@
                             <tbody>
 
                                 @foreach ($trashedCategories as $categories)
-                                <tr>
-                                    <td>{{ $categories->id }}</td>
-                                    <td>{{ $categories->name }}</td>
-                                    <td>{{ $categories->display_order }}</td>
-                                    <td>
-                                        @if ($categories->status == 0)
-                                            <p>Hiển thị</p>
-                                        @else
-                                            <p>Ẩn</p>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @foreach ($categories->products as $product)
-                                            <span class="badge bg-info">
-                                                {{ $product->name }}
-                                            </span>
-                                        @endforeach
-                                    </td>
-                                    <td>{{ $categories->created_at }}</td>
-                                    <td>{{ $categories->updated_at }}</td>
-                                    <td>
-                                        <form action="{{ route('admin.category.restore', $categories->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-info">Khôi phục</button>
-                                        </form>
+                                    <tr>
+                                        <td>{{ $categories->id }}</td>
+                                        <td>{{ $categories->name }}</td>
+                                        <td>
+                                            @if ($categories->display_order == 1)
+                                                <span class="badge bg-success">Hiển thị</span>
+                                            @else
+                                                <span class="badge bg-danger">Ẩn</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($categories->status == 1)
+                                                <span class="badge bg-success">Hiển thị</span>
+                                            @else
+                                                <span class="badge bg-danger">Ẩn</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @foreach ($categories->products as $product)
+                                                <span class="badge bg-info">
+                                                    {{ $product->name }}
+                                                </span>
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $categories->created_at }}</td>
+                                        <td>{{ $categories->updated_at }}</td>
+                                        <td>
+                                            <form action="{{ route('admin.category.restore', $categories->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-info">Khôi phục</button>
+                                            </form>
 
-                                        <form action="{{ route('admin.categories.destroy', $categories) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger"
-                                                onclick="return confirm('Bạn có chắc muốn xóa không')">Xóa</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                            <form action="{{ route('admin.categories.destroy', $categories) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('Bạn có chắc muốn xóa không')">Xóa</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
 
                             </tbody>

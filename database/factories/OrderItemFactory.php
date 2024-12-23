@@ -17,7 +17,7 @@ class OrderItemFactory extends Factory
             'order_id' => Order::factory(),  // Tạo một đơn hàng liên kết
             'product_size_id' => ProductSize::factory(),  // Tạo một kích thước sản phẩm liên kết
             'quantity' => $this->faker->numberBetween(1, 100),  // Số lượng ngẫu nhiên từ 1 đến 100
-            'price' => $this->faker->randomFloat(2, 10, 1000),  // Giá ngẫu nhiên từ 10 đến 1000
+            'price' => $this->faker->random_int( 10, 1000),  // Giá ngẫu nhiên từ 10 đến 1000
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,11 +15,15 @@ class CreateProductSizesTable extends Migration
     public function up()
     {
         Schema::create('product_sizes', function (Blueprint $table) {
-            $table->id(); // Cột id tự tăng
-            $table->foreignId('product_id')->constrained()->onDelete('cascade'); // Khóa ngoại liên kết với bảng products
-            $table->string('size'); // Kích thước của sản phẩm (ví dụ: S, M, L hoặc 50ml, 100ml, ...)
-            $table->decimal('price', 10, 2); // Giá của sản phẩm tương ứng với kích thước
-            $table->timestamps(); // Tạo cột created_at và updated_at
+            $table->id(); // ID tự động tăng
+            $table->foreignIdFor(Product::class)->constrained()->onDelete('cascade'); 
+            $table->string('variant'); // Kích thước sản phẩm
+            $table->decimal('price', 10, 2); // Giá sản phẩm
+            $table->string('img'); 
+            $table->double('quantity');
+            $table->boolean('status')->default(false);
+            $table->softDeletes();
+            $table->timestamps(); // Cột created_at và updated_at
         });
     }
 
