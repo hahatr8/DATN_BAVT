@@ -89,7 +89,8 @@
                             ],
                             'shop_cancelled' => [
                                 [
-                                    'condition' => $order->status_payment === 'momo' || $order->status_payment === 'vnpay',                                    
+                                    'condition' =>
+                                        $order->status_payment === 'momo' || $order->status_payment === 'vnpay',
                                     'value' => 'cancellation_refund_completed',
                                     'label' => 'Hoàn tiền',
                                     'class' => 'bg-info',
@@ -105,7 +106,8 @@
                             ],
                             'customer_cancelled' => [
                                 [
-                                    'condition' => $order->status_payment === 'momo' || $order->status_payment === 'vnpay',                                    
+                                    'condition' =>
+                                        $order->status_payment === 'momo' || $order->status_payment === 'vnpay',
                                     'value' => 'cancellation_refund_completed',
                                     'label' => 'Hoàn tiền cho khách hàng',
                                     'class' => 'bg-info',
@@ -186,6 +188,7 @@
                         <input type="hidden" name="user_id" value="{{ $order->user_id }}">
                         <input type="hidden" name="address_id" value="{{ $order->address_id }}">
                         <input type="hidden" name="status_payment" value="{{ $order->status_payment }}">
+                        <input type="hidden" name="is_paid" value="{{ $order->is_paid }}">
                         <input type="hidden" name="total_price" value="{{ $order->total_price }}">
 
                         <div class="text-center">
@@ -213,93 +216,102 @@
                 </div>
 
                 <div class="card-body">
+
                     <div class="grid row">
-                        <!-- Nửa trái: Thông tin người dùng -->
-                        <div class="col-md-6 section">
-                            <h5 class="section-title">Thông tin người dùng</h5>
-                            <div class="user-info d-flex align-items-center">
-                                @if ($order->user->img)
-                                    <img src="{{ asset('storage/' . $order->user->img) }}" alt="Ảnh người dùng"
-                                        class="user-avatar me-3 rounded-circle">
-                                @else
-                                    <div class="placeholder-avatar me-3">Chưa có ảnh</div>
-                                @endif
+                        <!-- Thông tin người dùng và địa chỉ -->
+                        <div class="col-md-7 section">
+                            <h5 class="section-title">Thông tin người dùng & Địa chỉ</h5>
+                            <div class="d-flex">
+                                <!-- Ảnh người dùng -->
+                                <div class="me-5">
+                                    @if ($order->user->img)
+                                        <img src="{{ asset('storage/' . $order->user->img) }}" alt="Ảnh người dùng"
+                                            class="user-avatar rounded-circle">
+                                    @else
+                                        <div class="placeholder-avatar">Chưa có ảnh</div>
+                                    @endif
+                                </div>
+                                <!-- Thông tin người dùng và địa chỉ -->
                                 <div>
                                     <p><strong>Tên:</strong> {{ $order->user->name }}</p>
-                                    <p><strong>Số điện thoại:</strong> {{ $order->user->phone ?? 'Chưa cập nhật' }}</p>
+                                    <p><strong>Điện thoại:</strong> {{ $order->user->phone ?? 'Chưa cập nhật' }}</p>
                                     <p><strong>Email:</strong> {{ $order->user->email }}</p>
+                                    <hr>
+                                    <p><strong>Địa chỉ:</strong> {{ $order->address->address }}</p>
+                                    <p><strong>Huyện:</strong> {{ $order->address->District }}</p>
+                                    <p><strong>Thành phố:</strong> {{ $order->address->city }}</p>
+                                    <p><strong>Quốc gia:</strong> {{ $order->address->country }}</p>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Nửa phải: Thông tin địa chỉ -->
-                        <div class="col-md-6 section">
-                            <h5 class="section-title">Thông tin địa chỉ</h5>
-                            <p><strong>Địa chỉ:</strong> {{ $order->address->address }}</p>
-                            <p><strong>Huyện:</strong> {{ $order->address->District }}</p>
-                            <p><strong>Thành phố:</strong> {{ $order->address->city }}</p>
-                            <p><strong>Quốc gia:</strong> {{ $order->address->country }}</p>
-                        </div>
-                    </div>
+                        <!-- Thông tin đơn hàng -->
+                        <div class="col-md-5 section">
+                            <h5 class="section-title">Thông tin đơn hàng</h5>
+                            <div class="d-flex flex-wrap">
+                                <!-- Trạng thái đơn hàng -->
+                                <div class="me-4">
+                                    @php
+                                        $statusColors = [
+                                            'pending' => 'bg-warning',
+                                            'confirmed' => 'bg-info',
+                                            'shipping' => 'bg-primary',
+                                            'delivered' => 'bg-success',
+                                            'completed' => 'bg-secondary',
+                                            'shop_cancelled' => 'bg-danger',
+                                            'customer_cancelled' => 'bg-danger',
+                                            'canceled' => 'bg-danger',
+                                            'return_requested' => 'bg-warning',
+                                            'return_approved' => 'bg-info',
+                                            'return_rejected' => 'bg-danger',
+                                            'return_in_transit' => 'bg-primary',
+                                            'refund_successful' => 'bg-success',
+                                        ];
+                                        $statusColor = $statusColors[$order->status_order] ?? 'bg-purple';
+                                    @endphp
+                                    <p><strong>Trạng thái đơn hàng :</strong>
+                                        <span class="badge {{ $statusColor }}">
+                                            {{ $statusOrderOptions[$order->status_order] ?? 'Không xác định' }}
+                                        </span>
+                                    </p>
+                                </div>
 
-                    <!-- Thông tin đơn hàng -->
-                    <div class="section">
-                        <h5 class="section-title">Thông tin đơn hàng</h5>
-                        <div class="row">
-                            <div class="col-md-4">
-                                @php
-                                    $statusColors = [
-                                        'pending' => 'bg-warning', // Chờ xác nhận
-                                        'confirmed' => 'bg-info', // Đã xác nhận
-                                        'shipping' => 'bg-primary', // Đang vận chuyển
-                                        'delivered' => 'bg-success', // Đã giao hàng
-                                        'completed' => 'bg-secondary', // Hoàn thành
-
-                                        'shop_cancelled' => 'bg-danger',
-
-                                        'customer_cancelled' => 'bg-danger', // Khách hàng đã hủy đơn hàng
-                                        'cancellation_refund_completed' => 'bg-warning', // Hoàn tiền cho khách hàng đã hủy đơn
-                                        'canceled' => 'bg-danger', // Đơn hàng đã bị hủy
-
-                                        'return_requested' => 'bg-warning', // Khách hàng đã yêu cầu trả hàng
-                                        'return_approved' => 'bg-info', // Chấp nhận yêu cầu trả hàng
-                                        'return_rejected' => 'bg-danger', // Từ chối yêu cầu trả hàng
-                                        'return_in_transit' => 'bg-primary', // Hàng đang được trả về
-                                        'refund_successful' => 'bg-success', // Đã hoàn tiền cho khách hàng
-                                    ];
-
-                                    // Lấy màu sắc từ mảng ánh xạ, mặc định là 'bg-purple' nếu không tìm thấy
-                                    $statusColor = $statusColors[$order->status_order] ?? 'bg-purple';
-                                @endphp
-                                <strong>Trạng thái đơn hàng:</strong>
-                                <span class="badge {{ $statusColor }}">
-                                    {{ $statusOrderOptions[$order->status_order] ?? 'Không xác định' }}
-                                </span>
-
-                            </div>
-                            <div class="col-md-4">
-                                <strong>Phương thức thanh toán:</strong>
-                                @php
-                                            // Mảng ánh xạ trạng thái thanh toán với màu sắc
-                                            $paymentColors = [
-                                                'momo' => 'bg-success', // Momo
-                                                'cash' => 'bg-warning', // Tiền mặt
-                                                'vnpay' => 'bg-primary', // VNPay
-                                            ];
-
-                                            // Lấy màu sắc từ mảng ánh xạ, mặc định là 'bg-secondary' nếu không tìm thấy
-                                            $paymentColor = $paymentColors[$order->status_payment] ?? 'bg-secondary';
-                                        @endphp
-
+                                <!-- Phương thức thanh toán -->
+                                <div class="me-4">
+                                    @php
+                                        $paymentColors = [
+                                            'momo' => 'bg-success',
+                                            'cash' => 'bg-warning',
+                                            'vnpay' => 'bg-primary',
+                                        ];
+                                        $paymentColor = $paymentColors[$order->status_payment] ?? 'bg-secondary';
+                                    @endphp
+                                    <p><strong>Phương thức thanh toán:</strong>
                                         <span class="badge {{ $paymentColor }}">
                                             {{ $statusPaymentOptions[$order->status_payment] ?? 'Không xác định' }}
                                         </span>
-                            </div>
-                            <div class="col-md-4">
-                                <strong>Tổng giá trị:</strong>
-                                <span class="fw-bold text-danger">{{ number_format($order->total_price, 0, ',', '.') }}
-                                    VND</span>
+                                    </p>
+                                </div>
 
+                                <div class="me-4">
+                                    <p><strong>Trạng thái thanh toán:</strong>
+                                        @if ($order->is_paid)
+                                            <span class="badge bg-success">Đã thanh toán</span>
+                                        @else
+                                            <span class="badge bg-danger">Chưa thanh toán</span>
+                                        @endif
+                                    </p>
+                                    <p><strong>Ngày đặt hàng:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
+                                </div>
+
+                                <!-- Tổng giá trị đơn hàng -->
+                                <div>
+                                    <p><strong>Tổng tiền :</strong>
+                                        <span class="fw-bold text-danger">
+                                            {{ number_format($order->total_price, 0, ',', '.') }} VND
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -314,6 +326,7 @@
                                 <thead>
                                     <tr class="table-secondary text-center">
                                         <th>Sản phẩm</th>
+                                        <th>Size</th>
                                         <th>Số lượng</th>
                                         <th>Giá</th>
                                     </tr>
@@ -321,24 +334,23 @@
                                 <tbody>
                                     @foreach ($order->orderItems as $item)
                                         <tr>
-                                            <td>{{ $item->productSize->product->name ?? 'N/A' }} -
-                                                {{ $item->productSize->variant ?? 'N/A' }}</td>
+                                            <td>{{ $item->productSize->product->name ?? 'N/A' }}</td>
+                                            <td class="text-center">{{ $item->productSize->variant ?? 'N/A' }}</td>
                                             <td class="text-center">{{ $item->quantity }}</td>
-                                            <td class="text-end">{{ number_format($item->price, 0, ',', '.') }} VND
-                                            </td>
+                                            <td class="text-end">{{ number_format($item->price, 0, ',', '.') }} VND</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="2" class="text-end">Tổng tiền:</td>
-                                        <td class="text-end">{{ number_format($order->total_price, 0, ',', '.') }} VND
-                                        </td>
+                                        <td colspan="3" class="text-end">Tổng tiền:</td>
+                                        <td class="text-end">{{ number_format($order->total_price, 0, ',', '.') }} VND</td>
                                     </tr>
                                 </tfoot>
                             </table>
                         @endif
                     </div>
+
                 </div>
             </div>
 
@@ -350,33 +362,24 @@
 @section('style-libs')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .page-title-box {
-            margin-bottom: 20px;
-        }
-
-        .section {
-            margin-bottom: 20px;
-        }
-
         .section-title {
             font-size: 1.25rem;
             font-weight: 600;
             color: #333;
-            margin-bottom: 15px;
             border-left: 4px solid #17a2b8;
             padding-left: 10px;
         }
 
         .user-avatar {
-            width: 80px;
-            height: 80px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
         }
 
         .placeholder-avatar {
-            width: 80px;
-            height: 80px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             background-color: #ddd;
             display: flex;
@@ -406,42 +409,8 @@
         }
 
         .grid {
-            margin: 20px 0;
-        }
-
-        .section {
-            margin-bottom: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f8f9fa;
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #333;
-            border-left: 4px solid #007bff;
-            padding-left: 10px;
-        }
-
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .placeholder-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
+            margin: 0px;
+            padding: 0px;
         }
     </style>
 @endsection

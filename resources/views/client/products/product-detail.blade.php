@@ -325,11 +325,9 @@
 
     <style>
         .quantity {
-            background-color: #f8f9fa;
+            background-color: white;
             /* Màu nền nhẹ */
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            /* Bo tròn */
+            border: 3px solid #C29958;
             display: flex;
             align-items: center;
             /* Canh giữa theo trục dọc */
@@ -338,7 +336,7 @@
         }
 
         .quantity-btn {
-            background-color: #f8f9fa;
+            background-color: white;
             /* Màu nền nhẹ */
             padding: 6px 6px;
             /* Khoảng cách bên trong */
@@ -346,8 +344,6 @@
             /* Kích thước chữ */
             cursor: pointer;
             /* Con trỏ chuột dạng click */
-            margin: 0 5px;
-            /* Khoảng cách giữa các nút */
             transition: all 0.3s ease;
             /* Hiệu ứng khi hover */
         }
@@ -355,8 +351,6 @@
         .quantity-btn:hover {
             background-color: #C29958;
             /* Màu nền khi hover */
-            border-color: #adb5bd;
-            /* Màu viền khi hover */
         }
 
         #quantity {
@@ -366,10 +360,7 @@
             /* Canh giữa chữ */
             font-size: 16px;
             /* Kích thước chữ */
-            border: 1px solid #ced4da;
-            /* Viền nhẹ */
-            border-radius: 4px;
-            /* Bo tròn */
+            border: none;
             padding: 5px;
             /* Khoảng cách bên trong */
         }

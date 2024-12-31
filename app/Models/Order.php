@@ -69,6 +69,7 @@ class Order extends Model
         'address_id',
         'status_order',
         'status_payment',
+        'is_paid',
         'total_price',
     ];
 

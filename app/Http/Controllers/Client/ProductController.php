@@ -28,9 +28,13 @@ class ProductController extends Controller
             ->where('status', 1)  // Lọc chỉ lấy sản phẩm đang hoạt động
             ->findOrFail($id);
 
+        // Tăng view sản phẩm lên 1
+        $product->increment('view');
+
         // Kiểm tra nếu có bất kỳ ProductSize nào có status là 0
         $hasInactiveSizes = $product->productSizes()->where('status', 0)->exists();
         $totalQuantity = $product->productSizes()->where('status', 1)->sum('quantity');
+
         // Lấy các sản phẩm khác có cùng thương hiệu với sản phẩm này
         $brandId = $product->brand->id; // Lấy ID thương hiệu của sản phẩm hiện tại
         $relatedProductsByBrand = Product::with('brand')
@@ -39,12 +43,11 @@ class ProductController extends Controller
             ->where('id', '!=', $product->id) // Loại bỏ sản phẩm hiện tại
             ->get();
 
-        // bình luận
+        // Lấy bình luận
         $comments = Comment::with('user')->where('status', 0)
             ->where('product_id', $product->id)
             ->get();
 
-        // dd($comments);
         // Trả về view với sản phẩm chi tiết và các sản phẩm liên quan
         return view('client.products.product-detail', compact('totalQuantity', 'hasInactiveSizes', 'comments', 'product', 'relatedProductsByBrand'));
     }

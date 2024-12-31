@@ -57,13 +57,13 @@
                                 <th class="text-center">
                                     {{-- <input type="checkbox" id="select-all"> <!-- Checkbox chọn tất cả --> --}}
                                 </th>
-                                <th class="text-center">Mã</th>
-                                <th class="text-center">Người dùng</th>
-                                <th class="text-center">Thời gian</th>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Khách hàng</th>
                                 <th class="text-center">Tổng tiền</th>
-                                <th class="text-center">Thanh toán</th>
-                                <th class="text-center">Trạng thái</th>
-                                <th class="text-center">Thao tác</th>
+                                <th class="text-center">Phương thức <br> thanh toán</th>
+                                <th class="text-center">Trạng thái <br> thanh toán</th>
+                                <th class="text-center">Trạng thái <br> đơn hàng</th>
+                                <th class="text-center">Cập nhật <br> đơn hàng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,7 +76,6 @@
                                     </td>
                                     <td class="text-center">{{ $order->id }}</td>
                                     <td class="text-center">{{ $order->user->name }}</td>
-                                    <td class="text-center">{{ $order->created_at->format('d-m-Y / H:i:s') }}</td>
                                     <td class="text-center">{{ number_format($order->total_price, 0, ',', '.') }} VND</td>
                                     <td class="text-center">
                                         @php
@@ -95,7 +94,13 @@
                                             {{ $statusPaymentOptions[$order->status_payment] ?? 'Không xác định' }}
                                         </span>
                                     </td>
-
+                                    <td class="text-center">
+                                        @if ($order->is_paid)
+                                            <span class="badge bg-success">Đã thanh toán</span>
+                                        @else
+                                            <span class="badge bg-danger">Chưa thanh toán</span>
+                                        @endif
+                                    </td>
                                     <td class="text-center">
                                         @php
                                             $statusColors = [
@@ -174,7 +179,9 @@
                                                 ],
                                                 'shop_cancelled' => [
                                                     [
-                                                        'condition' => $order->status_payment === 'momo' || $order->status_payment === 'vnpay',
+                                                        'condition' =>
+                                                            $order->status_payment === 'momo' ||
+                                                            $order->status_payment === 'vnpay',
                                                         'value' => 'cancellation_refund_completed',
                                                         'label' => 'Hoàn tiền',
                                                         'class' => 'bg-info',
@@ -188,7 +195,9 @@
                                                 ],
                                                 'customer_cancelled' => [
                                                     [
-                                                        'condition' => $order->status_payment === 'momo' || $order->status_payment === 'vnpay',
+                                                        'condition' =>
+                                                            $order->status_payment === 'momo' ||
+                                                            $order->status_payment === 'vnpay',
                                                         'value' => 'cancellation_refund_completed',
                                                         'label' => 'Hoàn tiền cho khách hàng',
                                                         'class' => 'bg-info',

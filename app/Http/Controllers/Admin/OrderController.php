@@ -22,7 +22,6 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders', 'statusOrderOptions', 'statusPaymentOptions'));
     }
 
-
     public function edit($id)
     {
         $order = Order::with(['orderItems.productSize.product', 'user', 'address'])->findOrFail($id);
@@ -33,20 +32,22 @@ class OrderController extends Controller
         return view('admin.orders.edit', compact('order', 'statusOrderOptions', 'statusPaymentOptions'));
     }
 
-
     // Hàm hoàn tiền cho khách hàng khi đơn hàng bị hủy
     private function refundCustomer(Order $order)
     {
-        // Kiểm tra phương thức thanh toán của khách hàng
-        if (in_array($order->status_payment, [Order::STATUS_PAYMENT_MOMO, Order::STATUS_PAYMENT_VNPAY])) {
-            $user = $order->user;
+        // Kiểm tra nếu đơn hàng đã được thanh toán
+        if ($order->is_paid == 1) {
+            // Kiểm tra phương thức thanh toán của khách hàng
+            if (in_array($order->status_payment, [Order::STATUS_PAYMENT_MOMO, Order::STATUS_PAYMENT_VNPAY])) {
+                $user = $order->user;
 
-            // Kiểm tra nếu cần thiết: đảm bảo tài khoản của người dùng có đủ điểm (nếu cần)
-            $newXuBalance = $user->xu + $order->total_price;
-            if ($newXuBalance >= 0) {
-                $user->xu = $newXuBalance; // Hoàn tiền cho khách hàng dưới dạng xu
+                // Hoàn tiền dưới dạng xu
+                $newXuBalance = $user->xu + $order->total_price;
+                $user->xu = $newXuBalance; // Cập nhật số xu của khách hàng
                 $user->save();
             }
+        } else {
+            throw new \Exception("Đơn hàng chưa được thanh toán, không thể hoàn tiền.");
         }
     }
 
@@ -85,7 +86,6 @@ class OrderController extends Controller
                     $order->status_order === Order::STATUS_ORDER_CUSTOMER_CANCELLED ||
                     $order->status_order === Order::STATUS_ORDER_SHOP_CANCELLED
                 ) {
-                    
                     $this->refundCustomer($order);
                 }
 
@@ -95,6 +95,7 @@ class OrderController extends Controller
                     'status_order' => $request->status_order,
                     'address_id' => $request->address_id,
                     'status_payment' => $request->status_payment,
+                    'is_paid' => $request->is_paid,
                     'total_price' => $request->total_price,
                 ]);
 
@@ -116,6 +117,11 @@ class OrderController extends Controller
                         } else {
                             throw new \Exception("Sản phẩm với ID '{$item->product_size_id}' không tồn tại.");
                         }
+                    }
+
+                    // **Cập nhật trạng thái thanh toán**
+                    if ($order->is_paid == 0) {
+                        $order->update(['is_paid' => 1]);
                     }
                 }
 
@@ -182,7 +188,7 @@ class OrderController extends Controller
 
                 // Kiểm tra trạng thái hiện tại có thể chuyển đổi sang trạng thái mới không
                 if (!in_array($newStatus, $statusTransitions[$currentStatus] ?? [])) {
-                    throw new \Exception("Không thể chuyển từ trạng thái '{$currentStatus}' sang '{$newStatus}' cho đơn hàng ID: {$order->id}");
+                    throw new \Exception("Không thể chuyển đổi trạng thái vì trạng thái đơn hàng mới không được cho phép");
                 }
 
                 // **Xử lý các trường hợp đặc biệt**
@@ -203,6 +209,11 @@ class OrderController extends Controller
                         } else {
                             throw new \Exception("Không tìm thấy sản phẩm với ID: {$item->product_size_id} trong đơn hàng ID: {$order->id}");
                         }
+                    }
+
+                    // **Cập nhật trạng thái thanh toán**
+                    if ($order->is_paid == 0) {
+                        $order->update(['is_paid' => 1]);
                     }
                 }
 

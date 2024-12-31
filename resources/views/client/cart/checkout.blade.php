@@ -9,9 +9,9 @@
                     <div class="breadcrumb-wrap">
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="shop.html">shop</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">checkout</li>
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fa fa-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('cart.show') }}">Giỏ hàng</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Đặt hàng</li>
                             </ul>
                         </nav>
                     </div>
@@ -20,21 +20,24 @@
         </div>
     </div>
     <!-- breadcrumb area end -->
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
     <!-- checkout main wrapper start -->
     <div class="checkout-page-wrapper section-padding">
-        <div class="container">
 
+        <div class="container">
+            <div>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
             <div class="checkout-box-wrap mb-5">
                 <div class="single-input-item">
                     <div class="custom-control custom-checkbox">

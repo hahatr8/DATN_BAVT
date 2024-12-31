@@ -94,7 +94,7 @@
                                             @endif
 
                                         </td>
-                                        <td>{{ $product->price }}</td>
+                                        <td>{{ number_format($product->price, 0, ',', '.') }} VND</td>
                                         <td>{{ $product->view }}</td>
                                         <td>
                                             <form action="{{ route('admin.products.restore', $product->id) }}"

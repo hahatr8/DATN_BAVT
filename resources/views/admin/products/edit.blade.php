@@ -21,7 +21,19 @@
         </div>
     </div>
     <!-- end page title -->
+    <div>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+    </div>
     <form action="{{ route('admin.products.update', $product) }}" method="POST" id="createproduct-form" autocomplete="off"
         class="needs-validation" novalidate enctype="multipart/form-data">
         @csrf
@@ -33,17 +45,6 @@
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0 text-white">Chỉnh Sửa Sản Phẩm # {{ $product->id }}</h5>
                     </div>
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-lg-8">
@@ -282,11 +283,11 @@
                                         <select class="form-control" name="product_sizes[{{ $index }}][status]">
                                             <option value="1"
                                                 {{ old("product_sizes.$index.status", $size->status) == 1 ? 'selected' : '' }}>
-                                                Hiển
+                                                Hoạt động
                                             </option>
                                             <option value="0"
                                                 {{ old("product_sizes.$index.status", $size->status) == 0 ? 'selected' : '' }}>
-                                                Ẩn
+                                                Không hoạt động
                                             </option>
                                         </select>
                                     </td>

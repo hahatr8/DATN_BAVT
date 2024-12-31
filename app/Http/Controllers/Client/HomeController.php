@@ -60,17 +60,9 @@ class HomeController extends Controller
             ->get();
         // dd($productHots);
 
-        // Lấy 20 sản phẩm đang được giảm giá
-        $productSales = Product::select('products.*', 'vouchers.discount')
-            ->join('vouchers', function ($join) {
-                $join
-                    ->where('vouchers.status', true) // Voucher phải còn hiệu lực
-                    ->whereDate('vouchers.start_date', '<=', Carbon::today()) // Ngày bắt đầu voucher
-                    ->whereDate('vouchers.end_date', '>=', Carbon::today()); // Ngày kết thúc voucher
-            })
-            ->whereNull('products.deleted_at') // Sản phẩm chưa bị xóa mềm
-            ->where('products.status', 1) // Sản phẩm đang hoạt động
-            ->take(20) // Giới hạn 20 sản phẩm
+        $productCheaps = Product::where('status', true)
+            ->orderBy('price', 'asc')
+            ->take(20)
             ->get();
 
         $productsMiniCart = Product::with([
@@ -97,7 +89,7 @@ class HomeController extends Controller
 
         $banners = Banner::where('status', 1)->get();
 
-        return view(self::PATH_VIEW, compact('banners','blogs','products', 'productViews', 'productHots', 'productSales', 'productsMiniCart', 'brands'));
+        return view(self::PATH_VIEW, compact('banners', 'blogs', 'products', 'productViews', 'productHots', 'productCheaps', 'productsMiniCart', 'brands'));
     }
 
 
@@ -121,5 +113,4 @@ class HomeController extends Controller
 
         return redirect($request->input('current_url'))->with('error', 'Sản phẩm không tồn tại trong giỏ hàng');
     }
-    
 }

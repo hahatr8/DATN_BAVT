@@ -1,5 +1,5 @@
-
 @extends('admin.layouts.master')
+
 @section('title')
     {{ $title }}
 @endsection
@@ -22,7 +22,19 @@
         </div>
     </div>
     <!-- end page title -->
+    <div>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -39,17 +51,6 @@
                         <a href="{{ route('admin.products.create') }}" class="btn btn-primary">Thêm sản phẩm</a>
                     </div>
                 </div>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
                 <div class="card-body">
                     <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
                         style="width:100%">
@@ -61,20 +62,22 @@
                                 <th data-ordering="false">Hãng</th>
                                 <th>Ảnh</th>
                                 <th>Giá</th>
-                                <th>Lượt xem</th>
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
-
                             @foreach ($products as $product)
-                                <tr>
+                                <tr onclick="window.location='{{ route('admin.products.show', $product) }}'">
                                     <td>{{ $product->id }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td>
-                                        {!! $product->categories->pluck('name')->implode('<br>') !!}
+                                        {!! $product->categories->filter(function ($category) {
+                                                return is_null($category->deleted_at) && $category->status == 1;
+                                            })->pluck('name')->implode('<br>') !!}
                                     </td>
-                                    <td>{{ $product->brand->name }}</td>
+                                    <td>
+                                        {{ $product->brand && $product->brand->status == 1 && $product->brand->deleted_at == null ? $product->brand->name : '' }}
+                                    </td>
                                     <td>
                                         @if ($product->productImgs->isNotEmpty())
                                             @php
@@ -93,10 +96,9 @@
                                             <p>No image available</p>
                                         @endif
                                     </td>
-                                    <td>{{ $product->price }}</td>
-                                    <td>{{ $product->view }}</td>
-                                    <td>
-                                        <div class="">
+                                    <td>{{ number_format($product->price, 0, ',', '.') }} VND</td>
+                                    <td onclick="event.stopPropagation();">
+                                        <div>
                                             <a href="{{ route('admin.products.edit', $product) }}"
                                                 class="btn btn-sm btn-warning">Chỉnh sửa</a>
                                             <a href="{{ route('admin.products.destroy', $product) }}"
@@ -106,17 +108,17 @@
                                     </td>
                                 </tr>
                             @endforeach
-
-
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
     </div>
     </div>
 @endsection
+
 @section('style-libs')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
     <!--datatable responsive css-->

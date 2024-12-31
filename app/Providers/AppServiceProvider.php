@@ -25,18 +25,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $categories = Category::query()
-        ->where('status', 1)
-        ->where('display_order', 1)
-        ->orderBy('updated_at', 'desc')
-        ->paginate(5);
+            ->where('status', 1)
+            ->where('display_order', 1)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(5);
 
         view()->share('globalCategories', $categories);
 
         // Sử dụng view composer để chia sẻ biến với tất cả các view
         View::composer('*', function ($view) {
             $cartItems = Cart::where('user_id', Auth::id())->get();
-            
-            $totalAmount = $cartItems->sum(function($item) {
+
+            $totalAmount = $cartItems->sum(function ($item) {
                 $productPrice = $item->productSize->product->price + $item->productSize->price;
                 return $productPrice * $item->quantity;
             });
@@ -45,12 +45,11 @@ class AppServiceProvider extends ServiceProvider
             $finalAmount = $totalAmount;
 
             $view->with('cartItems', $cartItems)
-                 ->with('totalAmount', $totalAmount)
-                 ->with('finalAmount', $finalAmount)
-                 ->with('discount', $discount);
+                ->with('totalAmount', $totalAmount)
+                ->with('finalAmount', $finalAmount)
+                ->with('discount', $discount);
         });
 
         Paginator::useBootstrapFive();
     }
 }
-
