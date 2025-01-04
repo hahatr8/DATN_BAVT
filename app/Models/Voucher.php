@@ -23,8 +23,6 @@ class Voucher extends Model
         'quantity',
         'discount',
         'status',
-        'user_id',
-        'product_id',
         'start_date',
         'end_date',
     ];

@@ -23,6 +23,7 @@
                         <th>Hành động</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach($comments as $comment)
                     <tr>

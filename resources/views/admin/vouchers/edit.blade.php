@@ -60,36 +60,6 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="user_id" class="form-label">User</label>
-                        <select class="form-select @error('user_id') is-invalid @enderror" id="user_id" name="user_id">
-                            <option value="" disabled>Select user</option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}" {{ old('user_id', $voucher->user_id) == $user->id ? 'selected' : '' }}>
-                                    {{ $user->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('user_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="product_id" class="form-label">Product (Optional)</label>
-                        <select class="form-select @error('product_id') is-invalid @enderror" id="product_id" name="product_id">
-                            <option value="">None</option>
-                            @foreach ($products as $product)
-                                <option value="{{ $product->id }}" {{ old('product_id', $voucher->product_id) == $product->id ? 'selected' : '' }}>
-                                    {{ $product->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('product_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
                         <label for="start_date" class="form-label">Start Date</label>
                         <input type="date" 
                                class="form-control @error('start_date') is-invalid @enderror" 

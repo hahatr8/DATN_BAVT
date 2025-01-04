@@ -53,10 +53,7 @@ class VoucherController extends Controller
         $request->validate([
             'E_vorcher' => 'required|unique:vouchers',
             'quantity' => 'required|numeric',
-            'discount' => 'required|integer',
-            'status' => 'required|boolean',
-            'user_id' => 'nullable|exists:users,id',
-            'product_id' => 'nullable|exists:products,id',
+            'discount' => 'required|integer|min:5|max:90',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
         ]);
@@ -67,8 +64,6 @@ class VoucherController extends Controller
         $voucher->quantity = $request->quantity;
         $voucher->discount = $request->discount;
         $voucher->status = $request->status ?? true;
-        $voucher->user_id = $request->user_id;
-        $voucher->product_id = $request->product_id;
         $voucher->start_date = $request->start_date;
         $voucher->end_date = $request->end_date;
         // Lưu voucher
@@ -94,10 +89,7 @@ class VoucherController extends Controller
         $request->validate([
             'E_vorcher' => 'required|unique:vouchers,E_vorcher,' . $voucher->id,
             'quantity' => 'required|numeric',
-            'discount' => 'required|integer',
-            'status' => 'required|boolean',
-            'user_id' => 'required|exists:users,id',
-            'product_id' => 'nullable|exists:products,id',
+            'discount' => 'required|integer|min:5|max:90',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
         ]);
