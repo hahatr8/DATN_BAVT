@@ -25,8 +25,6 @@
                         <th>Số lượng</th>
                         <th>Giảm giá</th>
                         <th>Trạng thái</th>
-                        <th>Người dùng</th>
-                        <th>Sản phẩm</th>
                         <th>Ngày bắt đầu</th>
                         <th>Ngày kết thúc</th>
                         <th class="text-center">Actions</th>
@@ -44,8 +42,6 @@
                                 {{ $voucher->status ? 'Active' : 'Inactive' }}
                             </span>
                         </td>
-                        <td>{{ $voucher->user ? $voucher->user->name : 'NULL' }}</td>
-                        <td>{{ $voucher->product ? $voucher->product->name : 'NULL' }}</td>
                         <td>{{ $voucher->start_date }}</td>
                         <td>{{ $voucher->end_date }}</td>
                         <td>

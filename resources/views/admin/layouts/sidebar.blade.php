@@ -153,9 +153,12 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('admin.comments.index') }}" class="nav-link"><span
-                                        data-key="t-remix">Danh sách</span></a>
+                                        data-key="t-remix">Danh sách bình luận sản phẩm</span></a>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="{{ route('admin.comments.indexB') }}" class="nav-link"><span
+                                        data-key="t-remix">Danh sách bình luận bài viết</span></a>
+                            </li>
                         </ul>
                     </div>
                 </li>

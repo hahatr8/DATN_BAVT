@@ -1,6 +1,4 @@
-
 @extends('admin.layouts.master')
-
 
 @section('title')
 Danh sách tài khoản
@@ -30,7 +28,6 @@ Danh sách tài khoản
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-
                 <div class="">
                     <h5 class="card-title mb-0">Danh sách</h5>
                     <div class="d-flex gap-2">
@@ -43,7 +40,6 @@ Danh sách tài khoản
             </div>
             <div class="card-body">
                 <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle">
-
                     <thead style="text-align: center;">
                         <tr>
                             <th>ID</th>
@@ -53,17 +49,16 @@ Danh sách tài khoản
                             <th>Phone</th>
                             <th>Type</th>
                             <th>Action</th>
-
                             <th>Permissions</th>
-
                         </tr>
                     </thead>
 
                     <tbody style="text-align: center;">
                         <?php
 
-                        foreach ($listUser as $index => $user) : ?>
+                        use Illuminate\Support\Facades\Auth;
 
+                        foreach ($listUser as $index => $user) : ?>
                             <tr>
                                 <td>{{$index + 1}}</td>
                                 <td>
@@ -75,13 +70,24 @@ Danh sách tài khoản
                                 <td>{{$user->type}}</td>
                                 <td>
 
-                                    <a href="{{ route('admin.user.edit',$user->id) }}" class="btn btn-outline-warning ">
-                                        <span> Sửa </span>
-                                    </a>
+                                    <?php if ($user->type != 'admin'): ?>
+                                        <a href="{{ route('admin.user.edit',$user->id) }}" class="btn btn-outline-warning ">
+                                            <span> Sửa </span>
+                                        </a>
+                                        <a href="{{ route('admin.user.softDestruction', $user) }}"
+                                            onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $user->name }} không?')"
+                                            class="btn btn-outline-danger">Xóa</a>
 
-                                    <a href="{{ route('admin.user.softDestruction', $user) }}"
-                                        onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $user->name }} không?')"
-                                        class="btn btn-outline-danger">Xóa</a>
+                                    <?php endif ?>
+                                    
+                                    <?php if ($user->type == 'admin' && $user->id == Auth::user()->id): ?>
+                                        <a href="{{ route('admin.user.edit',$user->id) }}" class="btn btn-outline-warning ">
+                                            <span> Sửa </span>
+                                        </a>
+
+                                    <?php endif ?>
+
+
                                 </td>
                                 <td>
                                     <?php if ($user->type == 'member'): ?>
@@ -102,23 +108,12 @@ Danh sách tài khoản
                                         </a>
                                     <?php endif ?>
 
-                                    <?php if ($user->type == 'admin'): ?>
-                                        <a href="{{ route('admin.user.empowerMember',$user->id) }}" class="btn btn-outline-success">
-                                            <span> Member </span>
-                                        </a>
-                                        <a href="{{ route('admin.user.empowerCustomer',$user->id) }}" class="btn btn-outline-success">
-                                            <span> Customer </span>
-                                        </a>
-                                    <?php endif ?>
-
-
                                 </td>
                                 <td class="">
                                     <a href="{{ route('admin.user.detail',$user->id) }}" class="btn btn-outline-info" style="width: 110px; ">
                                         <span> Chi tiết </span>
                                     </a>
                                 </td>
-
                             </tr>
                         <?php endforeach ?>
                         </tr>
@@ -156,8 +151,3 @@ Danh sách tài khoản
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-
-
-
-@endsection
-

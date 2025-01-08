@@ -9,8 +9,6 @@
                 <p class="card-text">Quantity: {{ $voucher->quantity }}</p>
                 <p class="card-text">Discount: {{ $voucher->discount }}%</p>
                 <p class="card-text">Status: {{ $voucher->status ? 'Active' : 'Inactive' }}</p>
-                <p class="card-text">User: {{ $voucher->user->name }}</p>
-                <p class="card-text">Product: {{ $voucher->product ? $voucher->product->name : 'N/A' }}</p>
                 <p class="card-text">Start Date: {{ $voucher->start_date }}</p>
                 <p class="card-text">End Date: {{ $voucher->end_date }}</p>
                 <a href="{{ route('admin.vouchers.index') }}" class="btn btn-primary">Back to List</a>

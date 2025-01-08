@@ -32,13 +32,42 @@ class CommentController extends Controller
     // Danh sách bình luận
     public function index()
     {
+        $comments = Comment::whereNull('deleted_at')
+            ->whereNotNull('product_id')
+            ->with(['product', 'blog'])
+            ->get();
 
-        $comments = Comment::whereNull('deleted_at')->with(['product'])->with(['blog'])->get();
-        $totalComments = Comment::whereNull('deleted_at')->count();
+        $comments = $comments->filter(function ($comment) {
+            return $comment->product !== null;
+        });
+
+        $totalComments = $comments->count();
+
         $trashedComments = Comment::onlyTrashed()->count();
 
         return view('admin.comments.index', compact('comments', 'totalComments', 'trashedComments'));
     }
+
+
+    public function indexB()
+    {
+        $comments = Comment::whereNull('deleted_at')
+            ->whereNotNull('blog_id')
+            ->with(['product'])
+            ->with(['blog'])
+            ->get();
+
+        $comments = $comments->filter(function ($comment) {
+            return $comment->blog !== null;
+        });
+
+        $totalComments = $comments->count();
+
+        $trashedComments = Comment::onlyTrashed()->count();
+
+        return view('admin.comments.indexB', compact('comments', 'totalComments', 'trashedComments'));
+    }
+
 
     // Danh sách bình luận trong thùng rác
     public function trash()

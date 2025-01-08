@@ -55,8 +55,6 @@
                                     <th>Voucher Code</th>
                                     <th>Quantity</th>
                                     <th>Discount</th>
-                                    <th>User</th>
-                                    <th>Product</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th class="text-center">Actions</th>
@@ -69,8 +67,6 @@
                                         <td>{{ $voucher->E_vorcher }}</td>
                                         <td>{{ $voucher->quantity }}</td>
                                         <td>{{ $voucher->discount }}%</td>
-                                        <td>{{ $voucher->user->name }}</td>
-                                        <td>{{ $voucher->product ? $voucher->product->name : 'N/A' }}</td>
                                         <td>{{ $voucher->start_date }}</td>
                                         <td>{{ $voucher->end_date }}</td>
                                         <td class="text-center">
