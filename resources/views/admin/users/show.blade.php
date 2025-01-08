@@ -1,6 +1,4 @@
-
 @extends('admin.layouts.master')
-
 
 @section('title')
 Thông tin tài khoản
@@ -46,34 +44,46 @@ Thông tin tài khoản
             <p class=" fw-bolder" id="">Xu: {{$listUser->xu}}</p>
             <p class=" fw-bolder" id="">Type: {{$listUser->type}}</p>
             <p class=" fw-bolder" id="">Status: {{$listUser->status == 0 ? 'hoạt động' : 'không hoạt động'}}</p>
-
             <p class=" fw-bolder" id="">Địa chỉ: <br>
-                <?php foreach ($addresses as $index=>$add) : ?>
-                    <?php if(isset($add) ){ ?>
-                        {{$index+1}}: {{$add->address}},{{$add->District}},{{$add->city}},{{$add->country}} 
-                        <a href="{{route('admin.user.editAddress',$add->id)}}"><button type="button" class="btn btn-warning m-3">Sửa</button></a><br>
+                <?php
 
-                    <?php } ?>
-                <?php endforeach; ?>   
+                use Illuminate\Support\Facades\Auth;
+
+                foreach ($addresses as $index => $add) : ?>
+                    <?php if (isset($add)) : ?>
+                        {{$index+1}}: {{$add->address}},{{$add->District}},{{$add->city}},{{$add->country}}
+                        <?php if ($listUser->type != 'admin' || $listUser->id == Auth::user()->id): ?>
+                        <a href="{{route('admin.user.editAddress',$add->id)}}"><button type="button" class="btn btn-warning m-3">Sửa</button></a><br>
+                    <?php endif ?>
+                    <?php endif ?>
+                <?php endforeach; ?>
             </p>
-            
+
         </div>
     </div>
 </div>
 <div class="row mt-5">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header align-items-center d-flex">
-
-                        <a href="{{route('admin.user.createaddress',$listUser->id)}}"><button type="button" class="btn btn-info m-3">Thêm địa chỉ</button></a>
-
-                        <a href=""><button type="button" class="btn btn-success m-3">Q/L Trang chủ</button></a>
-                    </div><!-- end card header -->
-                </div>
-            </div>
-            <!--end col-->
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <?php if ($listUser->type != 'admin' || $listUser->id == Auth::user()->id): ?>
+                    <a href="{{route('admin.user.createaddress',$listUser->id)}}"><button type="button" class="btn btn-info m-3">Thêm địa chỉ</button></a>
+                    <a href="{{ route('admin.user.edit',$listUser->id) }}" class="btn btn-warning ">
+                    <span> Sửa thông tin </span>
+                </a>
+                <?php endif ?>
+                <?php if (Auth::user()->type == 'admin'): ?>
+                    <a href="{{ route('admin.user.index') }}" class="btn btn-info ">
+                    <span>Trở về </span>
+                </a>
+                <?php endif ?>
+                
+            </div><!-- end card header -->
         </div>
+    </div>
+    <!--end col-->
+</div>
 
 
-        
+
 @endsection

@@ -88,6 +88,7 @@ Route::middleware('auth')->group(function () {
                     ->as('comments.')
                     ->group(function () {
                         Route::get('/', [CommentController::class, 'index'])->name('index');
+                        Route::get('/commentBlog', [CommentController::class, 'indexB'])->name('indexB');
                         Route::get('/trash', [CommentController::class, 'trash'])->name('trash');
                         Route::post('/restore/{id}', [CommentController::class, 'restore'])->name('restore');
                         Route::get('/create', [CommentController::class, 'create'])->name('create');

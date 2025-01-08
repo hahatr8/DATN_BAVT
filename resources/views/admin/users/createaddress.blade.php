@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('admin.layouts.master')
 
 @section('title')
 Thêm mới tài khoản
@@ -86,7 +86,6 @@ Thêm mới tài khoản
             <div class="card">
                 <div class="card-header align-items-center d-flex">
                     <button class="btn btn-primary" type="submit">Save</button>
-                    <button type="button" class="btn btn-success m-3 text-light-emphasis"><a href="{{ route('admin.user.index') }}">Q/L Trang chủ</a></button>
                 </div><!-- end card header -->
             </div>
         </div>

@@ -20,7 +20,7 @@
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header bg-warning text-white">
-            <h3 class="mb-0">Danh sách bình luận sản phẩm</h3>
+            <h3 class="mb-0">Danh sách bình luận bài viết</h3>
             <div class="d-flex gap-2">
                 <span>Tất cả ({{ $totalComments }})</span>
                 <div>||</div>
@@ -35,7 +35,7 @@
                         <th>ID</th>
                         <th>Nội dung</th>
                         <th>Người dùng</th>
-                        <th>Sản phẩm</th>
+                        <th>Bài viết</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
@@ -45,7 +45,7 @@
                         <td>{{ $comment->id }}</td>
                         <td>{{ $comment->content }}</td>
                         <td>{{ $comment->user->name }}</td>
-                        <td>{{ $comment->product->name}}</td>
+                        <td>{{ $comment->blog->title}}</td>
                         <td>
                             <div class="text-center">
                                 <a href="{{ route('admin.comments.destroy', $comment) }}"
