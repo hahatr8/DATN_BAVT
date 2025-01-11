@@ -11,7 +11,6 @@ class Product extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id',
         'name',
         'description',
         'view',
@@ -19,7 +18,9 @@ class Product extends Model
         'status',
         'content',
         'brand_id',
+        'deleted_at',  // Nếu sử dụng soft deletes
     ];
+
     // Thiết lập quan hệ với model `Brand`
     public function brand()
     {

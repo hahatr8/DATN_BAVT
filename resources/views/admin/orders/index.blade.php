@@ -1,8 +1,10 @@
 @extends('admin.layouts.master')
 
+
 @section('title')
     Danh sách đơn hàng
 @endsection
+
 
 @section('content')
     <div class="row">
@@ -11,6 +13,7 @@
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0">Danh sách đơn hàng</h4>
+
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -23,14 +26,17 @@
         </div>
         <!-- end page title -->
 
+
         <!-- Thông báo trạng thái -->
         @if (session('success'))
             <div class="alert alert-success text-center col-12">{{ session('success') }}</div>
         @endif
 
+
         @if (session('error'))
             <div class="alert alert-danger text-center col-12">{{ session('error') }}</div>
         @endif
+
 
         <div class="col-lg-12">
             <div class="card">
@@ -38,6 +44,7 @@
                     <h5 class="card-title mb-0">Danh sách đơn hàng</h5>
                 </div>
                 <div class="card-body">
+
 
                     <!-- Nút để cập nhật trạng thái -->
                     <div class="mb-3">
@@ -50,6 +57,7 @@
                         <button id="bulk-update-btn" class="btn btn-warning">Cập nhật trạng thái</button>
                     </div>
 
+
                     <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle"
                         style="width:100%">
                         <thead class="table-dark">
@@ -57,13 +65,13 @@
                                 <th class="text-center">
                                     {{-- <input type="checkbox" id="select-all"> <!-- Checkbox chọn tất cả --> --}}
                                 </th>
-                                <th class="text-center">Mã</th>
-                                <th class="text-center">Người dùng</th>
-                                <th class="text-center">Thời gian</th>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Khách hàng</th>
                                 <th class="text-center">Tổng tiền</th>
-                                <th class="text-center">Thanh toán</th>
-                                <th class="text-center">Trạng thái</th>
-                                <th class="text-center">Thao tác</th>
+                                <th class="text-center">Phương thức <br> thanh toán</th>
+                                <th class="text-center">Trạng thái <br> thanh toán</th>
+                                <th class="text-center">Trạng thái <br> đơn hàng</th>
+                                <th class="text-center">Cập nhật <br> đơn hàng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,7 +84,6 @@
                                     </td>
                                     <td class="text-center">{{ $order->id }}</td>
                                     <td class="text-center">{{ $order->user->name }}</td>
-                                    <td class="text-center">{{ $order->created_at->format('d-m-Y / H:i:s') }}</td>
                                     <td class="text-center">{{ number_format($order->total_price, 0, ',', '.') }} VND</td>
                                     <td class="text-center">
                                         @php
@@ -87,13 +94,23 @@
                                                 'vnpay' => 'bg-primary', // VNPay
                                             ];
 
+
                                             // Lấy màu sắc từ mảng ánh xạ, mặc định là 'bg-secondary' nếu không tìm thấy
                                             $paymentColor = $paymentColors[$order->status_payment] ?? 'bg-secondary';
                                         @endphp
 
+
                                         <span class="badge {{ $paymentColor }}">
                                             {{ $statusPaymentOptions[$order->status_payment] ?? 'Không xác định' }}
                                         </span>
+                                    </td>
+
+                                    <td class="text-center">
+                                        @if ($order->is_paid)
+                                            <span class="badge bg-success">Đã thanh toán</span>
+                                        @else
+                                            <span class="badge bg-danger">Chưa thanh toán</span>
+                                        @endif
                                     </td>
 
                                     <td class="text-center">
@@ -105,11 +122,14 @@
                                                 'delivered' => 'bg-success', // Đã giao hàng
                                                 'completed' => 'bg-secondary', // Hoàn thành
 
+
                                                 'shop_cancelled' => 'bg-danger',
+
 
                                                 'customer_cancelled' => 'bg-danger', // Khách hàng đã hủy đơn hàng
                                                 'cancellation_refund_completed' => 'bg-warning', // Hoàn tiền cho khách hàng đã hủy đơn
                                                 'canceled' => 'bg-danger', // Đơn hàng đã bị hủy
+
 
                                                 'return_requested' => 'bg-warning', // Khách hàng đã yêu cầu trả hàng
                                                 'return_approved' => 'bg-info', // Chấp nhận yêu cầu trả hàng
@@ -118,9 +138,11 @@
                                                 'refund_successful' => 'bg-success', // Đã hoàn tiền cho khách hàng
                                             ];
 
+
                                             // Lấy màu sắc từ mảng ánh xạ, mặc định là 'bg-purple' nếu không tìm thấy
                                             $statusColor = $statusColors[$order->status_order] ?? 'bg-purple';
                                         @endphp
+
 
                                         <span class="badge {{ $statusColor }}">
                                             {{ $statusOrderOptions[$order->status_order] ?? 'Không xác định' }}
@@ -158,12 +180,7 @@
                                                         'value' => 'delivered',
                                                         'label' => 'Đã giao hàng',
                                                         'class' => 'bg-primary',
-                                                    ],
-                                                    [
-                                                        'value' => 'shop_cancelled',
-                                                        'label' => 'Hủy đơn',
-                                                        'class' => 'bg-danger',
-                                                    ],
+                                                    ]
                                                 ],
                                                 'delivered' => [
                                                     [
@@ -174,7 +191,9 @@
                                                 ],
                                                 'shop_cancelled' => [
                                                     [
-                                                        'condition' => $order->status_payment === 'momo' || $order->status_payment === 'vnpay',
+                                                        'condition' =>
+                                                            $order->status_payment === 'momo' ||
+                                                            $order->status_payment === 'vnpay',
                                                         'value' => 'cancellation_refund_completed',
                                                         'label' => 'Hoàn tiền',
                                                         'class' => 'bg-info',
@@ -188,7 +207,9 @@
                                                 ],
                                                 'customer_cancelled' => [
                                                     [
-                                                        'condition' => $order->status_payment === 'momo' || $order->status_payment === 'vnpay',
+                                                       'condition' =>
+                                                            $order->status_payment === 'momo' ||
+                                                            $order->status_payment === 'vnpay',
                                                         'value' => 'cancellation_refund_completed',
                                                         'label' => 'Hoàn tiền cho khách hàng',
                                                         'class' => 'bg-info',
@@ -252,6 +273,7 @@
                                             ];
                                         @endphp
 
+
                                         <form action="{{ route('admin.orders.updateStatus', $order) }}" method="POST">
                                             @csrf
                                             @method('PUT')
@@ -260,7 +282,9 @@
                                             <input type="hidden" name="address_id" value="{{ $order->address_id }}">
                                             <input type="hidden" name="status_payment"
                                                 value="{{ $order->status_payment }}">
+                                            <input type="hidden" name="is_paid" value="{{ $order->is_paid }}">
                                             <input type="hidden" name="total_price" value="{{ $order->total_price }}">
+
 
                                             <div class="text-center">
                                                 @if (isset($orderButtons[$order->status_order]))
@@ -288,12 +312,14 @@
                             @endforeach
                         </tbody>
 
+
                     </table>
                 </div>
             </div>
         </div><!-- end col -->
     </div><!-- end row -->
 @endsection
+
 
 @section('style-libs')
     <!-- DataTable CSS -->
@@ -308,9 +334,11 @@
     </style>
 @endsection
 
+
 @section('script-libs')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 
     <!-- DataTable JS -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -322,6 +350,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
 
     <!-- DataTable Init Script -->
     <script>
@@ -345,14 +374,17 @@
         });
     </script>
 
+
     {{-- Checkbox của đơn hàng phải giống trạng thái với nhau --}}
     <script>
         function validateSelection(event) {
             event.stopPropagation(); // Ngăn chặn sự kiện click lan tới <tr>
 
+
             const selectedCheckbox = event.target;
             const selectedStatus = selectedCheckbox.dataset.status; // Lấy trạng thái của checkbox được chọn
             const allCheckboxes = document.querySelectorAll('.order-checkbox:checked');
+
 
             // Kiểm tra trạng thái các checkbox đã chọn
             let isValid = true;
@@ -362,12 +394,14 @@
                 }
             });
 
+
             if (!isValid) {
                 alert("Chỉ được chọn các đơn hàng có cùng trạng thái!");
                 selectedCheckbox.checked = false; // Bỏ chọn checkbox vừa được chọn
             }
         }
     </script>
+
 
     {{-- Cập nhật trạng thái nhiều đơn hàng cùng 1 lần  --}}
     <script>
@@ -377,6 +411,7 @@
             const bulkUpdateBtn = document.getElementById('bulk-update-btn');
             const bulkStatus = document.getElementById('bulk-status');
 
+
             // Checkbox chọn tất cả
             // selectAllCheckbox.addEventListener('change', () => {
             //     orderCheckboxes.forEach(checkbox => {
@@ -384,23 +419,28 @@
             //     });
             // });
 
+
             // Xử lý cập nhật trạng thái
             bulkUpdateBtn.addEventListener('click', () => {
                 const selectedOrderIds = Array.from(orderCheckboxes)
                     .filter(checkbox => checkbox.checked)
                     .map(checkbox => checkbox.value);
 
+
                 const newStatus = bulkStatus.value;
+
 
                 if (!selectedOrderIds.length) {
                     alert('Vui lòng chọn ít nhất một đơn hàng.');
                     return;
                 }
 
+
                 if (!newStatus) {
                     alert('Vui lòng chọn trạng thái mới.');
                     return;
                 }
+
 
                 // Gửi yêu cầu qua AJAX
                 fetch('{{ route('admin.orders.bulk-update') }}', {
@@ -428,3 +468,6 @@
         });
     </script>
 @endsection
+
+
+

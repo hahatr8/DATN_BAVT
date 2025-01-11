@@ -25,7 +25,7 @@ class ClearVoucherSession
                 'cart.addAddress',
                 'cart.storeOrder',
                 'cart.payment',
-                'vn_pay'
+                'cart.paymentVNPay'
             )
         ) {
             // Xóa session liên quan đến giỏ hàng

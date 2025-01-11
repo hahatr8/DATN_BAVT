@@ -22,6 +22,11 @@ class CreateOrdersTable extends Migration
             $table->string('status_order')->default(\App\Models\Order::STATUS_ORDER_PENDING);
             $table->string('status_payment')->default(\App\Models\Order::STATUS_PAYMENT_MOMO);
             $table->double('total_price', 15, 2);
+            $table->text('return_reason')->nullable(); // Cột lý do trả hàng
+            $table->text('cancel_reason')->nullable(); // Cột lý do hủy đơn hàng
+            $table->text('return_reject_reason')->nullable(); // Thêm cột 'return_reject_reason'
+            $table->boolean('is_paid') // Thêm cột trạng thái thanh toán
+                ->default(false);      // Giá trị mặc định là `false` (chưa thanh toán)
             $table->softDeletes();
             $table->timestamps(); // Tạo cột created_at và updated_at
         });

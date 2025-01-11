@@ -9,10 +9,10 @@
                     <div class="breadcrumb-wrap">
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a>
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fa fa-home"></i></a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="shop.html">shop</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">cart</li>
+                                <li class="breadcrumb-item"><a href="shop.html">Sản phẩm</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
                             </ul>
                         </nav>
                     </div>
@@ -42,15 +42,17 @@
                     <div class="col-lg-12">
                         <!-- Cart Table Area -->
                         <div class="cart-table table-responsive">
+
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th class="pro-thumbnail">Ảnh</th>
+                                    <tr class="text-center">
+                                        <th class="pro-thumbnail">Ảnh sản phẩm</th>
                                         <th class="pro-title">Tên sản phẩm</th>
                                         <th class="pro-size">Size</th>
+                                        <th class="pro-quantity">Kho còn</th>
                                         <th class="pro-price">Giá</th>
                                         <th class="pro-quantity">Số lượng</th>
-                                        <th class="pro-subtotal">Tổng</th>
+                                        <th class="pro-subtotal">Tổng giá</th>
                                         <th class="pro-remove">Thao tác</th>
                                     </tr>
                                 </thead>
@@ -88,13 +90,13 @@
                                                 </a>
                                             </td>
                                             <td class="pro-size">{{ $item->productSize->variant }}</td>
+                                            <td class="pro-size">{{ $item->productSize->quantity }}</td>
                                             <td class="pro-price">
                                                 <span class="product-price">
                                                     {{ number_format($item->productSize->product->price + $item->productSize->price, 0, ',', '.') }}
                                                     VND
                                                 </span>
                                             </td>
-
                                             <td>
                                                 <div class="quantity-container">
                                                     <button type="button" class="btn-quantity decrease"
@@ -132,7 +134,6 @@
 
                         <!-- Cart Update Option -->
                         <div class="cart-update-option d-block d-md-flex justify-content-between">
-
                             <div class="apply-coupon-wrapper">
                                 <form action="{{ route('cart.applyVoucher') }}" method="POST" class="d-block d-md-flex">
                                     @csrf
@@ -145,7 +146,6 @@
                             <div class="cart-update">
                                 <a href="{{ route('cart.show') }}" class="btn btn-sqr">Cập nhật</a>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -185,64 +185,15 @@
                             @if ($totalAmount > 0)
                                 <a href="{{ route('cart.checkout') }}" class="btn btn-sqr d-block">Tiến hành đặt hàng</a>
                             @endif
-
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
-
-
-    <style>
-        .quantity-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .quantity-container .btn-quantity {
-            width: 30px;
-            height: 30px;
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            line-height: 1;
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .quantity-container .btn-quantity:hover {
-            background-color: aquamarine;
-        }
-
-        .quantity-container .quantity-input {
-            width: 50px;
-            height: 30px;
-            text-align: center;
-            border: 1px solid #ddd;
-            border-left: none;
-            border-right: none;
-            pointer-events: none;
-            /* Ngăn nhập từ bàn phím */
-        }
-    </style>
-
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
     <script>
-        //Thay đổi số lượng sản phẩm
         document.addEventListener('DOMContentLoaded', function() {
-            // Lắng nghe sự kiện thay đổi số lượng
             document.querySelectorAll('.increase, .decrease').forEach(button => {
                 button.addEventListener('click', function() {
                     let input = this.closest('.quantity-container').querySelector(
@@ -260,7 +211,6 @@
                     // Tự động cập nhật giá trị tổng giá trị của sản phẩm trong giỏ
                     updateRowTotal(this);
 
-                    // Gửi yêu cầu AJAX cập nhật số lượng mới
                     let itemId = input.name.split('[')[1].split(']')[
                         0]; // Lấy ID sản phẩm từ tên input
 
@@ -279,12 +229,38 @@
                                 $(`#item-${item.id} .total-price`).text(
                                     formatCurrency(item.totalPrice));
                             });
+
+                            // Nếu có lỗi, hiển thị thông báo lỗi
+                            if (response.error) {
+                                alert(response
+                                    .error); // Hiển thị thông báo lỗi từ server
+                                location.reload(); // Tải lại trang
+                            }
                         },
                         error: function(xhr, status, error) {
                             console.error('Cập nhật giỏ hàng thất bại:', error);
+
+                            // Kiểm tra xem có lỗi từ server không
+                            if (xhr.status === 400) {
+                                let response = xhr.responseJSON;
+                                if (response.error) {
+                                    alert(response
+                                        .error); // Hiển thị chi tiết lỗi nếu có
+                                    location.reload(); // Tải lại trang
+                                } else {
+                                    alert(
+                                        'Đã xảy ra lỗi khi cập nhật giỏ hàng. Vui lòng thử lại!'
+                                    );
+                                    location.reload(); // Tải lại trang
+                                }
+                            } else {
+                                alert(
+                                    'Đã xảy ra lỗi khi cập nhật giỏ hàng. Vui lòng thử lại!'
+                                );
+                                location.reload(); // Tải lại trang
+                            }
                         }
                     });
-
                 });
             });
 
@@ -297,7 +273,6 @@
                 row.querySelector('.total-price').textContent = formatCurrency(total);
             }
 
-            // Hàm định dạng tiền tệ
             function formatCurrency(value) {
                 return value.toLocaleString('vi-VN', {
                     style: 'decimal',
@@ -307,4 +282,43 @@
             }
         });
     </script>
+
+    <style>
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-container .btn-quantity {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-container .btn-quantity:hover {
+            background-color: #C29958;
+        }
+
+        .quantity-container .quantity-input {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-left: none;
+            border-right: none;
+            pointer-events: none;
+            /* Ngăn nhập từ bàn phím */
+        }
+    </style>
 @endsection

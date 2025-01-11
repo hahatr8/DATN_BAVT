@@ -99,7 +99,8 @@ Route::middleware('auth')->group(function () {
                 Route::prefix('products')
                     ->as('products.')
                     ->group(function () {
-                        Route::get('/index', [ProductController::class, 'index'])->name('index');
+                        Route::get('/', [ProductController::class, 'index'])->name('index');
+                        Route::get('/{product}/show', [ProductController::class, 'show'])->name('show');
                         Route::get('/trash', [ProductController::class, 'trash'])->name('trash');
                         Route::post('/restore/{id}', [ProductController::class, 'restore'])->name('restore');
                         Route::get('/create', [ProductController::class, 'create'])->name('create');
@@ -161,3 +162,4 @@ Route::post('register', [AuthController::class, 'register'])->name('register');
 
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/orders/{order}/update-return-status', [OrderController::class, 'updateReturnStatus'])->name('orders.updateReturnStatus');

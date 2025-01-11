@@ -56,11 +56,6 @@
                                     'label' => 'Giao hàng',
                                     'class' => 'bg-info',
                                 ],
-                                [
-                                    'value' => 'shop_cancelled',
-                                    'label' => 'Hủy đơn',
-                                    'class' => 'bg-danger',
-                                ],
                                 'message' => 'Đơn hàng đã được xác nhận',
                                 'message_class' => 'alert-info',
                             ],
@@ -69,11 +64,6 @@
                                     'value' => 'delivered',
                                     'label' => 'Đã giao hàng',
                                     'class' => 'bg-primary',
-                                ],
-                                [
-                                    'value' => 'shop_cancelled',
-                                    'label' => 'Hủy đơn',
-                                    'class' => 'bg-danger',
                                 ],
                                 'message' => 'Đơn hàng đang được giao',
                                 'message_class' => 'alert-primary',
@@ -89,7 +79,8 @@
                             ],
                             'shop_cancelled' => [
                                 [
-                                    'condition' => $order->status_payment === 'momo' || $order->status_payment === 'vnpay',                                    
+                                    'condition' =>
+                                        $order->status_payment === 'momo' || $order->status_payment === 'vnpay',
                                     'value' => 'cancellation_refund_completed',
                                     'label' => 'Hoàn tiền',
                                     'class' => 'bg-info',
@@ -105,7 +96,8 @@
                             ],
                             'customer_cancelled' => [
                                 [
-                                    'condition' => $order->status_payment === 'momo' || $order->status_payment === 'vnpay',                                    
+                                    'condition' =>
+                                        $order->status_payment === 'momo' || $order->status_payment === 'vnpay',
                                     'value' => 'cancellation_refund_completed',
                                     'label' => 'Hoàn tiền cho khách hàng',
                                     'class' => 'bg-info',
@@ -179,6 +171,7 @@
                         ];
                     @endphp
 
+
                     <form action="{{ route('admin.orders.updateStatus', $order) }}" method="POST" class="p-4">
                         @csrf
                         @method('PUT')
@@ -186,7 +179,9 @@
                         <input type="hidden" name="user_id" value="{{ $order->user_id }}">
                         <input type="hidden" name="address_id" value="{{ $order->address_id }}">
                         <input type="hidden" name="status_payment" value="{{ $order->status_payment }}">
+                        <input type="hidden" name="is_paid" value="{{ $order->is_paid }}">
                         <input type="hidden" name="total_price" value="{{ $order->total_price }}">
+
 
                         <div class="text-center">
                             @if (isset($orderButtons[$order->status_order]))
@@ -207,245 +202,306 @@
                         </div>
                     </form>
 
-                    <div class="text-center">
-                        <a class="btn btn-warning mb-3" href="{{ route('admin.orders.index') }}">Danh sách đơn hàng</a>
-                    </div>
-                </div>
+                    <!-- Lý do trả hàng -->
+                    @if (in_array($order->status_order, ['return_requested', 'return_approved', 'return_in_transit', 'return_rejected']))
+                        <div class="form-group mt-3">
+                            <label for="return_reason" class="form-label">Lý do trả hàng:</label>
+                            <!-- Sử dụng <textarea> readonly để không thể sửa lý do trả hàng -->
+    <textarea name="return_reason" id="return_reason" class="form-control" rows="3" readonly>{{ $order->return_reason ?? 'Không có lý do' }}</textarea>
+        </div>
+    @endif
 
-                <div class="card-body">
-                    <div class="grid row">
-                        <!-- Nửa trái: Thông tin người dùng -->
-                        <div class="col-md-6 section">
-                            <h5 class="section-title">Thông tin người dùng</h5>
-                            <div class="user-info d-flex align-items-center">
-                                @if ($order->user->img)
-                                    <img src="{{ asset('storage/' . $order->user->img) }}" alt="Ảnh người dùng"
-                                        class="user-avatar me-3 rounded-circle">
-                                @else
-                                    <div class="placeholder-avatar me-3">Chưa có ảnh</div>
-                                @endif
-                                <div>
-                                    <p><strong>Tên:</strong> {{ $order->user->name }}</p>
-                                    <p><strong>Số điện thoại:</strong> {{ $order->user->phone ?? 'Chưa cập nhật' }}</p>
-                                    <p><strong>Email:</strong> {{ $order->user->email }}</p>
+        @if ($order->status_order === 'return_rejected' && $order->return_reject_reason)
+    <div class="alert alert-danger mt-4">
+                            <strong>Lý do từ chối trả hàng:</strong> {{ $order->return_reject_reason }}
+                        </div>
+    @endif
+
+                                    <!-- Lý do hủy đơn hàng -->
+                            @if (in_array($order->status_order, ['customer_cancelled', 'canceled']))
+                                <div class="form-group mt-3">
+                                    <label for="cancel_reason" class="form-label">Lý do hủy đơn hàng:</label>
+                                    <!-- Sử dụng <textarea> readonly để không thể sửa lý do hủy đơn hàng -->
+                        <textarea name="cancel_reason" id="cancel_reason" class="form-control" rows="3" readonly>{{ $order->cancel_reason ?? 'Không có lý do' }}</textarea>
+                                    </div>
+    @endif
+
+                                    @if ($order->status_order === 'return_requested')
+    <button
+                                        class="btn btn-danger btn-lg px-4 py-2 my-2"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#rejectReturnModal">
+                                        Từ chối yêu cầu trả hàng
+                                    </button>
+    @endif
+                              <!-- Modal Từ Chối Trả Hàng -->
+                                    <div class="modal fade" id="rejectReturnModal" tabindex="-1"
+                                        aria-labelledby="rejectReturnModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <form action="{{ route('orders.rejectReturn', $order->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="modal-header bg-danger text-white">
+                                                        <h5 class="modal-title fw-bold" id="rejectReturnModalLabel">
+                                                            Nhập
+                                                            Lý Do Từ Chối Trả Hàng</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="return_reject_reason" class="form-label">Lý
+                                                                Do
+                                                                Từ Chối:</label>
+                                                            <textarea name="return_reject_reason" id="return_reject_reason" class="form-control" rows="5"
+                                                                placeholder="Vui lòng cung cấp lý do từ chối trả hàng" required></textarea>
+                                                            @error('return_reject_reason')
+                                                                <small class="text-danger">{{ $message }}</small>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                id="confirmReject" required>
+                                                            <label class="form-check-label" for="confirmReject">Tôi
+                                                                xác
+                                                                nhận thông tin trên là chính xác</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Đóng</button>
+                                                        <button type="submit" class="btn btn-danger">Từ
+                                                            Chối</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </form>
+
+
+
+                                    <div class="text-center">
+                                        <a class="btn btn-warning mb-3" href="{{ route('admin.orders.index') }}">Danh sách
+                                            đơn hàng</a>
+                                    </div>
                                 </div>
-                            </div>
+
+                                <div class="card-body">
+
+                                    <div class="grid row">
+                                        <!-- Thông tin người dùng và địa chỉ -->
+                                        <div class="col-md-7 section">
+                                            <h5 class="section-title">Thông tin người dùng & Địa chỉ</h5>
+                                            <div class="d-flex">
+                                                <!-- Ảnh người dùng -->
+                                                <div class="me-5">
+                                                    @if ($order->user->img)
+                                                        <img src="{{ asset('storage/' . $order->user->img) }}"
+                                                            alt="Ảnh người dùng" class="user-avatar rounded-circle">
+                                                    @else
+                                                        <div class="placeholder-avatar">Chưa có ảnh</div>
+                                                    @endif
+                                                </div>
+                                                <!-- Thông tin người dùng và địa chỉ -->
+                                                <div>
+                                                    <p><strong>Tên:</strong> {{ $order->user->name }}</p>
+                                                    <p><strong>Điện thoại:</strong>
+                                                        {{ $order->user->phone ?? 'Chưa cập nhật' }}</p>
+                                                    <p><strong>Email:</strong> {{ $order->user->email }}</p>
+                                                    <hr>
+                                                    <p><strong>Địa chỉ:</strong> {{ $order->address->address }}</p>
+                                                    <p><strong>Huyện:</strong> {{ $order->address->District }}</p>
+                                                    <p><strong>Thành phố:</strong> {{ $order->address->city }}</p>
+                                                    <p><strong>Quốc gia:</strong> {{ $order->address->country }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Thông tin đơn hàng -->
+                                        <div class="col-md-5 section">
+                                            <h5 class="section-title">Thông tin đơn hàng</h5>
+                                            <div class="d-flex flex-wrap">
+                                                <!-- Trạng thái đơn hàng -->
+                                                <div class="me-4">
+                                                    @php
+                                                        $statusColors = [
+                                                            'pending' => 'bg-warning',
+                                                            'confirmed' => 'bg-info',
+                                                            'shipping' => 'bg-primary',
+                                                            'delivered' => 'bg-success',
+                                                            'completed' => 'bg-secondary',
+                                                            'shop_cancelled' => 'bg-danger',
+                                                            'customer_cancelled' => 'bg-danger',
+                                                            'canceled' => 'bg-danger',
+                                                            'return_requested' => 'bg-warning',
+                                                            'return_approved' => 'bg-info',
+                                                            'return_rejected' => 'bg-danger',
+                                                            'return_in_transit' => 'bg-primary',
+                                                            'refund_successful' => 'bg-success',
+                                                        ];
+                                                        $statusColor =
+                                                            $statusColors[$order->status_order] ?? 'bg-purple';
+                                                    @endphp
+                                                    <p><strong>Trạng thái đơn hàng :</strong>
+                                                        <span class="badge {{ $statusColor }}">
+                                                            {{ $statusOrderOptions[$order->status_order] ?? 'Không xác định' }}
+                                                        </span>
+                                                    </p>
+                                                </div>
+
+                                                <!-- Phương thức thanh toán -->
+                                                <div class="me-4">
+                                                    @php
+                                                        $paymentColors = [
+                                                            'momo' => 'bg-success',
+                                                            'cash' => 'bg-warning',
+                                                            'vnpay' => 'bg-primary',
+                                                        ];
+                                                        $paymentColor =
+                                                            $paymentColors[$order->status_payment] ?? 'bg-secondary';
+                                                    @endphp
+                                                    <p><strong>Phương thức thanh toán:</strong>
+                                                        <span class="badge {{ $paymentColor }}">
+                                                            {{ $statusPaymentOptions[$order->status_payment] ?? 'Không xác định' }}
+                                                        </span>
+                                                    </p>
+                                                </div>
+
+                                                <div class="me-4">
+                                                    <p><strong>Trạng thái thanh toán:</strong>
+                                                        @if ($order->is_paid)
+                                                            <span class="badge bg-success">Đã thanh toán</span>
+                                                        @else
+                                                            <span class="badge bg-danger">Chưa thanh toán</span>
+                                                        @endif
+                                                    </p>
+                                                    <p><strong>Ngày đặt hàng:</strong>
+                                                        {{ $order->created_at->format('d/m/Y H:i') }}</p>
+                                                </div>
+
+                                                <!-- Tổng giá trị đơn hàng -->
+                                                <div>
+                                                    <p><strong>Tổng tiền :</strong>
+                                                        <span class="fw-bold text-danger">
+                                                            {{ number_format($order->total_price, 0, ',', '.') }}
+                                                            VND
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sản phẩm trong đơn hàng -->
+                                    <div class="section">
+                                        <h5 class="section-title">Sản phẩm trong đơn hàng</h5>
+                                        @if ($order->orderItems->isEmpty())
+                                            <p class="alert alert-warning text-center">Không có sản phẩm nào trong
+                                                đơn hàng này.</p>
+                                        @else
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr class="table-secondary text-center">
+                                                        <th>Sản phẩm</th>
+                                                        <th>Size</th>
+                                                        <th>Số lượng</th>
+                                                        <th>Giá</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($order->orderItems as $item)
+                                                        <tr>
+                                                            <td>{{ $item->productSize->product->name ?? 'N/A' }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{ $item->productSize->variant ?? 'N/A' }}</td>
+                                                            <td class="text-center">{{ $item->quantity }}</td>
+                                                            <td class="text-end">
+                                                                {{ number_format($item->price, 0, ',', '.') }} VND
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="3" class="text-end">Tổng tiền:</td>
+                                                        <td class="text-end">
+                                                            {{ number_format($order->total_price, 0, ',', '.') }}
+                                                            VND</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        @endif
+                                    </div>
+
+                                </div>
                         </div>
 
-                        <!-- Nửa phải: Thông tin địa chỉ -->
-                        <div class="col-md-6 section">
-                            <h5 class="section-title">Thông tin địa chỉ</h5>
-                            <p><strong>Địa chỉ:</strong> {{ $order->address->address }}</p>
-                            <p><strong>Huyện:</strong> {{ $order->address->District }}</p>
-                            <p><strong>Thành phố:</strong> {{ $order->address->city }}</p>
-                            <p><strong>Quốc gia:</strong> {{ $order->address->country }}</p>
-                        </div>
-                    </div>
 
-                    <!-- Thông tin đơn hàng -->
-                    <div class="section">
-                        <h5 class="section-title">Thông tin đơn hàng</h5>
-                        <div class="row">
-                            <div class="col-md-4">
-                                @php
-                                    $statusColors = [
-                                        'pending' => 'bg-warning', // Chờ xác nhận
-                                        'confirmed' => 'bg-info', // Đã xác nhận
-                                        'shipping' => 'bg-primary', // Đang vận chuyển
-                                        'delivered' => 'bg-success', // Đã giao hàng
-                                        'completed' => 'bg-secondary', // Hoàn thành
-
-                                        'shop_cancelled' => 'bg-danger',
-
-                                        'customer_cancelled' => 'bg-danger', // Khách hàng đã hủy đơn hàng
-                                        'cancellation_refund_completed' => 'bg-warning', // Hoàn tiền cho khách hàng đã hủy đơn
-                                        'canceled' => 'bg-danger', // Đơn hàng đã bị hủy
-
-                                        'return_requested' => 'bg-warning', // Khách hàng đã yêu cầu trả hàng
-                                        'return_approved' => 'bg-info', // Chấp nhận yêu cầu trả hàng
-                                        'return_rejected' => 'bg-danger', // Từ chối yêu cầu trả hàng
-                                        'return_in_transit' => 'bg-primary', // Hàng đang được trả về
-                                        'refund_successful' => 'bg-success', // Đã hoàn tiền cho khách hàng
-                                    ];
-
-                                    // Lấy màu sắc từ mảng ánh xạ, mặc định là 'bg-purple' nếu không tìm thấy
-                                    $statusColor = $statusColors[$order->status_order] ?? 'bg-purple';
-                                @endphp
-                                <strong>Trạng thái đơn hàng:</strong>
-                                <span class="badge {{ $statusColor }}">
-                                    {{ $statusOrderOptions[$order->status_order] ?? 'Không xác định' }}
-                                </span>
-
-                            </div>
-                            <div class="col-md-4">
-                                <strong>Phương thức thanh toán:</strong>
-                                @php
-                                            // Mảng ánh xạ trạng thái thanh toán với màu sắc
-                                            $paymentColors = [
-                                                'momo' => 'bg-success', // Momo
-                                                'cash' => 'bg-warning', // Tiền mặt
-                                                'vnpay' => 'bg-primary', // VNPay
-                                            ];
-
-                                            // Lấy màu sắc từ mảng ánh xạ, mặc định là 'bg-secondary' nếu không tìm thấy
-                                            $paymentColor = $paymentColors[$order->status_payment] ?? 'bg-secondary';
-                                        @endphp
-
-                                        <span class="badge {{ $paymentColor }}">
-                                            {{ $statusPaymentOptions[$order->status_payment] ?? 'Không xác định' }}
-                                        </span>
-                            </div>
-                            <div class="col-md-4">
-                                <strong>Tổng giá trị:</strong>
-                                <span class="fw-bold text-danger">{{ number_format($order->total_price, 0, ',', '.') }}
-                                    VND</span>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sản phẩm trong đơn hàng -->
-                    <div class="section">
-                        <h5 class="section-title">Sản phẩm trong đơn hàng</h5>
-                        @if ($order->orderItems->isEmpty())
-                            <p class="alert alert-warning text-center">Không có sản phẩm nào trong đơn hàng này.</p>
-                        @else
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr class="table-secondary text-center">
-                                        <th>Sản phẩm</th>
-                                        <th>Số lượng</th>
-                                        <th>Giá</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($order->orderItems as $item)
-                                        <tr>
-                                            <td>{{ $item->productSize->product->name ?? 'N/A' }} -
-                                                {{ $item->productSize->variant ?? 'N/A' }}</td>
-                                            <td class="text-center">{{ $item->quantity }}</td>
-                                            <td class="text-end">{{ number_format($item->price, 0, ',', '.') }} VND
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="2" class="text-end">Tổng tiền:</td>
-                                        <td class="text-end">{{ number_format($order->total_price, 0, ',', '.') }} VND
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        @endif
-                    </div>
                 </div>
             </div>
+        @endsection
 
+        @section('style-libs')
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+            <style>
+                .section-title {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    color: #333;
+                    border-left: 4px solid #17a2b8;
+                    padding-left: 10px;
+                }
 
-        </div>
-    </div>
-@endsection
+                .user-avatar {
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
 
-@section('style-libs')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .page-title-box {
-            margin-bottom: 20px;
-        }
+                .placeholder-avatar {
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 50%;
+                    background-color: #ddd;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 14px;
+                    color: #666;
+                }
 
-        .section {
-            margin-bottom: 20px;
-        }
+                .card-header {
+                    font-size: 1.5rem;
+                    font-weight: 600;
+                }
 
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 15px;
-            border-left: 4px solid #17a2b8;
-            padding-left: 10px;
-        }
+                .table-bordered {
+                    border: 1px solid #dee2e6;
+                }
 
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+                .table th,
+                .table td {
+                    vertical-align: middle;
+                }
 
-        .placeholder-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #666;
-        }
+                .alert {
+                    font-size: 1rem;
+                    font-weight: 500;
+                }
 
-        .card-header {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
+                .grid {
+                    margin: 0px;
+                    padding: 0px;
+                }
+            </style>
+        @endsection
 
-        .table-bordered {
-            border: 1px solid #dee2e6;
-        }
-
-        .table th,
-        .table td {
-            vertical-align: middle;
-        }
-
-        .alert {
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .grid {
-            margin: 20px 0;
-        }
-
-        .section {
-            margin-bottom: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f8f9fa;
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #333;
-            border-left: 4px solid #007bff;
-            padding-left: 10px;
-        }
-
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .placeholder-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-    </style>
-@endsection
-
-@section('script-libs')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
-@endsection
+        @section('script-libs')
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+        @endsection
