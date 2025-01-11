@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\StoreProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -27,6 +29,20 @@ class ProductController extends Controller
         return view(self::PATH_VIEW . __FUNCTION__, compact('title', 'products', 'totalProducts', 'trashedProducts'));
     }
 
+    public function show(Product $product)
+    {
+        $title = "Chi tiết sản phẩm";
+
+        $product->load(['categories', 'productImgs', 'brand', 'productSizes']);
+
+        // Lấy các danh mục có status = 1 và chưa bị xóa mềm
+        $categories = Category::where('status', 1)->whereNull('deleted_at')->pluck('name', 'id');
+
+        // Lấy các thương hiệu có status = 1 và chưa bị xóa mềm
+        $brands = Brand::where('status', 1)->whereNull('deleted_at')->pluck('name', 'id');
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('title', 'product', 'categories', 'brands'));
+    }
 
     public function trash()
     {
@@ -38,19 +54,20 @@ class ProductController extends Controller
         return view(self::PATH_VIEW . __FUNCTION__, compact('title', 'trashedProducts', 'totalTrashedProducts'));
     }
 
-
     public function create()
     {
         $title = "Thêm mới sản phẩm";
 
-        $categories = Category::pluck('name', 'id');
-        $brands = Brand::pluck('name', 'id');
+        // Lấy các danh mục có status = 1 và chưa bị xóa mềm
+        $categories = Category::where('status', 1)->whereNull('deleted_at')->pluck('name', 'id');
+
+        // Lấy các thương hiệu có status = 1 và chưa bị xóa mềm
+        $brands = Brand::where('status', 1)->whereNull('deleted_at')->pluck('name', 'id');
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('title', 'categories', 'brands'));
     }
 
-
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         try {
             DB::transaction(function () use ($request) {
@@ -65,15 +82,23 @@ class ProductController extends Controller
                     'view' => 0, // Giá trị mặc định cho view
                 ]);
 
-                // Gắn sản phẩm vào danh mục
-                $product->categories()->sync($request->category_id);
-
                 $currentTime = now();
+
+                // Gắn sản phẩm vào danh mục và thêm created_at, updated_at
+                foreach ($request->category_id as $categoryId) {
+                    $product->categories()->attach($categoryId, [
+                        'created_at' => $currentTime,
+                        'updated_at' => $currentTime,
+                    ]);
+                }
 
                 // Tạo size cho sản phẩm
                 $productSizes = [];
                 foreach ($request->product_sizes as $key => $size) {
                     $size['product_id'] = $product->id;
+                    $size['created_at'] = $currentTime; // Thêm created_at
+                    $size['updated_at'] = $currentTime; // Thêm updated_at
+
                     if ($request->hasFile("product_sizes.$key.img")) {
                         $size['img'] = Storage::put('sizes', $request->file("product_sizes.$key.img"));
                     }
@@ -120,25 +145,23 @@ class ProductController extends Controller
         }
     }
 
-
-
     public function edit(Product $product)
     {
         $title = "Chỉnh sửa sản phẩm";
 
         $product->load(['categories', 'productImgs', 'brand', 'productSizes']);
 
-        $categories = Category::pluck('name', 'id');
-        $brands = Brand::pluck('name', 'id');
+        // Lấy các danh mục có status = 1 và chưa bị xóa mềm
+        $categories = Category::where('status', 1)->whereNull('deleted_at')->pluck('name', 'id');
+
+        // Lấy các thương hiệu có status = 1 và chưa bị xóa mềm
+        $brands = Brand::where('status', 1)->whereNull('deleted_at')->pluck('name', 'id');
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('title', 'product', 'categories', 'brands'));
     }
 
-
-
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        // dd($request->all());
         try {
             DB::transaction(function () use ($request, $product) {
                 // Cập nhật thông tin cơ bản của sản phẩm
@@ -177,11 +200,14 @@ class ProductController extends Controller
                                 }
                                 $existingSize->img = Storage::put('sizes', $request->file("product_sizes.$key.img"));
                             }
+                            $existingSize->updated_at = $currentTime;
                             $existingSize->save();
                         }
                     } else {
                         // Nếu không có id, là kích cỡ mới, tạo mới
                         $size['product_id'] = $product->id;
+                        $size['created_at'] = $currentTime;
+                        $size['updated_at'] = $currentTime;
 
                         if ($request->hasFile("product_sizes.$key.img")) {
                             $size['img'] = Storage::put('sizes', $request->file("product_sizes.$key.img"));
@@ -190,21 +216,28 @@ class ProductController extends Controller
                     }
                 }
 
+                // Xử lý xóa kích cỡ sản phẩm
                 if ($request->has('deleted_sizes')) {
+                    $remainingSizesCount = $product->productSizes()->count(); // Số lượng kích cỡ hiện tại
+                    $newSizesCount = count($productSizes); // Số lượng kích cỡ mới được thêm
+                    $deletedSizesCount = count($request->deleted_sizes); // Số lượng kích cỡ cần xóa
+
+                    // Kiểm tra nếu xóa hết tất cả kích cỡ mà không thêm mới
+                    if ($remainingSizesCount - $deletedSizesCount + $newSizesCount <= 0) {
+                        throw new \Exception('Không thể xóa tất cả kích cỡ nếu không thêm ít nhất một kích cỡ mới.');
+                    }
+
+                    // Thực hiện xóa kích cỡ
                     foreach ($request->deleted_sizes as $sizeId) {
                         $size = ProductSize::find($sizeId);
                         if ($size) {
-                            // Xóa ảnh của size nếu tồn tại
                             if ($size->img) {
                                 Storage::delete($size->img); // Xóa file ảnh từ Storage
                             }
-
-                            // Xóa size khỏi bảng product_sizes
-                            $size->delete();
+                            $size->forceDelete();
                         }
                     }
                 }
-
 
                 // Lưu kích cỡ sản phẩm mới
                 if (!empty($productSizes)) {
@@ -232,11 +265,19 @@ class ProductController extends Controller
 
                 // Xử lý xóa ảnh đã chọn
                 if ($request->has('deleted_images')) {
+                    $remainingAlbumImages = $product->productImgs()->where('is_main', false)->count(); // Đếm số ảnh album hiện tại
+                    $newAlbumImages = $request->has('array_img') ? count($request->array_img) : 0; // Đếm số ảnh album mới được thêm
+
+                    if ($remainingAlbumImages - count($request->deleted_images) + $newAlbumImages <= 0) {
+                        // Nếu số ảnh còn lại (sau khi xóa và thêm mới) <= 0, không cho phép xóa
+                        throw new \Exception('Không thể xóa ảnh album cuối cùng nếu không có ảnh mới được thêm.');
+                    }
+
                     foreach ($request->deleted_images as $imageId) {
                         $image = ProductImg::find($imageId);
                         if ($image) {
                             Storage::delete($image->img); // Xóa ảnh khỏi storage
-                            $image->delete(); // Xóa bản ghi trong database
+                            $image->forceDelete(); // Xóa hẳn bản ghi khỏi database
                         }
                     }
                 }
@@ -260,15 +301,13 @@ class ProductController extends Controller
                 if (!empty($productImgs)) {
                     ProductImg::insert($productImgs);
                 }
-
             });
 
-            return redirect()->route('admin.products.index')->with('success', 'Cập nhật sản phẩm thành công');
+            return redirect()->route('admin.products.edit', $product)->with('success', 'Cập nhật sản phẩm thành công');
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }
     }
-
 
     public function destroy(Product $product)
     {
@@ -276,7 +315,6 @@ class ProductController extends Controller
 
         return back()->with(['success' => 'Xóa sản phẩm thành công']);
     }
-    
 
     public function restore($id)
     {
@@ -285,5 +323,4 @@ class ProductController extends Controller
 
         return back()->with(['success' => 'Khôi phục sản phẩm thành công']);
     }
-
 }

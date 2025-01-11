@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store-order', [CartController::class, 'storeOrder'])->name('storeOrder');
 
         Route::get('/payment', [CartController::class, 'payment'])->name('payment');
-        
+
         Route::get('/paymentVNPay', [CartController::class, 'paymentVNPay'])->name('paymentVNPay');
 
         Route::get('/order-success', [CartController::class, 'orderSuccess'])->name('order.success');
@@ -165,3 +165,5 @@ Route::middleware(['auth'])->prefix('orders')->name('client.orders.')->group(fun
         ->name('returns');
 });
 
+Route::put('/orders/{order}/return', [OrderController::class, 'requestReturn'])->name('client.orders.return');
+Route::post('/orders/{orderId}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');

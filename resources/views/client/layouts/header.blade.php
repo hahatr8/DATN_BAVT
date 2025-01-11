@@ -122,12 +122,12 @@
                                                     <i class="pe-7s-box2 me-2"></i> Xem đơn hàng
                                                 </a>
                                             </li>
-                                            <li><a href="{{route('myaccount',Auth::user()->id)}}">my account</a></li>
+                                            <li><a href="{{route('myaccount',Auth::user()->id)}}">Trang cá nhân</a></li>
                                             <li>
                                                 <form action="{{route('logout')}}" method="post">
                                                     @csrf
                                                     <button type="submit" class="btn">
-                                                        logout
+                                                        Đăng xuất
                                                     </button>
                                                 </form>
                                             </li>
@@ -138,8 +138,8 @@
                                             <i class="pe-7s-user"></i>
                                         </a>
                                         <ul class="dropdown-list">
-                                            <li><a href="{{route('login')}}">login</a></li>
-                                            <li><a href="{{route('register')}}">register</a></li>
+                                            <li><a href="{{route('login')}}">Đăng nhập</a></li>
+                                            <li><a href="{{route('register')}}">Đăng ký</a></li>
                                         </ul>
                                         @endif
                                         

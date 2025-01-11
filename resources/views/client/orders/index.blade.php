@@ -1,21 +1,24 @@
 @extends('client.layouts.master')
 
+
 @section('content')
 <div class="container py-5">
     <h1 class="mb-4 text-center">Quản Lý Đơn Hàng</h1>
+
 
     <!-- Tabs lọc trạng thái -->
     <ul class="nav nav-tabs mb-4">
         <li class="nav-item">
             <a class="nav-link {{ $status == '' ? 'active all-tab' : 'all-tab' }}" href="{{ route('client.orders.index') }}">Tất Cả</a>
         </li>
-        
+       
         @foreach ($statuses as $key => $label)
             <li class="nav-item">
                 <a class="nav-link {{ $status == $key ? 'active' : '' }}" href="{{ route('client.orders.index', ['status' => $key]) }}">{{ $label }}</a>
             </li>
         @endforeach
     </ul>
+
 
     <!-- Hiển thị danh sách đơn hàng -->
     @if ($orders->isEmpty())
@@ -27,7 +30,7 @@
         <div class="card mb-3">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>
-                    <strong>Đơn Hàng #{{ $order->id }}</strong> - 
+                    <strong>Đơn Hàng #{{ $order->id }}</strong> -
                     @php
                         $statusLabels = [
                             'pending' => 'Chờ xử lý',
@@ -46,6 +49,7 @@
                             'refund_successful' => 'Đã hoàn tiền cho khách hàng'
                         ];
 
+
                         $statusColors = [
                             'pending' => 'bg-warning',
                             'confirmed' => 'bg-info',
@@ -63,9 +67,11 @@
                             'refund_successful' => 'bg-success'
                         ];
 
+
                         $statusLabel = $statusLabels[$order->status_order] ?? 'Không xác định';
                         $statusColor = $statusColors[$order->status_order] ?? 'bg-secondary';
                     @endphp
+
 
                     <span class="badge {{ $statusColor }}">{{ $statusLabel }}</span>
                 </span>
@@ -73,6 +79,7 @@
                     <strong>Ngày:</strong> {{ $order->created_at ? $order->created_at->format('d/m/Y') : 'Không xác định' }}
                 </div>
             </div>
+
 
             <div class="card-body">
                 <!-- Hiển thị thông tin sản phẩm trong đơn hàng -->
@@ -104,17 +111,18 @@
                     <strong>Tổng tiền: {{ number_format($order->total_price, 0, ',', '.') }} ₫</strong>
                 </div>
                 <div>
-                    <a href="{{ route('client.orders.show', $order->id) }}" 
+                    <a href="{{ route('client.orders.show', $order->id) }}"
                        class="btn btn-primary btn-lg rounded-pill px-4 fw-bold shadow-lg d-inline-flex align-items-center justify-content-center"
                        style="font-size: 1.2rem;">
                         <i class="bi bi-eye me-2" style="font-size: 1.7rem;"></i> Xem chi tiết
                     </a>
                 </div>
-                
-                
+               
+               
             </div>
         </div>
         @endforeach
+
 
         <!-- Phân trang -->
         <div class="d-flex justify-content-center">
@@ -125,6 +133,7 @@
 @endsection
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
+
 <style>
 /* Tabs trạng thái */
 .nav-tabs .nav-link {
@@ -134,6 +143,7 @@
     transition: 0.3s ease;
 }
 
+
 .nav-tabs .nav-link.active {
     background-color: #007bff;
     color: #fff;
@@ -141,9 +151,11 @@
     border-radius: 4px;
 }
 
+
 .nav-tabs .nav-link:hover {
     color: #007bff;
 }
+
 
 /* Card đơn hàng */
 .card {
@@ -152,11 +164,13 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
 .card-header {
     background: #f8f9fa;
     font-size: 1.2rem;
     font-weight: bold;
 }
+
 
 .card-header .badge {
     padding: 8px 12px;
@@ -164,11 +178,13 @@
     border-radius: 12px;
 }
 
+
 /* Phân trang */
 .pagination {
     justify-content: center;
     margin-top: 20px;
 }
+
 
 .pagination .page-link {
     color: #007bff;
@@ -176,10 +192,12 @@
     transition: 0.3s ease;
 }
 
+
 .pagination .page-link:hover {
     background-color: #007bff;
     color: #fff;
 }
+
 
 .pagination .page-item.active .page-link {
     background-color: #007bff;
@@ -187,3 +205,4 @@
     border-color: #007bff;
 }
 </style>
+

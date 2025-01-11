@@ -1,8 +1,8 @@
 <?php
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
-// use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\Client\CartController;
 use Illuminate\Support\Facades\Route;
 
@@ -76,15 +76,4 @@ Route::get('/brands', [BrandController::class, 'index'])->name('client.brands.in
    // web.php
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
-
-
-
-
-
-
-
-
-
-
-    
-
+Route::put('/orders/{order}/reject-return', [OrderController::class, 'rejectReturnRequest'])->name('orders.rejectReturn');
